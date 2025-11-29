@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Press For Goblins QR</title>
-<meta name="description" content="Press For Goblins — scan the QR code to visit our homepage">
+<title>press for goblins qr</title>
+<meta name="description" content="need a goblin?">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -12,11 +12,20 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-GFNZMGD8ME');
 </script>
 
 <style>
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('../fonts/PressStart2P-Regular.woff2?v=29') format('woff2'),
+         url('../fonts/PressStart2P-Regular.woff?v=29') format('woff'),
+         url('../fonts/PressStart2P-Regular.ttf?v=29') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   body {
     margin: 0;
     height: 100vh;
@@ -25,34 +34,58 @@
     justify-content: center;
     align-items: center;
     background: #000;
-    color: #fff;
     font-family: 'PressStart2P', monospace;
     text-align: center;
+    color: #fff;
+    overflow-x: hidden;
   }
+
   h1 {
     font-size: clamp(1.8rem, 8vw, 3rem);
     margin-bottom: 1rem;
     color: rgba(255,255,255,0.8);
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7fff7b, 0 0 6px #76bf76;
+    animation: subtle-glow 4s infinite alternate;
   }
+
   p {
     font-size: clamp(1rem, 4vw, 1.5rem);
     margin-bottom: 2rem;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b;
+    animation: subtle-glow 5s infinite alternate;
   }
+
   .qr-container img {
     max-width: 150px;
     height: auto;
+    filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b);
+    animation: subtle-glow 6s infinite alternate;
+  }
+
+  @keyframes subtle-glow {
+    0% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b; filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b); }
+    50% { text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7fff7b; filter: drop-shadow(0 0 3px #7bbf7b) drop-shadow(0 0 6px #7fff7b); }
+    100% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b; filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b); }
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: clamp(1.4rem, 7vw, 2.4rem);
+    }
+    p {
+      font-size: clamp(1rem, 5vw, 1.5rem);
+    }
+    .qr-container img {
+      max-width: 120px;
+    }
   }
 </style>
 </head>
 
 <body>
 
-  <h1>Press For Goblins</h1>
-  <p>Scan the QR code to visit our homepage</p>
-
-  <!-- QR code image -->
   <div class="qr-container">
-    <img src="../images/qr-code.svg" alt="Scan me for goblins">
+    <img src="../images/qr-code.svg" alt="scan me">
   </div>
 
 </body>
