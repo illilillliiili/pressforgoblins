@@ -86,7 +86,7 @@ body::before {
   line-height: 1.4;
   max-width: 90vw;
   letter-spacing: 0.01em;
-  word-spacing: -0.3em;
+  word-spacing: -0.4em;
   margin: 0;
   display: inline-block;
   animation: letter-jitter 1.5s infinite alternate ease-in-out;
@@ -96,7 +96,7 @@ body::before {
 }
 
 .coming-soon {
-  margin-top: 1.5rem;
+  margin-top: 1.3rem;
   font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   --neon-color: #7bbf7b;
   color: var(--neon-color);
@@ -105,7 +105,7 @@ body::before {
     0 0 3px var(--neon-color),
     0 0 6px var(--neon-color);
   letter-spacing: 0.03em;
-  word-spacing: -0.05em;
+  word-spacing: -0.07em;
   opacity: 0;
   display: inline-block;
   animation: letter-jitter 1.5s infinite alternate ease-in-out;
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           if(vol>=0.5){ vol=01; clearInterval(fadeInterval); }
           sound.volume=vol;
         },50);
-      },25); // tweak this ms to adjust audio timing
+      },15); // tweak this ms to adjust audio timing
     }
 
     // extra zap flicker
