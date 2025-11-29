@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=27') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=27') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=27') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=28') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=28') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=28') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -36,8 +36,8 @@
     white-space: normal;
     line-height: 1.4;
     max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.1em; /* words tighter */
+    letter-spacing: 0.01em; /* letter spacing within words */
+    word-spacing: -0.23em;   /* spacing between words */
     margin: 0;
   }
 
@@ -51,14 +51,26 @@
       0 0 3px var(--neon-color),
       0 0 6px var(--neon-color);
     letter-spacing: 0.03em;
-    word-spacing: -0.05em; /* words tighter */
+    word-spacing: -0.05em; /* spacing between 'coming' and 'soon' */
     opacity: 0;
   }
 
   @keyframes violent-flicker {
-    0%, 35%, 55% { opacity: 0; }
-    25%, 45% { opacity: 1; }
-    100% { opacity: 1; }
+    0%, 35%, 55% { opacity: 0; text-shadow: none; }
+    25%, 45% { 
+      opacity: 1;
+      text-shadow:
+        0 0 1px var(--neon-color),
+        0 0 3px var(--neon-color),
+        0 0 6px var(--neon-color);
+    }
+    100% {
+      opacity: 1;
+      text-shadow:
+        0 0 1px var(--neon-color),
+        0 0 3px var(--neon-color),
+        0 0 6px var(--neon-color);
+    }
   }
 
   .violent-flicker {
@@ -85,10 +97,9 @@
   <div class="main-title">press for goblins</div>
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
-  <!-- audio element with fallback -->
+  <!-- audio element -->
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
-    <source src="neon.mp3" type="audio/mpeg">
   </audio>
 
 <script>
@@ -131,11 +142,24 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      if (sound) sound.play().catch(()=>{});
+      // fade-in sound
+      if (sound) {
+        sound.volume = 0;
+        sound.play().catch(()=>{});
+        let vol = 0;
+        const fadeInterval = setInterval(() => {
+          vol += 0.05;
+          if(vol >= 1){
+            vol = 1;
+            clearInterval(fadeInterval);
+          }
+          sound.volume = vol;
+        }, 50); // 50ms steps → ~1s fade-in
+      }
 
       // extra flicker synced with zap
       setTimeout(() => {
-        el.style.opacity = 0; // just a quick flicker, spacing unaffected
+        el.style.opacity = 0; // quick flicker
         setTimeout(() => { el.style.opacity = 1; }, extraFlickerDuration);
       }, violentFlickerDuration + 50);
 
