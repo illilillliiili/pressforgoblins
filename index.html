@@ -149,9 +149,9 @@ body::after {
   .coming-soon {
     animation: subtleColorShift 5s infinite alternate;
 @keyframes subtleColorShift {
-  0% { text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76; }
-  50% { text-shadow: 0 0 1px #7ce07c,0 0 3px #80ff80,0 0 6px #78d078; }
-  100% { text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76; }
+  0%, 50%, 100% {
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  }
 }
     font-size: clamp(1.2rem, 5vw, 1.8rem);
     letter-spacing: 0.02em;
