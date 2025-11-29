@@ -31,7 +31,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     font-family: 'PressStart2P', monospace;
     text-align: center;
@@ -41,11 +41,9 @@
     overflow-x: hidden;
     color: #fff;
     position: relative;
-    padding-top: 6vh;
-    padding-bottom: 6vh;
+    padding: 6vh 1rem;
   }
 
-  /* subtle CRT vignette */
   body::after {
     content: '';
     position: fixed;
@@ -56,7 +54,6 @@
     animation: vignettePulse 15s ease-in-out infinite alternate;
   }
 
-  /* soft vertical glow */
   body::before {
     content: '';
     position: fixed;
@@ -73,7 +70,7 @@
 
   h1 {
     font-size: clamp(2rem,8vw,3rem);
-    margin:0 0 4rem; /* extra breathing space under header */
+    margin:0 0 4rem;
     color: rgba(255,255,255,0.85);
     text-shadow: 0 0 2px rgba(255,255,255,0.1);
     z-index:1;
@@ -84,21 +81,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     z-index:1;
     position: relative;
     gap: 1rem;
+    width: 100%;
+    max-width: 300px;
   }
 
   input, textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 0.9rem;
     padding: 0.5rem;
-    width: 250px;
-    max-width: 90vw;
+    width: 100%;
     background: #111;
     border: 1px solid #7bbf7b;
     color: #fff;
     outline: none;
+    text-align: center;
+  }
+
+  ::placeholder {
+    text-align: center;
+    color: #bbb;
   }
 
   button {
@@ -114,11 +119,10 @@
   }
 
   button:hover {
-    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
     background:#111;
   }
 
-  /* email at the bottom */
   .email-footer {
     margin-top: 4rem;
     font-size: clamp(0.9rem, 4vw, 1.2rem);
