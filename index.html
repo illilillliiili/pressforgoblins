@@ -182,19 +182,14 @@ body::after {
       // fade-in sound
       if (sound) {
         sound.volume = 0;
-        setTimeout(() => {
-  sound.play().catch(()=>{});
-}, 60); // /* -------------------> audio delay <---------------------- */
-        sound.play().catch(()=>{});
-        let vol = 0;
-        const fadeInterval = setInterval(() => {
-          vol += 0.05;
-          if(vol >= 0.5){
-            vol = 1;
-            clearInterval(fadeInterval);
-          }
-          sound.volume = vol;
-        }, 5)
+       sound.play().catch(()=>{});
+    let vol = 0;
+    const fadeInterval = setInterval(() => {
+      vol += 0.05;
+      if(vol >= 0.5){ vol = 1; clearInterval(fadeInterval); }
+      sound.volume = vol;
+    }, 5);
+  }, 50); // 50ms after flicker begins
 
       // extra flicker synced with zap
       setTimeout(() => {
