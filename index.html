@@ -6,12 +6,11 @@
 <title>press for goblins</title>
 <meta name="description" content="Press For Goblins — coming soon, retro pixel-style site">
 <style>
-  /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=13') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=13') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=13') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=14') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=14') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=14') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -38,36 +37,38 @@
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
-    --neon-color: #6FCF6F;
-    color: var(--neon-color);
-    text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
+    color: #6FCF6F;
+    text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F, 0 0 10px #6FCF6F;
     letter-spacing: 0.2em;
-    opacity: 0;
-    transition: opacity 0.05s ease;
+    opacity: 1; /* always visible */
   }
 
+  /* Violent flicker - text always visible, only text-shadow changes */
   @keyframes violent-flicker {
-    0%, 29%, 31%, 34%, 36%, 42%, 48%, 51%, 53%, 62%, 64%, 66%, 70%, 75%, 78%, 80%, 85%, 87%, 90% {
-      opacity: 0;
-      text-shadow: none;
+    0%, 20%, 40%, 60%, 80%, 100% {
+      text-shadow: 0 0 1px #6FCF6F, 0 0 3px #6FCF6F, 0 0 5px #6FCF6F;
     }
-    20%, 30%, 32%, 35%, 37%, 40%, 45%, 50%, 52%, 55%, 60%, 63%, 65%, 67%, 72%, 76%, 79%, 81%, 86%, 88%, 91%, 95% {
-      opacity: 1;
-      text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 5px var(--neon-color);
-    }
-    100% {
-      opacity: 1;
-      text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
+    10%, 30%, 50%, 70%, 90% {
+      text-shadow: 0 0 3px #6FCF6F, 0 0 6px #6FCF6F, 0 0 10px #6FCF6F;
     }
   }
 
   .coming-soon.violent-flicker {
-    animation: violent-flicker 2s steps(100, end) forwards;
+    animation: violent-flicker 2s steps(20, end) forwards;
   }
 
-  .coming-soon.dim-flicker {
-    opacity: 0.9;
-    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color);
+  /* Subtle continuous flicker */
+  @keyframes neon-continuous {
+    0%, 30%, 60%, 100% {
+      text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F, 0 0 10px #6FCF6F;
+    }
+    15%, 45%, 75% {
+      text-shadow: 0 0 3px #6FCF6F, 0 0 7px #6FCF6F, 0 0 12px #6FCF6F;
+    }
+  }
+
+  .coming-soon.continuous {
+    animation: neon-continuous 4s infinite;
   }
 
   @media (max-width: 320px) {
@@ -92,30 +93,16 @@
 
   <script>
     const comingSoon = document.getElementById('coming-soon');
-    const startupDelay = 2000; // 2s before flicker
-    const violentFlickerDuration = 2000; // 2s violent flicker
-
-    function startSubtleFlicker() {
-      function subtleFlickerLoop() {
-        const randomInterval = Math.random() * 3000 + 3000; // 3-6s
-        setTimeout(() => {
-          comingSoon.classList.add('dim-flicker');
-          setTimeout(() => {
-            comingSoon.classList.remove('dim-flicker');
-            subtleFlickerLoop();
-          }, Math.random() * 100 + 50);
-        }, randomInterval);
-      }
-      subtleFlickerLoop();
-    }
+    const startupDelay = 2000; // wait before starting violent flicker
+    const violentDuration = 1000; // duration of violent flicker
 
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         comingSoon.classList.add('violent-flicker');
         setTimeout(() => {
           comingSoon.classList.remove('violent-flicker');
-          startSubtleFlicker();
-        }, violentFlickerDuration);
+          comingSoon.classList.add('continuous'); // continuous neon flicker
+        }, violentDuration);
       }, startupDelay);
     });
   </script>
