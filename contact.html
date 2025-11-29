@@ -6,159 +6,145 @@
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GFNZMGD8ME');
+</script>
+
 <style>
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=35') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
+         url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
+         url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: 'PressStart2P', monospace;
-  text-align: center;
-  background: repeating-linear-gradient(0deg, #000 0px, #111 2px, #000 4px);
-  background-size: 100% 400%;
-  animation: bgShift 12s linear infinite;
-  overflow-x: hidden;
-  color: #fff;
-  position: relative;
-}
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'PressStart2P', monospace;
+    text-align: center;
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
+    background-size: 100% 200%;
+    animation: bgShift 12s linear infinite;
+    overflow-x: hidden;
+    color: #fff;
+    position: relative;
+    padding-top: 6vh;
+    padding-bottom: 6vh;
+  }
 
-/* subtle CRT vignette */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
-  animation: vignettePulse 15s ease-in-out infinite alternate;
-}
+  /* subtle CRT vignette */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
+    animation: vignettePulse 15s ease-in-out infinite alternate;
+  }
 
-/* soft vertical glow "breathing" effect */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-  animation: verticalGlow 20s ease-in-out infinite alternate;
-}
+  /* soft vertical glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+    animation: verticalGlow 20s ease-in-out infinite alternate;
+  }
 
-@keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-@keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
-@keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
+  @keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
+  @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
+  @keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
 
-h1 {
-  font-size: clamp(2rem,8vw,3rem);
-  margin:0 0 1rem;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 0 2px rgba(255,255,255,0.1);
-  z-index:2;
-  position:relative;
-}
+  h1 {
+    font-size: clamp(2rem,8vw,3rem);
+    margin:0 0 4rem; /* extra breathing space under header */
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 0 2px rgba(255,255,255,0.1);
+    z-index:1;
+    position: relative;
+  }
 
-p {
-  font-size: clamp(1rem,5vw,1.5rem);
-  margin:0.5rem 0;
-  letter-spacing:0.02em;
-  z-index:2;
-  position:relative;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index:1;
+    position: relative;
+    gap: 1rem;
+  }
 
-a.email-link {
-  color:#7bbf7b;
-  text-decoration:none;
-  text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b,0 0 6px #7bbf7b;
-  transition: text-shadow 0.2s ease;
-  font-size: clamp(0.9rem, 4vw, 1.2rem);
-}
+  input, textarea {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 250px;
+    max-width: 90vw;
+    background: #111;
+    border: 1px solid #7bbf7b;
+    color: #fff;
+    outline: none;
+  }
 
-a.email-link:hover {
-  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
-}
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
 
-/* optional form styling */
-form {
-  margin-top:1rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  z-index:2;
-  position:relative;
-}
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    background:#111;
+  }
 
-input, textarea {
-  font-family:'PressStart2P', monospace;
-  font-size:0.9rem;
-  margin:0.3rem 0;
-  padding:0.5rem;
-  background:#111;
-  border:1px solid #7bbf7b;
-  color:#fff;
-  outline:none;
-  width:200px;
-  max-width:90vw;
-}
+  /* email at the bottom */
+  .email-footer {
+    margin-top: 4rem;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+  }
 
-button {
-  font-family:'PressStart2P', monospace;
-  font-size:0.9rem;
-  margin-top:0.5rem;
-  padding:0.5rem 1rem;
-  background:#000;
-  border:1px solid #7bbf7b;
-  color:#7bbf7b;
-  cursor:pointer;
-  text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b;
-  transition:text-shadow 0.2s ease, background 0.2s ease;
-}
+  .email-footer a {
+    color:#7bbf7b;
+    text-decoration:none;
+    text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b,0 0 6px #7bbf7b;
+  }
 
-button:hover {
-  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-  background:#111;
-}
+  .email-footer a:hover {
+    text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
+  }
 
-.qr-container {
-  margin-top:2rem;
-  z-index:2;
-  position:relative;
-  text-align:center;
-}
-
-.qr-container img {
-  width:80px;
-  height:80px;
-  display:block;
-  margin:0 auto;
-}
-
-@media(max-width:480px){
-  h1{font-size:clamp(1.6rem,7vw,2.5rem);}
-  p{font-size:clamp(0.9rem,4vw,1.2rem);}
-  input, textarea{font-size:0.8rem;}
-  button{font-size:0.8rem;}
-  .qr-container img{width:60px;height:60px;}
-}
+  @media(max-width:480px){
+    h1{font-size: clamp(1.6rem,7vw,2.5rem);}
+    input, textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .email-footer{font-size:0.9rem;}
+  }
 </style>
 </head>
 <body>
   <h1>contact</h1>
-  <p><a class="email-link" href="mailto:noah@pressforgoblins.com">noah@pressforgoblins.com</a></p>
-  <p>or</p>
 
-  <!-- optional contact form -->
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
     <input type="text" name="name" placeholder="name" required>
     <input type="email" name="email" placeholder="email" required>
@@ -166,11 +152,8 @@ button:hover {
     <button type="submit">send</button>
   </form>
 
-  <!-- QR code back to homepage -->
-  <div class="qr-container">
-    <a href="https://pressforgoblins.com" target="_blank">
-      <img src="qr-code.png" alt="QR to homepage">
-    </a>
+  <div class="email-footer">
+    <a href="mailto:noah@pressforgoblins.com">noah@pressforgoblins.com</a>
   </div>
 </body>
 </html>
