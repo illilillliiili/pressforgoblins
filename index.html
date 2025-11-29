@@ -44,18 +44,30 @@
   }
 
   /* soft vertical glow — starts immediately, bottom to top, slow */
-  body::before {
-    content:'';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0) 80%);
-    animation: verticalGlow 30s linear infinite;
-  }
+  /* soft vertical glow — extended movement for seamless loop */
+body::before {
+  content:'';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.08), rgba(255,255,255,0) 100%);
+  animation: verticalGlow 25s linear infinite;
+}
 
-  @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
-  @keyframes verticalGlow { 0%{transform:translateY(100%);opacity:0.4} 100%{transform:translateY(-100%);opacity:0.6} }
+@keyframes verticalGlow {
+  0% {
+    transform: translateY(110%); /* start just below the viewport */
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.6; /* brightest mid-travel */
+  }
+  100% {
+    transform: translateY(-110%); /* end fully above viewport */
+    opacity: 0.35;
+  }
+}
 
   .main-title {
     font-size: clamp(1.8rem,8vw,3rem);
