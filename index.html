@@ -1,172 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>press for goblins</title>
-<meta name="description" content="press for goblins — coming soon, retro pixel-style site">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GFNZMGD8ME');
-</script>
+<!-- arrow indicator -->
+<div class="scroll-arrow" id="scroll-arrow">⬇</div>
 
 <style>
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=29') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=29') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=29') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+/* arrow styling */
+.scroll-arrow {
+  position: absolute;
+  bottom: 15vh; /* sits just above where the footer will be */
+  font-size: 2rem;
+  color: #7bbf7b;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  opacity: 0;
+  animation: arrowPulse 1.5s infinite alternate;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+  z-index: 2;
+}
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
-    background-size: 100% 200%;
-    animation: bgShift 10s infinite linear;
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    overflow-x: hidden;
-    color: #fff;
-  }
+/* subtle pulsing for neon feel */
+@keyframes arrowPulse {
+  0% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7bbf7b; }
+  50% { text-shadow: 0 0 2px #7bbf7b, 0 0 4px #7bbf7b; }
+  100% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7bbf7b; }
+}
 
-  @keyframes bgShift {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 0% 100%; }
-  }
+/* footer contact initially hidden */
+.footer-contact {
+  position: fixed;
+  bottom: -3rem; /* hide offscreen */
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  transition: bottom 0.5s ease;
+}
 
-  .main-title {
-    font-size: clamp(1.8rem, 8vw, 3rem);
-    color: rgba(255,255,255,0.8);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.3em;
-    margin: 0;
-    display: inline-block;
-    animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  }
+.footer-contact a {
+  color: #7bbf7b; 
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-shadow: 0 0 1px rgba(123,191,123,0.4);
+  transition: text-shadow 0.2s ease;
+}
 
-  .coming-soon {
-    margin-top: 1.5rem;
-    font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-    --neon-color: #7bbf7b;
-    color: var(--neon-color);
-    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color);
-    letter-spacing: 0.03em;
-    word-spacing: -0.05em;
-    opacity: 0;
-    display: inline-block;
-    animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  }
-
-  .contact-link {
-    margin-top: 2rem;
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    color: rgba(123, 191, 123, 0.9);
-    text-decoration: none;
-    transition: text-shadow 0.3s;
-  }
-
-  .contact-link:hover {
-    text-shadow: 0 0 3px #7bbf7b, 0 0 6px #7fff7b;
-  }
-
-  @keyframes violent-flicker {
-    0%, 35%, 55% { opacity: 0; text-shadow: none; }
-    25%, 45% { 
-      opacity: 1;
-      text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color);
-    }
-    100% {
-      opacity: 1;
-      text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color);
-    }
-  }
-
-  .violent-flicker { animation: violent-flicker 0.25s steps(40, end) forwards; }
-
-  @keyframes letter-jitter { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(1px); } }
-
-  @media (max-width: 480px) {
-    .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); max-width: 95vw; letter-spacing: 0.005em; word-spacing: -0.05em; }
-    .coming-soon { font-size: clamp(1.2rem, 5vw, 1.8rem); letter-spacing: 0.02em; word-spacing: -0.025em; }
-    .contact-link { font-size: clamp(0.9rem, 4vw, 1.2rem); }
-  }
+.footer-contact a:hover {
+  text-shadow: 0 0 2px rgba(123,191,123,0.6);
+}
 </style>
-</head>
-
-<body>
-  <div class="main-title">press for goblins</div>
-  <div class="coming-soon" id="coming-soon">coming soon</div>
-
-  <a href="contact.html" class="contact-link">contact</a>
-
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
 
 <script>
-  const el = document.getElementById('coming-soon');
-  const sound = document.getElementById('neon-sound');
+const arrow = document.getElementById('scroll-arrow');
+const footer = document.querySelector('.footer-contact');
 
-  const startupDelay = 750;
-  const violentFlickerDuration = 250;
-  const extraFlickerDuration = 120;
+// show arrow shortly after coming soon lights up
+setTimeout(() => {
+  arrow.style.opacity = 1;
+}, 1500); // 1.5s after coming soon
 
-  function startSubtleGlowPulse() {
-    function pulse() {
-      const wait = Math.random() * 3000 + 2000;
-      setTimeout(() => {
-        const boost = Math.random() * 0.4 + 0.7;
-        el.style.textShadow = `0 0 ${1*boost}px var(--neon-color), 0 0 ${3*boost}px var(--neon-color), 0 0 ${6*boost}px var(--neon-color)`;
-        setTimeout(() => {
-          el.style.textShadow = `0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color)`;
-          pulse();
-        }, Math.random()*70 + 50);
-      }, wait);
-    }
-    pulse();
+// detect scroll to reveal footer
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 20){ // small scroll threshold
+    footer.style.bottom = '2vh';
+  } else {
+    footer.style.bottom = '-3rem';
   }
+});
 
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      el.classList.add('violent-flicker');
-      el.style.opacity = 1;
-
-      if(sound){
-        sound.volume = 0;
-        sound.play().catch(()=>{});
-        let vol = 0;
-        const fadeInterval = setInterval(()=>{
-          vol += 0.05;
-          if(vol>=1){ vol=1; clearInterval(fadeInterval);}
-          sound.volume = vol;
-        },50);
-      }
-
-      // extra flicker synced with zap
-      setTimeout(()=>{
-        el.style.opacity = 0;
-        setTimeout(()=>{el.style.opacity=1;}, extraFlickerDuration);
-      }, violentFlickerDuration + 50);
-
-      // start subtle glow pulses
-      setTimeout(()=>{ startSubtleGlowPulse(); }, violentFlickerDuration + extraFlickerDuration + 60);
-    }, startupDelay);
-  });
+// optional: click arrow scrolls down a bit
+arrow.addEventListener('click', () => {
+  window.scrollBy({ top: 150, behavior: 'smooth' });
+});
 </script>
-</body>
-</html>
+
+<!-- footer contact -->
+<div class="footer-contact">
+  <a href="contact.html">contact</a>
+</div>
