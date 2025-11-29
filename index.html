@@ -9,9 +9,9 @@
   /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=11') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=11') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=11') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=13') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=13') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=13') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -30,57 +30,58 @@
     text-align: center;
   }
 
-  /* Main title styling (slightly grey) */
+  /* Main title styling (slightly white, 80% opacity) */
   .main-title {
     font-size: clamp(2rem, 8vw, 3rem);
-    color: #BBBBBB;
+    color: rgba(255,255,255,0.8);
     white-space: nowrap;
   }
 
-  /* Coming soon text */
+  /* Coming soon text (starts invisible) */
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
-    color: #5B975B; /* muted green */
-    text-shadow: 0 0 1px #5B975B, 0 0 3px #5B975B;
+    color: #6FCF6F; /* brighter green */
+    text-shadow: 0 0 1px #6FCF6F, 0 0 3px #6FCF6F;
     letter-spacing: 0.2em;
-    opacity: 1; /* always visible */
+    opacity: 0; /* hidden until power-on */
   }
 
-  /* Initial power-on flicker */
+  /* Keyframes for initial power-on flicker */
   @keyframes power-on {
     0% { opacity: 0; text-shadow: none; }
-    10% { opacity: 1; text-shadow: 0 0 1px #5B975B, 0 0 3px #5B975B; }
-    20% { opacity: 0.5; text-shadow: 0 0 0.5px #5B975B, 0 0 1.5px #5B975B; }
-    30% { opacity: 1; text-shadow: 0 0 1px #5B975B, 0 0 3px #5B975B; }
-    40% { opacity: 0.7; text-shadow: 0 0 0.6px #5B975B, 0 0 2px #5B975B; }
-    50%, 100% { opacity: 1; text-shadow: 0 0 1px #5B975B, 0 0 3px #5B975B; }
+    15% { opacity: 1; text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F; }
+    30% { opacity: 0.5; text-shadow: 0 0 1px #6FCF6F, 0 0 3px #6FCF6F; }
+    45% { opacity: 1; text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F; }
+    60% { opacity: 0.7; text-shadow: 0 0 1.5px #6FCF6F, 0 0 4px #6FCF6F; }
+    100% { opacity: 1; text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F; }
   }
 
-  /* Slower, noticeable continuous flicker */
+  /* Keyframes for continuous neon flicker (glow only) */
   @keyframes neon-continuous {
     0%, 30%, 60%, 100% {
-      text-shadow: 0 0 1px #5B975B, 0 0 3px #5B975B;
+      text-shadow: 0 0 2px #6FCF6F, 0 0 5px #6FCF6F;
     }
     10%, 40%, 70% {
-      text-shadow: 0 0 3px #5B975B, 0 0 6px #5B975B;
+      text-shadow: 0 0 3px #6FCF6F, 0 0 7px #6FCF6F;
     }
   }
 
-  /* Initial flicker animation */
+  /* Initial flicker */
   .coming-soon.power-on {
-    animation: power-on 1.5s ease-out forwards 2s; /* 2s delay */
+    animation: power-on 1.5s ease-out forwards; /* runs once */
   }
 
-  /* Continuous flicker animation */
+  /* Continuous flicker */
   .coming-soon.continuous {
-    animation: neon-continuous 4s infinite; /* slower, noticeable pulses */
+    animation: neon-continuous 4s infinite;
   }
 
-  /* Responsive for very small screens */
+  /* Responsive tweak for very small screens */
   @media (max-width: 320px) {
     .main-title {
       font-size: 1.8rem;
+      white-space: normal; /* allow wrapping */
     }
     .coming-soon {
       font-size: 1rem;
@@ -98,14 +99,17 @@
   </div>
 
   <script>
-    // Trigger initial power-on flicker, then continuous neon flicker
     const comingSoon = document.getElementById('coming-soon');
     window.addEventListener('DOMContentLoaded', () => {
-      comingSoon.classList.add('power-on');
+      // delay before showing the power-on flicker
       setTimeout(() => {
-        comingSoon.classList.remove('power-on');
-        comingSoon.classList.add('continuous');
-      }, 3500); // 2s delay + 1.5s initial animation
+        comingSoon.classList.add('power-on');
+        // after initial flicker, switch to continuous
+        setTimeout(() => {
+          comingSoon.classList.remove('power-on');
+          comingSoon.classList.add('continuous');
+        }, 1500); // initial flicker duration
+      }, 2000); // delay before starting power-on flicker
     });
   </script>
 </body>
