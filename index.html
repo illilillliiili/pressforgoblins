@@ -147,11 +147,17 @@ body::after {
     white-space: normal; /* allow wrapping */
   }
   .coming-soon {
-    animation: subtleColorShift 5s infinite alternate;
-@keyframes subtleColorShift {
-  0%, 50%, 100% {
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
-  }
+ --neon-color: #7bbf7b; /* your green */
+  color: var(--neon-color);
+  text-shadow: 0 0 1px var(--neon-color),
+               0 0 3px var(--neon-color),
+               0 0 6px var(--neon-color);
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  letter-spacing: 0.02em;
+  word-spacing: -0.025em;
+  opacity: 0;
+}
+    
 }
     font-size: clamp(1.2rem, 5vw, 1.8rem);
     letter-spacing: 0.02em;
