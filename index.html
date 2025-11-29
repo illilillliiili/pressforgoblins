@@ -10,9 +10,9 @@
 /* Custom Pixel Font */
 @font-face {
   font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+  src: url('fonts/PressStart2P-Regular.woff2?v=31') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=31') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=31') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -37,7 +37,7 @@ html, body {
   color: #fff;
 }
 
-/* CRT Vignette & subtle vertical glow */
+/* CRT Vignette & vertical glow */
 body::after {
   content: '';
   position: fixed;
@@ -96,33 +96,27 @@ body::before {
 }
 #down-arrow:hover { text-shadow:0 0 5px #7bbf7b,0 0 10px #7fff7b; }
 
-/* Pressable neon button */
+/* Isometric skeuomorphic button */
 #press-button {
   width: 140px;
   height: 140px;
-  border-radius: 50%;
   margin-top:1.5rem;
-  background: radial-gradient(circle at 30% 30%, #7bbf7b, #004d00 80%);
-  border:3px solid #7bbf7b;
+  background: linear-gradient(145deg, #7bbf7b, #004d00 70%);
+  border-radius: 50%;
+  border:3px solid #2b662b;
   box-shadow:
-    inset 0 6px 6px rgba(0,0,0,0.5),
-    inset 0 -4px rgba(255,255,255,0.1),
-    0 0 4px #7bbf7b,
-    0 0 10px #7fff7b;
+    inset -4px -4px 6px rgba(255,255,255,0.15),
+    inset 4px 4px 8px rgba(0,0,0,0.5),
+    0 6px 10px rgba(0,0,0,0.7);
+  transform: rotateX(15deg) rotateY(-10deg);
   cursor:pointer;
-  transition: all 0.2s ease;
   z-index:2;
 }
 #press-button:hover {
-  background: radial-gradient(circle at 30% 30%, #9fe39f, #006600 80%);
-  box-shadow:
-    inset 0 4px 4px rgba(0,0,0,0.5),
-    inset 0 -2px rgba(255,255,255,0.15),
-    0 0 6px #7bbf7b,
-    0 0 12px #7fff7b;
-  transform: translateY(-2px);
+  transform: rotateX(15deg) rotateY(-10deg) translateY(-2px);
 }
 
+/* Responsive */
 @media(max-width:480px){
   .main-title {font-size:clamp(1.4rem,7vw,2.4rem);}
   .coming-soon {font-size:clamp(1.2rem,5vw,1.8rem);}
@@ -152,7 +146,6 @@ const startupDelay = 750;
 const violentFlickerDuration = 250;
 const extraFlickerDuration = 120;
 
-// initial "coming soon" flicker
 document.addEventListener('DOMContentLoaded', ()=>{
   setTimeout(()=>{
     comingSoon.classList.add('violent-flicker');
@@ -175,14 +168,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     setTimeout(()=>{
       startSubtleGlowPulse();
-      // arrow appears 1s after coming soon
       setTimeout(()=>{arrow.style.opacity=1; arrow.style.animation='arrowFade 1s forwards';},1000);
     }, violentFlickerDuration+extraFlickerDuration+60);
 
   }, startupDelay);
 });
 
-// subtle continuous glow pulse
 function startSubtleGlowPulse(){
   function pulse(){
     const wait=Math.random()*3000+2000;
@@ -199,6 +190,5 @@ function startSubtleGlowPulse(){
   pulse();
 }
 </script>
-
 </body>
 </html>
