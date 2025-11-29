@@ -108,12 +108,12 @@
       font-size: clamp(1.4rem, 7vw, 2.4rem);
       max-width: 95vw;
       letter-spacing: 0.005em;
-      word-spacing: -0.05em;
+      word-spacing: -0.5em;
     }
     .coming-soon {
       font-size: clamp(1.2rem, 5vw, 1.8rem);
       letter-spacing: 0.02em;
-      word-spacing: -0.025em;
+      word-spacing: -0.03em;
     }
   }
 </style>
@@ -170,12 +170,12 @@
         let vol = 0;
         const fadeInterval = setInterval(() => {
           vol += 0.05;
-          if(vol >= 1){
+          if(vol >= 0.5){
             vol = 1;
             clearInterval(fadeInterval);
           }
           sound.volume = vol;
-        }, 50);
+        }, 5);
       }
 
       // extra flicker synced with zap
