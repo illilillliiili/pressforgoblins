@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=25') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=25') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=25') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=27') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=27') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=27') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -37,7 +37,7 @@
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
-    word-spacing: -0.1em;
+    word-spacing: -0.1em; /* words tighter */
     margin: 0;
   }
 
@@ -51,29 +51,14 @@
       0 0 3px var(--neon-color),
       0 0 6px var(--neon-color);
     letter-spacing: 0.03em;
-    word-spacing: -0.05em;
+    word-spacing: -0.05em; /* words tighter */
     opacity: 0;
   }
 
   @keyframes violent-flicker {
-    0%, 35%, 55% {
-      opacity: 0;
-      text-shadow: none;
-    }
-    25%, 45% {
-      opacity: 1;
-      text-shadow:
-        0 0 1px var(--neon-color),
-        0 0 3px var(--neon-color),
-        0 0 6px var(--neon-color);
-    }
-    100% {
-      opacity: 1;
-      text-shadow:
-        0 0 1px var(--neon-color),
-        0 0 3px var(--neon-color),
-        0 0 6px var(--neon-color);
-    }
+    0%, 35%, 55% { opacity: 0; }
+    25%, 45% { opacity: 1; }
+    100% { opacity: 1; }
   }
 
   .violent-flicker {
@@ -112,13 +97,15 @@
 
   const startupDelay = 750;
   const violentFlickerDuration = 250;
+  const extraFlickerDuration = 120; // 0.12s extra flicker
 
   function startSubtleGlowPulse() {
     function pulse() {
-      const wait = Math.random() * 3000 + 2000; // 2–5s
+      const wait = Math.random() * 3000 + 2000;
       setTimeout(() => {
-        const boost = Math.random() * 0.4 + 0.7; // 70–110% glow
+        const boost = Math.random() * 0.4 + 0.7;
 
+        // only glow changes, spacing remains intact
         el.style.textShadow = `
           0 0 ${1 * boost}px var(--neon-color),
           0 0 ${3 * boost}px var(--neon-color),
@@ -144,17 +131,18 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      // try auto-play the sound
-      if(sound) {
-        sound.play().catch(() => {
-          console.warn("Autoplay blocked; will play on first user interaction.");
-        });
-      }
+      if (sound) sound.play().catch(()=>{});
 
+      // extra flicker synced with zap
       setTimeout(() => {
-        el.classList.remove('violent-flicker');
+        el.style.opacity = 0; // just a quick flicker, spacing unaffected
+        setTimeout(() => { el.style.opacity = 1; }, extraFlickerDuration);
+      }, violentFlickerDuration + 50);
+
+      // start subtle glow pulses after both flickers
+      setTimeout(() => {
         startSubtleGlowPulse();
-      }, violentFlickerDuration);
+      }, violentFlickerDuration + extraFlickerDuration + 60);
 
     }, startupDelay);
   });
