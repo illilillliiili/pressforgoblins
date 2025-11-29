@@ -105,27 +105,31 @@ body::after {
 
 /* arrow */
 .arrow-down {
-  margin-top:2rem;
-  font-size:2rem;
-  color:#7bbf7b;
-  opacity:0;
+  margin-top: 5rem;
+  font-size: 10rem;       /* increase from 2rem to 4rem */
+  font-weight: bold;     /* make it visually heavier */
+  color: #7bbf7b;        /* base color */
+  opacity: 0;
   transition: opacity 0.5s ease, text-shadow 0.3s ease;
 }
+
+/* glow on hover */
 .arrow-down:hover {
-  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
+  text-shadow: 0 0 4px #7bbf7b, 0 0 8px #7fff7b, 0 0 12px #76bf76;
 }
 
 /* contact link */
 .contact-link {
-  margin-top:2rem;
-  font-size:1.1rem;
-  color: rgba(255,255,255,0.8);
-  text-decoration:none;
-  opacity:0;
+  margin-top: 15rem;       /* distance from previous element */
+  font-size: 10rem;      /* bigger text */
+  color: rgba(255,255,255,0.9); /* base color */
+  text-decoration: none;
+  opacity: 0;
   transition: opacity 0.5s ease, text-shadow 0.3s ease;
 }
+
 .contact-link:hover {
-  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
+  text-shadow: 0 0 4px #7bbf7b, 0 0 8px #7fff7b, 0 0 12px #76bf76;
 }
 
 @media(max-width:480px){
