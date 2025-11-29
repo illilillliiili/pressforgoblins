@@ -82,6 +82,7 @@ a.email-link {
   text-decoration:none;
   text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b,0 0 6px #7bbf7b;
   transition: text-shadow 0.2s ease;
+  font-size: clamp(0.9rem, 4vw, 1.2rem);
 }
 
 a.email-link:hover {
@@ -154,20 +155,19 @@ button:hover {
 </head>
 <body>
   <h1>contact</h1>
-  <p>reach me directly:</p>
   <p><a class="email-link" href="mailto:noah@pressforgoblins.com">noah@pressforgoblins.com</a></p>
+  <p>or</p>
 
   <!-- optional contact form -->
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="your name" required>
-    <input type="email" name="email" placeholder="your email" required>
-    <textarea name="message" rows="4" placeholder="your message" required></textarea>
+    <input type="text" name="name" placeholder="name" required>
+    <input type="email" name="email" placeholder="email" required>
+    <textarea name="message" rows="4" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
 
   <!-- QR code back to homepage -->
   <div class="qr-container">
-    <p>explore the world:</p>
     <a href="https://pressforgoblins.com" target="_blank">
       <img src="qr-code.png" alt="QR to homepage">
     </a>
