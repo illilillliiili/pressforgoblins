@@ -147,7 +147,7 @@ body::after {
   const el = document.getElementById('coming-soon');
   const sound = document.getElementById('neon-sound');
 
-  const startupDelay = 750; /* -----> coming soon start up delay <----- */
+  const startupDelay = 750; /* ---------> coming soon start up delay <---------- */
   const violentFlickerDuration = 250;
   const extraFlickerDuration = 125;
 
@@ -182,6 +182,9 @@ body::after {
       // fade-in sound
       if (sound) {
         sound.volume = 0;
+        setTimeout(() => {
+  sound.play().catch(()=>{});
+}, 60); // /* -------------------> audio delay <---------------------- */
         sound.play().catch(()=>{});
         let vol = 0;
         const fadeInterval = setInterval(() => {
@@ -191,8 +194,7 @@ body::after {
             clearInterval(fadeInterval);
           }
           sound.volume = vol;
-        }, 5);
-      }, 100); /* -----> neon audio delay <----- */
+        }, 5)
 
       // extra flicker synced with zap
       setTimeout(() => {
