@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>press for goblins qr</title>
-<meta name="description" content="need a goblin?">
 
-<!-- Google Analytics -->
+<!-- google analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -21,86 +20,109 @@
     src: url('../fonts/PressStart2P-Regular.woff2?v=29') format('woff2'),
          url('../fonts/PressStart2P-Regular.woff?v=29') format('woff'),
          url('../fonts/PressStart2P-Regular.ttf?v=29') format('truetype');
-    font-weight: normal;
-    font-style: normal;
     font-display: swap;
   }
 
   body {
     margin: 0;
+    background: #000;
     height: 100vh;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000;
+    position: relative;
     font-family: 'PressStart2P', monospace;
-    text-align: center;
-    color: #fff;
-    overflow-x: hidden;
   }
 
-  h1 {
-    font-size: clamp(1.8rem, 8vw, 3rem);
-    margin-bottom: 1rem;
-    color: rgba(255,255,255,0.8);
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7fff7b, 0 0 6px #76bf76;
-    animation: subtle-glow 4s infinite alternate;
+  /* soft moving glow in background */
+  .bg-glow {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle at center,
+      rgba(120, 255, 120, 0.06),
+      rgba(0, 0, 0, 0.9) 70%
+    );
+    animation: drift 18s linear infinite;
+    filter: blur(90px);
+    pointer-events: none;
   }
 
-  p {
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    margin-bottom: 2rem;
-    text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b;
-    animation: subtle-glow 5s infinite alternate;
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(4%, -3%) scale(1.05); }
+    100% { transform: translate(0, 0) scale(1); }
   }
 
-  .qr-container img {
-    max-width: 150px;
+  /* crt bend */
+  .crt {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.02) 0%,
+      rgba(255,255,255,0) 70%
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* faint scanlines */
+  .scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        rgba(0,0,0,0) 2px
+      );
+    opacity: 0.15;
+    mix-blend-mode: soft-light;
+  }
+
+  /* qr image */
+  .qr img {
+    width: clamp(120px, 30vw, 220px);
     height: auto;
-    filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b);
-    animation: subtle-glow 6s infinite alternate;
+    filter:
+      drop-shadow(0 0 2px #7bbf7b)
+      drop-shadow(0 0 6px #7fff7b);
+    animation: qrglow 5s infinite alternate ease-in-out;
   }
 
-  .email-link {
-    color: #98fb98;
-    text-decoration: none;
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7fff7b;
-    font-family: 'PressStart2P', monospace;
-    letter-spacing: 0.02em;
-    margin-top: 2rem;
-    display: inline-block;
-  }
-
-  .email-link:hover {
-    text-shadow: 0 0 2px #7bbf7b, 0 0 4px #7fff7b;
-  }
-
-  @keyframes subtle-glow {
-    0% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b; filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b); }
-    50% { text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7fff7b; filter: drop-shadow(0 0 3px #7bbf7b) drop-shadow(0 0 6px #7fff7b); }
-    100% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b; filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b); }
-  }
-
-  @media (max-width: 480px) {
-    h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
-    p { font-size: clamp(1rem, 5vw, 1.5rem); }
-    .qr-container img { max-width: 120px; }
+  @keyframes qrglow {
+    0% {
+      filter:
+        drop-shadow(0 0 2px #7bbf7b)
+        drop-shadow(0 0 5px #7fff7b);
+    }
+    50% {
+      filter:
+        drop-shadow(0 0 4px #7bbf7b)
+        drop-shadow(0 0 10px #7fff7b);
+    }
+    100% {
+      filter:
+        drop-shadow(0 0 2px #7bbf7b)
+        drop-shadow(0 0 5px #7fff7b);
+    }
   }
 </style>
 </head>
 
 <body>
 
-  <h1>press for goblins</h1>
-  <p>need a goblin?</p>
-
-  <div class="qr-container">
-    <img src="qr-code.svg" alt="scan me">
-  </div>
-
-  <!-- GA-safe email link at the bottom -->
-  <a href="mailto:noah@pressforgoblins.com" class="email-link">noah@pressforgoblins.com</a>
+<div class="bg-glow"></div>
+<div class="qr">
+  <img src="../images/qr-code.svg" alt="">
+</div>
+<div class="scanlines"></div>
+<div class="crt"></div>
 
 </body>
 </html>
