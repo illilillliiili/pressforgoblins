@@ -82,6 +82,22 @@ body::before {
   }
 }
 
+  /* CRT overlay layer */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* above background glow, below text */
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.05) 0px, 
+    rgba(255,255,255,0.05) 1px, 
+    transparent 1px, 
+    transparent 2px
+  );
+  opacity: 0.15;
+}
+  
   .main-title {
     font-size: clamp(1.8rem,8vw,3rem);
     color: rgba(255,255,255,0.8);
