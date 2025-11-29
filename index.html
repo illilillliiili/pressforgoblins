@@ -27,8 +27,9 @@
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow-x: hidden;
+    position: relative;
 
-    /* optimized repeating CRT-style gradient */
+    /* repeating CRT-style gradient */
     background: repeating-linear-gradient(
       0deg,
       #000 0px,
@@ -37,6 +38,17 @@
     );
     background-size: 100% 400%;
     animation: bgShift 12s linear infinite;
+  }
+
+  /* subtle CRT bulge overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+    transform: scale(1.03, 1.05);
+    z-index: 1;
   }
 
   @keyframes bgShift {
@@ -55,6 +67,8 @@
     margin: 0;
     display: inline-block;
     animation: letter-jitter 1.5s infinite alternate ease-in-out;
+    position: relative; /* ensures above CRT overlay */
+    z-index: 2;
   }
 
   .coming-soon {
@@ -71,6 +85,8 @@
     opacity: 0;
     display: inline-block;
     animation: letter-jitter 1.5s infinite alternate ease-in-out;
+    position: relative;
+    z-index: 2;
   }
 
   @keyframes violent-flicker {
@@ -170,7 +186,7 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      // fade-in audio
+      // fade-in audio synced with flicker
       if (sound) {
         sound.volume = 0;
         sound.play().catch(()=>{});
