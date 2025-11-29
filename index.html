@@ -45,27 +45,28 @@
 
   /* soft vertical glow — starts immediately, bottom to top, slow */
   /* soft vertical glow — extended movement for seamless loop */
+/* soft vertical glow — starts at bottom, moves to top, blurred edges */
 body::before {
   content:'';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: linear-gradient(
-    to top,
-    rgba(255,255,255,0.2) 20%,    /* fully transparent bottom */
-    rgba(255,255,255,0.05) 10%,   /* subtle glow begins */
-    rgba(255,255,255,0.1) 60%,    /* brightest mid-way */
-    rgba(255,255,255,0.05) 80%,   /* fading out */
-    rgba(255,255,255,0) 90%      /* fully transparent top */
+  background: linear-gradient(to top,
+    rgba(255,255,255,0) 0%,      /* invisible at bottom */
+    rgba(255,255,255,0.03) 20%,
+    rgba(255,255,255,0.08) 40%,
+    rgba(255,255,255,0.12) 60%,
+    rgba(255,255,255,0.08) 80%,
+    rgba(255,255,255,0) 100%       /* fades out at top */
   );
-  animation: verticalGlow 25s linear infinite;
+  filter: blur(15px);             /* softens the edges */
+  animation: verticalGlow 30s linear infinite;
 }
 
 @keyframes verticalGlow {
-  0% { transform: translateY(110%); opacity:0.35; }
-  50% { opacity:0.6; }
-  100% { transform: translateY(-110%); opacity:0.35; }
+  0% { transform: translateY(100%); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 1; }
 }
 
 @keyframes verticalGlow {
