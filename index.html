@@ -102,6 +102,11 @@ body::after {
 }
   
   .main-title {
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.2), /* faint secondary glow */
+    0 0 2px rgba(255,255,255,0.15),
+    0 0 3px rgba(255,255,255,0.1);
+}
     font-size: clamp(3rem,8vw,4rem); /* min, preferred, max */
     color: rgba(255,255,255,0.8);
     white-space: normal;
@@ -133,10 +138,26 @@ body::after {
 
   .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
 
-  @media(max-width:480px){
-    .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.05em; }
-    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.025em; }
+ @media (max-width: 480px){
+  .main-title {
+    font-size: clamp(1.4rem, 7vw, 2.4rem);
+    max-width: 95vw;
+    letter-spacing: 0.005em;
+    word-spacing: -0.05em;
+    white-space: normal; /* allow wrapping */
   }
+  .coming-soon {
+    animation: subtleColorShift 5s infinite alternate;
+@keyframes subtleColorShift {
+  0% { text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76; }
+  50% { text-shadow: 0 0 1px #7ce07c,0 0 3px #80ff80,0 0 6px #78d078; }
+  100% { text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76; }
+}
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    letter-spacing: 0.02em;
+    word-spacing: -0.025em;
+  }
+}
 </style>
 </head>
 
@@ -150,6 +171,12 @@ body::after {
   </audio>
 
 <script>
+  document.querySelector('.main-title').style.opacity = 0;
+document.querySelector('.main-title').style.transition = 'opacity 1s ease';
+setTimeout(()=>{
+  document.querySelector('.main-title').style.opacity = 1;
+}, 100); // small delay
+  
   const el = document.getElementById('coming-soon');
   const sound = document.getElementById('neon-sound');
   const startupDelay = 750;
