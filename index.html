@@ -9,9 +9,9 @@
   /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=4') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=4') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=4') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=5') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=5') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=5') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -49,29 +49,29 @@
     position: absolute;
     bottom: -0.1em;            /* vertical offset below the o */
     left: 50%;
-    transform: translateX(-62%); /* manual fine-tune for centering */
+    transform: translateX(-62%); /* manually nudged */
     width: 0.54ch;             /* slightly shorter than the o */
-    height: 0.1em;             /* ~1/10th of the o height */
+    height: 0.1em;             /* ~1/10th the height of the o */
     background: rgba(255,255,255,0.5); /* line color */
   }
 
-  /* Coming soon text with subtle flicker */
+  /* Coming soon text with pale green flicker */
   @keyframes neon-flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
       opacity: 1;
-      text-shadow: 0 0 0.4px #2ecc40, 0 0 1px #2ecc40;
+      text-shadow: 0 0 0.4px #7CFC00, 0 0 1px #7CFC00;
     }
     20%, 22%, 24%, 55% {
       opacity: 0.7;
-      text-shadow: 0 0 0.2px #2ecc40, 0 0 0.5px #2ecc40;
+      text-shadow: 0 0 0.2px #7CFC00, 0 0 0.5px #7CFC00;
     }
   }
 
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
-    color: #2ecc40;
-    text-shadow: 0 0 0.4px #2ecc40, 0 0 1px #2ecc40;
+    color: #7CFC00;
+    text-shadow: 0 0 0.4px #7CFC00, 0 0 1px #7CFC00;
     letter-spacing: 0.2em;
     animation: neon-flicker 2s infinite;
   }
