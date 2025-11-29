@@ -9,9 +9,9 @@
   /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=6') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=6') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=6') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=8') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=8') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=8') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,55 +26,42 @@
     justify-content: center;
     align-items: center;
     background: #000;
-    color: #fff;
     font-family: 'PressStart2P', 'Courier New', monospace;
     text-align: center;
   }
 
-  /* Main title styling */
+  /* Main title styling (slightly grey) */
   .main-title {
-    font-size: clamp(2rem, 8vw, 3rem); /* scales with viewport */
-    position: relative;
-    white-space: nowrap; /* keeps words together */
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: #BBBBBB; /* slightly grey */
+    white-space: nowrap;
   }
 
-  /* Macron under the o */
-  .macron {
-    position: relative;
-    display: inline-block;
+  /* Coming soon text (pale green) */
+  .coming-soon {
+    margin-top: 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    color: #98FB98; /* pale green */
+    text-shadow: 0 0 0.8px #98FB98, 0 0 2px #98FB98;
+    letter-spacing: 0.2em;
+    opacity: 0; /* start hidden for initial flicker */
   }
 
-  .macron::after {
-    content: '';
-    position: absolute;
-    bottom: -0.1em;            /* vertical offset below the o */
-    left: 50%;
-    transform: translateX(-62%); /* manually nudged */
-    width: 0.54ch;             /* slightly shorter than the o */
-    height: 0.1em;             /* ~1/10th the height of the o */
-    background: rgba(255,255,255,0.5); /* line color */
+  /* Keyframes for initial power-on flicker */
+  @keyframes power-on {
+    0% { opacity: 0; text-shadow: none; }
+    10% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 2px #98FB98; }
+    20% { opacity: 0.5; text-shadow: 0 0 0.5px #98FB98, 0 0 1px #98FB98; }
+    30% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 2px #98FB98; }
+    40% { opacity: 0.7; text-shadow: 0 0 0.6px #98FB98, 0 0 1.5px #98FB98; }
+    50%, 100% { opacity: 1; text-shadow: 0 0 0.8px #98FB98, 0 0 2px #98FB98; }
   }
 
-  /* Coming soon text with FFAA6E flicker and subtle glow */
-@keyframes neon-flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 0.6px #FFAA6E, 0 0 1.5px #FFAA6E;
+  /* One-time flicker on page load */
+  .coming-soon.power-on {
+    animation: power-on 1.5s ease-out forwards; /* runs once */
+    animation-delay: 0.5s; /* slight delay before starting */
   }
-  20%, 22%, 24%, 55% {
-    opacity: 0.7;
-    text-shadow: 0 0 0.3px #FFAA6E, 0 0 0.8px #FFAA6E;
-  }
-}
-
-.coming-soon {
-  margin-top: 1.5rem;
-  font-size: clamp(1.2rem, 5vw, 2rem);
-  color: #FFAA6E;
-  text-shadow: 0 0 0.6px #FFAA6E, 0 0 1.5px #FFAA6E;
-  letter-spacing: 0.2em;
-  animation: neon-flicker 2s infinite;
-}
 
   /* Responsive tweak for very small screens */
   @media (max-width: 320px) {
@@ -90,8 +77,18 @@
 </head>
 <body>
   <div class="main-title">
-    press for g<span class="macron">o</span>blins
+    press for goblins
   </div>
-  <div class="coming-soon">coming soon</div>
+  <div class="coming-soon" id="coming-soon">
+    coming soon
+  </div>
+
+  <script>
+    // Add the "power-on" class to trigger the flicker once when the page loads
+    const comingSoon = document.getElementById('coming-soon');
+    window.addEventListener('DOMContentLoaded', () => {
+      comingSoon.classList.add('power-on');
+    });
+  </script>
 </body>
 </html>
