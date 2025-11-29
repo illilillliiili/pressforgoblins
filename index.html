@@ -7,6 +7,7 @@
 <meta name="description" content="press for goblins — coming soon, retro pixel-style site">
 
 <style>
+/* Custom Pixel Font */
 @font-face {
   font-family: 'PressStart2P';
   src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
@@ -17,199 +18,187 @@
   font-display: swap;
 }
 
-body {
+html, body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'PressStart2P', monospace;
+  background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
+  background-size: 100% 200%;
+  animation: bgShift 20s infinite linear;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
-  background-size: 100% 200%;
-  animation: bgShift 12s linear infinite;
-  font-family: 'PressStart2P', monospace;
   text-align: center;
-  overflow-x: hidden;
+  position: relative;
+  color: #fff;
 }
 
-@keyframes bgShift {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 100%; }
-}
-
-/* vertical glow / CRT effect */
-body::before {
-  content:'';
+/* CRT Vignette & subtle vertical glow */
+body::after {
+  content: '';
   position: fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.01), rgba(255,255,255,0) 80%);
-  animation: verticalGlow 20s ease-in-out infinite alternate;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
+  animation: vignettePulse 15s ease-in-out infinite alternate;
 }
-@keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+  animation: verticalGlow 30s ease-in-out infinite alternate;
+}
 
-/* titles */
+/* Animations */
+@keyframes bgShift { 0% { background-position:0% 0%; } 100% { background-position:0% 100%; } }
+@keyframes vignettePulse { 0% {opacity:1} 50% {opacity:0.95} 100% {opacity:1} }
+@keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.3} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.3} }
+@keyframes violent-flicker {0%,35%,55%{opacity:0;text-shadow:none;}25%,45%{opacity:1;text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;}100%{opacity:1;text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;}}
+@keyframes arrowFade {0%{opacity:0;transform:translateY(-10px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes subtleGlow {0%{text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b;}50%{text-shadow:0 0 3px #7bbf7b,0 0 6px #7fff7b;}100%{text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b;}}
+
+/* Text Styles */
 .main-title {
-  font-size: clamp(2rem, 8vw, 3rem);
+  font-size: clamp(1.8rem,8vw,3rem);
   color: rgba(255,255,255,0.8);
-  line-height: 1.2;
   margin:0;
-  letter-spacing:0.01em;
-  word-spacing:-0.3em;
-  opacity:1;
+  white-space: nowrap;
+  line-height:1.4;
   z-index:2;
-  position:relative;
 }
 
 .coming-soon {
   font-size: clamp(1.5rem,6.5vw,2.5rem);
-  --neon-color:#7bbf7b;
-  color: var(--neon-color);
-  text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;
-  margin-top: 1rem;
-  opacity:0;
-  z-index:2;
-  position:relative;
-}
-
-/* violent flicker on initial coming soon */
-@keyframes violent-flicker {
-  0%,35%,55% { opacity:0; text-shadow:none; }
-  25%,45% {
-    opacity:1;
-    text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;
-  }
-  100% {
-    opacity:1;
-    text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;
-  }
-}
-.violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
-
-/* subtle random glow pulse */
-.coming-soon.glow-pulse { text-shadow: 0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76; }
-
-/* arrow */
-#scroll-arrow {
-  margin-top:1.5rem;
-  font-size:3rem;
-  color:#7bbf7b;
-  opacity:0;
-  transition:opacity 0.5s ease;
-  z-index:2;
-  cursor:pointer;
-}
-#scroll-arrow:hover { text-shadow:0 0 2px #7bbf7b,0 0 5px #7fff7b,0 0 10px #76bf76; }
-
-/* button */
-#press-button {
   margin-top:1rem;
-  padding:1rem 2rem;
-  font-family: 'PressStart2P', monospace;
-  font-size:1.2rem;
   color:#7bbf7b;
-  background: linear-gradient(to bottom,#111 0%,#000 100%);
+  opacity:0;
+  text-shadow:0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76;
+  z-index:2;
+}
+
+/* Arrow */
+#down-arrow {
+  font-size:4rem;
+  color:#7bbf7b;
+  margin-top:1rem;
+  opacity:0;
+  transition: all 0.3s ease;
+  cursor:pointer;
+  z-index:2;
+}
+#down-arrow:hover { text-shadow:0 0 5px #7bbf7b,0 0 10px #7fff7b; }
+
+/* Pressable neon button */
+#press-button {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-top:1.5rem;
+  background: radial-gradient(circle at 30% 30%, #7bbf7b, #004d00 80%);
   border:3px solid #7bbf7b;
-  border-radius:12px;
   box-shadow:
-    inset 0 4px #333,
-    inset 0 -4px #000,
-    0 0 2px #7bbf7b,
-    0 0 5px #7fff7b,
-    0 0 10px #76bf76;
+    inset 0 6px 6px rgba(0,0,0,0.5),
+    inset 0 -4px rgba(255,255,255,0.1),
+    0 0 4px #7bbf7b,
+    0 0 10px #7fff7b;
   cursor:pointer;
   transition: all 0.2s ease;
-  opacity:0;
-  display:inline-block;
-  text-align:center;
+  z-index:2;
 }
 #press-button:hover {
+  background: radial-gradient(circle at 30% 30%, #9fe39f, #006600 80%);
   box-shadow:
-    inset 0 4px #444,
-    inset 0 -4px #000,
-    0 0 4px #7bbf7b,
-    0 0 8px #7fff7b,
-    0 0 12px #76bf76;
-  transform:translateY(-2px);
+    inset 0 4px 4px rgba(0,0,0,0.5),
+    inset 0 -2px rgba(255,255,255,0.15),
+    0 0 6px #7bbf7b,
+    0 0 12px #7fff7b;
+  transform: translateY(-2px);
 }
 
-/* responsive */
 @media(max-width:480px){
-  .main-title{font-size:clamp(1.6rem,7vw,2.5rem);}
-  .coming-soon{font-size:clamp(1.2rem,5vw,1.8rem);}
-  #scroll-arrow{font-size:2.5rem;}
-  #press-button{font-size:1rem;padding:0.8rem 1.5rem;}
+  .main-title {font-size:clamp(1.4rem,7vw,2.4rem);}
+  .coming-soon {font-size:clamp(1.2rem,5vw,1.8rem);}
+  #down-arrow {font-size:3rem;}
+  #press-button {width:100px;height:100px;}
 }
 </style>
 </head>
 <body>
-  <div class="main-title">press for goblins</div>
-  <div class="coming-soon" id="coming-soon">coming soon</div>
-  <div id="scroll-arrow">&#x21E3;</div> <!-- downwards arrow -->
-  <a id="press-button" href="contact.html">press if you need goblins!!!</a>
 
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
+<div class="main-title">press for goblins</div>
+<div class="coming-soon" id="coming-soon">coming soon</div>
+<div id="down-arrow">&#8595;</div>
+<a id="press-button" href="contact.html"></a>
+
+<audio id="neon-sound" preload="auto">
+  <source src="neon.m4a" type="audio/mp4">
+</audio>
 
 <script>
-const coming = document.getElementById('coming-soon');
-const arrow = document.getElementById('scroll-arrow');
+const comingSoon = document.getElementById('coming-soon');
+const arrow = document.getElementById('down-arrow');
 const button = document.getElementById('press-button');
 const sound = document.getElementById('neon-sound');
 
 const startupDelay = 750;
-const flickerDuration = 250;
-const extraFlicker = 120;
+const violentFlickerDuration = 250;
+const extraFlickerDuration = 120;
 
-// subtle glow pulse function
-function startGlowPulse() {
-  function pulse(){
-    const wait = Math.random()*3000+2000;
-    setTimeout(()=>{
-      const boost=Math.random()*0.4+0.7;
-      coming.style.textShadow=`0 0 ${1*boost}px #7bbf7b,0 0 ${3*boost}px #7fff7b,0 0 ${6*boost}px #76bf76`;
-      setTimeout(()=>{
-        coming.style.textShadow=`0 0 1px #7bbf7b,0 0 3px #7fff7b,0 0 6px #76bf76`;
-        pulse();
-      },Math.random()*70+50);
-    },wait);
-  }
-  pulse();
-}
-
-// sequence: coming soon + arrow + button + sound
-document.addEventListener('DOMContentLoaded',()=>{
+// initial "coming soon" flicker
+document.addEventListener('DOMContentLoaded', ()=>{
   setTimeout(()=>{
-    coming.classList.add('violent-flicker');
-    coming.style.opacity=1;
-
+    comingSoon.classList.add('violent-flicker');
+    comingSoon.style.opacity=1;
     if(sound){
       sound.volume=0;
       sound.play().catch(()=>{});
       let vol=0;
       const fade=setInterval(()=>{
         vol+=0.05;
-        if(vol>=1){vol=1; clearInterval(fade);}
+        if(vol>=1){vol=1;clearInterval(fade);}
         sound.volume=vol;
       },50);
     }
 
     setTimeout(()=>{
-      coming.style.opacity=0;
-      setTimeout(()=>{coming.style.opacity=1;},extraFlicker);
-    },flickerDuration+50);
+      comingSoon.style.opacity=0;
+      setTimeout(()=>{comingSoon.style.opacity=1;}, extraFlickerDuration);
+    }, violentFlickerDuration+50);
 
     setTimeout(()=>{
-      startGlowPulse();
-      // fade-in arrow and button after coming soon
-      arrow.style.opacity=1;
-      setTimeout(()=>{button.style.opacity=1;},500);
-    },flickerDuration+extraFlicker+60);
+      startSubtleGlowPulse();
+      // arrow appears 1s after coming soon
+      setTimeout(()=>{arrow.style.opacity=1; arrow.style.animation='arrowFade 1s forwards';},1000);
+    }, violentFlickerDuration+extraFlickerDuration+60);
 
-  },startupDelay);
+  }, startupDelay);
 });
+
+// subtle continuous glow pulse
+function startSubtleGlowPulse(){
+  function pulse(){
+    const wait=Math.random()*3000+2000;
+    setTimeout(()=>{
+      const boost=Math.random()*0.4+0.7;
+      comingSoon.style.textShadow=
+        `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7fff7b, 0 0 ${6*boost}px #76bf76`;
+      setTimeout(()=>{
+        comingSoon.style.textShadow=`0 0 1px #7bbf7b, 0 0 3px #7fff7b, 0 0 6px #76bf76`;
+        pulse();
+      },Math.random()*70+50);
+    },wait);
+  }
+  pulse();
+}
 </script>
+
 </body>
 </html>
