@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=20') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=20') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=20') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=22') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=22') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=22') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -34,9 +34,10 @@
     font-size: clamp(1.8rem, 8vw, 3rem);
     color: rgba(255,255,255,0.8);
     white-space: normal;
-    line-height: 1.4; /* restored vertical spacing */
+    line-height: 1.4;
     max-width: 90vw;
-    letter-spacing: 0.01em; /* tighten words */
+    letter-spacing: 0.01em; /* tight letters */
+    word-spacing: -0.1em;  /* words closer together */
     margin: 0;
   }
 
@@ -49,7 +50,8 @@
       0 0 1px var(--neon-color),
       0 0 3px var(--neon-color),
       0 0 6px var(--neon-color);
-    letter-spacing: 0.03em; /* tighten coming soon */
+    letter-spacing: 0.03em; 
+    word-spacing: -0.05em; /* reduce space between 'coming' and 'soon' */
     opacity: 0;
   }
 
@@ -83,10 +85,12 @@
       font-size: clamp(1.4rem, 7vw, 2.4rem);
       max-width: 95vw;
       letter-spacing: 0.005em;
+      word-spacing: -0.05em;
     }
     .coming-soon {
       font-size: clamp(1rem, 5vw, 1.6rem);
       letter-spacing: 0.02em;
+      word-spacing: -0.025em;
     }
   }
 </style>
@@ -96,45 +100,52 @@
   <div class="main-title">press for goblins</div>
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
-  <script>
-    const el = document.getElementById('coming-soon');
+<script>
+  const el = document.getElementById('coming-soon');
 
-    const startupDelay = 750;
-    const violentFlickerDuration = 250;
+  const startupDelay = 750;
+  const violentFlickerDuration = 250;
 
-    function startSubtleGlowPulse() {
-      function pulse() {
-        const wait = Math.random() * 3000 + 2000;
-        setTimeout(() => {
-          const boost = Math.random() * 0.4 + 1;
-          el.style.textShadow = `
-            0 0 ${1 * boost}px var(--neon-color),
-            0 0 ${3 * boost}px var(--neon-color),
-            0 0 ${6 * boost}px var(--neon-color)
-          `;
-          setTimeout(() => {
-            el.style.textShadow = `
-              0 0 1px var(--neon-color),
-              0 0 3px var(--neon-color),
-              0 0 6px var(--neon-color)
-            `;
-            pulse();
-          }, Math.random() * 70 + 50);
-        }, wait);
-      }
-      pulse();
-    }
+  function startSubtleGlowPulse() {
+    function pulse() {
+      const wait = Math.random() * 3000 + 2000; // 2–5s
 
-    document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        el.classList.add('violent-flicker');
-        el.style.opacity = 1;
+        // new boost range: 0.7 → 1.1 (70–110%)
+        const boost = Math.random() * 0.4 + 0.7;
+
+        el.style.textShadow = `
+          0 0 ${1 * boost}px var(--neon-color),
+          0 0 ${3 * boost}px var(--neon-color),
+          0 0 ${6 * boost}px var(--neon-color)
+        `;
+
         setTimeout(() => {
-          el.classList.remove('violent-flicker');
-          startSubtleGlowPulse();
-        }, violentFlickerDuration);
-      }, startupDelay);
-    });
-  </script>
+          el.style.textShadow = `
+            0 0 1px var(--neon-color),
+            0 0 3px var(--neon-color),
+            0 0 6px var(--neon-color)
+          `;
+          pulse();
+        }, Math.random() * 70 + 50);
+
+      }, wait);
+    }
+    pulse();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      el.classList.add('violent-flicker');
+      el.style.opacity = 1;
+
+      setTimeout(() => {
+        el.classList.remove('violent-flicker');
+        startSubtleGlowPulse();
+      }, violentFlickerDuration);
+
+    }, startupDelay);
+  });
+</script>
 </body>
 </html>
