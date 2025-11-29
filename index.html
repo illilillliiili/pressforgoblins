@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=23') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=23') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=23') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=25') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=25') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=25') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -37,7 +37,7 @@
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
-    word-spacing: -0.5em;
+    word-spacing: -0.1em;
     margin: 0;
   }
 
@@ -100,8 +100,11 @@
   <div class="main-title">press for goblins</div>
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
-  <!-- audio element -->
-  <audio id="neon-sound" src="glitch.m4a" preload="auto"></audio>
+  <!-- audio element with fallback -->
+  <audio id="neon-sound" preload="auto">
+    <source src="neon.m4a" type="audio/mp4">
+    <source src="neon.mp3" type="audio/mpeg">
+  </audio>
 
 <script>
   const el = document.getElementById('coming-soon');
@@ -141,8 +144,12 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      // play sound once after the delay
-      if(sound) sound.play();
+      // try auto-play the sound
+      if(sound) {
+        sound.play().catch(() => {
+          console.warn("Autoplay blocked; will play on first user interaction.");
+        });
+      }
 
       setTimeout(() => {
         el.classList.remove('violent-flicker');
