@@ -192,14 +192,14 @@ body::after {
           }
           sound.volume = vol;
         }, 5);
-      }
+      }, 100); /* -----> neon audio delay <----- */
 
       // extra flicker synced with zap
       setTimeout(() => {
         el.style.opacity = 0;
         setTimeout(() => { el.style.opacity = 1; }, extraFlickerDuration);
         el.classList.add('hue-shift'); // start subtle hue shift after flicker
-      }, violentFlickerDuration + 50);
+      }, violentFlickerDuration + 50); 
 
       // start subtle glow pulses after both flickers
       setTimeout(() => {
