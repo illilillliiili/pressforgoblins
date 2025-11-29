@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -37,14 +37,14 @@
     display: inline-block;
   }
 
-  .macron::before {
-    content: '̄';
+  .macron::after {
+    content: '̱'; /* macron below */
     position: absolute;
-    top: 0em;
+    bottom: -0.25em; /* adjust vertical position */
     left: 50%;
     transform: translateX(-50%);
-    color: rgba(255,255,255,0.25);
-    font-size: 2rem;
+    color: rgba(255,255,255,0.5); /* adjust opacity */
+    font-size: 1.2rem; /* adjust size */
   }
 
   .coming-soon {
@@ -57,7 +57,7 @@
 </head>
 <body>
   <div class="main-title">
-    press for go̱blins
+    press for g<span class="macron">o</span>blins
   </div>
   <div class="coming-soon">coming soon</div>
 </body>
