@@ -9,9 +9,9 @@
 <style>
 @font-face {
   font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=31') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=31') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=31') format('truetype');
+  src: url('fonts/PressStart2P-Regular.woff2?v=32') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=32') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=32') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -29,38 +29,39 @@ body {
   overflow-x: hidden;
   position: relative;
 
-  /* CRT-style background with slow gradient movement */
   background: repeating-linear-gradient(0deg, #000 0px, #111 2px, #000 4px);
   background-size: 100% 400%;
   animation: bgShift 12s linear infinite;
-  opacity: 0; /* fade-in container */
+  opacity: 0; /* for fade-in */
   transition: opacity 1.5s ease-in;
 }
 
+/* subtle CRT vignette */
 body::after {
-  /* subtle vignette for CRT bulge */
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
   z-index: 1;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
   animation: vignettePulse 15s ease-in-out infinite alternate;
 }
 
+/* subtle scanlines */
 body::before {
-  /* subtle phosphor scanlines */
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0,0,0,0) 0px,
-    rgba(0,0,0,0.03) 1px
-  );
   z-index: 1;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0.03) 1px);
   animation: scanlineMove 30s linear infinite;
+}
+
+/* vertical breathing glow */
+body::after {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+  animation: verticalGlow 20s ease-in-out infinite alternate;
 }
 
 @keyframes bgShift {
@@ -77,6 +78,12 @@ body::before {
   0% { opacity: 1; }
   50% { opacity: 0.95; }
   100% { opacity: 1; }
+}
+
+@keyframes verticalGlow {
+  0% { transform: translateY(-10px); opacity: 0.4; }
+  50% { transform: translateY(10px); opacity: 0.6; }
+  100% { transform: translateY(-10px); opacity: 0.4; }
 }
 
 .main-title {
@@ -121,16 +128,9 @@ body::before {
 
 .violent-flicker { animation: violent-flicker 0.25s steps(40, end) forwards; }
 
-@keyframes letter-jitter {
-  0%,100%{ transform: translateX(0) translateY(0); }
-  50%{ transform: translateX(1px) translateY(0); }
-}
+@keyframes letter-jitter { 0%,100%{ transform: translateX(0) translateY(0); } 50%{ transform: translateX(1px) translateY(0); } }
 
-@keyframes hueShift {
-  0% { filter:hue-rotate(0deg); }
-  50% { filter:hue-rotate(5deg); }
-  100% { filter:hue-rotate(0deg); }
-}
+@keyframes hueShift { 0%{ filter:hue-rotate(0deg); } 50%{ filter:hue-rotate(5deg); } 100%{ filter:hue-rotate(0deg); } }
 
 .coming-soon.hue-shift { animation:hueShift 6s infinite ease-in-out; }
 
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     el.classList.add('violent-flicker');
     el.style.opacity=1;
 
-    // delayed audio for perfect sync
+    // delayed audio
     if(sound){
       sound.volume=0;
       setTimeout(()=>{
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           if(vol>=1){ vol=1; clearInterval(fadeInterval); }
           sound.volume=vol;
         },50);
-      },15); // tweak this ms to adjust audio timing
+      },15);
     }
 
     // extra zap flicker
