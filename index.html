@@ -53,11 +53,11 @@ body::before {
   z-index: 0;
   background: linear-gradient(
     to top,
-    rgba(255,255,255,0) 0%,       /* fully transparent bottom */
+    rgba(255,255,255,0.2) 20%,    /* fully transparent bottom */
     rgba(255,255,255,0.05) 20%,   /* subtle glow begins */
-    rgba(255,255,255,0.1) 50%,    /* brightest mid-way */
+    rgba(255,255,255,0.1) 80%,    /* brightest mid-way */
     rgba(255,255,255,0.05) 80%,   /* fading out */
-    rgba(255,255,255,0) 100%      /* fully transparent top */
+    rgba(255,255,255,0.1) 100%      /* fully transparent top */
   );
   animation: verticalGlow 25s linear infinite;
 }
@@ -82,20 +82,22 @@ body::before {
   }
 }
 
-  /* CRT overlay layer */
+ /* CRT overlay — scanlines above glow, behind text */
 body::after {
-  content: '';
+  content:'';
   position: fixed;
-  inset: 0;
+  inset: 0; /* covers full screen */
   pointer-events: none;
-  z-index: 1; /* above background glow, below text */
+  z-index: 1; /* above glow but behind text */
   background: repeating-linear-gradient(
-    rgba(255,255,255,0.05) 0px, 
-    rgba(255,255,255,0.05) 1px, 
-    transparent 1px, 
-    transparent 2px
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
   );
-  opacity: 0.15;
+}
+  );
+  opacity: 0.10;
 }
   
   .main-title {
