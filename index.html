@@ -207,13 +207,13 @@
           let vol = 0;
           const fadeInterval = setInterval(() => {
             vol += 0.05;
-            if(vol >= 1){
-              vol = 1;
+            if(vol >= 0.5){
+              vol = 0.5;
               clearInterval(fadeInterval);
             }
             sound.volume = vol;
           }, 50);
-        }, 80);
+        }, 50);
       }
 
       // extra zap flicker
