@@ -2,19 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=https://pressforgoblins.com">
-  <title>Redirecting…</title>
-  
-  <!-- Google Analytics tracking -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'YOUR_TRACKING_ID');
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press For Goblins QR</title>
+  <meta name="description" content="Press For Goblins — scan the QR code to visit our homepage">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      font-family: 'PressStart2P', monospace;
+      text-align: center;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 8vw, 3rem);
+      margin-bottom: 1rem;
+      color: rgba(255,255,255,0.8);
+    }
+    p {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      margin-bottom: 2rem;
+    }
+    .qr-container img {
+      max-width: 150px;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="https://pressforgoblins.com">pressforgoblins.com</a>…</p>
+
+  <h1>Press For Goblins</h1>
+  <p>Scan the QR code to visit our homepage</p>
+
+  <!-- QR code image -->
+  <div class="qr-container">
+    <img src="images/qr-code.svg" alt="Scan me for goblins">
+  </div>
+
 </body>
 </html>
