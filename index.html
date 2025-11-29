@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=14') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=14') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=14') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=15') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=15') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=15') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -41,39 +41,39 @@
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 6vw, 2rem);
-    --neon-color: #5b975b;
+    --neon-color: #7bbf7b; /* lighter green */
     color: var(--neon-color);
     text-shadow:
-      0 0 2px var(--neon-color),
-      0 0 6px var(--neon-color),
-      0 0 12px var(--neon-color);
+      0 0 1.7px var(--neon-color),
+      0 0 5px var(--neon-color),
+      0 0 10px var(--neon-color);
     letter-spacing: 0.2em;
     opacity: 0;
   }
 
   @keyframes violent-flicker {
-    0%, 20%, 30%, 40%, 55%, 65%, 75% {
+    0%, 35%, 55% {
       opacity: 0;
       text-shadow: none;
     }
-    25%, 35%, 50%, 60%, 70%, 85% {
+    25%, 45% {
       opacity: 1;
       text-shadow:
-        0 0 2px var(--neon-color),
+        0 0 1.7px var(--neon-color),
         0 0 4px var(--neon-color),
-        0 0 8px var(--neon-color);
+        0 0 7px var(--neon-color);
     }
     100% {
       opacity: 1;
       text-shadow:
-        0 0 2px var(--neon-color),
-        0 0 6px var(--neon-color),
-        0 0 12px var(--neon-color);
+        0 0 1.7px var(--neon-color),
+        0 0 5px var(--neon-color),
+        0 0 10px var(--neon-color);
     }
   }
 
   .violent-flicker {
-    animation: violent-flicker 1s steps(50, end) forwards;
+    animation: violent-flicker 0.5s steps(40, end) forwards;
   }
 
   @media (max-width: 480px) {
@@ -99,29 +99,27 @@
   <script>
     const el = document.getElementById('coming-soon');
 
-    const startupDelay = 1500; // hidden initially
-    const violentFlickerDuration = 1000; // violent flicker lasts 1 second
+    const startupDelay = 1500;
+    const violentFlickerDuration = 500; // now 0.5s
 
     function startSubtleGlowPulse() {
       function pulse() {
-        const wait = Math.random() * 3000 + 2000; 
-        // random 2000–5000 ms
+        const wait = Math.random() * 3000 + 2000;
 
         setTimeout(() => {
-          const boost = Math.random() * 0.4 + 1; 
-          // glow multiplier 1.0–1.4
+          const boost = Math.random() * 0.4 + 1;
 
           el.style.textShadow = `
-            0 0 ${2 * boost}px var(--neon-color),
-            0 0 ${6 * boost}px var(--neon-color),
-            0 0 ${12 * boost}px var(--neon-color)
+            0 0 ${1.7 * boost}px var(--neon-color),
+            0 0 ${5 * boost}px var(--neon-color),
+            0 0 ${10 * boost}px var(--neon-color)
           `;
 
           setTimeout(() => {
             el.style.textShadow = `
-              0 0 2px var(--neon-color),
-              0 0 6px var(--neon-color),
-              0 0 12px var(--neon-color)
+              0 0 1.7px var(--neon-color),
+              0 0 5px var(--neon-color),
+              0 0 10px var(--neon-color)
             `;
             pulse();
           }, Math.random() * 70 + 50);
