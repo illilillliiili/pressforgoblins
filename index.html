@@ -1,11 +1,17 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>press for goblins</title>
 <style>
   @font-face {
     font-family: 'PressStart2P';
     src: url('fonts/PressStart2P-Regular.woff2') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff') format('woff'),
          url('fonts/PressStart2P-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* ensures text shows immediately while font loads */
+    font-display: swap;
   }
 
   body {
@@ -48,3 +54,11 @@
     letter-spacing: 0.2em;
   }
 </style>
+</head>
+<body>
+  <div class="main-title">
+    press for g<span class="macron">o</span>blins
+  </div>
+  <div class="coming-soon">coming soon</div>
+</body>
+</html>
