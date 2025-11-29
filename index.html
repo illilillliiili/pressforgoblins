@@ -7,7 +7,6 @@
 <meta name="description" content="press for goblins — coming soon, retro pixel-style site">
 
 <style>
-/* custom pixel font */
 @font-face {
   font-family: 'PressStart2P';
   src: url('fonts/PressStart2P-Regular.woff2?v=29') format('woff2'),
@@ -109,22 +108,31 @@ body::after {
   margin-top:2rem;
   font-size:2rem;
   color:#7bbf7b;
+  opacity:0;
+  transition: opacity 0.5s ease, text-shadow 0.3s ease;
+}
+.arrow-down:hover {
+  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
 }
 
 /* contact link */
 .contact-link {
   margin-top:2rem;
-  font-size:1rem;
+  font-size:1.1rem;
   color: rgba(255,255,255,0.8);
   text-decoration:none;
+  opacity:0;
+  transition: opacity 0.5s ease, text-shadow 0.3s ease;
 }
-.contact-link:hover { text-decoration:underline; }
+.contact-link:hover {
+  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
+}
 
 @media(max-width:480px){
   .main-title{ font-size: clamp(1.4rem,7vw,2.4rem); word-spacing:-0.2em; }
   .coming-soon{ font-size: clamp(1.2rem,5vw,1.8rem); }
   .arrow-down{ font-size:1.5rem; }
-  .contact-link{ font-size:0.9rem; }
+  .contact-link{ font-size:1rem; }
 }
 </style>
 </head>
@@ -134,7 +142,7 @@ body::after {
     <div class="main-title">press for goblins</div>
     <div class="coming-soon" id="coming-soon">coming soon</div>
     <div class="arrow-down" id="scroll-arrow">&#8595;</div>
-    <a href="contact.html" class="contact-link">contact</a>
+    <a href="contact.html" class="contact-link" id="contact-link">contact</a>
   </div>
 
   <!-- neon sound -->
@@ -145,6 +153,8 @@ body::after {
 <script>
 const el = document.getElementById('coming-soon');
 const sound = document.getElementById('neon-sound');
+const arrow = document.getElementById('scroll-arrow');
+const contact = document.getElementById('contact-link');
 
 const startupDelay=750;
 const violentFlickerDuration=250;
@@ -195,7 +205,19 @@ document.addEventListener('DOMContentLoaded',()=>{
       setTimeout(()=>{el.style.opacity=1;},extraFlickerDuration);
     },violentFlickerDuration+50);
 
+    // start subtle glow pulses after both flickers
     setTimeout(()=>{ startSubtleGlowPulse(); }, violentFlickerDuration+extraFlickerDuration+60);
+
+    // arrow fade in 1s after coming soon visible
+    setTimeout(()=>{
+      arrow.style.opacity=1;
+    },violentFlickerDuration+extraFlickerDuration+1060);
+
+    // contact fade in after arrow
+    setTimeout(()=>{
+      contact.style.opacity=1;
+    },violentFlickerDuration+extraFlickerDuration+1560);
+
   }, startupDelay);
 });
 </script>
