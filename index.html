@@ -7,204 +7,153 @@
 <meta name="description" content="press for goblins — coming soon, retro pixel-style site">
 
 <style>
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=31') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=31') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=31') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=31') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=31') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=31') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: 'PressStart2P', monospace;
-  text-align: center;
-  overflow-x: hidden;
-  position: relative;
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center;     /* horizontal centering */
+    background: #000;
+    font-family: 'PressStart2P', monospace;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+    color: #fff;
+  }
 
-  /* CRT-style background with slow gradient movement */
-  background: repeating-linear-gradient(0deg, #000 0px, #111 2px, #000 4px);
-  background-size: 100% 400%;
-  animation: bgShift 12s linear infinite;
-  opacity: 0; /* fade-in container */
-  transition: opacity 1.5s ease-in;
-}
+  /* CRT / vignette overlay */
+  body::after {
+    content:'';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
+    animation: vignettePulse 20s ease-in-out infinite alternate;
+  }
 
-body::after {
-  /* subtle vignette for CRT bulge */
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
-  z-index: 1;
-  animation: vignettePulse 15s ease-in-out infinite alternate;
-}
+  /* soft vertical glow — starts immediately, bottom to top, slow */
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0) 80%);
+    animation: verticalGlow 30s linear infinite;
+  }
 
-body::before {
-  /* subtle phosphor scanlines */
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0,0,0,0) 0px,
-    rgba(0,0,0,0.03) 1px
-  );
-  z-index: 1;
-  animation: scanlineMove 30s linear infinite;
-}
+  @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
+  @keyframes verticalGlow { 0%{transform:translateY(100%);opacity:0.4} 100%{transform:translateY(-100%);opacity:0.6} }
 
-@keyframes bgShift {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 100%; }
-}
+  .main-title {
+    font-size: clamp(1.8rem,8vw,3rem);
+    color: rgba(255,255,255,0.8);
+    white-space: normal;
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.3em;
+    margin: 0;
+    z-index:2;
+  }
 
-@keyframes scanlineMove {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(2px); }
-}
+  .coming-soon {
+    margin-top: 1.5rem;
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
+    --neon-color: #7bbf7b;
+    color: var(--neon-color);
+    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color);
+    letter-spacing: 0.03em;
+    word-spacing: -0.05em;
+    opacity:0;
+    z-index:2;
+  }
 
-@keyframes vignettePulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.95; }
-  100% { opacity: 1; }
-}
+  @keyframes violent-flicker {
+    0%,35%,55% { opacity:0; text-shadow:none; }
+    25%,45% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+    100% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+  }
 
-.main-title {
-  font-size: clamp(1.8rem, 8vw, 3rem);
-  color: rgba(255,255,255,0.8);
-  white-space: normal;
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.4em;
-  margin: 0;
-  display: inline-block;
-  animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 0 2px rgba(255,255,255,0.1);
-}
+  .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
 
-.coming-soon {
-  margin-top: 1.2rem;
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  --neon-color: #7bbf7b;
-  color: var(--neon-color);
-  text-shadow:
-    0 0 1px var(--neon-color),
-    0 0 3px var(--neon-color),
-    0 0 6px var(--neon-color);
-  letter-spacing: 0.03em;
-  word-spacing: -0.07em;
-  opacity: 0;
-  display: inline-block;
-  animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes violent-flicker {
-  0%,35%,55% { opacity:0; text-shadow:none; }
-  25%,45% { opacity:1; text-shadow:0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-  100% { opacity:1; text-shadow:0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-}
-
-.violent-flicker { animation: violent-flicker 0.25s steps(40, end) forwards; }
-
-@keyframes letter-jitter {
-  0%,100%{ transform: translateX(0) translateY(0); }
-  50%{ transform: translateX(1px) translateY(0); }
-}
-
-@keyframes hueShift {
-  0% { filter:hue-rotate(0deg); }
-  50% { filter:hue-rotate(5deg); }
-  100% { filter:hue-rotate(0deg); }
-}
-
-.coming-soon.hue-shift { animation:hueShift 6s infinite ease-in-out; }
-
-@media (max-width:480px){
-  .main-title{ font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.05em;}
-  .coming-soon{ font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.025em;}
-}
+  @media(max-width:480px){
+    .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.05em; }
+    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.025em; }
+  }
 </style>
 </head>
+
 <body>
   <div class="main-title">press for goblins</div>
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
+  <!-- audio -->
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
   </audio>
 
 <script>
-const el = document.getElementById('coming-soon');
-const sound = document.getElementById('neon-sound');
+  const el = document.getElementById('coming-soon');
+  const sound = document.getElementById('neon-sound');
+  const startupDelay = 750;
+  const violentFlickerDuration = 250;
+  const extraFlickerDuration = 120;
 
-const startupDelay = 750;
-const violentFlickerDuration = 250;
-const extraFlickerDuration = 120;
-
-function startSubtleGlowPulse() {
-  function pulse() {
-    const wait = Math.random()*3000+2000;
-    setTimeout(()=>{
-      const boost = Math.random()*0.4+0.7;
-      el.style.textShadow = `0 0 ${1*boost}px var(--neon-color),0 0 ${3*boost}px var(--neon-color),0 0 ${6*boost}px var(--neon-color)`;
+  function startSubtleGlowPulse(){
+    function pulse(){
+      const wait = Math.random()*3000+2000;
       setTimeout(()=>{
-        el.style.textShadow = `0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color)`;
-        pulse();
-      }, Math.random()*70+50);
-    }, wait);
+        const boost = Math.random()*0.4+0.7;
+        el.style.textShadow=`0 0 ${1*boost}px var(--neon-color),0 0 ${3*boost}px var(--neon-color),0 0 ${6*boost}px var(--neon-color)`;
+        setTimeout(()=>{
+          el.style.textShadow=`0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color)`;
+          pulse();
+        },Math.random()*70+50);
+      },wait);
+    }
+    pulse();
   }
-  pulse();
-}
 
-document.addEventListener('DOMContentLoaded',()=>{
-  // fade-in body
-  document.body.style.opacity=1;
+  document.addEventListener('DOMContentLoaded',()=>{
+    setTimeout(()=>{
+      el.classList.add('violent-flicker');
+      el.style.opacity=1;
 
-  setTimeout(()=>{
-    el.classList.add('violent-flicker');
-    el.style.opacity=1;
-
-    // delayed audio for perfect sync
-    if(sound){
-      sound.volume=0;
-      setTimeout(()=>{
+      if(sound){
+        sound.volume=0;
         sound.play().catch(()=>{});
         let vol=0;
         const fadeInterval=setInterval(()=>{
           vol+=0.05;
-          if(vol>=0.3){ vol=1; clearInterval(fadeInterval); }
+          if(vol>=1){vol=1;clearInterval(fadeInterval);}
           sound.volume=vol;
-        },50);
-      },5); // tweak this ms to adjust audio timing
-    }
+        },5);
+      }
 
-    // extra zap flicker
-    setTimeout(()=>{
-      el.style.opacity=0;
-      setTimeout(()=>{ el.style.opacity=1; }, extraFlickerDuration);
-      el.classList.add('hue-shift');
-    }, violentFlickerDuration+50);
+      // extra flicker synced with zap
+      setTimeout(()=>{
+        el.style.opacity=0;
+        setTimeout(()=>{el.style.opacity=1;},extraFlickerDuration);
+      },violentFlickerDuration+50);
 
-    // subtle glow pulses
-    setTimeout(()=>{ startSubtleGlowPulse(); }, violentFlickerDuration+extraFlickerDuration+60);
+      // start subtle glow pulse
+      setTimeout(()=>{startSubtleGlowPulse();},violentFlickerDuration+extraFlickerDuration+60);
 
-  }, startupDelay);
-});
+    },startupDelay);
+  });
 </script>
 </body>
 </html>
