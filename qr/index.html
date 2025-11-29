@@ -7,12 +7,12 @@
 <meta name="description" content="need a goblin?">
 
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FY4SC9FBE0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-GFNZMGD8ME');
+  gtag('config', 'G-FY4SC9FBE0');
 </script>
 
 <style>
@@ -62,6 +62,20 @@
     animation: subtle-glow 6s infinite alternate;
   }
 
+  .email-link {
+    color: #98fb98;
+    text-decoration: none;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7fff7b;
+    font-family: 'PressStart2P', monospace;
+    letter-spacing: 0.02em;
+    margin-top: 2rem;
+    display: inline-block;
+  }
+
+  .email-link:hover {
+    text-shadow: 0 0 2px #7bbf7b, 0 0 4px #7fff7b;
+  }
+
   @keyframes subtle-glow {
     0% { text-shadow: 0 0 1px #7bbf7b, 0 0 2px #7fff7b; filter: drop-shadow(0 0 2px #7bbf7b) drop-shadow(0 0 4px #7fff7b); }
     50% { text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7fff7b; filter: drop-shadow(0 0 3px #7bbf7b) drop-shadow(0 0 6px #7fff7b); }
@@ -69,15 +83,9 @@
   }
 
   @media (max-width: 480px) {
-    h1 {
-      font-size: clamp(1.4rem, 7vw, 2.4rem);
-    }
-    p {
-      font-size: clamp(1rem, 5vw, 1.5rem);
-    }
-    .qr-container img {
-      max-width: 120px;
-    }
+    h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
+    p { font-size: clamp(1rem, 5vw, 1.5rem); }
+    .qr-container img { max-width: 120px; }
   }
 </style>
 </head>
@@ -90,6 +98,9 @@
   <div class="qr-container">
     <img src="qr-code.svg" alt="scan me">
   </div>
+
+  <!-- GA-safe email link at the bottom -->
+  <a href="mailto:noah@pressforgoblins.com" class="email-link">noah@pressforgoblins.com</a>
 
 </body>
 </html>
