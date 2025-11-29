@@ -1,106 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>press for goblins</title>
-<meta name="description" content="Press For Goblins — coming soon, retro pixel-style site">
-<style>
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=17') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=17') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=17') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+.main-title {
+  font-size: clamp(1.2rem, 8vw, 3rem);
+  color: rgba(255,255,255,0.8);
+  white-space: normal;           /* allow wrapping */
+  line-height: 1.4;
+  max-width: 90vw;               /* prevents overflow */
+}
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    font-family: 'PressStart2P', 'Courier New', monospace;
-    text-align: center;
-  }
-
+@media (max-width: 480px) {
   .main-title {
-    font-size: clamp(2rem, 8vw, 3rem);
-    color: rgba(255,255,255,0.8);
-    white-space: nowrap;
+    font-size: clamp(1rem, 7vw, 2.2rem);
+    letter-spacing: 0.05em;
+    max-width: 95vw;
   }
-
-  .coming-soon {
-    margin-top: 1.5rem;
-    font-size: clamp(1.2rem, 5vw, 2rem);
-    color: #6FCF6F;
-    text-shadow: 0 0 1.15px #6FCF6F, 0 0 2.3px #6FCF6F;
-    letter-spacing: 0.2em;
-    opacity: 0; /* invisible until flicker starts */
-  }
-
-  /* Violent flicker with 3 distinct flashes */
-  @keyframes violent-flicker {
-    0%, 20% { text-shadow: 0 0 0.66px #6FCF6F, 0 0 1.38px #6FCF6F; }
-    10% { text-shadow: 0 0 1.32px #6FCF6F, 0 0 2.64px #6FCF6F; }
-    30%, 50% { text-shadow: 0 0 0.66px #6FCF6F, 0 0 1.38px #6FCF6F; }
-    40%, 60% { text-shadow: 0 0 1.32px #6FCF6F, 0 0 2.64px #6FCF6F; }
-    70%, 100% { text-shadow: 0 0 0.66px #6FCF6F, 0 0 1.38px #6FCF6F; }
-  }
-
-  .coming-soon.violent-flicker {
-    animation: violent-flicker 1s steps(20, end) forwards;
-    opacity: 1; /* visible when flicker starts */
-  }
-
-  @keyframes subtle-flicker {
-    0%, 80%, 100% { text-shadow: 0 0 0.66px #6FCF6F, 0 0 1.38px #6FCF6F; }
-    10%, 30%, 50%, 70%, 90% { text-shadow: 0 0 1.32px #6FCF6F, 0 0 2.64px #6FCF6F; }
-  }
-
-  .coming-soon.continuous {
-    animation: subtle-flicker 4s infinite;
-  }
-
-  @media (max-width: 320px) {
-    .main-title {
-      font-size: 1.8rem;
-      white-space: normal;
-    }
-    .coming-soon {
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-    }
-  }
-</style>
-</head>
-<body>
-  <div class="main-title">press for goblins</div>
-  <div class="coming-soon" id="coming-soon">coming soon</div>
-
-  <script>
-    const comingSoon = document.getElementById('coming-soon');
-    const startupDelay = 1500; // 1.5s invisible before flicker
-    const violentDuration = 1000; // 1s violent flicker
-
-    function startSubtleFlicker() {
-      comingSoon.classList.add('continuous');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        comingSoon.style.opacity = '1'; // ensure visible
-        comingSoon.classList.add('violent-flicker');
-        setTimeout(() => {
-          comingSoon.classList.remove('violent-flicker');
-          startSubtleFlicker();
-        }, violentDuration);
-      }, startupDelay);
-    });
-  </script>
-</body>
-</html>
+}
