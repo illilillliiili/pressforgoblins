@@ -114,10 +114,24 @@
 
   .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; } /* apply hue shift animation */
 
-  @media(max-width:480px){ /* mobile adjustments */
-    .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.5em; }
-    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.03em; }
+  @media (max-width: 480px) {
+  .main-title {
+    font-size: clamp(1.4rem, 7vw, 2.4rem);
+    max-width: 95vw;
+    letter-spacing: 0.005em;
+    word-spacing: -0.5em;
   }
+  .coming-soon {
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    letter-spacing: 0.02em;
+    word-spacing: -0.03em;
+  }
+
+  /* add this for mobile contact spacing */
+  .contact-link-container {
+    bottom: 4rem; /* raise it above safari tab bar */
+  }
+}
 
 </style>
 </head>
