@@ -66,6 +66,22 @@
     animation: letter-jitter 1.5s infinite alternate ease-in-out;
   }
 
+/* CRT / scanline overlay — sits above vertical glow, below text */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0; /* cover the entire viewport */
+  pointer-events: none; /* don’t block clicks */
+  z-index: 1; /* above glow, behind text */
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.15; /* subtle visibility */
+}
+  
   @keyframes violent-flicker {
     0%, 35%, 55% { opacity: 0; text-shadow: none; }
     25%, 45% { 
