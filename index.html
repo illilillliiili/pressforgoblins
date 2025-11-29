@@ -51,8 +51,21 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: linear-gradient(to top, rgba(255,255,255,0.08), rgba(255,255,255,0) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,0) 0%,       /* fully transparent bottom */
+    rgba(255,255,255,0.05) 20%,   /* subtle glow begins */
+    rgba(255,255,255,0.1) 50%,    /* brightest mid-way */
+    rgba(255,255,255,0.05) 80%,   /* fading out */
+    rgba(255,255,255,0) 100%      /* fully transparent top */
+  );
   animation: verticalGlow 25s linear infinite;
+}
+
+@keyframes verticalGlow {
+  0% { transform: translateY(110%); opacity:0.35; }
+  50% { opacity:0.6; }
+  100% { transform: translateY(-110%); opacity:0.35; }
 }
 
 @keyframes verticalGlow {
