@@ -9,9 +9,9 @@
   /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=9') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=9') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=9') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=10') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=10') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=10') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -42,9 +42,9 @@
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
     color: #98FB98;
-    text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; /* stronger neon glow */
+    text-shadow: 0 0 0.8px #98FB98, 0 0 2px #98FB98; /* base neon glow */
     letter-spacing: 0.2em;
-    opacity: 0; /* start hidden for initial flicker */
+    opacity: 1; /* always visible */
   }
 
   /* Keyframes for initial power-on flicker */
@@ -57,22 +57,22 @@
     50%, 100% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; }
   }
 
-  /* Keyframes for continuous neon flicker */
+  /* Keyframes for continuous neon flicker (glow only) */
   @keyframes neon-continuous {
     0%, 20%, 40%, 60%, 80%, 100% {
-      text-shadow: 0 0 0.8px #98FB98, 0 0 3px #98FB98;
+      text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98;
     }
     10%, 30%, 50%, 70%, 90% {
-      text-shadow: 0 0 0.5px #98FB98, 0 0 2px #98FB98;
+      text-shadow: 0 0 0.6px #98FB98, 0 0 2.5px #98FB98;
     }
   }
 
-  /* One-time power-on flicker and then continuous */
+  /* Apply initial power-on animation */
   .coming-soon.power-on {
-    animation: power-on 1.5s ease-out forwards 2s; /* delay 2s, runs once */
+    animation: power-on 1.5s ease-out forwards 2s; /* 2s delay, runs once */
   }
 
-  /* Continuous flicker after initial animation */
+  /* Apply continuous neon flicker after initial animation */
   .coming-soon.continuous {
     animation: neon-continuous 2s infinite;
   }
@@ -98,15 +98,14 @@
   </div>
 
   <script>
-    // Trigger initial power-on flicker, then continuous neon
+    // Trigger initial power-on flicker, then continuous neon glow
     const comingSoon = document.getElementById('coming-soon');
     window.addEventListener('DOMContentLoaded', () => {
       comingSoon.classList.add('power-on');
-      // after initial flicker ends, switch to continuous
       setTimeout(() => {
         comingSoon.classList.remove('power-on');
         comingSoon.classList.add('continuous');
-      }, 3500); // 2s delay + 1.5s initial animation
+      }, 3500); // 2s delay + 1.5s animation
     });
   </script>
 </body>
