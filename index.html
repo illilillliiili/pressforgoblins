@@ -8,9 +8,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=15') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=15') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=15') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=16') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=16') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=16') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -38,29 +38,29 @@
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
     color: #6FCF6F;
-    text-shadow: 0 0 1px #6FCF6F, 0 0 2px #6FCF6F; /* scaled-back glow */
+    /* scaled-up glow by 15% */
+    text-shadow: 0 0 1.15px #6FCF6F, 0 0 2.3px #6FCF6F;
     letter-spacing: 0.2em;
-    opacity: 1;
+    opacity: 0; /* invisible until flicker */
   }
 
-  /* Violent flicker for initial power-on (text-shadow only) */
   @keyframes violent-flicker {
     0%, 20%, 40%, 60%, 80%, 100% {
-      text-shadow: 0 0 0.5px #6FCF6F, 0 0 1px #6FCF6F;
+      text-shadow: 0 0 0.575px #6FCF6F, 0 0 1.15px #6FCF6F;
     }
     10%, 30%, 50%, 70%, 90% {
-      text-shadow: 0 0 1px #6FCF6F, 0 0 2px #6FCF6F;
+      text-shadow: 0 0 1.15px #6FCF6F, 0 0 2.3px #6FCF6F;
     }
   }
 
   .coming-soon.violent-flicker {
     animation: violent-flicker 1s steps(20, end) forwards;
+    opacity: 1; /* visible when flicker starts */
   }
 
-  /* Subtle random flicker for post-initial glow */
   @keyframes subtle-flicker {
-    0%, 80%, 100% { text-shadow: 0 0 0.5px #6FCF6F, 0 0 1px #6FCF6F; }
-    10%, 30%, 50%, 70%, 90% { text-shadow: 0 0 1px #6FCF6F, 0 0 2px #6FCF6F; }
+    0%, 80%, 100% { text-shadow: 0 0 0.575px #6FCF6F, 0 0 1.15px #6FCF6F; }
+    10%, 30%, 50%, 70%, 90% { text-shadow: 0 0 1.15px #6FCF6F, 0 0 2.3px #6FCF6F; }
   }
 
   .coming-soon.continuous {
@@ -85,8 +85,8 @@
 
   <script>
     const comingSoon = document.getElementById('coming-soon');
-    const startupDelay = 2000; // wait 2s before power-on flicker
-    const violentDuration = 1000; // violent flicker 1s
+    const startupDelay = 1500; // 1.5s invisible before flicker
+    const violentDuration = 1000; // 1s violent flicker
 
     function startSubtleFlicker() {
       comingSoon.classList.add('continuous');
@@ -97,7 +97,7 @@
         comingSoon.classList.add('violent-flicker');
         setTimeout(() => {
           comingSoon.classList.remove('violent-flicker');
-          startSubtleFlicker(); // start continuous subtle flicker
+          startSubtleFlicker();
         }, violentDuration);
       }, startupDelay);
     });
