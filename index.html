@@ -29,7 +29,7 @@
     overflow-x: hidden;
     position: relative;
 
-    /* seamless CRT-style repeating gradient */
+    /* repeating CRT-style background */
     background: repeating-linear-gradient(
       0deg,
       #000 0px,
@@ -40,19 +40,33 @@
     animation: bgShift 12s linear infinite;
   }
 
-  @keyframes bgShift {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 0% 100%; }
-  }
-
-  /* subtle radial CRT bulge & vignette overlay */
+  /* soft radial vignette for CRT bulge */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 80%);
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.2) 100%);
     z-index: 1;
+  }
+
+  /* subtle horizontal scanlines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0.05) 1px
+    );
+    z-index: 1;
+  }
+
+  @keyframes bgShift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% 100%; }
   }
 
   .main-title {
@@ -185,7 +199,7 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      // fade-in audio slightly delayed (~80ms) to sync with flicker
+      // audio slightly delayed for sync
       if (sound) {
         sound.volume = 0;
         setTimeout(() => {
@@ -209,7 +223,7 @@
         el.classList.add('hue-shift');
       }, violentFlickerDuration + 50);
 
-      // start subtle glow pulses
+      // subtle glow pulses
       setTimeout(() => {
         startSubtleGlowPulse();
       }, violentFlickerDuration + extraFlickerDuration + 60);
