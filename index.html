@@ -9,9 +9,9 @@
   /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=8') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=8') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=8') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=9') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=9') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=9') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -37,12 +37,12 @@
     white-space: nowrap;
   }
 
-  /* Coming soon text (pale green) */
+  /* Coming soon text (pale green neon) */
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 5vw, 2rem);
-    color: #98FB98; /* pale green */
-    text-shadow: 0 0 0.8px #98FB98, 0 0 2px #98FB98;
+    color: #98FB98;
+    text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; /* stronger neon glow */
     letter-spacing: 0.2em;
     opacity: 0; /* start hidden for initial flicker */
   }
@@ -50,17 +50,31 @@
   /* Keyframes for initial power-on flicker */
   @keyframes power-on {
     0% { opacity: 0; text-shadow: none; }
-    10% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 2px #98FB98; }
-    20% { opacity: 0.5; text-shadow: 0 0 0.5px #98FB98, 0 0 1px #98FB98; }
-    30% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 2px #98FB98; }
-    40% { opacity: 0.7; text-shadow: 0 0 0.6px #98FB98, 0 0 1.5px #98FB98; }
-    50%, 100% { opacity: 1; text-shadow: 0 0 0.8px #98FB98, 0 0 2px #98FB98; }
+    10% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; }
+    20% { opacity: 0.5; text-shadow: 0 0 0.5px #98FB98, 0 0 1.5px #98FB98; }
+    30% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; }
+    40% { opacity: 0.7; text-shadow: 0 0 0.6px #98FB98, 0 0 2px #98FB98; }
+    50%, 100% { opacity: 1; text-shadow: 0 0 1px #98FB98, 0 0 3px #98FB98; }
   }
 
-  /* One-time flicker on page load */
+  /* Keyframes for continuous neon flicker */
+  @keyframes neon-continuous {
+    0%, 20%, 40%, 60%, 80%, 100% {
+      text-shadow: 0 0 0.8px #98FB98, 0 0 3px #98FB98;
+    }
+    10%, 30%, 50%, 70%, 90% {
+      text-shadow: 0 0 0.5px #98FB98, 0 0 2px #98FB98;
+    }
+  }
+
+  /* One-time power-on flicker and then continuous */
   .coming-soon.power-on {
-    animation: power-on 1.5s ease-out forwards; /* runs once */
-    animation-delay: 0.5s; /* slight delay before starting */
+    animation: power-on 1.5s ease-out forwards 2s; /* delay 2s, runs once */
+  }
+
+  /* Continuous flicker after initial animation */
+  .coming-soon.continuous {
+    animation: neon-continuous 2s infinite;
   }
 
   /* Responsive tweak for very small screens */
@@ -84,10 +98,15 @@
   </div>
 
   <script>
-    // Add the "power-on" class to trigger the flicker once when the page loads
+    // Trigger initial power-on flicker, then continuous neon
     const comingSoon = document.getElementById('coming-soon');
     window.addEventListener('DOMContentLoaded', () => {
       comingSoon.classList.add('power-on');
+      // after initial flicker ends, switch to continuous
+      setTimeout(() => {
+        comingSoon.classList.remove('power-on');
+        comingSoon.classList.add('continuous');
+      }, 3500); // 2s delay + 1.5s initial animation
     });
   </script>
 </body>
