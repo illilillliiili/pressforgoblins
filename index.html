@@ -6,152 +6,118 @@
 <title>press for goblins</title>
 <meta name="description" content="Press For Goblins — coming soon, retro pixel-style site">
 <style>
-  /* Custom Pixel Font */
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=13') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=13') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=13') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+  /* Custom Pixel Font */
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=13') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=13') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=13') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-  /* Body styling */
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    font-family: 'PressStart2P', 'Courier New', monospace;
-    text-align: center;
-  }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'PressStart2P', 'Courier New', monospace;
+    text-align: center;
+  }
 
-  /* Main title styling (slightly white, 80% opacity) */
-  .main-title {
-    font-size: clamp(2rem, 8vw, 3rem);
-    color: rgba(255,255,255,0.8);
-    white-space: nowrap;
-  }
+  .main-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
+  }
 
-  /* Coming soon text (starts invisible) */
-  .coming-soon {
-    margin-top: 1.5rem;
-    font-size: clamp(1.2rem, 5vw, 2rem);
-    /* The core neon green color */
-    --neon-color: #6FCF6F;
-    color: var(--neon-color);
-    /* Initial stable glow */
-    text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
-    letter-spacing: 0.2em;
-    opacity: 0; /* hidden until power-on */
-    transition: opacity 0.05s ease; /* transition for subtle flicker on/off */
-  }
+  .coming-soon {
+    margin-top: 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    --neon-color: #6FCF6F;
+    color: var(--neon-color);
+    text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    transition: opacity 0.05s ease;
+  }
 
-  /*
-    1. VIOLENT STARTUP FLICKER KEYFRAMES
-    High frequency, erratic changes in opacity and shadow for the short-circuit effect.
-  */
-  @keyframes violent-flicker {
-    0%, 29%, 31%, 34%, 36%, 42%, 48%, 51%, 53%, 62%, 64%, 66%, 70%, 75%, 78%, 80%, 85%, 87%, 90% {
-      opacity: 0;
-      text-shadow: none;
-    }
-    20%, 30%, 32%, 35%, 37%, 40%, 45%, 50%, 52%, 55%, 60%, 63%, 65%, 67%, 72%, 76%, 79%, 81%, 86%, 88%, 91%, 95% {
-      opacity: 1;
-      text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 5px var(--neon-color);
-    }
-    100% {
-      opacity: 1;
-      /* Stable glow for the end state */
-      text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
-    }
-  }
+  @keyframes violent-flicker {
+    0%, 29%, 31%, 34%, 36%, 42%, 48%, 51%, 53%, 62%, 64%, 66%, 70%, 75%, 78%, 80%, 85%, 87%, 90% {
+      opacity: 0;
+      text-shadow: none;
+    }
+    20%, 30%, 32%, 35%, 37%, 40%, 45%, 50%, 52%, 55%, 60%, 63%, 65%, 67%, 72%, 76%, 79%, 81%, 86%, 88%, 91%, 95% {
+      opacity: 1;
+      text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 5px var(--neon-color);
+    }
+    100% {
+      opacity: 1;
+      text-shadow: 0 0 2px var(--neon-color), 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
+    }
+  }
 
-  /* Applying the violent flicker */
-  .coming-soon.violent-flicker {
-    animation: violent-flicker 2s steps(100, end) forwards; /* Runs once, very quickly changing states */
-  }
+  .coming-soon.violent-flicker {
+    animation: violent-flicker 2s steps(100, end) forwards;
+  }
 
-  /*
-    2. SUBTLE RANDOM FLICKER CLASSES (Managed by JavaScript)
-  */
-  /* The momentary dim state for the subtle flicker */
-  .coming-soon.dim-flicker {
-    opacity: 0.9;
-    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color);
-  }
+  .coming-soon.dim-flicker {
+    opacity: 0.9;
+    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color);
+  }
 
-  /* Responsive tweak for very small screens */
-  @media (max-width: 320px) {
-    .main-title {
-      font-size: 1.8rem;
-      white-space: normal; /* allow wrapping */
-    }
-    .coming-soon {
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-    }
-  }
+  @media (max-width: 320px) {
+    .main-title {
+      font-size: 1.8rem;
+      white-space: normal;
+    }
+    .coming-soon {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+    }
+  }
 </style>
 </head>
 <body>
-  <div class="main-title">
-    press for goblins
-  </div>
-  <div class="coming-soon" id="coming-soon">
-    coming soon
-  </div>
+  <div class="main-title">
+    press for goblins
+  </div>
+  <div class="coming-soon" id="coming-soon">
+    coming soon
+  </div>
 
-  <script>
-    const comingSoon = document.getElementById('coming-soon');
-    const startupDelay = 2000; // 2 seconds before the sign turns on
-    const violentFlickerDuration = 2000; // 2 seconds of violent flicker
+  <script>
+    const comingSoon = document.getElementById('coming-soon');
+    const startupDelay = 2000; // 2s before flicker
+    const violentFlickerDuration = 2000; // 2s violent flicker
 
-    /*
-      Function to handle the subtle, random flickering
-    */
-    function startSubtleFlicker() {
-      // The main loop for the subtle flicker
-      function subtleFlickerLoop() {
-        // Randomise the wait time between 3000ms (3s) and 6000ms (6s)
-        const randomInterval = math.random() * 3000 + 3000;
+    function startSubtleFlicker() {
+      function subtleFlickerLoop() {
+        const randomInterval = Math.random() * 3000 + 3000; // 3-6s
+        setTimeout(() => {
+          comingSoon.classList.add('dim-flicker');
+          setTimeout(() => {
+            comingSoon.classList.remove('dim-flicker');
+            subtleFlickerLoop();
+          }, Math.random() * 100 + 50);
+        }, randomInterval);
+      }
+      subtleFlickerLoop();
+    }
 
-        // Apply the dim state for a brief, random duration (50ms to 150ms)
-        settimeout(() => {
-          comingsoon.classlist.add('dim-flicker');
-
-          settimeout(() => {
-            comingsoon.classlist.remove('dim-flicker');
-            // call the function again to restart the loop with a new random interval
-            subtleflickerloop();
-          }, math.random() * 100 + 50);
-
-        }, randominterval);
-      }
-
-      subtleflickerloop();
-    }
-
-    // 1. Initial wait
-    window.addēventlistener('domcontentloaded', () => {
-      settimeout(() => {
-        // 2. Violent power-on flicker starts
-        comingsoon.classlist.add('violent-flicker');
-
-        // 3. Wait for violent flicker to end, then start stable glow
-        settimeout(() => {
-          comingsoon.classlist.remove('violent-flicker');
-          // The 100% keyframe state now dictates the permanent stable glow
-          // Start the subtle random flicker managed by JS
-          startsubtleflicker();
-        }, violentflickerduration);
-
-      }, startupdelay);
-    });
-  </script>
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        comingSoon.classList.add('violent-flicker');
+        setTimeout(() => {
+          comingSoon.classList.remove('violent-flicker');
+          startSubtleFlicker();
+        }, violentFlickerDuration);
+      }, startupDelay);
+    });
+  </script>
 </body>
 </html>
