@@ -1,15 +1,132 @@
-.main-title {
-  font-size: clamp(1.2rem, 8vw, 3rem);
-  color: rgba(255,255,255,0.8);
-  white-space: normal;           /* allow wrapping */
-  line-height: 1.4;
-  max-width: 90vw;               /* prevents overflow */
-}
-
-@media (max-width: 480px) {
-  .main-title {
-    font-size: clamp(1rem, 7vw, 2.2rem);
-    letter-spacing: 0.05em;
-    max-width: 95vw;
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>press for goblins</title>
+<meta name="description" content="press for goblins — coming soon, retro pixel-style site">
+<style>
+  /* custom pixel font */
+  @font-face {
+    font-family: 'pressstart2p';
+    src: url('fonts/PressStart2P-Regular.woff2?v=18') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=18') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=18') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
-}
+
+  /* base layout */
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'pressstart2p', 'courier new', monospace;
+    text-align: center;
+    color: #fff;
+  }
+
+  /* main title — now allows wrapping and avoids clipping */
+  .main-title {
+    font-size: clamp(1.2rem, 8vw, 3rem); /* scales but has a sensible minimum */
+    color: rgba(255,255,255,0.8);
+    white-space: normal;               /* allow wrapping between words */
+    line-height: 1.2;
+    max-width: 90vw;                   /* prevents overflow at narrow widths */
+    overflow-wrap: break-word;
+    margin: 0;
+    padding: 0 1vw;
+  }
+
+  /* coming soon: hidden at first, then power-on flicker then continuous flicker */
+  .coming-soon {
+    margin-top: 1.5rem;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    color: #6fcf6f; /* brighter green you wanted */
+    /* glow scaled up ~15% from earlier baseline, but still subtle */
+    text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f;
+    letter-spacing: 0.2em;
+    opacity: 0; /* invisible until flicker starts */
+  }
+
+  /* violent power-on flicker: only text-shadow changes (three quick flashes) */
+  @keyframes violent-flicker {
+    0%, 18%  { text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f; }
+    9%       { text-shadow: 0 0 1.32px #6fcf6f, 0 0 2.64px #6fcf6f; } /* flash 1 */
+    30%      { text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f; }
+    39%      { text-shadow: 0 0 1.32px #6fcf6f, 0 0 2.64px #6fcf6f; } /* flash 2 */
+    55%      { text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f; }
+    64%      { text-shadow: 0 0 1.32px #6fcf6f, 0 0 2.64px #6fcf6f; } /* flash 3 */
+    100%     { text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f; } /* settled glow */
+  }
+
+  .coming-soon.violent-flicker {
+    animation: violent-flicker 1s steps(20, end) forwards;
+    opacity: 1; /* make visible when flicker starts */
+  }
+
+  /* subtle continuous flicker after startup: glow pulses every few seconds */
+  @keyframes subtle-flicker {
+    0%, 70%, 100% { text-shadow: 0 0 0.66px #6fcf6f, 0 0 1.38px #6fcf6f; }
+    20%, 45%      { text-shadow: 0 0 1.32px #6fcf6f, 0 0 2.64px #6fcf6f; } /* occasional brighter pulse */
+  }
+
+  .coming-soon.continuous {
+    animation: subtle-flicker 4s infinite;
+  }
+
+  /* tiny-screen adjustments */
+  @media (max-width: 480px) {
+    .main-title {
+      font-size: clamp(1rem, 7vw, 2.2rem);
+      letter-spacing: 0.02em;
+      max-width: 95vw;
+    }
+    .coming-soon {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1 class="main-title">press for goblins</h1>
+
+  <div class="coming-soon" id="coming-soon">coming soon</div>
+
+  <script>
+    (function () {
+      const comingSoon = document.getElementById('coming-soon');
+      const startupDelay = 1500; // invisible for 1.5s
+      const violentDuration = 1000; // 1s violent flicker
+
+      function startSubtleFlicker() {
+        comingSoon.classList.add('continuous');
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        // wait invisible period, then show with 3 quick flickers, then continuous flicker
+        setTimeout(() => {
+          // ensure visible before animation begins
+          comingSoon.style.opacity = '1';
+          comingSoon.classList.add('violent-flicker');
+
+          setTimeout(() => {
+            comingSoon.classList.remove('violent-flicker');
+            startSubtleFlicker();
+          }, violentDuration);
+        }, startupDelay);
+      });
+    })();
+  </script>
+</body>
+</html>
