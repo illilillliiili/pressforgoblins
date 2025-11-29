@@ -18,18 +18,10 @@
   }
 
   body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* vertical centering */
-    align-items: center;     /* horizontal centering */
-    background: #000;
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: #fff;
+  margin: 0;
+  height: 100vh;      /* full viewport height */
+  overflow: hidden;   /* disables scrolling */
+}
   }
 
   /* CRT / vignette overlay */
@@ -152,10 +144,11 @@ body::after {
   text-shadow: 0 0 1px var(--neon-color),
                0 0 3px var(--neon-color),
                0 0 6px var(--neon-color);
-  font-size: clamp(1.2rem, 5vw, 1.8rem);
-  letter-spacing: 0.02em;
-  word-spacing: -0.025em;
-  opacity: 0;
+ opacity: 0;
+  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+  letter-spacing: 0.03em;
+  word-spacing: -0.5em;
+  z-index: 2;
 }
     
 }
