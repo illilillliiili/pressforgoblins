@@ -207,8 +207,8 @@
           let vol = 0;
           const fadeInterval = setInterval(() => {
             vol += 0.05;
-            if(vol >= 0.5){
-              vol = 0.5;
+            if(vol >= 0.3){
+              vol = 0.3;
               clearInterval(fadeInterval);
             }
             sound.volume = vol;
