@@ -1,12 +1,11 @@
-<!DOCTYPE html> 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>press for goblins</title>
 <style>
   @font-face {
-    font-family: 'PixelFont';
-    src: url('pixelfont.woff2') format('woff2');
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2') format('woff2'),
+         url('fonts/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* ensures text shows immediately while font loads */
   }
 
   body {
@@ -18,7 +17,7 @@
     align-items: center;
     background: #000;
     color: #fff;
-    font-family: 'PixelFont', monospace;
+    font-family: 'PressStart2P', monospace;
     text-align: center;
   }
 
@@ -35,11 +34,11 @@
   .macron::before {
     content: '̄';
     position: absolute;
-    top: 0em; /* vertical position above o */
+    top: 0em;
     left: 50%;
     transform: translateX(-50%);
     color: rgba(255,255,255,0.25);
-    font-size: 2rem; /* macron size */
+    font-size: 2rem;
   }
 
   .coming-soon {
@@ -49,11 +48,3 @@
     letter-spacing: 0.2em;
   }
 </style>
-</head>
-<body>
-  <div class="main-title">
-    press for g<span class="macron">o</span>blins
-  </div>
-  <div class="coming-soon">coming soon</div>
-</body>
-</html>
