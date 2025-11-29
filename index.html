@@ -55,26 +55,26 @@
     background: rgba(255,255,255,0.5); /* line color */
   }
 
-  /* Coming soon text with pale orange flicker */
-  @keyframes neon-flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-      opacity: 1;
-      text-shadow: 0 0 0.4px #FFA07A, 0 0 1px #FFA07A;
-    }
-    20%, 22%, 24%, 55% {
-      opacity: 0.7;
-      text-shadow: 0 0 0.2px #FFA07A, 0 0 0.5px #FFA07A;
-    }
+  /* Coming soon text with FFAA6E flicker and subtle glow */
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 0.6px #FFAA6E, 0 0 1.5px #FFAA6E;
   }
+  20%, 22%, 24%, 55% {
+    opacity: 0.7;
+    text-shadow: 0 0 0.3px #FFAA6E, 0 0 0.8px #FFAA6E;
+  }
+}
 
-  .coming-soon {
-    margin-top: 1.5rem;
-    font-size: clamp(1.2rem, 5vw, 2rem);
-    color: #FFA07A;
-    text-shadow: 0 0 0.4px #FFA07A, 0 0 1px #FFA07A;
-    letter-spacing: 0.2em;
-    animation: neon-flicker 2s infinite;
-  }
+.coming-soon {
+  margin-top: 1.5rem;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  color: #FFAA6E;
+  text-shadow: 0 0 0.6px #FFAA6E, 0 0 1.5px #FFAA6E;
+  letter-spacing: 0.2em;
+  animation: neon-flicker 2s infinite;
+}
 
   /* Responsive tweak for very small screens */
   @media (max-width: 320px) {
