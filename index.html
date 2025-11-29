@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>press for goblins</title>
+<meta name="description" content="Press For Goblins — coming soon, retro pixel-style site">
 <style>
+  /* Custom Pixel Font */
   @font-face {
     font-family: 'PressStart2P';
     src: url('fonts/PressStart2P-Regular.woff2') format('woff2'),
@@ -14,6 +17,7 @@
     font-display: swap;
   }
 
+  /* Body styling */
   body {
     margin: 0;
     height: 100vh;
@@ -21,17 +25,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: #000; /* solid black background, optional: add subtle gradient if desired */
     color: #fff;
-    font-family: 'PressStart2P', monospace;
+    font-family: 'PressStart2P', 'Courier New', monospace;
     text-align: center;
   }
 
+  /* Main title styling */
   .main-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 3rem); /* scales with viewport */
     position: relative;
+    white-space: nowrap; /* keeps words together */
   }
 
+  /* Macron under the o */
   .macron {
     position: relative;
     display: inline-block;
@@ -40,19 +47,38 @@
   .macron::after {
     content: '';
     position: absolute;
-    bottom: -0.1em;          /* vertical offset below the o */
+    bottom: -0.1em;            /* vertical offset below the o */
     left: 50%;
-    transform: translateX(-62%);  /* manually nudge a bit further left */
-    width: 0.54ch;           /* about 10% shorter than the o */
-    height: 0.1em;           /* about 1/10th the height of the o */
+    transform: translateX(-62%); /* manual fine-tune for centering */
+    width: 0.54ch;             /* slightly shorter than the o */
+    height: 0.1em;             /* ~1/10th of the o height */
     background: rgba(255,255,255,0.5); /* line color */
   }
 
+  /* Coming soon text */
   .coming-soon {
     margin-top: 1.5rem;
-    font-size: 2rem;
-    color: rgba(255,255,255,0.5);
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    color: #39ff14; /* neon green */
+    text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14; /* subtle glow effect */
     letter-spacing: 0.2em;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  /* Hover effect for coming soon */
+  .coming-soon:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive tweak for very small screens */
+  @media (max-width: 320px) {
+    .main-title {
+      font-size: 1.8rem;
+    }
+    .coming-soon {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+    }
   }
 </style>
 </head>
