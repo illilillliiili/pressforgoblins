@@ -9,9 +9,9 @@
 <style>
   @font-face {
     font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=15') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=15') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=15') format('truetype');
+    src: url('fonts/PressStart2P-Regular.woff2?v=17') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=17') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=17') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -36,18 +36,19 @@
     white-space: normal;
     line-height: 1.4;
     max-width: 90vw;
+    letter-spacing: 0.05em; /* half of previous 0.1em equivalent */
   }
 
   .coming-soon {
     margin-top: 1.5rem;
     font-size: clamp(1.2rem, 6vw, 2rem);
-    --neon-color: #7bbf7b; /* lighter green */
+    --neon-color: #7bbf7b;
     color: var(--neon-color);
     text-shadow:
-      0 0 1.7px var(--neon-color),
-      0 0 5px var(--neon-color),
-      0 0 10px var(--neon-color);
-    letter-spacing: 0.2em;
+      0 0 1px var(--neon-color),
+      0 0 3px var(--neon-color),
+      0 0 6px var(--neon-color);
+    letter-spacing: 0.1em; /* half of previous 0.2em */
     opacity: 0;
   }
 
@@ -59,16 +60,16 @@
     25%, 45% {
       opacity: 1;
       text-shadow:
-        0 0 1.7px var(--neon-color),
-        0 0 4px var(--neon-color),
-        0 0 7px var(--neon-color);
+        0 0 1px var(--neon-color),
+        0 0 3px var(--neon-color),
+        0 0 6px var(--neon-color);
     }
     100% {
       opacity: 1;
       text-shadow:
-        0 0 1.7px var(--neon-color),
-        0 0 5px var(--neon-color),
-        0 0 10px var(--neon-color);
+        0 0 1px var(--neon-color),
+        0 0 3px var(--neon-color),
+        0 0 6px var(--neon-color);
     }
   }
 
@@ -83,7 +84,7 @@
     }
     .coming-soon {
       font-size: clamp(1rem, 5vw, 1.6rem);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.075em;
     }
   }
 </style>
@@ -99,8 +100,8 @@
   <script>
     const el = document.getElementById('coming-soon');
 
-    const startupDelay = 1500;
-    const violentFlickerDuration = 500; // now 0.5s
+    const startupDelay = 750;
+    const violentFlickerDuration = 500;
 
     function startSubtleGlowPulse() {
       function pulse() {
@@ -110,16 +111,16 @@
           const boost = Math.random() * 0.4 + 1;
 
           el.style.textShadow = `
-            0 0 ${1.7 * boost}px var(--neon-color),
-            0 0 ${5 * boost}px var(--neon-color),
-            0 0 ${10 * boost}px var(--neon-color)
+            0 0 ${1 * boost}px var(--neon-color),
+            0 0 ${3 * boost}px var(--neon-color),
+            0 0 ${6 * boost}px var(--neon-color)
           `;
 
           setTimeout(() => {
             el.style.textShadow = `
-              0 0 1.7px var(--neon-color),
-              0 0 5px var(--neon-color),
-              0 0 10px var(--neon-color)
+              0 0 1px var(--neon-color),
+              0 0 3px var(--neon-color),
+              0 0 6px var(--neon-color)
             `;
             pulse();
           }, Math.random() * 70 + 50);
