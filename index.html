@@ -24,17 +24,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
-    background-size: 100% 300%;
-    animation: bgShift 12s linear infinite;
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow-x: hidden;
+
+    /* optimized repeating CRT-style gradient */
+    background: repeating-linear-gradient(
+      0deg,
+      #000 0px,
+      #111 2px,
+      #000 4px
+    );
+    background-size: 100% 400%;
+    animation: bgShift 12s linear infinite;
   }
 
   @keyframes bgShift {
     0% { background-position: 0% 0%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 0% 100%; }
   }
 
   .main-title {
@@ -163,7 +170,7 @@
       el.classList.add('violent-flicker');
       el.style.opacity = 1;
 
-      // fade-in sound
+      // fade-in audio
       if (sound) {
         sound.volume = 0;
         sound.play().catch(()=>{});
@@ -178,14 +185,14 @@
         }, 50);
       }
 
-      // extra flicker synced with zap
+      // extra zap flicker
       setTimeout(() => {
         el.style.opacity = 0;
         setTimeout(() => { el.style.opacity = 1; }, extraFlickerDuration);
-        el.classList.add('hue-shift'); // start subtle hue shift after flicker
+        el.classList.add('hue-shift');
       }, violentFlickerDuration + 50);
 
-      // start subtle glow pulses after both flickers
+      // start subtle glow pulses
       setTimeout(() => {
         startSubtleGlowPulse();
       }, violentFlickerDuration + extraFlickerDuration + 60);
