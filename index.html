@@ -38,13 +38,14 @@
   }
 
   .macron::after {
-    content: '̱'; /* macron below */
+    content: '';
     position: absolute;
-    bottom: -0.25em; /* adjust vertical position */
+    bottom: -0.1em; /* vertical offset below the o */
     left: 50%;
     transform: translateX(-50%);
-    color: rgba(255,255,255,0.5); /* adjust opacity */
-    font-size: 1.2rem; /* adjust size */
+    width: 0.6ch;  /* roughly the width of the o, a tad shorter */
+    height: 0.1em; /* about 1/10th the height of the o */
+    background: rgba(255,255,255,0.5); /* line color */
   }
 
   .coming-soon {
