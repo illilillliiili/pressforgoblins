@@ -96,7 +96,7 @@ body::before {
 }
 
 .coming-soon {
-  margin-top: 1.3rem;
+  margin-top: 1.2rem;
   font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   --neon-color: #7bbf7b;
   color: var(--neon-color);
@@ -187,10 +187,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         let vol=0;
         const fadeInterval=setInterval(()=>{
           vol+=0.05;
-          if(vol>=0.5){ vol=01; clearInterval(fadeInterval); }
+          if(vol>=0.3){ vol=1; clearInterval(fadeInterval); }
           sound.volume=vol;
         },50);
-      },15); // tweak this ms to adjust audio timing
+      },10); // tweak this ms to adjust audio timing
     }
 
     // extra zap flicker
