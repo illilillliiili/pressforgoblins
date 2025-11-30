@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
@@ -19,20 +19,20 @@
 
   body {
     margin: 0;
-    height: 100vh; /* full viewport */
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* vertical centering */
-    align-items: center; /* horizontal centering */
-    background: #000; /* black background */
+    justify-content: center;
+    align-items: center;
+    background: #000;
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    overflow: hidden; /* prevent scrolling */
+    overflow: hidden;
     position: relative;
-    color: rgba(255,255,255,0.8); /* header text color */
+    color: rgba(255,255,255,0.8);
   }
 
-  /* soft vertical glow */
+  /* vertical glow */
   body::before {
     content: '';
     position: fixed;
@@ -49,20 +49,25 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* CRT / scanline overlay */
+  /* scanlines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
     opacity: 0.15;
   }
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem; /* space below header */
+    margin-bottom: 2rem;
     color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
@@ -72,41 +77,27 @@
     display: inline-block;
   }
 
-  /* big email icon below form */
-  .email-icon {
-    width: 60px; /* adjust as desired */
-    height: 60px;
-    margin: 2rem 0; /* spacing between form and icon */
-    background: url('images/email-icon.svg') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    z-index: 2;
-    filter: brightness(0) invert(1); /* force icon white */
-  }
-
-  .email-icon:hover {
-    filter: brightness(0) invert(1.2); /* subtle hover highlight */
-  }
-
+  /* form */
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem; /* uniform spacing between fields */
+    gap: 1.5rem;
     width: 100%;
     max-width: 300px;
   }
 
-  input, textarea {
+  textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 1.3rem;
     padding: 0.5rem;
     width: 100%;
     background: #000;
-    border: none; /* no outline */
+    border: none;
     color: #fff;
     outline: none;
-    text-align: center; /* placeholder & input text centered */
+    text-align: center;
+    resize: none;
   }
 
   ::placeholder {
@@ -121,28 +112,44 @@
     background: #000;
     border: 1px solid #7bbf7b;
     color: #7bbf7b;
-    outline: none;
     cursor: pointer;
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
     transition: text-shadow 0.2s ease, background 0.2s ease;
   }
 
   button:hover {
-    text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-    background:#111;
+    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    background: #111;
   }
 
-  /* bottom home link — mirrors home page contact style */
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+  }
+
+  /* email icon between form and home */
+  .email-icon {
+    width: 80px;
+    height: 80px;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+    background: url('images/mail.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .email-icon:hover {
+    filter: brightness(1.2);
+  }
+
+  /* home link — exact home page style */
   .footer-home {
-    font-size: clamp(1rem, 3vw, 1.3rem);
-    text-align: center;
-    text-decoration: none;
-    color: #fff; 
-    text-shadow: 0 0 1px #fff, 0 0 3px #fff;
-    transition: text-shadow 0.2s ease;
     position: fixed;
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
     width: 100%;
+    text-align: center;
     z-index: 2;
   }
 
@@ -151,26 +158,20 @@
     text-decoration: none;
     font-family: 'PressStart2P', monospace;
     font-size: clamp(1rem, 3vw, 1.3rem);
-    text-shadow: 0 0 1px #fff,0 0 3px #fff;
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff;
     transition: text-shadow 0.2s ease;
   }
 
   .footer-home a:hover {
-    text-shadow: 0 0 2px #fff,0 0 5px #fff;
+    text-shadow: 0 0 2px #fff, 0 0 5px #fff;
   }
-
-  @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    .email-icon{width: 50px; height: 50px;}
-    input, textarea{font-size:0.8rem;}
-    button{font-size:0.8rem;}
-    .footer-home{font-size: clamp(0.9rem,4vw,1.2rem);}
-  }
-
 </style>
+
 </head>
+
 <body>
-  <h1>contact</h1> <!-- matches home header placement -->
+
+  <h1>contact</h1>
 
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
     <textarea name="name" rows="1" placeholder="name" required></textarea>
@@ -179,14 +180,15 @@
     <button type="submit">send</button>
   </form>
 
-  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div> <!-- white clickable envelope -->
+  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
   <div class="footer-home">
-    <a href="index.html">home</a> <!-- matches home page format exactly -->
+    <a href="index.html">home</a>
   </div>
 
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
   </audio>
+
 </body>
 </html>
