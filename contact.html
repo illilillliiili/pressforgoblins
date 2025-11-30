@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
   @font-face {
-    font-family: 'PressStart2P';
+    font-family: 'PressStart2P'; /* custom pixel font */
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype'); /* multiple formats */
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -62,7 +62,7 @@
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 1.5rem; /* space between header and icon/form */
+    margin-bottom: 1.5rem; /* space between header and form */
     color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
@@ -72,41 +72,27 @@
     display: inline-block;
   }
 
-  /* big email icon above form */
-  .email-icon {
-    width: 60px; /* adjust size as desired */
-    height: 60px;
-    margin-bottom: 2rem; /* space between icon and form */
-    background: url('images/email-icon.svg') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    z-index:2;
-  }
-
-  .email-icon:hover {
-    filter: brightness(1.2); /* slight hover highlight */
-  }
-
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem; /* spacing between fields */
-    margin-bottom: 4rem; /* space between form and footer */
+    margin-bottom: 2rem; /* space between form and email icon */
     width: 100%;
     max-width: 300px;
   }
 
-  input, textarea {
+  textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 0.9rem;
     padding: 0.5rem;
     width: 100%;
     background: #000;
-    border: none; /* no outlines */
+    border: none;
     color: #fff;
     outline: none;
-    text-align: center; /* center placeholder & input text */
+    text-align: center; /* placeholder & text centered */
+    resize: none; /* prevent manual resizing */
   }
 
   ::placeholder {
@@ -121,7 +107,6 @@
     background: #000;
     border: 1px solid #7bbf7b;
     color: #7bbf7b;
-    outline: none;
     cursor: pointer;
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
     transition: text-shadow 0.2s ease, background 0.2s ease;
@@ -132,8 +117,23 @@
     background:#111;
   }
 
-  /* footer link back home */
-  .home-footer {
+  /* email icon between form and footer */
+  .email-icon {
+    width: 80px; /* bigger than before */
+    height: 80px;
+    margin: 2rem auto; /* spacing above/below icon */
+    background: url('images/email-icon.svg') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index:2;
+  }
+
+  .email-icon:hover {
+    filter: brightness(1.2); /* slight hover effect */
+  }
+
+  /* footer home link */
+  .footer-home {
     font-size: clamp(1rem, 3vw, 1.3rem);
     text-align: center;
     text-decoration: none;
@@ -145,62 +145,39 @@
     width: 100%;
   }
 
-  .home-footer a:hover {
+  .footer-home a:hover {
     text-shadow: 0 0 2px #fff,0 0 5px #fff;
   }
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    .email-icon{width: 50px; height: 50px;}
-    input, textarea{font-size:0.8rem;}
+    textarea{font-size:0.8rem;}
     button{font-size:0.8rem;}
-    .home-footer{font-size: clamp(0.9rem,4vw,1.2rem);}
+    .email-icon{width: 60px; height: 60px;}
+    .footer-home{font-size: clamp(0.9rem,4vw,1.2rem);}
   }
 
 </style>
 </head>
 <body>
-  <h1>contact</h1> <!-- matches main-title placement -->
-
-  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div> <!-- clickable mailto -->
+  <h1>contact</h1> <!-- matches home page title placement -->
 
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="name" required>
-    <input type="email" name="email" placeholder="email" required>
+    <textarea name="name" rows="1" placeholder="name" required></textarea>
+    <textarea name="email" rows="1" placeholder="email" required></textarea>
     <textarea name="message" rows="4" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
 
-<!-- footer home link on contact page -->
-<div class="footer-home">
-  <a href="index.html">home</a>
-</div>
+  <!-- email icon -->
+  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
-<style>
-/* footer home link — mirrors home page contact link exactly */
-div.footer-home {
-  position: fixed; /* sticks to bottom of viewport */
-  bottom: calc(1.5rem + env(safe-area-inset-bottom)); /* above iOS home bar */
-  width: 100%; 
-  text-align: center; 
-  z-index: 2; /* above background and effects */
-}
+  <!-- footer home link -->
+  <div class="footer-home">
+    <a href="index.html">home</a>
+  </div>
 
-div.footer-home a {
-  color: #fff; /* base color white, no underline */
-  text-decoration: none; /* remove underline */
-  font-family: 'PressStart2P', monospace; /* pixel font */
-  font-size: clamp(1rem, 3vw, 1.3rem); /* responsive sizing */
-  text-shadow: 0 0 1px #fff, 0 0 3px #fff; /* subtle white glow */
-  transition: text-shadow 0.2s ease; /* smooth glow change on hover */
-}
-
-div.footer-home a:hover {
-  text-shadow: 0 0 2px #fff, 0 0 5px #fff; /* brighter glow on hover */
-}
-</style>
-
-  <!-- audio for neon effect if needed -->
+  <!-- optional neon audio -->
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
   </audio>
