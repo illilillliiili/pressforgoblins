@@ -9,166 +9,170 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GFNZMGD8ME');
+  window.dataLayer = window.dataLayer || []; // initialize GA data layer
+  function gtag(){dataLayer.push(arguments);}  // push events to GA
+  gtag('js', new Date());                     // mark page load
+  gtag('config', 'G-GFNZMGD8ME');            // set GA tracking ID
 </script>
 
 <style>
-/* font setup */
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
-       url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
-       url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  /* load pixel font */
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
+         url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
+         url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-/* body setup */
-body {
-  margin: 0; /* remove default spacing */
-  min-height: 100vh; /* fill viewport */
-  display: flex; /* flex layout */
-  flex-direction: column; /* stack vertically */
-  justify-content: center; /* vertical centering */
-  align-items: center; /* horizontal centering */
-  font-family: 'PressStart2P', monospace; /* pixel font */
-  text-align: center;
-  background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
-  background-size: 100% 300%;
-  animation: bgShift 12s linear infinite; /* slow vertical gradient movement */
-  overflow-x: hidden;
-  color: #fff;
-  position: relative;
-  padding: 6vh 1rem;
-}
+  body {
+    margin: 0;                                  /* remove default margins */
+    height: 100vh;                              /* full viewport height */
+    display: flex;                              /* use flex for vertical centering */
+    flex-direction: column;
+    justify-content: center;                    /* center content vertically */
+    align-items: center;                        /* center content horizontally */
+    font-family: 'PressStart2P', monospace;    /* set font */
+    text-align: center;                         /* center text */
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* retro gradient */
+    background-size: 100% 200%;                 /* allows vertical scroll effect */
+    animation: bgShift 12s linear infinite;     /* slow vertical movement like home page */
+    overflow-x: hidden;                         /* no horizontal scroll */
+    color: #fff;                                /* default text white */
+    position: relative;
+    padding: 6vh 1rem;                          /* padding for small screens */
+  }
 
-/* subtle CRT / vignette overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0; /* cover entire screen */
-  pointer-events: none; /* doesn't block clicks */
-  z-index: 0; /* sits behind text */
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
-  animation: vignettePulse 15s ease-in-out infinite alternate;
-}
+  /* CRT / vignette overlay — subtle dark edges like old monitors */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;                                  /* cover whole screen */
+    pointer-events: none;                      /* allow clicks through */
+    z-index: 1;                                /* above background but behind content */
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
+    animation: vignettePulse 15s ease-in-out infinite alternate;
+  }
 
-/* soft vertical glow */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-  animation: verticalGlow 20s ease-in-out infinite alternate;
-}
+  /* subtle vertical glow / breathing effect */
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;                                  /* full screen */
+    pointer-events: none;
+    z-index: 0;                                /* behind text */
+    background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+    animation: verticalGlow 20s ease-in-out infinite alternate; /* slow glow pulse */
+  }
 
-/* animations */
-@keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-@keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
-@keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
+  /* keyframes for background vertical movement */
+  @keyframes bgShift { 
+    0% { background-position: 0% 0%; } 
+    100% { background-position: 0% 100%; } 
+  }
 
-/* heading */
-h1 {
-  font-size: clamp(2rem,8vw,3rem);
-  margin:0 0 4rem;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 0 2px rgba(255,255,255,0.1);
-  z-index:1;
-  position: relative;
-}
+  /* keyframes for vignette pulse */
+  @keyframes vignettePulse { 
+    0%{opacity:1}50%{opacity:0.95}100%{opacity:1} 
+  }
 
-/* form layout */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index:1;
-  position: relative;
-  gap: 1rem;
-  width: 100%;
-  max-width: 300px;
-}
+  /* keyframes for vertical glow */
+  @keyframes verticalGlow { 
+    0%{transform:translateY(-10px);opacity:0.4} 
+    50%{transform:translateY(10px);opacity:0.6} 
+    100%{transform:translateY(-10px);opacity:0.4} 
+  }
 
-/* inputs & textarea */
-input, textarea {
-  font-family: 'PressStart2P', monospace;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  width: 100%;
-  background: #111;
-  border: 1px solid #7bbf7b;
-  color: #fff;
-  outline: none;
-  text-align: center; /* keep placeholder and input text centered */
-  box-sizing: border-box; /* include padding/border in width */
-  vertical-align: middle; /* consistent vertical alignment */
-}
+  h1 {
+    font-size: clamp(2rem,8vw,3rem);            /* responsive font size */
+    margin:0 0 4rem;                             /* spacing below header */
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 0 2px rgba(255,255,255,0.1); /* subtle edge glow */
+    z-index:2;                                   /* above overlays */
+    position: relative;
+  }
 
-/* placeholder styling */
-::placeholder {
-  text-align: center; /* prevent shifting */
-  color: #bbb;
-  opacity: 1; /* ensure full visibility */
-}
+  form {
+    display: flex;                               /* form fields stacked vertically */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;                                   /* spacing between fields */
+    width: 100%;
+    max-width: 300px;                            /* constrain form width */
+    z-index:2;                                   /* above overlays */
+    position: relative;
+  }
 
-/* submit button */
-button {
-  font-family: 'PressStart2P', monospace;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  background: #000;
-  border: 1px solid #7bbf7b;
-  color: #7bbf7b;
-  cursor: pointer;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-  transition: text-shadow 0.2s ease, background 0.2s ease;
-}
+  input, textarea {
+    font-family:'PressStart2P', monospace;
+    font-size:0.9rem;
+    padding:0.5rem;
+    width:100%;
+    background:#111;
+    border:1px solid #7bbf7b;
+    color:#fff;
+    outline:none;
+    text-align:center;                           /* center placeholder text */
+  }
 
-button:hover {
-  text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-  background:#111;
-}
+  ::placeholder {                               
+    text-align:center;
+    color:#bbb;                                  /* placeholder gray */
+  }
 
-/* footer email section */
-.email-footer {
-  margin-top: 4rem;
-  font-size: clamp(0.9rem, 4vw, 1.2rem);
-}
+  button {
+    font-family:'PressStart2P', monospace;
+    font-size:0.9rem;
+    padding:0.5rem 1rem;
+    background:#000;
+    border:1px solid #7bbf7b;
+    color:#7bbf7b;
+    cursor:pointer;
+    text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b;
+    transition:text-shadow 0.2s ease, background 0.2s ease;
+  }
 
-/* hide email by default, show on click */
-#reveal-email {
-  display: inline-block;
-  cursor: pointer;
-  color: #fff; /* base white */
-  text-decoration: none;
-  text-shadow: 0 0 1px #fff, 0 0 3px #fff; /* subtle glow effect */
-}
+  button:hover {
+    text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b;
+    background:#111;
+  }
 
-#reveal-email:hover {
-  text-shadow: 0 0 2px #fff,0 0 5px #fff; /* stronger glow on hover */
-}
+  /* email icon container at bottom */
+  .email-footer {
+    margin-top: 4rem;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    z-index:2;
+    position: relative;
+  }
 
-/* mobile adjustments */
-@media(max-width:480px){
-  h1{font-size: clamp(1.6rem,7vw,2.5rem);}
-  input, textarea{font-size:0.8rem;}
-  button{font-size:0.8rem;}
-  .email-footer{font-size:0.9rem;}
-}
+  /* email icon itself — opens mailto link */
+  #reveal-email {
+    display:inline-block;
+    cursor:pointer;
+    font-size:1.5rem;                           /* much larger than before */
+    color:#fff;                                 /* white */
+    text-decoration:none;
+  }
+
+  #reveal-email:hover {
+    /* no glow effect per your request */
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.6rem,7vw,2.5rem);}
+    input, textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .email-footer{font-size:1rem;}              /* slightly bigger for mobile */
+  }
 </style>
 </head>
 
 <body>
   <h1>contact</h1>
 
-  <!-- contact form -->
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
     <input type="text" name="name" placeholder="name" required>
     <input type="email" name="email" placeholder="email" required>
@@ -176,14 +180,9 @@ button:hover {
     <button type="submit">send</button>
   </form>
 
-  <!-- email footer container -->
   <div class="email-footer">
-    <!-- clickable icon triggers mailto -->
-    <a id="reveal-email" href="mailto:noah@pressforgoblins.com" title="send email">
-      <!-- you can replace the unicode envelope with pixel art SVG/image later -->
-      &#9993;
-    </a>
+    <!-- icon opens mailto instead of revealing text -->
+    <a id="reveal-email" href="mailto:noah@pressforgoblins.com">&#9993;</a>
   </div>
-
 </body>
 </html>
