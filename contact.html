@@ -43,7 +43,7 @@
     padding: 2rem;
   }
 
-  /* background vertical glow, slow and subtle, same as home page */
+  /* vertical glow background */
   body::before {
     content:'';
     position: fixed;
@@ -65,7 +65,7 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* subtle CRT / vignette overlay above glow, behind text */
+  /* CRT / vignette overlay above glow */
   body::after {
     content:'';
     position: fixed;
@@ -125,31 +125,26 @@
     background:#111;
   }
 
-  /* footer container for email / home button */
+  /* footer links container - same format as home page contact */
   .footer-links {
-    margin-top: 4rem;
+    position: absolute;  /* fixed to bottom of page */
+    bottom: 2rem;        /* 2rem from bottom */
     width: 100%;
-    text-align: center;
-    z-index:2;
-    position: relative;
+    text-align: center;   /* center contents */
+    z-index: 2;
   }
 
-  /* pixel-style email icon */
+  /* email icon pixelated */
   .pixel-email-icon {
     width: 24px;
     height: 16px;
     display: inline-block;
     cursor: pointer;
     image-rendering: pixelated;
-    filter: drop-shadow(0 0 2px #fff); /* glow on hover */
-    transition: filter 0.2s ease;
     vertical-align: middle;
   }
 
-  /* glow on hover */
-  .pixel-email-icon:hover { filter: drop-shadow(0 0 4px #fff); }
-
-  /* home button matches contact style on home page */
+  /* home button same as home page contact link */
   .home-btn {
     color: #fff; 
     text-decoration: none;
@@ -179,9 +174,10 @@
     <button type="submit">send</button>
   </form>
 
+  <!-- footer links at bottom -->
   <div class="footer-links">
-    <!-- pixel email icon -->
-    <span id="reveal-email" class="pixel-email-icon"></span>
+    <!-- pixel email icon - hidden email revealed on click -->
+    <img src="../images/email-icon-pixel.png" id="reveal-email" class="pixel-email-icon" alt="email icon">
 
     <!-- home link -->
     <a href="index.html" class="home-btn">home</a>
@@ -193,8 +189,8 @@ reveal.addEventListener('click', () => {
   const first = "noah";
   const second = "@pressforgoblins.com";
 
-  reveal.textContent = first + second;  // show email
-  reveal.style.filter = "none";         // remove icon glow
+  // replace icon with email text
+  reveal.outerHTML = `<span style="color:#fff; font-family:'PressStart2P', monospace; font-size:1rem;">${first+second}</span>`;
 });
 </script>
 </body>
