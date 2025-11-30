@@ -7,7 +7,6 @@
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-  /* custom pixel font */
   @font-face {
     font-family: 'PressStart2P';
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
@@ -18,7 +17,6 @@
     font-display: swap;
   }
 
-  /* body and background setup */
   body {
     margin: 0;
     height: 100vh; /* full viewport */
@@ -26,15 +24,15 @@
     flex-direction: column;
     justify-content: center; /* vertical centering */
     align-items: center; /* horizontal centering */
-    background: #000; /* black */
+    background: #000; /* black background */
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow: hidden; /* prevent scrolling */
     position: relative;
-    color: rgba(255,255,255,0.8); /* off-white text to match home header */
+    color: rgba(255,255,255,0.8); /* header text color */
   }
 
-  /* vertical glow layer */
+  /* soft vertical glow */
   body::before {
     content: '';
     position: fixed;
@@ -44,13 +42,14 @@
     background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
   }
+
   @keyframes verticalGlow {
     0% { transform: translateY(110%); opacity:0.35; }
     50% { opacity:0.6; }
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* CRT scanline overlay */
+  /* CRT / scanline overlay */
   body::after {
     content: '';
     position: fixed;
@@ -63,7 +62,7 @@
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem; /* spacing to icon/form */
+    margin-bottom: 2rem; /* space below header */
     color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
@@ -73,30 +72,48 @@
     display: inline-block;
   }
 
-  /* form styling */
+  /* big email icon below form */
+  .email-icon {
+    width: 60px; /* adjust as desired */
+    height: 60px;
+    margin: 2rem 0; /* spacing between form and icon */
+    background: url('images/email-icon.svg') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 2;
+    filter: brightness(0) invert(1); /* force icon white */
+  }
+
+  .email-icon:hover {
+    filter: brightness(0) invert(1.2); /* subtle hover highlight */
+  }
+
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem; /* spacing between fields */
+    gap: 1.5rem; /* uniform spacing between fields */
     width: 100%;
     max-width: 300px;
   }
+
   input, textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 1.3rem;
     padding: 0.5rem;
     width: 100%;
     background: #000;
-    border: none; /* no outlines */
+    border: none; /* no outline */
     color: #fff;
     outline: none;
-    text-align: center;
+    text-align: center; /* placeholder & input text centered */
   }
+
   ::placeholder {
     text-align: center;
     color: #bbb;
   }
+
   button {
     font-family: 'PressStart2P', monospace;
     font-size: 1rem;
@@ -109,27 +126,13 @@
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
     transition: text-shadow 0.2s ease, background 0.2s ease;
   }
+
   button:hover {
     text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
     background:#111;
   }
 
-  /* big email icon between form and footer */
-  .email-icon {
-    width: 60px; /* adjust size */
-    height: 60px;
-    margin: 2rem 0; /* space above & below */
-    background: url('images/email-icon.svg') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    z-index:2;
-  }
-
-  .email-icon:hover {
-    filter: brightness(1.2); /* subtle highlight on hover */
-  }
-
-  /* footer home link */
+  /* bottom home link — mirrors home page contact style */
   .footer-home {
     font-size: clamp(1rem, 3vw, 1.3rem);
     text-align: center;
@@ -142,6 +145,7 @@
     width: 100%;
     z-index: 2;
   }
+
   .footer-home a {
     color: #fff;
     text-decoration: none;
@@ -150,38 +154,37 @@
     text-shadow: 0 0 1px #fff,0 0 3px #fff;
     transition: text-shadow 0.2s ease;
   }
+
   .footer-home a:hover {
     text-shadow: 0 0 2px #fff,0 0 5px #fff;
   }
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    .email-icon{width: 50px; height: 50px;}
     input, textarea{font-size:0.8rem;}
     button{font-size:0.8rem;}
-    .email-icon{width:50px; height:50px;}
     .footer-home{font-size: clamp(0.9rem,4vw,1.2rem);}
   }
+
 </style>
 </head>
 <body>
-  <h1>contact</h1> <!-- header, same off-white as home -->
+  <h1>contact</h1> <!-- matches home header placement -->
 
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-   <textarea name="name" rows="1" placeholder="don't forget this" required></textarea>
-   <textarea name="email" rows="1" placeholder="don't forget this" required></textarea>
-   <textarea name="message" rows="4" placeholder="don't forget this" required></textarea>
+    <textarea name="name" rows="1" placeholder="name" required></textarea>
+    <textarea name="email" rows="1" placeholder="email" required></textarea>
+    <textarea name="message" rows="4" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
 
-  <!-- big email icon -->
-  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
+  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div> <!-- white clickable envelope -->
 
-  <!-- footer link back home -->
   <div class="footer-home">
-    <a href="index.html">home</a>
+    <a href="index.html">home</a> <!-- matches home page format exactly -->
   </div>
 
-  <!-- neon audio -->
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
   </audio>
