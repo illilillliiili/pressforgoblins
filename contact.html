@@ -8,10 +8,10 @@
 
 <style>
   @font-face {
-    font-family: 'Aptos';
-    src: url('fonts/Aptos-Regular.woff2') format('woff2'),
-         url('fonts/Aptos-Regular.woff') format('woff'),
-         url('fonts/Aptos-Regular.ttf') format('truetype');
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -25,7 +25,7 @@
     justify-content: center;
     align-items: center;
     background: #000;
-    font-family: 'Aptos', sans-serif;
+    font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow: hidden;
     position: relative;
@@ -77,18 +77,17 @@
     display: inline-block;
   }
 
-  /* form */
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     width: 100%;
-    max-width: 500px; /* wider to accommodate longer text */
+    max-width: 420px;
   }
 
   textarea {
-    font-family: 'Aptos', sans-serif;
+    font-family: 'Aptos', sans-serif; /* switched from pixel font */
     font-size: 1rem;
     padding: 0.5rem;
     width: 100%;
@@ -97,8 +96,7 @@
     color: #fff;
     outline: none;
     text-align: center;
-    resize: vertical;
-    line-height: 1.4;
+    resize: none;
   }
 
   ::placeholder {
@@ -106,7 +104,7 @@
     color: #bbb;
   }
 
-  /* single-line fields for name/email */
+  /* single-line behavior for name/email */
   .single-line {
     white-space: nowrap;
     overflow-x: auto;
@@ -120,7 +118,7 @@
   }
 
   button {
-    font-family: 'Aptos', sans-serif;
+    font-family: 'PressStart2P', monospace;
     font-size: 1.1rem;
     padding: 0.3rem 1rem;
     background: #000;
@@ -129,37 +127,20 @@
     cursor: pointer;
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
     transition: text-shadow 0.2s ease, background 0.2s ease;
-    margin-top: 0.5rem; /* bring send button closer to form */
+    margin-top: 0.8rem; /* small space from last textarea */
   }
 
   button:hover {
     text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    background: #111;
+    background:#111;
   }
 
-  /* sent message */
-  #sent-message {
-    display: none;
-    margin-top: 1rem;
-    font-family: 'Aptos', sans-serif;
-    color: #7bbf7b;
-    font-size: 1rem;
-    text-shadow: 0 0 2px #7bbf7b;
-    animation: glowPulse 1s ease-in-out infinite alternate;
-  }
-
-  @keyframes glowPulse {
-    0% { text-shadow: 0 0 2px #7bbf7b; }
-    50% { text-shadow: 0 0 6px #7bbf7b; }
-    100% { text-shadow: 0 0 2px #7bbf7b; }
-  }
-
-  /* email icon below send button */
   .email-icon {
     width: 60px;
     height: 60px;
-    margin-top: 3rem; /* further down from send */
-    background: url('images/mail.png') no-repeat center center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    background: url('images/mail (open).png') no-repeat center center;
     background-size: contain;
     cursor: pointer;
     z-index: 2;
@@ -169,7 +150,7 @@
     filter: brightness(1.2);
   }
 
-  /* footer home link */
+  /* bottom nav matching home page style */
   .footer-home {
     position: fixed;
     bottom: calc(2.5rem + env(safe-area-inset-bottom));
@@ -193,9 +174,10 @@
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.9rem;}
-    button{font-size:0.9rem;}
-    .email-icon{width:50px; height:50px;}
+    textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .email-icon{width:50px;height:50px;}
+    .footer-home a{font-size: clamp(0.9rem,4vw,1.2rem);}
   }
 </style>
 </head>
@@ -204,14 +186,12 @@
 
   <h1>contact</h1>
 
-  <form id="contact-form">
+  <form action="https://formspree.io/f/mblndezr" method="POST">
     <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
     <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
     <textarea name="message" rows="5" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
-
-  <div id="sent-message">sent! the goblins will see you soon ツ</div>
 
   <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
@@ -219,16 +199,9 @@
     <a href="index.html">home</a>
   </div>
 
-<script>
-const form = document.getElementById('contact-form');
-const sentMessage = document.getElementById('sent-message');
-
-form.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  sentMessage.style.display = 'block';
-  form.reset();
-});
-</script>
+  <audio id="neon-sound" preload="auto">
+    <source src="neon.m4a" type="audio/mp4">
+  </audio>
 
 </body>
 </html>
