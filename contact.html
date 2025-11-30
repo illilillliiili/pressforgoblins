@@ -82,7 +82,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.8rem;
     width: 100%;
     max-width: 300px;
   }
@@ -100,11 +100,26 @@
     resize: none;
   }
 
+  
   ::placeholder {
     text-align: center;
     color: #bbb;
   }
 
+  /* force name/email to behave like single-line fields */
+.single-line {
+  white-space: nowrap;
+  overflow-x: auto;
+  resize: none;
+  font-size: 1.1rem;
+  padding-bottom: 0.3rem;
+}
+
+/* hide scrollbar inside textareas */
+.single-line::-webkit-scrollbar {
+  display: none;
+}
+  
   button {
     font-family: 'PressStart2P', monospace;
     font-size: 1rem;
@@ -174,8 +189,8 @@
   <h1>contact</h1>
 
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-    <textarea name="name" rows="1" placeholder="name" required></textarea>
-    <textarea name="email" rows="1" placeholder="email" required></textarea>
+    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
+    <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
     <textarea name="message" rows="4" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
