@@ -29,25 +29,25 @@
 
   /* body and background identical to home page */
   body {
-    margin: 0;                                  /* remove default margin */
-    height: 100vh;                              /* full viewport height */
-    display: flex;                              /* flex for centering */
+    margin: 0;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
     justify-content: center;                    /* vertical centering */
     align-items: center;                        /* horizontal centering */
-    font-family: 'PressStart2P', monospace;    /* font */
+    font-family: 'PressStart2P', monospace;
     text-align: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* home page gradient */
-    background-size: 100% 300%;                 /* vertical movement */
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
+    background-size: 100% 300%;
     animation: bgShift 12s linear infinite;     /* same speed as home */
-    overflow-x: hidden;                         /* prevent horizontal scroll */
+    overflow-x: hidden;
     position: relative;
-    color: #fff;                                /* text color white */
+    color: #fff;
   }
 
-  /* CRT / vignette overlay — subtle dark edges */
+  /* CRT / vignette overlay */
   body::after {
-    content: '';
+    content:'';
     position: fixed;
     inset: 0;                                  /* cover entire screen */
     pointer-events: none;                      /* allow clicks through */
@@ -60,9 +60,9 @@
   body::before {
     content: '';
     position: fixed;
-    inset: 0;                                  /* cover screen */
+    inset: 0;
     pointer-events: none;
-    z-index: 0;                                /* behind text */
+    z-index: 0;
     background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
     animation: verticalGlow 20s ease-in-out infinite alternate;
   }
@@ -72,109 +72,68 @@
   @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
   @keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
 
-  /* header — same position as home main title */
-  h1 {
+  /* main title — mirrored from home page */
+  .main-title {
     font-size: clamp(3rem,8vw,3rem);          /* same as home page title */
-    margin: 0 0 2rem;                         /* space below header */
+    margin:0;
     color: rgba(255,255,255,0.8);
     line-height:1.4;
-    text-shadow: 0 0 1px #fff, 0 0 3px #fff;  /* subtle glow */
-    z-index: 2;
-    position: relative;
-  }
-
-  /* form fields */
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;                               /* spacing between inputs */
-    width: 100%;
-    max-width: 300px;
+    text-shadow:0 0 1px #fff,0 0 3px #fff;
     z-index:2;
     position: relative;
   }
 
-  /* input & textarea styling */
-  input, textarea {
-    font-family:'PressStart2P', monospace;
-    font-size: 0.9rem;
-    padding:0.5rem;
-    width:100%;
-    background:#111;
-    border:1px solid #7bbf7b;
-    color:#fff;
-    outline:none;
-    text-align:center;                        /* placeholder and text centered */
-  }
-
-  ::placeholder {                             
-    text-align:center;                        /* center placeholder text */
-    color:#bbb;
-  }
-
-  button {
-    font-family:'PressStart2P', monospace;
-    font-size:0.9rem;
-    padding:0.5rem 1rem;
-    background:#000;
-    border:1px solid #7bbf7b;
-    color:#7bbf7b;
-    cursor:pointer;
-    text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b;
-    transition:text-shadow 0.2s ease, background 0.2s ease;
-  }
-
-  button:hover {
-    text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-    background:#111;
-  }
-
-  /* email icon container at bottom */
-  .email-footer {
-    margin-top: 4rem;
-    font-size: clamp(0.9rem, 4vw, 1.2rem);
-    z-index:2;
-    position: relative;
-  }
-
-  /* email icon styling — much larger, clickable, opens mailto link */
-  #reveal-email {
-    display:inline-block;
-    cursor:pointer;
-    font-size:2rem;                            /* bigger, can adjust manually */
+  /* replacing "coming soon" with email icon */
+  .email-icon {
+    margin-top: 1.5rem;
+    font-size: 3rem;                           /* large pixel icon */
     color:#fff;
     text-decoration:none;
+    display:inline-block;
+    cursor:pointer;
   }
 
-  #reveal-email:hover {
-    /* no glow per request */
+  .email-icon:hover {
+    /* no glow */
   }
 
+  /* bottom link (home) */
+  .bottom-link {
+    margin-top:4rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    text-decoration:none;
+    color:#fff;
+    font-family:'PressStart2P', monospace;
+    text-shadow:0 0 1px #fff,0 0 3px #fff;
+    transition:text-shadow 0.2s ease;
+  }
+  .bottom-link:hover {
+    text-shadow:0 0 2px #fff,0 0 5px #fff;
+  }
+
+  /* subtle letter jitter on title */
+  @keyframes letter-jitter { 0%,100% {transform:translateX(0);} 50% {transform:translateX(1px);} }
+  .main-title { animation: letter-jitter 1.5s infinite alternate ease-in-out; }
+
+  /* responsive adjustments */
   @media(max-width:480px){
-    h1{font-size: clamp(2.4rem,7vw,3rem);}     /* responsive title size */
-    input, textarea{font-size:0.8rem;}        /* smaller fields on mobile */
-    button{font-size:0.8rem;}
-    .email-footer{font-size:1.5rem;}          /* bigger icon on mobile */
+    .main-title{font-size:clamp(2.4rem,7vw,3rem);}
+    .email-icon{font-size:2.5rem;}
+    .bottom-link{font-size:1rem;}
   }
 
 </style>
 </head>
-
 <body>
-  <h1>contact</h1>
+  <div class="main-title">contact</div>
 
-  <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="name" required>
-    <input type="email" name="email" placeholder="email" required>
-    <textarea name="message" rows="4" placeholder="message" required></textarea>
-    <button type="submit">send</button>
-  </form>
+  <!-- large email icon -->
+  <a class="email-icon" href="mailto:noah@pressforgoblins.com">&#9993;</a>
 
-  <!-- email icon opens mailto, big pixel envelope -->
-  <div class="email-footer">
-    <a id="reveal-email" href="mailto:noah@pressforgoblins.com">&#9993;</a>
+  <!-- bottom link to home page -->
+  <div class="bottom-link-container">
+    <a class="bottom-link" href="index.html">home</a>
   </div>
+
 </body>
 </html>
