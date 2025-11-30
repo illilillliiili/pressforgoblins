@@ -4,164 +4,165 @@
 <meta charset="UTF-8"> <!-- character encoding -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
 <title>contact — press for goblins</title>
-<meta name="description" content="contact page for press for goblins — retro pixel style">
+<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-@font-face {
-  font-family: 'PressStart2P'; /* pixel font */
-  src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
-       url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
-       url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-body {
-  margin:0; 
-  height:100vh; 
-  display:flex; 
-  flex-direction:column; 
-  justify-content:center; /* vertical centering */
-  align-items:center;     /* horizontal centering */
-  font-family:'PressStart2P', monospace; 
-  text-align:center; 
-  overflow:hidden; /* no scrolling */
-  background:#000;
-  color:#fff;
-  position:relative;
-}
+  body {
+    margin: 0;
+    height: 100vh; /* full viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center; /* horizontal centering */
+    background: #000; /* black background */
+    font-family: 'PressStart2P', monospace;
+    text-align: center;
+    overflow: hidden; /* prevent scrolling */
+    position: relative;
+    color: #fff;
+  }
 
-/* CRT / scanlines overlay */
-body::after {
-  content:'';
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1; 
-  background: repeating-linear-gradient(
-    rgba(255,255,255,0.02) 0px,
-    rgba(255,255,255,0.02) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity:0.15;
-}
+  /* soft vertical glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
+  }
 
-/* vertical glow background */
-body::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-  animation: verticalGlow 25s linear infinite;
-}
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.35; }
+  }
 
-@keyframes verticalGlow {
-  0% { transform: translateY(110%); opacity:0.35; }
-  50% { opacity:0.6; }
-  100% { transform: translateY(-110%); opacity:0.35; }
-}
+  /* CRT / scanline overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+    opacity: 0.15;
+  }
 
-/* page title */
-.main-title {
-  font-size: clamp(1.8rem,8vw,3rem);
-  color: rgba(255,255,255,0.8);
-  line-height:1.4;
-  max-width:90vw;
-  letter-spacing:0.01em;
-  word-spacing:-0.35em;
-  margin:0;
-  z-index:2;
-  display:inline-block;
-  animation: letter-jitter 1.5s infinite alternate ease-in-out;
-}
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 3rem; /* space between header and icon/form */
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.35em;
+    z-index:2;
+    display: inline-block;
+  }
 
-/* subtle horizontal jitter */
-@keyframes letter-jitter { 0%,100%{transform:translateX(0);}50%{transform:translateX(1px);} }
+  /* big email icon above form */
+  .email-icon {
+    width: 60px; /* adjust size as desired */
+    height: 60px;
+    margin-bottom: 2rem; /* space between icon and form */
+    background: url('images/email-icon.svg') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index:2;
+  }
 
-/* contact form styling */
-form {
-  display:flex;
-  flex-direction:column;
-  gap:3rem; /* space between fields */
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  max-width:300px;
-  z-index:2;
-  position:relative;
-}
+  .email-icon:hover {
+    filter: brightness(1.2); /* slight hover highlight */
+  }
 
-input, textarea {
-  font-family:'PressStart2P', monospace;
-  font-size:0.9rem;
-  padding:0.5rem;
-  width:100%;
-  background:#111;
-  border:none; /* remove outlines */
-  color:#fff;
-  text-align:center; /* placeholder & text centered */
-  outline:none;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* spacing between fields */
+    margin-bottom: 4rem; /* space between form and footer */
+    width: 100%;
+    max-width: 300px;
+  }
 
-textarea { text-align:center; } /* ensure multiline also centered */
+  input, textarea {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 100%;
+    background: #111;
+    border: none; /* no outlines */
+    color: #fff;
+    outline: none;
+    text-align: center; /* center placeholder & input text */
+  }
 
-::placeholder { color:#bbb; text-align:center; }
+  ::placeholder {
+    text-align: center;
+    color: #bbb;
+  }
 
-button {
-  font-family:'PressStart2P', monospace;
-  font-size:0.9rem;
-  padding:0.5rem 3rem;
-  background:#000;
-  border:1px solid #7bbf7b;
-  color:#7bbf7b;
-  cursor:pointer;
-  text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b;
-  transition:text-shadow 0.2s ease, background 0.2s ease;
-}
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
 
-button:hover {
-  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-  background:#111;
-}
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
+    background:#111;
+  }
 
-/* bottom home link identical to home page contact link */
-.bottom-link-container {
-  position:fixed;
-  bottom: calc(1.5rem + env(safe-area-inset-bottom)); /* above phone nav bars */
-  width:100%;
-  text-align:center;
-  z-index:2;
-}
-.bottom-link {
-  color:#fff;
-  text-decoration:none;
-  font-family:'PressStart2P', monospace;
-  font-size: clamp(1rem,3vw,1.3rem);
-  text-shadow:0 0 1px #fff,0 0 3px #fff;
-  transition:text-shadow 0.2s ease;
-}
-.bottom-link:hover {
-  text-shadow:0 0 2px #fff,0 0 5px #fff;
-}
+  /* footer link back home */
+  .home-footer {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff;
+    transition: text-shadow 0.2s ease;
+    position: fixed;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    width: 100%;
+  }
 
-/* responsive adjustments */
-@media(max-width:480px){
-  .main-title{font-size:clamp(1.4rem,7vw,2.4rem);}
-  input, textarea{font-size:0.8rem;}
-  button{font-size:0.8rem;}
-  .bottom-link{font-size:1rem;}
-}
+  .home-footer a:hover {
+    text-shadow: 0 0 2px #fff,0 0 5px #fff;
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    .email-icon{width: 50px; height: 50px;}
+    input, textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .home-footer{font-size: clamp(0.9rem,4vw,1.2rem);}
+  }
+
 </style>
 </head>
-
 <body>
-  <div class="main-title">contact</div>
+  <h1>contact</h1> <!-- matches main-title placement -->
 
-  <!-- retro floating contact form -->
+  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div> <!-- clickable mailto -->
+
   <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
     <input type="text" name="name" placeholder="name" required>
     <input type="email" name="email" placeholder="email" required>
@@ -169,9 +170,14 @@ button:hover {
     <button type="submit">send</button>
   </form>
 
-  <!-- bottom home link -->
-  <div class="bottom-link-container">
-    <a class="bottom-link" href="index.html">home</a>
+  <div class="home-footer">
+    <a href="index.html">home</a> <!-- mirrors the contact link style on home page -->
   </div>
+
+  <!-- audio for neon effect if needed -->
+  <audio id="neon-sound" preload="auto">
+    <source src="neon.m4a" type="audio/mp4">
+  </audio>
+
 </body>
 </html>
