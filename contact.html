@@ -2,199 +2,209 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+/* import aptos font */
+@import url('https://fonts.googleapis.com/css2?family=Aptos:wght@400;500&display=swap');
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: rgba(255,255,255,0.8);
-  }
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  /* vertical glow */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow 25s linear infinite;
-  }
-  @keyframes verticalGlow {
-    0% { transform: translateY(110%); opacity:0.35; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.35; }
-  }
+body {
+  margin: 0;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  background: #000; 
+  font-family: 'PressStart2P', monospace; /* titles stay pixel */
+  text-align: center; 
+  overflow: hidden; 
+  position: relative;
+  color: rgba(255,255,255,0.8); /* page text off-white */
+}
 
-  /* CRT / scanlines */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
-    opacity: 0.15;
-  }
+/* vertical glow */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+  animation: verticalGlow 25s linear infinite;
+}
 
-  h1 {
-    font-size: clamp(2rem, 9vw, 3.5rem); /* slightly bigger */
-    margin-bottom: 2rem;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.35em;
-    z-index:2;
-    display: inline-block;
-  }
+@keyframes verticalGlow {
+  0% { transform: translateY(110%); opacity:0.35; }
+  50% { opacity:0.6; }
+  100% { transform: translateY(-110%); opacity:0.35; }
+}
 
-  /* form */
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 450px; /* wider for comfort */
-    margin-bottom: 2rem;
-  }
+/* CRT / scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.15;
+}
 
-  textarea {
-    font-family: 'Aptos', sans-serif; /* plain text */
-    font-size: 1.1rem; /* slightly bigger */
-    padding: 0.6rem;
-    width: 100%;
-    background: #000;
-    border: none;
-    color: #fff;
-    outline: none;
-    text-align: center;
-    resize: none;
-  }
+h1 {
+  font-size: clamp(1.8rem,8vw,3rem);
+  margin-bottom: 2rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.4;
+  max-width: 90vw;
+  letter-spacing: 0.01em;
+  word-spacing: -0.35em;
+  z-index:2;
+  display: inline-block;
+}
 
-  ::placeholder {
-    text-align: center;
-    color: #bbb;
-  }
+/* form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem; /* space between fields */
+  width: 100%;
+  max-width: 420px;
+}
 
-  /* single-line fields for name/email */
-  .single-line {
-    white-space: nowrap;
-    overflow-x: auto;
-    resize: none;
-    font-size: 1.1rem;
-    padding-bottom: 0.3rem;
-  }
+textarea {
+  font-family: 'Aptos', sans-serif; /* plain text */
+  font-size: 1rem; /* slightly smaller for comfort */
+  padding: 0.5rem;
+  width: 100%;
+  background: #000;
+  border: none;
+  color: #fff;
+  outline: none;
+  text-align: center;
+  resize: none;
+}
 
-  .single-line::-webkit-scrollbar { display: none; }
+/* placeholder style */
+::placeholder {
+  text-align: center;
+  color: #bbb;
+}
 
-  button {
-    font-family: 'PressStart2P', monospace;
-    font-size: 1.15rem;
-    padding: 0.4rem 1rem;
-    background: #000;
-    border: 1px solid #7bbf7b;
-    color: #7bbf7b;
-    cursor: pointer;
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-    transition: text-shadow 0.2s ease, background 0.2s ease;
-    margin-top: 0.5rem;
-  }
-  button:hover {
-    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    background:#111;
-  }
+/* force name/email to behave like single-line fields */
+.single-line {
+  white-space: nowrap;
+  overflow-x: auto;
+  resize: none;
+  font-size: 1rem;
+  padding-bottom: 0.3rem;
+}
 
-  @media(max-width:480px){
-    h1{font-size: clamp(1.6rem,7vw,2.6rem);}
-    textarea{font-size:1rem;}
-    button{font-size:0.9rem;}
-  }
+/* hide scrollbar inside single-line textareas */
+.single-line::-webkit-scrollbar {
+  display: none;
+}
 
-  /* email icon between send and nav */
-  .email-icon {
-    width: 60px; /* smaller */
-    height: 60px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    background: url('images/mail (open).png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    z-index:2;
-  }
-  .email-icon:hover { filter: brightness(1.2); }
+button {
+  font-family: 'Aptos', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.3rem 1rem;
+  background: #000;
+  border: 1px solid #7bbf7b;
+  color: #7bbf7b;
+  cursor: pointer;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+  transition: text-shadow 0.2s ease, background 0.2s ease;
+}
 
-  /* bottom nav bar */
-  .bottom-nav {
-    position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    z-index: 2;
-  }
-  .bottom-nav a {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: filter 0.2s ease;
-  }
-  .bottom-nav a:hover { filter: brightness(1.2); }
-  .bottom-nav .home { background-image: url('images/home.png'); }
-  .bottom-nav .portfolio { background-image: url('images/portfolio.png'); }
-  .bottom-nav .about { background-image: url('images/about.png'); }
-  .bottom-nav .contact { background-image: url('images/mail (open).png'); }
+button:hover {
+  text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+  background: #111;
+}
+
+/* bottom nav bar */
+.bottom-nav {
+  position: fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 2;
+}
+
+.bottom-nav a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.bottom-nav img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(1); /* default color */
+  transition: filter 0.2s ease;
+}
+
+.bottom-nav a:hover img {
+  filter: brightness(1.3);
+}
+
+/* mark contact active */
+.bottom-nav .contact img {
+  filter: hue-rotate(90deg) brightness(1.2); /* green glow */
+  cursor: default;
+}
+
+@media(max-width:480px){
+  h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+  textarea{font-size:0.8rem;}
+  button{font-size:0.8rem;}
+  .bottom-nav img{width:35px;height:35px;}
+}
 
 </style>
 </head>
 <body>
 
-  <h1>contact</h1>
+<h1>contact</h1>
 
-  <form action="https://formspree.io/f/mblndezr" method="POST">
-    <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
-    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
-    <textarea name="message" rows="6" placeholder="message" required></textarea>
-    <button type="submit">send</button>
-  </form>
+<form action="https://formspree.io/f/mblndezr" method="POST">
+  <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
+  <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
+  <textarea name="message" rows="5" placeholder="message" required></textarea>
+  <button type="submit">send</button>
+</form>
 
-  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
+<!-- bottom nav bar -->
+<div class="bottom-nav">
+  <a href="index.html" class="home"><img src="images/home.png" alt="home"></a>
+  <a href="portfolio.html" class="portfolio"><img src="images/portfolio.png" alt="portfolio"></a>
+  <a href="about.html" class="about"><img src="images/about.png" alt="about"></a>
+  <a href="contact.html" class="contact"><img src="images/contact.png" alt="contact"></a>
+</div>
 
-  <div class="bottom-nav">
-    <a href="index.html" class="home"></a>
-    <a href="portfolio.html" class="portfolio"></a>
-    <a href="about.html" class="about"></a>
-    <a href="contact.html" class="contact"></a>
-  </div>
-
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
+<!-- audio for neon -->
+<audio id="neon-sound" preload="auto">
+  <source src="neon.m4a" type="audio/mp4">
+</audio>
 
 </body>
 </html>
