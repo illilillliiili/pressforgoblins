@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"> <!-- character encoding -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
@@ -42,31 +42,25 @@
     background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
   }
-
   @keyframes verticalGlow {
     0% { transform: translateY(110%); opacity:0.35; }
     50% { opacity:0.6; }
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* scanlines */
+  /* CRT / scanlines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    background: repeating-linear-gradient(
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 3px
-    );
+    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
     opacity: 0.15;
   }
 
   h1 {
-    font-size: clamp(1.8rem,8vw,3rem);
+    font-size: clamp(2rem, 9vw, 3.5rem); /* slightly bigger */
     margin-bottom: 2rem;
     color: rgba(255,255,255,0.8);
     line-height: 1.4;
@@ -77,19 +71,21 @@
     display: inline-block;
   }
 
+  /* form */
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
     width: 100%;
-    max-width: 420px;
+    max-width: 450px; /* wider for comfort */
+    margin-bottom: 2rem;
   }
 
   textarea {
-    font-family: 'Aptos', sans-serif; /* switched from pixel font */
-    font-size: 1rem;
-    padding: 0.5rem;
+    font-family: 'Aptos', sans-serif; /* plain text */
+    font-size: 1.1rem; /* slightly bigger */
+    padding: 0.6rem;
     width: 100%;
     background: #000;
     border: none;
@@ -104,84 +100,78 @@
     color: #bbb;
   }
 
-  /* single-line behavior for name/email */
+  /* single-line fields for name/email */
   .single-line {
     white-space: nowrap;
     overflow-x: auto;
     resize: none;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding-bottom: 0.3rem;
   }
 
-  .single-line::-webkit-scrollbar {
-    display: none;
-  }
+  .single-line::-webkit-scrollbar { display: none; }
 
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.1rem;
-    padding: 0.3rem 1rem;
+    font-size: 1.15rem;
+    padding: 0.4rem 1rem;
     background: #000;
     border: 1px solid #7bbf7b;
     color: #7bbf7b;
     cursor: pointer;
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
     transition: text-shadow 0.2s ease, background 0.2s ease;
-    margin-top: 0.8rem; /* small space from last textarea */
+    margin-top: 0.5rem;
   }
-
   button:hover {
     text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
     background:#111;
   }
 
+  @media(max-width:480px){
+    h1{font-size: clamp(1.6rem,7vw,2.6rem);}
+    textarea{font-size:1rem;}
+    button{font-size:0.9rem;}
+  }
+
+  /* email icon between send and nav */
   .email-icon {
-    width: 60px;
+    width: 60px; /* smaller */
     height: 60px;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 2rem;
     background: url('images/mail (open).png') no-repeat center center;
     background-size: contain;
     cursor: pointer;
-    z-index: 2;
+    z-index:2;
   }
+  .email-icon:hover { filter: brightness(1.2); }
 
-  .email-icon:hover {
-    filter: brightness(1.2);
-  }
-
-  /* bottom nav matching home page style */
-  .footer-home {
+  /* bottom nav bar */
+  .bottom-nav {
     position: fixed;
-    bottom: calc(2.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
     z-index: 2;
   }
-
-  .footer-home a {
-    color: #fff;
-    text-decoration: none;
-    font-family: 'PressStart2P', monospace;
-    font-size: clamp(1rem, 3vw, 1.3rem);
-    text-shadow: 0 0 1px #fff, 0 0 3px #fff;
-    transition: text-shadow 0.2s ease;
+  .bottom-nav a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: filter 0.2s ease;
   }
+  .bottom-nav a:hover { filter: brightness(1.2); }
+  .bottom-nav .home { background-image: url('images/home.png'); }
+  .bottom-nav .portfolio { background-image: url('images/portfolio.png'); }
+  .bottom-nav .about { background-image: url('images/about.png'); }
+  .bottom-nav .contact { background-image: url('images/mail (open).png'); }
 
-  .footer-home a:hover {
-    text-shadow: 0 0 2px #fff, 0 0 5px #fff;
-  }
-
-  @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.8rem;}
-    button{font-size:0.8rem;}
-    .email-icon{width:50px;height:50px;}
-    .footer-home a{font-size: clamp(0.9rem,4vw,1.2rem);}
-  }
 </style>
 </head>
-
 <body>
 
   <h1>contact</h1>
@@ -189,14 +179,17 @@
   <form action="https://formspree.io/f/mblndezr" method="POST">
     <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
     <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
-    <textarea name="message" rows="5" placeholder="message" required></textarea>
+    <textarea name="message" rows="6" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
 
   <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
-  <div class="footer-home">
-    <a href="index.html">home</a>
+  <div class="bottom-nav">
+    <a href="index.html" class="home"></a>
+    <a href="portfolio.html" class="portfolio"></a>
+    <a href="about.html" class="about"></a>
+    <a href="contact.html" class="contact"></a>
   </div>
 
   <audio id="neon-sound" preload="auto">
