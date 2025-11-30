@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>contact — press for goblins</title>
-<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
+<meta charset="UTF-8"> <!-- tells the browser how to read text -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- makes layout scale on mobile -->
+<title>contact — press for goblins</title> <!-- tab title -->
+<meta name="description" content="contact page for press for goblins — retro pixel/neon style"> <!-- seo helper -->
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
+<!-- google analytics setup -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script> <!-- loads analytics file -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GFNZMGD8ME');
+  window.dataLayer = window.dataLayer || []; /* creates a place to store analytics events */
+  function gtag(){dataLayer.push(arguments);} /* sends events to analytics */
+  gtag('js', new Date()); /* marks analytics start time */
+  gtag('config', 'G-GFNZMGD8ME'); /* your analytics id */
 </script>
 
 <style>
-  @font-face {
+  @font-face { /* loads your pixel font */
     font-family: 'PressStart2P';
     src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
          url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
@@ -26,7 +26,7 @@
     font-display: swap;
   }
 
-  body {
+  body { /* sets the page layout and background */
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -35,129 +35,20 @@
     align-items: center;
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* slow vertical shift */
     background-size: 100% 200%;
-    animation: bgShift 12s linear infinite;
-    overflow-x: hidden;
+    animation: bgShift 12s linear infinite; /* moves the background */
+    overflow-x: hidden; /* stops sideways scroll */
     color: #fff;
     position: relative;
-    padding: 6vh 1rem;
+    padding: 6vh 1rem; /* slight breathing room top/bottom */
   }
 
-  body::after {
+  body::after { /* soft vignette darkening around edges */
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
-    animation: vignettePulse 15s ease-in-out infinite alternate;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-    animation: verticalGlow 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-  @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
-  @keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
-
-  h1 {
-    font-size: clamp(2rem,8vw,3rem);
-    margin:0 0 4rem;
-    color: rgba(255,255,255,0.85);
-    text-shadow: 0 0 2px rgba(255,255,255,0.1);
-    z-index:1;
-    position: relative;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index:1;
-    position: relative;
-    gap: 1rem;
-    width: 100%;
-    max-width: 300px;
-  }
-
-  input, textarea {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    width: 100%;
-    background: #111;
-    border: 1px solid #7bbf7b;
-    color: #fff;
-    outline: none;
-    text-align: center;
-  }
-
-  ::placeholder {
-    text-align: center;
-    color: #bbb;
-  }
-
-  button {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    background: #000;
-    border: 1px solid #7bbf7b;
-    color: #7bbf7b;
-    cursor: pointer;
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-    transition: text-shadow 0.2s ease, background 0.2s ease;
-  }
-
-  button:hover {
-    text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
-    background:#111;
-  }
-
-  .email-footer {
-    margin-top: 4rem;
-    font-size: clamp(0.9rem, 4vw, 1.2rem);
-  }
-
-  .email-footer a {
-    color:#7bbf7b;
-    text-decoration:none;
-    text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b,0 0 6px #7bbf7b;
-  }
-
-  .email-footer a:hover {
-    text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b,0 0 10px #7bbf7b;
-  }
-
-  @media(max-width:480px){
-    h1{font-size: clamp(1.6rem,7vw,2.5rem);}
-    input, textarea{font-size:0.8rem;}
-    button{font-size:0.8rem;}
-    .email-footer{font-size:0.9rem;}
-  }
-</style>
-</head>
-<body>
-  <h1>contact</h1>
-
-  <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="name" required>
-    <input type="email" name="email" placeholder="email" required>
-    <textarea name="message" rows="4" placeholder="message" required></textarea>
-    <button type="submit">send</button>
-  </form>
-
-  <div class="email-footer">
-    <a href="mailto:noah@pressforgoblins.com">noah@pressforgoblins.com</a>
-  </div>
-</body>
-</html>
+    background: radial-gradient(circle at centre, transparent 0%, rgba(0,0,0,0.25) 100%);
+    animation: vignettePulse 15s ease-in-out infinite alternate; /* slow breathing pulse */
