@@ -2,186 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-/* import aptos font */
-@import url('https://fonts.googleapis.com/css2?family=Aptos:wght@400;500&display=swap');
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+    font-weight: normal; 
+    font-style: normal;  
+    font-display: swap; 
+  }
 
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  body {
+    margin: 0;
+    height: 100vh; /* full viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center; /* horizontal centering */
+    background: #000; /* black background */
+    font-family: 'PressStart2P', monospace; /* pixel font */
+    text-align: center;
+    overflow: hidden; /* prevent scrolling */
+    position: relative;
+    color: rgba(255,255,255,0.8); /* matches home title color */
+  }
 
-body {
-  margin: 0;
-  height: 100vh; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
-  background: #000; 
-  font-family: 'PressStart2P', monospace; /* titles stay pixel */
-  text-align: center; 
-  overflow: hidden; 
-  position: relative;
-  color: rgba(255,255,255,0.8); /* page text off-white */
-}
+  /* soft vertical glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
+  }
 
-/* vertical glow */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
-  animation: verticalGlow 25s linear infinite;
-}
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.35; }
+  }
 
-@keyframes verticalGlow {
-  0% { transform: translateY(110%); opacity:0.35; }
-  50% { opacity:0.6; }
-  100% { transform: translateY(-110%); opacity:0.35; }
-}
+  /* CRT / scanline overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.15;
+  }
 
-/* CRT / scanline overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: repeating-linear-gradient(
-    rgba(255,255,255,0.02) 0px,
-    rgba(255,255,255,0.02) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity: 0.15;
-}
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 2rem; /* spacing below header */
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.35em;
+    z-index:2;
+    display: inline-block;
+  }
 
-h1 {
-  font-size: clamp(1.8rem,8vw,3rem);
-  margin-bottom: 2rem;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.35em;
-  z-index:2;
-  display: inline-block;
-}
+  /* form */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 420px;
+  }
 
-/* form */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem; /* space between fields */
-  width: 100%;
-  max-width: 420px;
-}
+  textarea {
+    font-family: 'Aptos', sans-serif; /* plain readable font */
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    background: #000;
+    border: none;
+    color: #fff;
+    outline: none;
+    text-align: center;
+    resize: none;
+  }
 
-textarea {
-  font-family: 'Aptos', sans-serif; /* plain text */
-  font-size: 1rem; /* slightly smaller for comfort */
-  padding: 0.5rem;
-  width: 100%;
-  background: #000;
-  border: none;
-  color: #fff;
-  outline: none;
-  text-align: center;
-  resize: none;
-}
+  ::placeholder {
+    text-align: center;
+    color: #bbb;
+  }
 
-/* placeholder style */
-::placeholder {
-  text-align: center;
-  color: #bbb;
-}
+  /* single-line fields */
+  .single-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: none;
+  }
 
-/* force name/email to behave like single-line fields */
-.single-line {
-  white-space: nowrap;
-  overflow-x: auto;
-  resize: none;
-  font-size: 1rem;
-  padding-bottom: 0.3rem;
-}
+  .single-line::-webkit-scrollbar {
+    display: none; /* hide scrollbar */
+  }
 
-/* hide scrollbar inside single-line textareas */
-.single-line::-webkit-scrollbar {
-  display: none;
-}
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 1.1rem;
+    padding: 0.3rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
 
-button {
-  font-family: 'Aptos', sans-serif;
-  font-size: 1.1rem;
-  padding: 0.3rem 1rem;
-  background: #000;
-  border: 1px solid #7bbf7b;
-  color: #7bbf7b;
-  cursor: pointer;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-  transition: text-shadow 0.2s ease, background 0.2s ease;
-}
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    background: #111;
+  }
 
-button:hover {
-  text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-  background: #111;
-}
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.9rem;}
+    button{font-size:0.9rem;}
+  }
 
-/* bottom nav bar */
-.bottom-nav {
-  position: fixed;
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  z-index: 2;
-}
+  /* bottom nav bar */
+  .bottom-nav {
+    position: fixed;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+  }
 
-.bottom-nav a {
-  display: inline-block;
-  text-decoration: none;
-}
+  .bottom-nav img {
+    width: 40px;
+    height: 40px;
+  }
 
-.bottom-nav img {
-  width: 40px;
-  height: 40px;
-  filter: brightness(1); /* default color */
-  transition: filter 0.2s ease;
-}
+  /* contact icon — active page indicator */
+  .bottom-nav .contact {
+    position: relative;
+    display: inline-block;
+  }
 
-.bottom-nav a:hover img {
-  filter: brightness(1.3);
-}
+  .bottom-nav .contact img {
+    cursor: default; /* not clickable */
+  }
 
-/* mark contact active */
-.bottom-nav .contact img {
-  filter: hue-rotate(90deg) brightness(1.2); /* green glow */
-  cursor: default;
-}
-
-@media(max-width:480px){
-  h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-  textarea{font-size:0.8rem;}
-  button{font-size:0.8rem;}
-  .bottom-nav img{width:35px;height:35px;}
-}
-
+  .bottom-nav .contact .active-dot {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #7bbf7b; /* neon green */
+    border-radius: 50%;
+  }
 </style>
 </head>
+
 <body>
 
 <h1>contact</h1>
@@ -193,18 +189,16 @@ button:hover {
   <button type="submit">send</button>
 </form>
 
-<!-- bottom nav bar -->
+<!-- bottom nav bar with active page indicator -->
 <div class="bottom-nav">
-  <a href="index.html" class="home"><img src="images/home.png" alt="home"></a>
-  <a href="portfolio.html" class="portfolio"><img src="images/portfolio.png" alt="portfolio"></a>
-  <a href="about.html" class="about"><img src="images/about.png" alt="about"></a>
-  <a href="contact.html" class="contact"><img src="images/contact.png" alt="contact"></a>
+  <a href="index.html"><img src="images/home.png" alt="home"></a>
+  <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
+  <a href="about.html"><img src="images/about.png" alt="about"></a>
+  <div class="contact">
+    <img src="images/contact.png" alt="contact">
+    <div class="active-dot"></div>
+  </div>
 </div>
-
-<!-- audio for neon -->
-<audio id="neon-sound" preload="auto">
-  <source src="neon.m4a" type="audio/mp4">
-</audio>
 
 </body>
 </html>
