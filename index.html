@@ -128,8 +128,8 @@
 
     <!-- contact link at bottom -->
 <div style="
-    position: absolute; 
-    bottom: calc(2rem + env(safe-area-inset-bottom)); /* add extra space for iPhone nav/home bar */
+    position: fixed; /* sticks relative to viewport, not page content */
+    bottom: calc(1.5rem + env(safe-area-inset-bottom)); /* above iPhone home bar */
     width: 100%; 
     text-align: center; 
     z-index: 2;
