@@ -2,31 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"> <!-- tells the browser how to read text -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- makes layout scale on mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- mobile scaling -->
 <title>contact — press for goblins</title> <!-- tab title -->
-<meta name="description" content="contact page for press for goblins — retro pixel/neon style"> <!-- seo helper -->
+<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
-<!-- google analytics setup -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script> <!-- loads analytics file -->
+<!-- google analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
 <script>
-  window.dataLayer = window.dataLayer || []; /* creates a place to store analytics events */
-  function gtag(){dataLayer.push(arguments);} /* sends events to analytics */
-  gtag('js', new Date()); /* marks analytics start time */
-  gtag('config', 'G-GFNZMGD8ME'); /* your analytics id */
+  window.dataLayer = window.dataLayer || []; /* storage for analytics events */
+  function gtag(){dataLayer.push(arguments);} /* sends event to analytics */
+  gtag('js', new Date()); /* marks start time */
+  gtag('config', 'G-GFNZMGD8ME'); /* your id */
 </script>
 
 <style>
-  @font-face { /* loads your pixel font */
+  @font-face { /* loads pixel font */
     font-family: 'PressStart2P';
     src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
          url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
          url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
-    font-weight: normal;
-    font-style: normal;
     font-display: swap;
   }
 
-  body { /* sets the page layout and background */
+  body { /* page layout and background */
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -35,20 +33,146 @@
     align-items: center;
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* slow vertical shift */
+    background: linear-gradient(0deg,#000 0%,#111 50%,#000 100%);
     background-size: 100% 200%;
-    animation: bgShift 12s linear infinite; /* moves the background */
-    overflow-x: hidden; /* stops sideways scroll */
+    animation: bgShift 12s linear infinite;
+    overflow-x: hidden;
     color: #fff;
     position: relative;
-    padding: 6vh 1rem; /* slight breathing room top/bottom */
+    padding: 6vh 1rem;
   }
 
-  body::after { /* soft vignette darkening around edges */
-    content: '';
+  body::after { /* vignette */
+    content:'';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle at centre, transparent 0%, rgba(0,0,0,0.25) 100%);
-    animation: vignettePulse 15s ease-in-out infinite alternate; /* slow breathing pulse */
+    background: radial-gradient(circle at centre,transparent 0%,rgba(0,0,0,0.25) 100%);
+    animation: vignettePulse 15s ease-in-out infinite alternate;
+  }
+
+  body::before { /* drifting glow */
+    content:'';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to bottom,rgba(255,255,255,0.02),rgba(255,255,255,0) 80%);
+    animation: verticalGlow 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgShift { 0%{background-position:0 0} 100%{background-position:0 100%} }
+  @keyframes vignettePulse { 0%{opacity:1} 50%{opacity:0.95} 100%{opacity:1} }
+  @keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4}
+                            50%{transform:translateY(10px);opacity:0.6}
+                            100%{transform:translateY(-10px);opacity:0.4} }
+
+  h1 { /* title */
+    font-size: clamp(2rem,8vw,3rem);
+    margin: 0 0 4rem;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 0 2px rgba(255,255,255,0.1);
+    z-index: 1;
+    position: relative;
+  }
+
+  form { /* layout for form */
+    display: flex;
+    flex-direction: column;
+    align-items: centre;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    z-index: 1;
+    position: relative;
+  }
+
+  input, textarea { /* form fields */
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 100%;
+    background: #111;
+    border: 1px solid #7bbf7b;
+    color: #fff;
+    outline: none;
+    text-align: centre;
+  }
+
+  ::placeholder { color:#bbb; text-align:centre; }
+
+  button { /* send button */
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b,0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b,0 0 5px #7bbf7b;
+    background:#111;
+  }
+
+  .email-footer { /* container for reveal button */
+    margin-top: 4rem;
+    font-size: clamp(0.9rem,4vw,1.2rem);
+    z-index: 2;
+    position: relative;
+  }
+
+  .reveal-btn { /* hidden email trigger, white glow */
+    color: #fff;
+    text-decoration: none;
+    font-family: 'PressStart2P', monospace;
+    font-size: clamp(0.9rem,4vw,1.2rem);
+    text-shadow: 0 0 1px #fff,0 0 3px #fff;
+    cursor: pointer;
+    transition: text-shadow 0.2s ease;
+  }
+
+  .reveal-btn:hover { /* stronger glow */
+    text-shadow: 0 0 2px #fff,0 0 5px #fff;
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.6rem,7vw,2.5rem);}
+    input, textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .email-footer{font-size:0.9rem;}
+  }
+</style>
+</head>
+
+<body>
+  <h1>contact</h1>
+
+  <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
+    <input type="text" name="name" placeholder="name" required>
+    <input type="email" name="email" placeholder="email" required>
+    <textarea name="message" rows="4" placeholder="message" required></textarea>
+    <button type="submit">send</button>
+  </form>
+
+  <div class="email-footer">
+    <span id="reveal-email" class="reveal-btn">show email</span>
+  </div>
+
+<!-- reveals email when clicked -->
+<script>
+  const reveal = document.getElementById('reveal-email');
+
+  reveal.addEventListener('click', () => {
+    const first = "noah"; /* split to avoid bots */
+    const second = "@pressforgoblins.com";
+    reveal.textContent = first + second;
+  });
+</script>
+
+</body>
+</html>
