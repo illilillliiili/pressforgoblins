@@ -1,139 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"> <!-- character encoding -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
 <title>contact — press for goblins</title>
-<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
-<script>
-  window.dataLayer = window.dataLayer || []; // initialize GA
-  function gtag(){dataLayer.push(arguments);}  // push events
-  gtag('js', new Date());                     // timestamp page load
-  gtag('config', 'G-GFNZMGD8ME');            // GA ID
-</script>
+<meta name="description" content="contact page for press for goblins — retro pixel style">
 
 <style>
-  /* load pixel font */
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
-         url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
-         url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'PressStart2P'; /* pixel font */
+  src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
+       url('../fonts/PressStart2P-Regular.woff?v=35') format('woff'),
+       url('../fonts/PressStart2P-Regular.ttf?v=35') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  /* body and background identical to home page */
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;                    /* vertical centering */
-    align-items: center;                        /* horizontal centering */
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%);
-    background-size: 100% 300%;
-    animation: bgShift 12s linear infinite;     /* same speed as home */
-    overflow-x: hidden;
-    position: relative;
-    color: #fff;
-  }
+body {
+  margin:0; 
+  height:100vh; 
+  display:flex; 
+  flex-direction:column; 
+  justify-content:center; /* vertical centering */
+  align-items:center;     /* horizontal centering */
+  font-family:'PressStart2P', monospace; 
+  text-align:center; 
+  overflow:hidden; /* no scrolling */
+  background:#000;
+  color:#fff;
+  position:relative;
+}
 
-  /* CRT / vignette overlay */
-  body::after {
-    content:'';
-    position: fixed;
-    inset: 0;                                  /* cover entire screen */
-    pointer-events: none;                      /* allow clicks through */
-    z-index: 1;                                /* above glow, behind content */
-    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
-    animation: vignettePulse 15s ease-in-out infinite alternate;
-  }
+/* CRT / scanlines overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1; 
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity:0.15;
+}
 
-  /* vertical soft glow / breathing effect */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-    animation: verticalGlow 20s ease-in-out infinite alternate;
-  }
+/* vertical glow background */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+  animation: verticalGlow 25s linear infinite;
+}
 
-  /* keyframes for background animation */
-  @keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-  @keyframes vignettePulse { 0%{opacity:1}50%{opacity:0.95}100%{opacity:1} }
-  @keyframes verticalGlow { 0%{transform:translateY(-10px);opacity:0.4} 50%{transform:translateY(10px);opacity:0.6} 100%{transform:translateY(-10px);opacity:0.4} }
+@keyframes verticalGlow {
+  0% { transform: translateY(110%); opacity:0.35; }
+  50% { opacity:0.6; }
+  100% { transform: translateY(-110%); opacity:0.35; }
+}
 
-  /* main title — mirrored from home page */
-  .main-title {
-    font-size: clamp(3rem,8vw,3rem);          /* same as home page title */
-    margin:0;
-    color: rgba(255,255,255,0.8);
-    line-height:1.4;
-    text-shadow:0 0 1px #fff,0 0 3px #fff;
-    z-index:2;
-    position: relative;
-  }
+/* page title */
+.main-title {
+  font-size: clamp(1.8rem,8vw,3rem);
+  color: rgba(255,255,255,0.8);
+  line-height:1.4;
+  max-width:90vw;
+  letter-spacing:0.01em;
+  word-spacing:-0.35em;
+  margin:0;
+  z-index:2;
+  display:inline-block;
+  animation: letter-jitter 1.5s infinite alternate ease-in-out;
+}
 
-  /* replacing "coming soon" with email icon */
-  .email-icon {
-    margin-top: 1.5rem;
-    font-size: 3rem;                           /* large pixel icon */
-    color:#fff;
-    text-decoration:none;
-    display:inline-block;
-    cursor:pointer;
-  }
+/* subtle horizontal jitter */
+@keyframes letter-jitter { 0%,100%{transform:translateX(0);}50%{transform:translateX(1px);} }
 
-  .email-icon:hover {
-    /* no glow */
-  }
+/* contact form styling */
+form {
+  display:flex;
+  flex-direction:column;
+  gap:1rem; /* space between fields */
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  max-width:300px;
+  z-index:2;
+  position:relative;
+}
 
-  /* bottom link (home) */
-  .bottom-link {
-    margin-top:4rem;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    text-decoration:none;
-    color:#fff;
-    font-family:'PressStart2P', monospace;
-    text-shadow:0 0 1px #fff,0 0 3px #fff;
-    transition:text-shadow 0.2s ease;
-  }
-  .bottom-link:hover {
-    text-shadow:0 0 2px #fff,0 0 5px #fff;
-  }
+input, textarea {
+  font-family:'PressStart2P', monospace;
+  font-size:0.9rem;
+  padding:0.5rem;
+  width:100%;
+  background:#111;
+  border:none; /* remove outlines */
+  color:#fff;
+  text-align:center; /* placeholder & text centered */
+  outline:none;
+}
 
-  /* subtle letter jitter on title */
-  @keyframes letter-jitter { 0%,100% {transform:translateX(0);} 50% {transform:translateX(1px);} }
-  .main-title { animation: letter-jitter 1.5s infinite alternate ease-in-out; }
+textarea { text-align:center; } /* ensure multiline also centered */
 
-  /* responsive adjustments */
-  @media(max-width:480px){
-    .main-title{font-size:clamp(2.4rem,7vw,3rem);}
-    .email-icon{font-size:2.5rem;}
-    .bottom-link{font-size:1rem;}
-  }
+::placeholder { color:#bbb; text-align:center; }
 
+button {
+  font-family:'PressStart2P', monospace;
+  font-size:0.9rem;
+  padding:0.5rem 1rem;
+  background:#000;
+  border:1px solid #7bbf7b;
+  color:#7bbf7b;
+  cursor:pointer;
+  text-shadow:0 0 1px #7bbf7b,0 0 3px #7bbf7b;
+  transition:text-shadow 0.2s ease, background 0.2s ease;
+}
+
+button:hover {
+  text-shadow:0 0 2px #7bbf7b,0 0 5px #7bbf7b;
+  background:#111;
+}
+
+/* bottom home link identical to home page contact link */
+.bottom-link-container {
+  position:fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom)); /* above phone nav bars */
+  width:100%;
+  text-align:center;
+  z-index:2;
+}
+.bottom-link {
+  color:#fff;
+  text-decoration:none;
+  font-family:'PressStart2P', monospace;
+  font-size: clamp(1rem,3vw,1.3rem);
+  text-shadow:0 0 1px #fff,0 0 3px #fff;
+  transition:text-shadow 0.2s ease;
+}
+.bottom-link:hover {
+  text-shadow:0 0 2px #fff,0 0 5px #fff;
+}
+
+/* responsive adjustments */
+@media(max-width:480px){
+  .main-title{font-size:clamp(1.4rem,7vw,2.4rem);}
+  input, textarea{font-size:0.8rem;}
+  button{font-size:0.8rem;}
+  .bottom-link{font-size:1rem;}
+}
 </style>
 </head>
+
 <body>
   <div class="main-title">contact</div>
 
-  <!-- large email icon -->
-  <a class="email-icon" href="mailto:noah@pressforgoblins.com">&#9993;</a>
+  <!-- retro floating contact form -->
+  <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
+    <input type="text" name="name" placeholder="name" required>
+    <input type="email" name="email" placeholder="email" required>
+    <textarea name="message" rows="4" placeholder="message" required></textarea>
+    <button type="submit">send</button>
+  </form>
 
-  <!-- bottom link to home page -->
+  <!-- bottom home link -->
   <div class="bottom-link-container">
     <a class="bottom-link" href="index.html">home</a>
   </div>
-
 </body>
 </html>
