@@ -7,7 +7,7 @@
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-  /* font import */
+  /* import press start font */
   @font-face {
     font-family: 'PressStart2P';
     src: url('../fonts/PressStart2P-Regular.woff2?v=35') format('woff2'),
@@ -18,43 +18,43 @@
     font-display: swap;
   }
 
-  /* body styles and centering */
+  /* main page layout */
   body {
-    margin: 0;
-    min-height: 100vh;
+    margin: 0; /* remove default margin */
+    min-height: 100vh; /* full viewport height */
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* vertical center */
-    align-items: center;     /* horizontal center */
+    flex-direction: column; /* stack elements vertically */
+    justify-content: center; /* vertically centre content */
+    align-items: center;     /* horizontally centre content */
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* home page gradient */
-    background-size: 100% 300%;
-    animation: bgShift 12s linear infinite; /* scrolling effect */
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* home-style gradient */
+    background-size: 100% 300%; /* allow vertical animation */
+    animation: bgShift 12s linear infinite; /* slow vertical movement */
     overflow-x: hidden;
     color: #fff;
     position: relative;
     padding: 2rem;
   }
 
-  /* vertical glow overlay — starts immediately, slow */
+  /* vertical glow overlay — subtle breathing effect */
   body::before {
     content:'';
     position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+    inset: 0; /* cover full screen */
+    pointer-events: none; /* doesn’t block interaction */
+    z-index: 0; /* behind content */
     background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
-    animation: verticalGlow 25s linear infinite; /* same as home page */
+    animation: verticalGlow 25s linear infinite;
   }
 
-  /* CRT / vignette overlay — sits above glow, behind content */
+  /* CRT/vignette overlay — subtle dark edges */
   body::after {
     content:'';
     position: fixed;
-    inset: 0;
+    inset: 0; /* full viewport */
     pointer-events: none;
-    z-index: 1;
+    z-index: 1; /* above glow but behind content */
     background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
   }
 
@@ -62,10 +62,10 @@
   @keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
   @keyframes verticalGlow { 0% { transform: translateY(110%); opacity:0.35; } 50% { opacity:0.6; } 100% { transform: translateY(-110%); opacity:0.35; } }
 
-  /* header */
+  /* page header */
   h1 {
     font-size: clamp(2rem,8vw,3rem);
-    margin: 0 0 2rem;
+    margin: 0 0 2rem; /* space below header */
     color: rgba(255,255,255,0.85);
     z-index:2;
     position: relative;
@@ -76,7 +76,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1rem; /* space between inputs */
     width: 100%;
     max-width: 300px;
     z-index:2;
@@ -114,42 +114,13 @@
     background:#111;
   }
 
-  /* pixel envelope icon for email reveal */
-  .pixel-email-icon {
-    width: 48px;       /* size of icon */
-    height: 32px;
-    margin: 2rem 0;    /* spacing from form and footer */
-    cursor: pointer;
-    image-rendering: pixelated; /* preserves pixel edges */
-  }
-
-  /* footer home button — same style as homepage contact */
-  .footer-links {
-    width: 100%;
-    text-align: center;
-    margin-top: 1rem;
-    z-index:2;
-  }
-
-  .home-btn {
-    color: #fff;
-    text-decoration: none;
-    font-family: 'PressStart2P', monospace;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    text-shadow: 0 0 1px #fff,0 0 3px #fff;
-    transition: text-shadow 0.2s ease;
-  }
-
-  .home-btn:hover { text-shadow:0 0 2px #fff,0 0 5px #fff; }
-
   /* mobile adjustments */
   @media(max-width:480px){
     h1{font-size: clamp(1.6rem,7vw,2.5rem);}
     input, textarea{font-size:0.8rem;}
     button{font-size:0.8rem;}
-    .home-btn{font-size:0.9rem;}
-    .pixel-email-icon { width:36px; height:24px; margin:1.5rem 0; }
   }
+
 </style>
 </head>
 <body>
@@ -161,23 +132,5 @@
     <textarea name="message" rows="4" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
-
-  <!-- pixel envelope icon between form and footer -->
-  <img src="../images/email-icon-pixel.png" id="reveal-email" class="pixel-email-icon" alt="email icon">
-
-  <!-- footer home button -->
-  <div class="footer-links">
-    <a href="index.html" class="home-btn">home</a>
-  </div>
-
-<script>
-const reveal = document.getElementById('reveal-email');
-reveal.addEventListener('click', () => {
-  const first = "noah";
-  const second = "@pressforgoblins.com";
-  // replace pixel icon with white email text when clicked
-  reveal.outerHTML = `<span style="color:#fff; font-family:'PressStart2P', monospace; font-size:1rem;">${first+second}</span>`;
-});
-</script>
 </body>
 </html>
