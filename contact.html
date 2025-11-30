@@ -49,7 +49,7 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* CRT / scanline overlay */
+  /* scanlines */
   body::after {
     content: '';
     position: fixed;
@@ -77,18 +77,18 @@
     display: inline-block;
   }
 
-  /* form styling */
+  /* form */
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
     width: 100%;
     max-width: 420px;
   }
 
   textarea {
-    font-family: 'PressStart2P', monospace;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     padding: 0.5rem;
     width: 100%;
@@ -97,7 +97,8 @@
     color: #fff;
     outline: none;
     text-align: center;
-    resize: none;
+    resize: vertical;
+    line-height: 1.4;
   }
 
   ::placeholder {
@@ -114,7 +115,9 @@
     padding-bottom: 0.3rem;
   }
 
-  .single-line::-webkit-scrollbar { display: none; }
+  .single-line::-webkit-scrollbar {
+    display: none;
+  }
 
   button {
     font-family: 'PressStart2P', monospace;
@@ -130,24 +133,42 @@
 
   button:hover {
     text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    background:#111;
+    background: #111;
   }
 
-  /* email icon between form and footer */
+  /* sent message */
+  #sent-message {
+    display: none;
+    margin-top: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #7bbf7b;
+    font-size: 1rem;
+    text-shadow: 0 0 2px #7bbf7b;
+    animation: glowPulse 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 2px #7bbf7b; }
+    50% { text-shadow: 0 0 6px #7bbf7b; }
+    100% { text-shadow: 0 0 2px #7bbf7b; }
+  }
+
+  /* email icon below send button */
   .email-icon {
     width: 80px;
     height: 80px;
-    margin-top: 2.5rem;
-    margin-bottom: 3rem;
+    margin-top: 2rem;
     background: url('images/mail.png') no-repeat center center;
     background-size: contain;
     cursor: pointer;
     z-index: 2;
   }
 
-  .email-icon:hover { filter: brightness(1.2); }
+  .email-icon:hover {
+    filter: brightness(1.2);
+  }
 
-  /* home link — same style as home page contact */
+  /* footer home link */
   .footer-home {
     position: fixed;
     bottom: calc(2.5rem + env(safe-area-inset-bottom));
@@ -169,65 +190,44 @@
     text-shadow: 0 0 2px #fff, 0 0 5px #fff;
   }
 
-  /* success message styling */
-  #success-msg {
-    margin-top: 1rem;
-    font-size: 1rem;
-    color: #7bbf7b;
-    text-shadow: 0 0 1px #7bbf7b,0 0 3px #7bbf7b;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     textarea{font-size:0.8rem;}
     button{font-size:0.8rem;}
-    .footer-home a{font-size: clamp(0.9rem,4vw,1.2rem);}
+    .email-icon{width:60px; height:60px;}
   }
 </style>
 </head>
 
 <body>
+
   <h1>contact</h1>
 
-  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST">
-    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
+  <form id="contact-form">
     <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
+    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
     <textarea name="message" rows="6" placeholder="message" required></textarea>
     <button type="submit">send</button>
   </form>
 
-  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
+  <div id="sent-message">sent! the goblins will see you soon ツ</div>
 
-  <div id="success-msg">sent! i'll be in touch soon :)</div>
+  <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
   <div class="footer-home">
     <a href="index.html">home</a>
   </div>
 
 <script>
-  const form = document.getElementById('contact-form');
-  const successMsg = document.getElementById('success-msg');
-  const submitBtn = form.querySelector('button');
+const form = document.getElementById('contact-form');
+const sentMessage = document.getElementById('sent-message');
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault(); // prevent default submit
-    fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if(response.ok){
-        successMsg.style.opacity = 1; // show success
-        submitBtn.disabled = true;
-        submitBtn.style.textShadow = "0 0 4px #7bbf7b,0 0 10px #7bbf7b";
-        submitBtn.style.color = "#7bbf7b";
-      } else {
-        alert('error sending form');
-      }
-    }).catch(() => { alert('error sending form'); });
-  });
+form.addEventListener('submit', (e)=>{
+  e.preventDefault(); // prevent default submission
+  sentMessage.style.display = 'block'; // show sent message
+  form.reset(); // clear fields
+});
 </script>
+
 </body>
 </html>
