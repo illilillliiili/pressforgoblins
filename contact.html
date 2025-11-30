@@ -6,15 +6,6 @@
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GFNZMGD8ME"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GFNZMGD8ME');
-</script>
-
 <style>
   /* font import */
   @font-face {
@@ -27,62 +18,60 @@
     font-display: swap;
   }
 
+  /* body styles and centering */
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center; /* vertical center */
     align-items: center;     /* horizontal center */
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    background: #000; /* base black */
+    background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* home page gradient */
+    background-size: 100% 300%;
+    animation: bgShift 12s linear infinite; /* scrolling effect */
     overflow-x: hidden;
     color: #fff;
     position: relative;
     padding: 2rem;
   }
 
-  /* vertical glow background */
+  /* vertical glow overlay — starts immediately, slow */
   body::before {
     content:'';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: linear-gradient(
-      to top,
-      rgba(255,255,255,0.05) 0%, 
-      rgba(255,255,255,0.02) 80%,
-      rgba(255,255,255,0) 100%
-    );
-    animation: verticalGlow 25s linear infinite;
+    background: linear-gradient(to top, rgba(255,255,255,0.02), rgba(255,255,255,0) 80%);
+    animation: verticalGlow 25s linear infinite; /* same as home page */
   }
 
-  @keyframes verticalGlow {
-    0% { transform: translateY(110%); opacity:0.35; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.35; }
-  }
-
-  /* CRT / vignette overlay above glow */
+  /* CRT / vignette overlay — sits above glow, behind content */
   body::after {
     content:'';
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 1; 
+    z-index: 1;
     background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.25) 100%);
   }
 
+  /* background keyframes */
+  @keyframes bgShift { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
+  @keyframes verticalGlow { 0% { transform: translateY(110%); opacity:0.35; } 50% { opacity:0.6; } 100% { transform: translateY(-110%); opacity:0.35; } }
+
+  /* header */
   h1 {
     font-size: clamp(2rem,8vw,3rem);
-    margin:0 0 3rem;
+    margin: 0 0 2rem;
     color: rgba(255,255,255,0.85);
     z-index:2;
     position: relative;
   }
 
+  /* form styling */
   form {
     display: flex;
     flex-direction: column;
@@ -125,42 +114,41 @@
     background:#111;
   }
 
-  /* footer links container - same format as home page contact */
-  .footer-links {
-    position: absolute;  /* fixed to bottom of page */
-    bottom: 2rem;        /* 2rem from bottom */
-    width: 100%;
-    text-align: center;   /* center contents */
-    z-index: 2;
-  }
-
-  /* email icon pixelated */
+  /* pixel envelope icon for email reveal */
   .pixel-email-icon {
-    width: 24px;
-    height: 16px;
-    display: inline-block;
+    width: 48px;       /* size of icon */
+    height: 32px;
+    margin: 2rem 0;    /* spacing from form and footer */
     cursor: pointer;
-    image-rendering: pixelated;
-    vertical-align: middle;
+    image-rendering: pixelated; /* preserves pixel edges */
   }
 
-  /* home button same as home page contact link */
+  /* footer home button — same style as homepage contact */
+  .footer-links {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    z-index:2;
+  }
+
   .home-btn {
-    color: #fff; 
+    color: #fff;
     text-decoration: none;
     font-family: 'PressStart2P', monospace;
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     text-shadow: 0 0 1px #fff,0 0 3px #fff;
     transition: text-shadow 0.2s ease;
-    margin-left: 1rem;
   }
+
   .home-btn:hover { text-shadow:0 0 2px #fff,0 0 5px #fff; }
 
+  /* mobile adjustments */
   @media(max-width:480px){
     h1{font-size: clamp(1.6rem,7vw,2.5rem);}
     input, textarea{font-size:0.8rem;}
     button{font-size:0.8rem;}
     .home-btn{font-size:0.9rem;}
+    .pixel-email-icon { width:36px; height:24px; margin:1.5rem 0; }
   }
 </style>
 </head>
@@ -174,12 +162,11 @@
     <button type="submit">send</button>
   </form>
 
-  <!-- footer links at bottom -->
-  <div class="footer-links">
-    <!-- pixel email icon - hidden email revealed on click -->
-    <img src="../images/email-icon-pixel.png" id="reveal-email" class="pixel-email-icon" alt="email icon">
+  <!-- pixel envelope icon between form and footer -->
+  <img src="../images/email-icon-pixel.png" id="reveal-email" class="pixel-email-icon" alt="email icon">
 
-    <!-- home link -->
+  <!-- footer home button -->
+  <div class="footer-links">
     <a href="index.html" class="home-btn">home</a>
   </div>
 
@@ -188,8 +175,7 @@ const reveal = document.getElementById('reveal-email');
 reveal.addEventListener('click', () => {
   const first = "noah";
   const second = "@pressforgoblins.com";
-
-  // replace icon with email text
+  // replace pixel icon with white email text when clicked
   reveal.outerHTML = `<span style="color:#fff; font-family:'PressStart2P', monospace; font-size:1rem;">${first+second}</span>`;
 });
 </script>
