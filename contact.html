@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
@@ -12,24 +12,24 @@
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
          url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal; 
-    font-style: normal;  
-    font-display: swap; 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
 
   body {
     margin: 0;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    background: #000; 
+    justify-content: center;
+    align-items: center;
+    background: #000;
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow: hidden;
     position: relative;
-    color: rgba(255,255,255,0.8); 
+    color: rgba(255,255,255,0.8);
   }
 
   /* vertical glow */
@@ -49,7 +49,7 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* scanlines */
+  /* CRT / scanline overlay */
   body::after {
     content: '';
     position: fixed;
@@ -77,7 +77,7 @@
     display: inline-block;
   }
 
-  /* form */
+  /* form styling */
   form {
     display: flex;
     flex-direction: column;
@@ -105,7 +105,7 @@
     color: #bbb;
   }
 
-  /* single-line textareas for name/email */
+  /* single-line fields for name/email */
   .single-line {
     white-space: nowrap;
     overflow-x: auto;
@@ -113,7 +113,8 @@
     font-size: 1rem;
     padding-bottom: 0.3rem;
   }
-  .single-line::-webkit-scrollbar { display: none; } /* hide scrollbars */
+
+  .single-line::-webkit-scrollbar { display: none; }
 
   button {
     font-family: 'PressStart2P', monospace;
@@ -129,16 +130,10 @@
 
   button:hover {
     text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    background: #111;
+    background:#111;
   }
 
-  @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.8rem;}
-    button{font-size:0.8rem;}
-  }
-
-  /* email icon between form and home */
+  /* email icon between form and footer */
   .email-icon {
     width: 80px;
     height: 80px;
@@ -150,11 +145,9 @@
     z-index: 2;
   }
 
-  .email-icon:hover {
-    filter: brightness(1.2);
-  }
+  .email-icon:hover { filter: brightness(1.2); }
 
-  /* home link — exact home page style */
+  /* home link — same style as home page contact */
   .footer-home {
     position: fixed;
     bottom: calc(2.5rem + env(safe-area-inset-bottom));
@@ -176,14 +169,29 @@
     text-shadow: 0 0 2px #fff, 0 0 5px #fff;
   }
 
+  /* success message styling */
+  #success-msg {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #7bbf7b;
+    text-shadow: 0 0 1px #7bbf7b,0 0 3px #7bbf7b;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+    .footer-home a{font-size: clamp(0.9rem,4vw,1.2rem);}
+  }
 </style>
 </head>
 
 <body>
-
   <h1>contact</h1>
 
-  <form action="https://formspree.io/f/mblndezr" method="POST">
+  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST">
     <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
     <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
     <textarea name="message" rows="6" placeholder="message" required></textarea>
@@ -192,13 +200,34 @@
 
   <div class="email-icon" onclick="window.location='mailto:noah@pressforgoblins.com'"></div>
 
+  <div id="success-msg">sent! i'll be in touch soon :)</div>
+
   <div class="footer-home">
     <a href="index.html">home</a>
   </div>
 
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
+<script>
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('success-msg');
+  const submitBtn = form.querySelector('button');
 
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); // prevent default submit
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if(response.ok){
+        successMsg.style.opacity = 1; // show success
+        submitBtn.disabled = true;
+        submitBtn.style.textShadow = "0 0 4px #7bbf7b,0 0 10px #7bbf7b";
+        submitBtn.style.color = "#7bbf7b";
+      } else {
+        alert('error sending form');
+      }
+    }).catch(() => { alert('error sending form'); });
+  });
+</script>
 </body>
 </html>
