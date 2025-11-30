@@ -126,15 +126,21 @@
   <div class="main-title">press for goblins</div> <!-- main site title -->
   <div class="coming-soon" id="coming-soon">coming soon</div> <!-- neon coming soon -->
 
-     <!-- contact link at bottom -->
-<div style="position: absolute; bottom: 2rem; width: 100%; text-align: center; z-index: 2;">
+    <!-- contact link at bottom -->
+<div style="
+    position: absolute; 
+    bottom: 2rem; 
+    width: 100%; 
+    text-align: center; 
+    z-index: 2;
+">
   <a href="contact.html" style="
-    color: #fff; /* base white */
-    text-decoration: none; 
-    font-family: 'PressStart2P', monospace;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    text-shadow: 0 0 1px #fff, 0 0 3px #fff;
-    transition: text-shadow 0.2s ease;
+      color: #fff; /* base white */
+      text-decoration: none; 
+      font-family: 'PressStart2P', monospace;
+      font-size: clamp(1rem, 3vw, 1.3rem); /* slightly bigger, scales with screen */
+      text-shadow: 0 0 1px #fff, 0 0 3px #fff; /* subtle glow initially */
+      transition: text-shadow 0.2s ease;
   " 
   onmouseover="this.style.textShadow='0 0 2px #fff,0 0 5px #fff'" 
   onmouseout="this.style.textShadow='0 0 1px #fff,0 0 3px #fff'">
