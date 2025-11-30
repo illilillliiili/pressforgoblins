@@ -2,133 +2,194 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"> <!-- character encoding for the page -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ensures mobile scaling works properly -->
-<title>press for goblins</title> <!-- page title -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
+<title>press for goblins</title> <!-- browser tab title -->
 <meta name="description" content="press for goblins — coming soon, retro pixel-style site"> <!-- SEO description -->
 
 <style>
-/* load pixel/retro font */
-@font-face {
-  font-family: 'PressStart2P'; /* name used in font-family */
-  src: url('fonts/PressStart2P-Regular.woff2?v=31') format('woff2'), /* modern compressed font format */
-       url('fonts/PressStart2P-Regular.woff?v=31') format('woff'),   /* fallback for older browsers */
-       url('fonts/PressStart2P-Regular.ttf?v=31') format('truetype'); /* final fallback */
-  font-weight: normal; /* normal weight */
-  font-style: normal; /* normal style */
-  font-display: swap; /* ensures text shows immediately */
-}
+  @font-face {
+    font-family: 'PressStart2P'; /* custom pixel font */
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype'); /* multiple formats for compatibility */
+    font-weight: normal; /* normal weight */
+    font-style: normal;  /* normal style */
+    font-display: swap;  /* ensures text is displayed immediately with fallback font */
+  }
 
-/* main body styling */
-body {
-  margin: 0; /* remove default margin */
-  height: 100vh; /* full viewport height */
-  display: flex; /* use flexbox layout */
-  flex-direction: column; /* stack children vertically */
-  justify-content: center; /* center vertically */
-  align-items: center; /* center horizontally */
-  background: linear-gradient(0deg, #000 0%, #111 50%, #000 100%); /* subtle gradient for depth */
-  background-size: 100% 300%; /* larger vertical size so animation can scroll */
-  animation: bgShift 12s linear infinite; /* slowly move background up/down */
-  font-family: 'PressStart2P', monospace; /* set font */
-  text-align: center; /* center text */
-  overflow: hidden; /* prevent scrolling */
-  position: relative; /* base for layering other elements */
-  color: #fff; /* default text color */
-}
+  body {
+    margin: 0; /* remove default margin */
+    height: 100vh; /* full viewport height */
+    display: flex; /* flex layout for centering */
+    flex-direction: column; /* stack elements vertically */
+    justify-content: center; /* vertical centering */
+    align-items: center; /* horizontal centering */
+    background: #000; /* black background */
+    font-family: 'PressStart2P', monospace; /* apply custom font with fallback */
+    text-align: center; /* centre text */
+    overflow: hidden; /* remove scroll */
+    position: relative; /* allow pseudo-elements to be positioned relative to body */
+    color: #fff; /* default text color */
+  }
 
-/* soft vertical glow — starts immediately, moves bottom to top */
-body::before {
-  content: ''; /* empty element for visual effect */
-  position: fixed; /* stay in place even if page scrolls */
-  inset: 0; /* cover whole viewport */
-  pointer-events: none; /* clicks go through */
-  z-index: 0; /* below main text */
-  background: linear-gradient(
-    to top,
-    rgba(255,255,255,0.2) 20%,  /* faint glow bottom */
-    rgba(255,255,255,0.05) 10%, /* start of subtle glow */
-    rgba(255,255,255,0.1) 60%,  /* brightest mid-way */
-    rgba(255,255,255,0.05) 80%, /* fade out top */
-    rgba(255,255,255,0) 90%     /* fully transparent at very top */
-  );
-  animation: verticalGlow 25s linear infinite; /* move gradient bottom→top smoothly */
-}
+  /* CRT / scanline overlay — sits above glow, behind text */
+  body::after {
+    content: ''; /* pseudo-element content */
+    position: fixed; /* fixed to viewport */
+    inset: 0; /* cover entire viewport */
+    pointer-events: none; /* do not block clicks */
+    z-index: 1; /* above glow but below text */
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px, /* start line */
+      rgba(255,255,255,0.02) 1px, /* end line */
+      transparent 1px, /* transparent gap start */
+      transparent 3px /* transparent gap end */
+    );
+    opacity: 0.15; /* subtle visibility */
+  }
 
-/* CRT / scanline overlay — sits above glow but behind text */
-body::after {
-  content: ''; /* empty element for visual effect */
-  position: fixed; /* stay fixed on screen */
-  inset: 0; /* cover whole screen */
-  pointer-events: none; /* clicks pass through */
-  z-index: 1; /* above glow, behind text */
-  background: repeating-linear-gradient(
-    rgba(255,255,255,0.02) 0px, /* faint line */
-    rgba(255,255,255,0.02) 1px, /* same line thickness */
-    transparent 1px,             /* gap */
-    transparent 3px              /* larger gap for visible scanline effect */
-  );
-  opacity: 0.15; /* subtle visibility */
-}
+  /* soft vertical glow — starts immediately, bottom to top, slow */
+  body::before {
+    content:''; /* pseudo-element content */
+    position: fixed; /* fixed to viewport */
+    inset: 0; /* cover entire viewport */
+    pointer-events: none; /* do not block interactions */
+    z-index: 0; /* below CRT overlay */
+    background: linear-gradient(
+      to top, /* vertical gradient */
+      rgba(255,255,255,0.05) 0%, /* faint at bottom */
+      rgba(255,255,255,0.1) 50%, /* brightest mid-way */
+      rgba(255,255,255,0.05) 80%, /* fading */
+      rgba(255,255,255,0) 100% /* fully transparent top */
+    );
+    animation: verticalGlow 25s linear infinite; /* slow vertical movement */
+  }
 
-/* animate background gradient slowly */
-@keyframes bgShift {
-  0% { background-position: 0% 0%; } /* start at top */
-  100% { background-position: 0% 50%; } /* end mid-way for smooth effect */
-}
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; } /* start below viewport, semi-transparent */
+    50% { opacity:0.6; } /* peak brightness mid-animation */
+    100% { transform: translateY(-110%); opacity:0.35; } /* finish above viewport */
+  }
 
-/* animate vertical glow movement */
-@keyframes verticalGlow {
-  0% { transform: translateY(110%); opacity:0.35; } /* start below viewport, faint */
-  50% { opacity:0.6; } /* mid-way brighter */
-  100% { transform: translateY(-110%); opacity:0.35; } /* move above viewport, fade out */
-}
+  .main-title {
+    font-size: clamp(1.8rem, 8vw, 3rem); /* responsive font: min, preferred, max */
+    color: rgba(255,255,255,0.8); /* slightly transparent white */
+    white-space: normal; /* allow wrapping */
+    line-height: 1.4; /* spacing between lines */
+    max-width: 90vw; /* prevent overflow */
+    letter-spacing: 0.01em; /* spacing between letters */
+    word-spacing: -0.3em; /* spacing between words */
+    margin: 0; /* remove default margin */
+    z-index:2; /* above glow and CRT */
+    display: inline-block; /* allows transforms/animations */
+    animation: letter-jitter 1.5s infinite alternate ease-in-out; /* subtle horizontal jitter */
+  }
 
-/* main header text */
-.main-title {
-  font-size: clamp(1.8rem, 8vw, 3rem); /* responsive sizing */
-  color: rgba(255,255,255,0.8); /* semi-bright white */
-  white-space: normal; /* allow line breaks if needed */
-  line-height: 1.4; /* spacing between lines */
-  max-width: 90vw; /* prevent overflow on narrow screens */
-  letter-spacing: 0.01em; /* spacing between letters */
-  word-spacing: -0.3em; /* tighter spacing between words */
-  margin: 0; /* remove default margin */
-  display: inline-block; /* needed for text animations */
-  animation: letter-jitter 1.5s infinite alternate ease-in-out; /* slight shake */
-  z-index:2; /* above background layers */
-}
+  .coming-soon {
+    margin-top: 1.5rem; /* spacing from main title */
+    font-size: clamp(1.5rem, 6.5vw, 2.5rem); /* responsive size */
+    --neon-color: #7bbf7b; /* neon green variable */
+    color: var(--neon-color); /* apply green */
+    text-shadow: 0 0 1px var(--neon-color),
+                 0 0 3px var(--neon-color),
+                 0 0 6px var(--neon-color); /* neon glow */
+    letter-spacing: 0.03em; /* letter spacing */
+    word-spacing: -0.05em; /* word spacing */
+    opacity: 0; /* hidden initially */
+    z-index:2; /* above glow and CRT */
+    display: inline-block; /* for animation */
+  }
 
-/* "coming soon" neon text */
-.coming-soon {
-  margin-top: 1.5rem; /* spacing below main title */
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem); /* responsive sizing */
-  --neon-color: #7bbf7b; /* define neon color variable */
-  color: var(--neon-color); /* text color */
-  text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color); /* neon glow effect */
-  letter-spacing: 0.03em; /* spacing between letters */
-  word-spacing: -0.05em; /* spacing between words */
-  opacity:0; /* initially invisible for flicker effect */
-  display: inline-block;
-  animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  z-index:2;
-}
+  @keyframes violent-flicker {
+    0%,35%,55% { opacity: 0; text-shadow: none; } /* off frames */
+    25%,45% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); } /* on frames */
+    100% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); } /* end state */
+  }
 
-/* flicker animation for coming soon */
-@keyframes violent-flicker {
-  0%, 35%, 55% { opacity: 0; text-shadow: none; } /* off */
-  25%, 45% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); } /* on */
-  100% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); } /* remain visible */
-}
-.violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
+  .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; } /* apply flicker */
 
-/* slight horizontal shake for text */
-@keyframes letter-jitter { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(1px); } }
+  @keyframes letter-jitter { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1px); } } /* subtle horizontal jitter */
 
-/* hue shift for subtle neon color variation */
-@keyframes hueShift { 0% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(5deg); } 100% { filter: hue-rotate(0deg); } }
-.coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
+  @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(5deg); } 100% { filter: hue-rotate(0deg); } } /* slight neon hue shift */
 
-/* CONTACT LINK — bottom of page */
+  .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; } /* apply hue shift animation */
+
+  @media(max-width:480px){ /* mobile adjustments */
+    .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.5em; }
+    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.03em; }
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="main-title">press for goblins</div> <!-- main site title -->
+  <div class="coming-soon" id="coming-soon">coming soon</div> <!-- neon coming soon -->
+
+  <!-- neon audio -->
+  <audio id="neon-sound" preload="auto">
+    <source src="neon.m4a" type="audio/mp4">
+  </audio>
+
+<script>
+  const el = document.getElementById('coming-soon'); /* reference element */
+  const sound = document.getElementById('neon-sound'); /* reference audio */
+
+  const startupDelay = 750; /* delay before coming soon appears and audio plays */
+  const violentFlickerDuration = 250; /* duration of initial flicker */
+  const extraFlickerDuration = 120; /* extra flicker for zap sync */
+
+  function startSubtleGlowPulse() {
+    function pulse() {
+      const wait = Math.random() * 3000 + 2000; /* random wait between pulses */
+      setTimeout(() => {
+        const boost = Math.random() * 0.4 + 0.7; /* random glow intensity */
+        el.style.textShadow = `
+          0 0 ${1*boost}px var(--neon-color),
+          0 0 ${3*boost}px var(--neon-color),
+          0 0 ${6*boost}px var(--neon-color)
+        `; /* apply pulse */
+        setTimeout(()=>{
+          el.style.textShadow = `
+            0 0 1px var(--neon-color),
+            0 0 3px var(--neon-color),
+            0 0 6px var(--neon-color)
+          `; /* reset glow */
+          pulse(); /* loop pulse */
+        }, Math.random()*70+50);
+      }, wait);
+    }
+    pulse();
+  }
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    setTimeout(()=>{
+      el.classList.add('violent-flicker'); /* initial flicker */
+      el.style.opacity = 1; /* show element */
+
+      // fade-in neon sound
+      if(sound){
+        sound.volume = 0; /* start muted */
+        sound.play().catch(()=>{}); /* attempt play */
+        let vol=0;
+        const fadeInterval = setInterval(()=>{
+          vol += 0.05;
+          if(vol>=0.5){ vol=0.5; clearInterval(fadeInterval); } /* cap volume */
+          sound.volume = vol; /* apply volume */
+        },5);
+      }
+
+      // extra flicker synced with zap
+      setTimeout(()=>{
+        el.style.opacity = 0; /* quick flicker off */
+        setTimeout(()=>{ el.style.opacity=1; }, extraFlickerDuration); /* restore */
+        el.classList.add('hue-shift'); /* start subtle hue shift */
+      }, violentFlickerDuration+50);
+
+      // start subtle glow pulses after flickers
+      setTimeout(()=>{ startSubtleGlowPulse(); }, violentFlickerDuration+extraFlickerDuration+60);
+
+      /* CONTACT LINK — bottom of page */
 .contact-link {
   position: absolute; /* place relative to body */
   bottom: 2rem; /* distance from bottom */
@@ -141,81 +202,9 @@ body::after {
 .contact-link:hover {
   text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b, 0 0 10px #7bbf7b; /* neon green glow on hover */
 }
-
-/* responsive adjustments */
-@media(max-width:480px){
-  .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.5em; }
-  .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.03em; }
-  .contact-link { font-size: clamp(0.9rem, 4vw, 1.2rem); bottom:1.5rem; } /* ensure visible on mobile */
-}
-</style>
-</head>
-
-<body>
-  <!-- main header -->
-  <div class="main-title">press for goblins</div>
-
-  <!-- coming soon with flicker + neon -->
-  <div class="coming-soon" id="coming-soon">coming soon</div>
-
-  <!-- contact link at bottom -->
-  <a class="contact-link" href="contact.html">contact</a>
-
-  <!-- neon sound -->
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
-
-<script>
-const el = document.getElementById('coming-soon'); // reference to coming soon element
-const sound = document.getElementById('neon-sound'); // reference to audio element
-
-const startupDelay = 750; /* time before coming soon appears */
-const violentFlickerDuration = 250; /* length of initial flicker */
-const extraFlickerDuration = 125; /* small additional flicker for zap effect */
-
-function startSubtleGlowPulse() { /* continuous glow pulse for neon */
-  function pulse() {
-    const wait = Math.random()*3000+2000; /* random delay 2-5s */
-    setTimeout(()=>{
-      const boost = Math.random()*0.4+0.7; /* random glow intensity */
-      el.style.textShadow = `0 0 ${1*boost}px var(--neon-color),0 0 ${3*boost}px var(--neon-color),0 0 ${6*boost}px var(--neon-color)`;
-      setTimeout(()=>{
-        el.style.textShadow = `0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color)`;
-        pulse(); /* repeat pulse indefinitely */
-      }, Math.random()*70+50);
-    }, wait);
-  }
-  pulse();
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(()=>{
-    el.classList.add('violent-flicker'); // trigger initial flicker
-    el.style.opacity = 1;
-
-    if(sound){
-      sound.volume = 0; // start muted
-      sound.play().catch(()=>{}); // play audio
-      let vol=0;
-      const fadeInterval = setInterval(()=>{ // gradually increase volume
-        vol+=0.05;
-        if(vol>=0.5){ vol=0.5; clearInterval(fadeInterval); } // stop at half volume
-        sound.volume=vol; 
-      }, 5); // every 5ms
-    }
-
-    // extra zap flicker
-    setTimeout(()=>{
-      el.style.opacity=0;
-      setTimeout(()=>{ el.style.opacity=1; }, extraFlickerDuration);
-      el.classList.add('hue-shift'); // start subtle neon hue animation
-    }, violentFlickerDuration+50);
-
-    // start continuous glow after flickers
-    setTimeout(()=>{ startSubtleGlowPulse(); }, violentFlickerDuration+extraFlickerDuration+60);
-  }, startupDelay);
-});
+  
+    }, startupDelay);
+  });
 </script>
 </body>
 </html>
