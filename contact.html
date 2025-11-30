@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"> <!-- character encoding -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
@@ -12,24 +12,24 @@
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
          url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-weight: normal; 
+    font-style: normal;  
+    font-display: swap; 
   }
 
   body {
     margin: 0;
-    height: 100vh;
+    height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
+    justify-content: center; 
+    align-items: center; 
+    background: #000; 
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow: hidden;
     position: relative;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.8); 
   }
 
   /* vertical glow */
@@ -100,26 +100,21 @@
     resize: none;
   }
 
-  
   ::placeholder {
     text-align: center;
     color: #bbb;
   }
 
-  /* force name/email to behave like single-line fields */
-.single-line {
-  white-space: nowrap;
-  overflow-x: auto;
-  resize: none;
-  font-size: 1rem;
-  padding-bottom: 0.3rem;
-}
+  /* single-line textareas for name/email */
+  .single-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: none;
+    font-size: 1rem;
+    padding-bottom: 0.3rem;
+  }
+  .single-line::-webkit-scrollbar { display: none; } /* hide scrollbars */
 
-/* hide scrollbar inside textareas */
-.single-line::-webkit-scrollbar {
-  display: none;
-}
-  
   button {
     font-family: 'PressStart2P', monospace;
     font-size: 1.1rem;
@@ -180,15 +175,15 @@
   .footer-home a:hover {
     text-shadow: 0 0 2px #fff, 0 0 5px #fff;
   }
-</style>
 
+</style>
 </head>
 
 <body>
 
   <h1>contact</h1>
 
-  <form action="mailto:noah@pressforgoblins.com" method="post" enctype="text/plain">
+  <form action="https://formspree.io/f/mblndezr" method="POST">
     <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
     <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
     <textarea name="message" rows="6" placeholder="message" required></textarea>
