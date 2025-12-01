@@ -20,6 +20,14 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Aptos Serif';
+    src: url('fonts/Aptos-Serif.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -77,49 +85,85 @@
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem;
-    color: rgba(255,255,255,0.8);
+    margin-bottom: 2.5rem;
+    color: rgba(255,255,255,0.9);
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
     word-spacing: -0.35em;
     z-index:2;
     display: inline-block;
+    font-family: 'PressStart2P', monospace;
   }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1.2rem;
     width: 100%;
     max-width: 420px;
     z-index: 2;
   }
 
-  textarea {
-    font-family: 'Aptos', sans-serif;
-    font-size: 1rem;
-    padding: 0.5rem;
+  .field-group {
     width: 100%;
-    background: #000;
-    border: none;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-    color: #fff;
-    outline: none;
-    text-align: center;
-    resize: none;
-    transition: border-color 0.2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(123, 191, 123, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.1s ease;
   }
 
-  textarea:focus {
-    border-bottom-color: #7bbf7b;
+  .field-group:hover,
+  .field-group:focus-within {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(123, 191, 123, 0.3);
+    box-shadow: 0 4px 16px rgba(123, 191, 123, 0.1);
+  }
+
+  .field-group:hover textarea,
+  .field-group:focus-within textarea {
+    opacity: 1;
+  }
+
+  .field-label {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.75rem;
+    color: #7bbf7b;
+    opacity: 0.9;
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+
+  textarea {
+    font-family: 'Aptos Serif', serif;
+    font-size: 1.1rem;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    text-align: left;
+    resize: none;
+    line-height: 1.5;
+    opacity: 0.7;
+    transition: opacity 0.1s ease;
   }
 
   ::placeholder {
-    text-align: center;
+    text-align: left;
     color: #bbb;
-    font-family: 'Aptos', sans-serif;
+    font-family: 'Aptos Serif', serif;
   }
 
   .single-line {
@@ -130,6 +174,10 @@
     padding-bottom: 0.3rem;
   }
 
+  .multi-line {
+    min-height: 80px;
+  }
+
   .single-line::-webkit-scrollbar {
     display: none;
   }
@@ -137,18 +185,24 @@
   button {
     font-family: 'PressStart2P', monospace;
     font-size: 1.1rem;
-    padding: 0.3rem 1rem;
-    background: #000;
-    border: 1px solid #7bbf7b;
+    padding: 0.4rem 1.2rem;
+    margin-top: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(123, 191, 123, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #7bbf7b;
     cursor: pointer;
     text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-    transition: text-shadow 0.2s ease, background 0.2s ease;
+    transition: all 0.1s ease;
   }
 
   button:hover {
+    background: rgba(123, 191, 123, 0.1);
     text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    background: #111;
+    border-color: rgba(123, 191, 123, 0.5);
+    box-shadow: 0 4px 16px rgba(123, 191, 123, 0.15);
   }
 
   button:focus {
@@ -258,9 +312,18 @@
   <h1>contact</h1>
 
   <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-    <textarea name="name" rows="1" placeholder="name" class="single-line" aria-label="Your name"></textarea>
-    <textarea name="email" rows="1" placeholder="email" class="single-line" aria-label="Your email"></textarea>
-    <textarea name="message" rows="5" placeholder="message" aria-label="Your message"></textarea>
+    <div class="field-group">
+      <label class="field-label">name</label>
+      <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
+    </div>
+    <div class="field-group">
+      <label class="field-label">email</label>
+      <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
+    </div>
+    <div class="field-group">
+      <label class="field-label">message</label>
+      <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
+    </div>
     <button type="submit">send</button>
   </form>
 
