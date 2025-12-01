@@ -297,37 +297,7 @@
     });
   });
 
-  // Konami code easter egg - spawn goblins! (↑ ↑ ↓ ↓ ← → ← → B A)
-  const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-  let konamiIndex = 0;
 
-  function spawnGoblin() {
-    const goblin = document.createElement('div');
-    goblin.className = 'goblin-sprite';
-    goblin.textContent = '👺'; // You can replace with an actual goblin image/sprite
-    goblin.style.left = Math.random() * 100 + '%';
-    goblin.style.animationDuration = (Math.random() * 2 + 3) + 's';
-    document.body.appendChild(goblin);
-    
-    // Remove goblin after animation completes
-    setTimeout(() => {
-      goblin.remove();
-    }, 5000);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    const key = e.key.toLowerCase();
-    if (key === konamiCode[konamiIndex]) {
-      konamiIndex++;
-      if (konamiIndex === konamiCode.length) {
-        // Spawn multiple goblins!
-        for (let i = 0; i < 15; i++) {
-          setTimeout(() => spawnGoblin(), i * 200);
-        }
-        konamiIndex = 0;
-      }
-    } else {
-      konamiIndex = 0;
     }
   });
 </script>
