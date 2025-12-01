@@ -32,7 +32,7 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* vertical glow */
+  /* soft vertical glow */
   body::before {
     content: '';
     position: fixed;
@@ -67,7 +67,6 @@
 
   .main-title {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem;
     color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
@@ -75,38 +74,39 @@
     word-spacing: -0.35em;
     z-index:2;
     display: inline-block;
-    animation: letter-jitter 1.5s infinite alternate ease-in-out;
+    margin-bottom: 1.5rem;
   }
 
-  @keyframes letter-jitter { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1px); } }
-
   .coming-soon {
-    font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
     --neon-color: #7bbf7b;
     color: var(--neon-color);
-    text-shadow: 0 0 1px var(--neon-color), 0 0 3px var(--neon-color), 0 0 6px var(--neon-color);
-    letter-spacing: 0.03em;
-    word-spacing: -0.05em;
-    opacity: 0;
+    text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color);
     z-index:2;
     display: inline-block;
+    opacity: 0;
   }
 
   @keyframes violent-flicker {
     0%,35%,55% { opacity: 0; text-shadow: none; }
-    25%,45% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-    100% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+    25%,45% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+    100% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
   }
 
   .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
 
+  @keyframes letter-jitter { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1px); } }
+  .main-title { animation: letter-jitter 1.5s infinite alternate ease-in-out; }
+
+  @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(5deg); } 100% { filter: hue-rotate(0deg); } }
+  .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
+
   @media(max-width:480px){
-    .main-title { font-size: clamp(1.4rem,7vw,2.4rem);}
-    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem);}
-    .footer-nav img{width:42px;height:42px;}
+    .main-title{font-size:clamp(1.4rem,7vw,2.4rem);}
+    .coming-soon{font-size:clamp(1.2rem,5vw,1.8rem);}
   }
 
-  /* footer nav bar — same size and placement as contact page */
+  /* footer nav bar — copied exactly from contact page */
   .footer-nav {
     position: fixed;
     bottom: calc(1rem + env(safe-area-inset-bottom));
@@ -124,31 +124,42 @@
   }
 
   .footer-nav img.home {
-    cursor: default; /* no click on home */
+    cursor: default;
     pointer-events: none;
   }
 
   .footer-nav .active-dot {
-    display: none; /* no green dot on home page for now */
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7bbf7b;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
+
+  @media(max-width:480px){
+    .footer-nav img{width:42px;height:42px;}
+  }
+
 </style>
 </head>
-
 <body>
-
   <div class="main-title">press for goblins</div>
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
+  <!-- footer nav bar -->
   <div class="footer-nav">
-    <div style="position:relative;"><img src="images/home.png" alt="home" class="home"></div>
+    <div style="position:relative;"><img src="images/home.png" class="home" alt="home"><div class="active-dot"></div></div>
     <div style="position:relative;"><a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a></div>
     <div style="position:relative;"><a href="about.html"><img src="images/about.png" alt="about"></a></div>
     <div style="position:relative;"><a href="contact.html"><img src="images/contact.png" alt="contact"></a></div>
   </div>
 
+  <!-- neon audio -->
   <audio id="neon-sound" preload="auto">
     <source src="neon.m4a" type="audio/mp4">
   </audio>
-
 </body>
 </html>
