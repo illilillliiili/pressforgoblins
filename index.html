@@ -140,22 +140,17 @@
 
   .footer-nav a {
     display: block;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
   }
 
   .footer-nav a:focus {
     outline: 2px solid #7bbf7b;
     outline-offset: 4px;
-  }
-
-  .footer-nav a:hover img {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav a:focus img {
     filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
   }
 
@@ -238,7 +233,6 @@
 <script>
   const el = document.getElementById('coming-soon');
   const sound = document.getElementById('neon-sound');
-  const easterEgg = document.getElementById('easter-egg');
 
   const startupDelay = 750;
   const violentFlickerDuration = 250;
