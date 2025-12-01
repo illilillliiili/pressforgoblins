@@ -243,6 +243,8 @@
 
   .shake {
     animation: shake 0.2s;
+    border-bottom-color: #7bbf7b !important;
+    box-shadow: 0 2px 8px rgba(123, 191, 123, 0.4);
   }
 
   @media(max-width:480px){
@@ -257,10 +259,10 @@
 <body>
   <h1>contact</h1>
 
-  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST">
-    <textarea name="name" rows="1" placeholder="name" required class="single-line" aria-label="Your name"></textarea>
-    <textarea name="email" rows="1" placeholder="email" required class="single-line" aria-label="Your email"></textarea>
-    <textarea name="message" rows="5" placeholder="message" required aria-label="Your message"></textarea>
+  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+    <textarea name="name" rows="1" placeholder="name" class="single-line" aria-label="Your name"></textarea>
+    <textarea name="email" rows="1" placeholder="email" class="single-line" aria-label="Your email"></textarea>
+    <textarea name="message" rows="5" placeholder="message" aria-label="Your message"></textarea>
     <button type="submit">send</button>
   </form>
 
