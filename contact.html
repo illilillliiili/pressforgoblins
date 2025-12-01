@@ -47,7 +47,7 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* CRT vignette effect for retro monitor feel */
+  /* CRT vignette effect for retro monitor feel - multiple rolling glows */
   body::before {
     content: '';
     position: fixed;
@@ -56,19 +56,39 @@
     z-index: 0;
     background: 
       radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow 25s linear infinite;
+      linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow1 35s linear infinite;
     border-radius: 8px;
+    filter: blur(2px);
   }
 
-  @keyframes verticalGlow {
-    0% { transform: translateY(110%); opacity:0.35; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.35; }
+  @keyframes verticalGlow1 {
+    0% { transform: translateY(110%); opacity:0.3; }
+    50% { opacity:0.5; }
+    100% { transform: translateY(-110%); opacity:0.3; }
   }
 
-  /* scanlines */
+  /* Second rolling glow */
   body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow2 28s linear infinite;
+    animation-delay: 8s;
+    filter: blur(3px);
+  }
+
+  @keyframes verticalGlow2 {
+    0% { transform: translateY(110%); opacity:0.4; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.4; }
+  }
+
+  /* Scanlines overlay */
+  body > *:first-child::before {
     content: '';
     position: fixed;
     inset: 0;
@@ -115,7 +135,7 @@
     position: relative;
     padding: 0.8rem 1rem;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(123, 191, 123, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -125,8 +145,8 @@
   .field-group:hover,
   .field-group:focus-within {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(123, 191, 123, 0.3);
-    box-shadow: 0 4px 16px rgba(123, 191, 123, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   }
 
   .field-group:hover textarea,
@@ -137,7 +157,7 @@
   .field-label {
     font-family: 'PressStart2P', monospace;
     font-size: 0.75rem;
-    color: #7bbf7b;
+    color: rgba(255, 255, 255, 0.7);
     opacity: 0.9;
     white-space: nowrap;
     flex-shrink: 0;
@@ -184,30 +204,54 @@
 
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.1rem;
-    padding: 0.4rem 1.2rem;
+    font-size: 1.2rem;
+    padding: 0.7rem 1.6rem;
     margin-top: 0.5rem;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(123, 191, 123, 0.3);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: transparent;
+    border: none;
     color: #7bbf7b;
     cursor: pointer;
-    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    text-shadow: 
+      0 0 3px #7bbf7b,
+      0 0 8px #7bbf7b,
+      0 0 15px #7bbf7b;
     transition: all 0.1s ease;
+    animation: neonFlicker 6s infinite alternate;
+  }
+
+  @keyframes neonFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      text-shadow: 
+        0 0 2px #7bbf7b,
+        0 0 5px #7bbf7b;
+      opacity: 0.85;
+    }
   }
 
   button:hover {
-    background: rgba(123, 191, 123, 0.1);
-    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-    border-color: rgba(123, 191, 123, 0.5);
-    box-shadow: 0 4px 16px rgba(123, 191, 123, 0.15);
+    text-shadow: 
+      0 0 5px #7bbf7b,
+      0 0 12px #7bbf7b,
+      0 0 20px #7bbf7b,
+      0 0 30px #7bbf7b;
+  }
+
+  button:active {
+    text-shadow: 
+      0 0 2px #7bbf7b,
+      0 0 6px #7bbf7b,
+      0 0 10px #7bbf7b;
   }
 
   button:focus {
-    outline: 2px solid #7bbf7b;
-    outline-offset: 4px;
+    outline: none;
   }
 
   .sent-msg {
