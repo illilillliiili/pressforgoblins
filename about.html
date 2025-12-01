@@ -20,9 +20,7 @@
     font-display: swap;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
@@ -39,18 +37,15 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* CRT vignette effect */
+  /* vertical glow */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: 
-      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
-    border-radius: 8px;
   }
 
   @keyframes verticalGlow {
@@ -66,12 +61,7 @@
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    background: repeating-linear-gradient(
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 3px
-    );
+    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
     opacity: 0.15;
   }
 
@@ -87,10 +77,41 @@
     display: inline-block;
   }
 
+  /* coming soon text */
+  .coming-soon {
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
+    --neon-color: #7bbf7b;
+    color: var(--neon-color);
+    text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color);
+    z-index:2;
+    display: inline-block;
+    opacity: 0;
+  }
+
+  @keyframes violent-flicker {
+    0%,35%,55% { opacity: 0; text-shadow: none; }
+    25%,45% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+    100% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+  }
+
+  .violent-flicker { 
+    animation: violent-flicker 0.25s steps(40,end) forwards; 
+  }
+
+  @keyframes hueShift { 
+    0% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(5deg); }
+    100% { filter: hue-rotate(0deg); }
+  }
+
+  .coming-soon.hue-shift { 
+    animation: hueShift 6s infinite ease-in-out; 
+  }
+
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -147,33 +168,6 @@
     transform: translateX(-50%);
   }
 
-  /* Coming soon animations */
-  .coming-soon {
-    font-size: clamp(1.5rem,6.5vw,2.5rem);
-    --neon-color: #7bbf7b;
-    color: var(--neon-color);
-    text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color);
-    z-index:2;
-    display: inline-block;
-    opacity: 0;
-  }
-
-  @keyframes violent-flicker {
-    0%,35%,55% { opacity: 0; text-shadow: none; }
-    25%,45% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-    100% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-  }
-
-  .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
-
-  @keyframes hueShift {
-    0% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(5deg); }
-    100% { filter: hue-rotate(0deg); }
-  }
-
-  .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
-
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     .footer-nav img{width:44px;height:44px;}
@@ -183,10 +177,9 @@
 </head>
 <body>
   <h1>about</h1>
-
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
-  <!-- Footer nav bar -->
+  <!-- Footer nav bar with proper semantic markup -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
       <a href="index.html" aria-label="Home">
@@ -205,27 +198,26 @@
   </nav>
 
 <script>
-  /* page transition */
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 150);
-    });
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const cs = document.getElementById("coming-soon");
+  setTimeout(() => {
+    cs.classList.add("violent-flicker");
+    setTimeout(() => cs.classList.add("hue-shift"), 250);
+  }, 1200);
+});
 
-  /* coming soon animation */
-  document.addEventListener("DOMContentLoaded", () => {
-    const cs = document.getElementById("coming-soon");
+/* page transition for nav links */
+const navLinks = document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    document.body.classList.add('page-transition');
     setTimeout(() => {
-      cs.classList.add("violent-flicker");
-      setTimeout(() => cs.classList.add("hue-shift"), 250);
-    }, 1200);
+      window.location.href = href;
+    }, 150);
   });
+});
 </script>
 </body>
 </html>
