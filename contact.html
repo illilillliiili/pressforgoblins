@@ -100,7 +100,7 @@ form {
 }
 
 textarea {
-  font-family: 'Aptos', sans-serif; /* plain modern font for fields */
+  font-family: 'Aptos', sans-serif;
   font-size: 1rem;
   padding: 0.5rem;
   width: 100%;
@@ -126,9 +126,18 @@ textarea {
   color: #bbb;
 }
 
+/* privacy note under email field */
+#privacy-note {
+  font-family: 'Aptos', sans-serif;
+  font-size: 0.8rem;
+  color: #bbb;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
 /* submit button */
 button {
-  font-family: 'PressStart2P', monospace; /* pixel font */
+  font-family: 'PressStart2P', monospace;
   font-size: 1.1rem;
   padding: 0.3rem 1rem;
   background: #000;
@@ -143,41 +152,48 @@ button:hover {
   background: #111;
 }
 
-/* footer nav (home only for now) */
-.footer-home {
-  position: fixed;
-  bottom: calc(2rem + env(safe-area-inset-bottom));
-  width: 100%;
-  text-align: center;
-  z-index: 2;
-}
-.footer-home a {
-  color: #fff;
-  text-decoration: none;
-  font-family: 'PressStart2P', monospace;
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  text-shadow: 0 0 1px #fff, 0 0 3px #fff;
-  transition: text-shadow 0.2s ease;
-}
-.footer-home a:hover {
-  text-shadow: 0 0 2px #fff, 0 0 5px #fff;
-}
-
-/* sent message */
+/* --- sent message --- */
 #sent-msg {
   font-family: 'PressStart2P', monospace;
   color: #fff;
   margin-top: 1rem;
-  display: none; /* hidden until form submit */
+  display: none;
 }
 
-/* privacy note under email field */
-#privacy-note {
-  font-family: 'Aptos', sans-serif;
-  font-size: 0.8rem;
-  color: #bbb;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+/* --- bottom nav icons --- */
+.bottom-nav {
+  position: fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+}
+
+.bottom-nav img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.bottom-nav .contact-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #7bbf7b;
+  margin-top: 2px;
+}
+
+@media(max-width:480px){
+  h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+  textarea{font-size:0.8rem;}
+  button{font-size:0.8rem;}
+  .bottom-nav img{width:30px;height:30px;}
 }
 </style>
 </head>
@@ -196,8 +212,15 @@ button:hover {
 
 <div id="sent-msg">the goblins will get back to you soon ツ</div>
 
-<div class="footer-home">
-  <a href="index.html">home</a>
+<!-- bottom nav -->
+<div class="bottom-nav">
+  <a href="index.html"><img src="images/home.png" alt="home"></a>
+  <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
+  <a href="about.html"><img src="images/about.png" alt="about"></a>
+  <div>
+    <img src="images/contact.png" alt="contact">
+    <div class="contact-dot"></div>
+  </div>
 </div>
 
 <audio id="neon-sound" preload="auto">
@@ -213,19 +236,14 @@ const sound = document.getElementById('neon-sound');
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  // change button text
   submitBtn.textContent = 'sent!';
-
-  // show pixel-font sent message
   sentMsg.style.display = 'block';
 
-  // optionally play neon sound
   if(sound){
     sound.volume = 0.5;
     sound.play().catch(()=>{});
   }
 
-  // check message field for easter egg codewords
   const msg = form.message.value.toLowerCase().replace(/\s+/g,'');
   if(msg==='gottacatchemall'){ alert('starting Goblins Catching Gems!'); }
   else if(msg==='oldskool'){ alert('starting OldSkool Mini Game!'); }
