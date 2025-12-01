@@ -204,41 +204,82 @@
 
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 0.9rem;
-    padding: 0.6rem 1.5rem;
+    font-size: 1.2rem;
+    padding: 0.7rem 1.6rem;
     margin-top: 0.5rem;
-    background: rgba(123, 191, 123, 0.15);
-    border: 2px solid #7bbf7b;
-    border-radius: 12px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: transparent;
+    border: none;
     color: #7bbf7b;
     cursor: pointer;
-    text-shadow: 0 0 8px rgba(123, 191, 123, 0.5);
-    box-shadow: 0 0 20px rgba(123, 191, 123, 0.2), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transition: all 0.15s ease;
+    text-shadow: 
+      0 0 3px #7bbf7b,
+      0 0 8px #7bbf7b,
+      0 0 15px #7bbf7b;
+    transition: all 0.1s ease;
+    opacity: 0;
+  }
+
+  @keyframes sendFlicker {
+    0%, 20%, 40%, 60% { 
+      opacity: 0; 
+      text-shadow: none; 
+    }
+    10%, 30%, 50% { 
+      opacity: 1; 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+    100% { 
+      opacity: 1; 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+  }
+
+  .send-flicker {
+    animation: sendFlicker 0.35s ease-out forwards;
+  }
+
+  @keyframes neonPulse {
+    0%, 100% { 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+    50% { 
+      text-shadow: 
+        0 0 5px #7bbf7b,
+        0 0 12px #7bbf7b,
+        0 0 20px #7bbf7b;
+    }
+  }
+
+  .send-pulse {
+    animation: neonPulse 5s infinite ease-in-out;
   }
 
   button:hover {
-    background: rgba(123, 191, 123, 0.25);
-    border-color: #8fcc8f;
-    text-shadow: 0 0 12px rgba(123, 191, 123, 0.8);
-    box-shadow: 0 0 30px rgba(123, 191, 123, 0.4), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    text-shadow: 
+      0 0 5px #7bbf7b,
+      0 0 12px #7bbf7b,
+      0 0 20px #7bbf7b,
+      0 0 30px #7bbf7b;
   }
 
   button:active {
-    transform: translateY(0);
-    background: rgba(123, 191, 123, 0.2);
+    text-shadow: 
+      0 0 2px #7bbf7b,
+      0 0 6px #7bbf7b,
+      0 0 10px #7bbf7b;
   }
 
   button:focus {
-    outline: 2px solid rgba(123, 191, 123, 0.5);
-    outline-offset: 4px;
+    outline: none;
   }
 
   .sent-msg {
@@ -386,6 +427,17 @@
 <script>
   const form = document.getElementById('contact-form');
   const sentMsg = document.getElementById('sent-msg');
+  const sendButton = document.querySelector('button[type="submit"]');
+
+  // Trigger send button flicker on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      sendButton.classList.add('send-flicker');
+      setTimeout(() => {
+        sendButton.classList.add('send-pulse');
+      }, 400);
+    }, 1000);
+  });
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
