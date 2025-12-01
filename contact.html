@@ -77,7 +77,6 @@
     display: inline-block;
   }
 
-  /* form styling */
   form {
     display: flex;
     flex-direction: column;
@@ -88,7 +87,7 @@
   }
 
   textarea {
-    font-family: 'Aptos', monospace; /* plain text font */
+    font-family: 'Aptos', sans-serif;
     font-size: 1rem;
     padding: 0.5rem;
     width: 100%;
@@ -134,21 +133,17 @@
     background: #111;
   }
 
-  /* email icon now below send button */
-  .email-icon {
-    width: 60px;
-    height: 60px;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    background: url('images/mail (open).png') no-repeat center center;
-    background-size: contain;
-    z-index: 2;
+  .sent-msg {
+    font-family: 'PressStart2P', monospace;
+    color: #7bbf7b;
+    margin-top: 1rem;
+    display: none;
   }
 
-  /* nav bar icons */
+  /* footer nav bar — slightly bigger icons and lower position */
   .footer-nav {
     position: fixed;
-    bottom: calc(1.8rem + env(safe-area-inset-bottom)); /* lowered slightly for mobile UI */
+    bottom: calc(1rem + env(safe-area-inset-bottom)); /* lowered for mobile UI */
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -156,18 +151,15 @@
   }
 
   .footer-nav img {
-    width: 40px;
-    height: 40px;
+    width: 46px; /* slightly bigger */
+    height: 46px;
     cursor: pointer;
     opacity: 0.9;
   }
 
   .footer-nav img.contact {
-    cursor: default; /* make inert */
-  }
-
-  .footer-nav img.contact::after {
-    content: '';
+    cursor: default; /* no click */
+    pointer-events: none;
   }
 
   .footer-nav .active-dot {
@@ -181,22 +173,26 @@
     transform: translateX(-50%);
   }
 
-  @media(max-width:480px){
-    h1 { font-size: clamp(1.4rem,7vw,2.4rem); }
-    textarea { font-size: 0.9rem; }
-    button { font-size: 0.9rem; }
-    .footer-nav img { width: 36px; height: 36px; }
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
   }
 
-  .sent-msg {
-    font-family: 'PressStart2P', monospace;
-    color: #7bbf7b; /* green pixel font */
-    margin-top: 1rem;
-    display: none;
+  .shake {
+    animation: shake 0.2s;
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.9rem;}
+    button{font-size:0.9rem;}
+    .footer-nav img{width:42px;height:42px;}
   }
 </style>
 </head>
-
 <body>
   <h1>contact</h1>
 
@@ -207,20 +203,12 @@
     <button type="submit">send</button>
   </form>
 
-  <div class="email-icon"></div>
-
   <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon ツ</div>
 
   <div class="footer-nav">
-    <div style="position:relative;">
-      <a href="index.html"><img src="images/home.png" alt="home"></a>
-    </div>
-    <div style="position:relative;">
-      <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
-    </div>
-    <div style="position:relative;">
-      <a href="about.html"><img src="images/about.png" alt="about"></a>
-    </div>
+    <div style="position:relative;"><a href="index.html"><img src="images/home.png" alt="home"></a></div>
+    <div style="position:relative;"><a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a></div>
+    <div style="position:relative;"><a href="about.html"><img src="images/about.png" alt="about"></a></div>
     <div style="position:relative;">
       <img src="images/contact.png" class="contact" alt="contact">
       <div class="active-dot"></div>
@@ -233,6 +221,16 @@
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
+    let error = false;
+    form.querySelectorAll('textarea').forEach(field => {
+      if(!field.value.trim()) {
+        field.classList.add('shake');
+        error = true;
+        setTimeout(()=>{ field.classList.remove('shake'); }, 250);
+      }
+    });
+    if(error) return;
+
     const data = new FormData(form);
     const response = await fetch(form.action, {
       method: form.method,
@@ -243,8 +241,13 @@
       sentMsg.style.display = 'block';
       form.reset();
     }
+
+    // easter eggs
+    const msg = form.message.value.toLowerCase();
+    if(msg.includes('gottacatchemall')) alert('🎮 You found the oldschool game!'); 
+    else if(msg.includes('oldskool')) alert('🕹️ Retro vibes unlocked!'); 
+    else if(msg.includes('partytime')) alert('🎉 Party mode activated!');
   });
 </script>
-
 </body>
 </html>
