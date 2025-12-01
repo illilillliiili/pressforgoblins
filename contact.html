@@ -6,6 +6,9 @@
 <title>contact — press for goblins</title>
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
+<!-- Font preload for performance -->
+<link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
+
 <style>
   @font-face {
     font-family: 'PressStart2P';
@@ -15,6 +18,10 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 
   body {
@@ -32,15 +39,18 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* vertical glow */
+  /* CRT vignette effect for retro monitor feel */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    background: 
+      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
+      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
+    border-radius: 8px;
   }
 
   @keyframes verticalGlow {
@@ -84,6 +94,7 @@
     gap: 0.8rem;
     width: 100%;
     max-width: 420px;
+    z-index: 2;
   }
 
   textarea {
@@ -93,15 +104,22 @@
     width: 100%;
     background: #000;
     border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
     color: #fff;
     outline: none;
     text-align: center;
     resize: none;
+    transition: border-color 0.2s ease;
+  }
+
+  textarea:focus {
+    border-bottom-color: #7bbf7b;
   }
 
   ::placeholder {
     text-align: center;
     color: #bbb;
+    font-family: 'Aptos', sans-serif;
   }
 
   .single-line {
@@ -133,32 +151,64 @@
     background: #111;
   }
 
+  button:focus {
+    outline: 2px solid #7bbf7b;
+    outline-offset: 4px;
+  }
+
   .sent-msg {
     font-family: 'PressStart2P', monospace;
     color: #7bbf7b;
     margin-top: 1rem;
     display: none;
-  }
-
-  /* footer nav bar — slightly bigger icons and lower position */
-  .footer-nav {
-    position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom)); /* lowered for mobile UI */
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
     z-index: 2;
   }
 
+  /* Footer nav bar */
+  .footer-nav {
+    position: fixed;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2rem;
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .footer-nav .nav-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-nav a {
+    display: block;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
+  .footer-nav a:focus {
+    outline: 2px solid #7bbf7b;
+    outline-offset: 4px;
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
   .footer-nav img {
-    width: 46px; /* slightly bigger */
-    height: 46px;
-    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: block;
     opacity: 0.9;
+    transition: transform 0.2s ease, filter 0.2s ease;
   }
 
   .footer-nav img.contact {
-    cursor: default; /* no click */
+    cursor: default;
     pointer-events: none;
   }
 
@@ -168,9 +218,19 @@
     height: 8px;
     border-radius: 50%;
     background: #7bbf7b;
+    box-shadow: 0 0 6px #7bbf7b;
     bottom: -0.5rem;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  /* Page transition fade */
+  body.page-transition {
+    animation: fadeOut 0.15s ease-out forwards;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; }
   }
 
   @keyframes shake {
@@ -189,7 +249,8 @@
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     textarea{font-size:0.9rem;}
     button{font-size:0.9rem;}
-    .footer-nav img{width:42px;height:42px;}
+    .footer-nav img{width:44px;height:44px;}
+    .footer-nav{padding: 0 1rem;}
   }
 </style>
 </head>
@@ -197,23 +258,36 @@
   <h1>contact</h1>
 
   <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST">
-    <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
-    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
-    <textarea name="message" rows="5" placeholder="message" required></textarea>
+    <textarea name="name" rows="1" placeholder="name" required class="single-line" aria-label="Your name"></textarea>
+    <textarea name="email" rows="1" placeholder="email" required class="single-line" aria-label="Your email"></textarea>
+    <textarea name="message" rows="5" placeholder="message" required aria-label="Your message"></textarea>
     <button type="submit">send</button>
   </form>
 
-  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon ツ</div>
+  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
 
-  <div class="footer-nav">
-    <div style="position:relative;"><a href="index.html"><img src="images/home.png" alt="home"></a></div>
-    <div style="position:relative;"><a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a></div>
-    <div style="position:relative;"><a href="about.html"><img src="images/about.png" alt="about"></a></div>
-    <div style="position:relative;">
-      <img src="images/contact.png" class="contact" alt="contact">
+  <!-- Footer nav bar with proper semantic markup -->
+  <nav class="footer-nav" aria-label="Main navigation">
+    <div class="nav-item">
+      <a href="index.html" aria-label="Home">
+        <img src="images/home.png" alt="Home">
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="portfolio.html" aria-label="View portfolio">
+        <img src="images/portfolio.png" alt="Portfolio">
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="about.html" aria-label="About us">
+        <img src="images/about.png" alt="About">
+      </a>
+    </div>
+    <div class="nav-item">
+      <img src="images/contact.png" class="contact" alt="Contact - Current page">
       <div class="active-dot"></div>
     </div>
-  </div>
+  </nav>
 
 <script>
   const form = document.getElementById('contact-form');
@@ -241,12 +315,19 @@
       sentMsg.style.display = 'block';
       form.reset();
     }
+  });
 
-    // easter eggs
-    const msg = form.message.value.toLowerCase();
-    if(msg.includes('gottacatchemall')) alert('🎮 You found the oldschool game!'); 
-    else if(msg.includes('oldskool')) alert('🕹️ Retro vibes unlocked!'); 
-    else if(msg.includes('partytime')) alert('🎉 Party mode activated!');
+  // Page transition effect
+  const navLinks = document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      document.body.classList.add('page-transition');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 150);
+    });
   });
 </script>
 </body>
