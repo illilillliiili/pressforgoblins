@@ -47,7 +47,7 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* CRT vignette effect for retro monitor feel - multiple rolling glows */
+  /* CRT vignette effect for retro monitor feel */
   body::before {
     content: '';
     position: fixed;
@@ -56,17 +56,17 @@
     z-index: 0;
     background: 
       radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow1 35s linear infinite;
+      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
     border-radius: 8px;
-    filter: blur(2px);
   }
 
-  @keyframes verticalGlow1 {
-    0% { transform: translateY(110%); opacity:0.3; }
-    50% { opacity:0.5; }
-    100% { transform: translateY(-110%); opacity:0.3; }
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.35; }
   }
+
 
   /* Second rolling glow */
   body::after {
