@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"> <!-- character encoding -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
+<title>about — press for goblins</title>
+<meta name="description" content="about page for press for goblins — retro pixel/neon style">
 
+<style>
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+    font-weight: normal; 
+    font-style: normal;  
+    font-display: swap; 
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    background: #000; 
+    font-family: 'PressStart2P', monospace; 
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* vertical glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
+  }
+
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.35; }
+  }
+
+  /* scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.15;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.35em;
+    z-index:2;
+    display: inline-block;
+  }
+
+  p {
+    max-width: 90vw;
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    p{font-size:0.9rem;}
+  }
+
+  /* bottom nav bar matching contact page */
+  .footer-nav {
+    position: fixed;
+    bottom: calc(2rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .footer-nav img {
+    width: 40px; 
+    height: 40px;
+    cursor: pointer; 
+    transition: transform 0.2s ease;
+  }
+
+  .footer-nav img:hover {
+    transform: scale(1.1);
+  }
+
+  /* green dot under about icon */
+  .footer-nav .about {
+    cursor: default; /* not clickable */
+    position: relative;
+  }
+
+  .footer-nav .about::after {
+    content:'';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7bbf7b; /* green dot */
+  }
+</style>
+</head>
+
+  <!-- bottom nav bar -->
+  <div class="footer-nav">
+    <a href="index.html"><img src="images/home.png" alt="home"></a>
+    <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
+    <div class="about"><img src="images/about.png" alt="about"></div>
+    <a href="contact.html"><img src="images/contact.png" alt="contact"></a>
+  </div>
+</body>
+</html>
