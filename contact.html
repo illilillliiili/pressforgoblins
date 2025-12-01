@@ -56,7 +56,7 @@
     z-index: 0;
     background: 
       radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+      linear-gradient(to top, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
     border-radius: 8px;
   }
@@ -196,7 +196,6 @@
       0 0 8px #7bbf7b,
       0 0 15px #7bbf7b;
     transition: all 0.1s ease;
-    opacity: 0;
   }
 
   @keyframes sendFlicker {
@@ -414,6 +413,7 @@
       sendButton.classList.add('send-flicker');
       setTimeout(() => {
         sendButton.classList.add('send-pulse');
+        sendButton.style.opacity = '1';
       }, 400);
     }, 1000);
   });
