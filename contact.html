@@ -67,26 +67,6 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-
-  /* Second rolling glow */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow2 28s linear infinite;
-    animation-delay: 8s;
-    filter: blur(3px);
-  }
-
-  @keyframes verticalGlow2 {
-    0% { transform: translateY(110%); opacity:0.4; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.4; }
-  }
-
   /* Scanlines overlay */
   body > *:first-child::before {
     content: '';
@@ -100,7 +80,7 @@
       transparent 1px,
       transparent 3px
     );
-    opacity: 0.15;
+    opacity: 0.10;
   }
 
   h1 {
