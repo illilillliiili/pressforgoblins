@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>contact — press for goblins</title>
-<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
+<title>press for goblins</title>
+<meta name="description" content="press for goblins — coming soon, retro pixel-style site">
 
 <!-- Font preload for performance -->
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
@@ -15,17 +15,9 @@
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
          url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Aptos Serif';
-    src: url('fonts/Aptos-Serif.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-weight: normal; 
+    font-style: normal;  
+    font-display: swap; 
   }
 
   * {
@@ -34,12 +26,12 @@
 
   body {
     margin: 0;
-    height: 100vh;
+    height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
+    justify-content: center; 
+    align-items: center; 
+    background: #000; 
     font-family: 'PressStart2P', monospace;
     text-align: center;
     overflow: hidden;
@@ -83,199 +75,49 @@
     opacity: 0.15;
   }
 
-  h1 {
+  .main-title {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2.5rem;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
     word-spacing: -0.35em;
     z-index:2;
     display: inline-block;
-    font-family: 'PressStart2P', monospace;
+    margin-bottom: 1.5rem;
+    animation: letter-jitter 1.5s infinite alternate ease-in-out;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    width: 100%;
-    max-width: 420px;
-    z-index: 2;
-  }
-
-  .field-group {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
-    position: relative;
-    padding: 0.8rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.1s ease;
-  }
-
-  .field-group:hover,
-  .field-group:focus-within {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-  }
-
-  .field-group:hover textarea,
-  .field-group:focus-within textarea {
-    opacity: 1;
-  }
-
-  .field-label {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
-    opacity: 0.9;
-    white-space: nowrap;
-    flex-shrink: 0;
-    line-height: 1.5;
-  }
-
-  textarea {
-    font-family: 'Aptos Serif', serif;
-    font-size: 1.1rem;
-    padding: 0;
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #fff;
-    outline: none;
-    text-align: left;
-    resize: none;
-    line-height: 1.5;
-    opacity: 0.7;
-    transition: opacity 0.1s ease;
-  }
-
-  ::placeholder {
-    text-align: left;
-    color: #bbb;
-    font-family: 'Aptos Serif', serif;
-  }
-
-  .single-line {
-    white-space: nowrap;
-    overflow-x: auto;
-    resize: none;
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-  }
-
-  .multi-line {
-    min-height: 80px;
-  }
-
-  .single-line::-webkit-scrollbar {
-    display: none;
-  }
-
-  button {
-    font-family: 'PressStart2P', monospace;
-    font-size: 1.2rem;
-    padding: 0.7rem 1.6rem;
-    margin-top: 0.5rem;
-    background: transparent;
-    border: none;
-    color: #7bbf7b;
-    cursor: pointer;
-    text-shadow: 
-      0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
-    transition: all 0.1s ease;
+  .coming-soon {
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
+    --neon-color: #7bbf7b;
+    color: var(--neon-color);
+    text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color);
+    z-index:2;
+    display: inline-block;
     opacity: 0;
   }
 
-  @keyframes sendFlicker {
-    0%, 20%, 40%, 60% { 
-      opacity: 0; 
-      text-shadow: none; 
-    }
-    10%, 30%, 50% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    100% { 
-      opacity: 1 !important; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
+  @keyframes violent-flicker {
+    0%,35%,55% { opacity: 0; text-shadow: none; }
+    25%,45% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+    100% { opacity:1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
   }
 
-  .send-flicker {
-    animation: sendFlicker 0.35s ease-out forwards;
-  }
+  .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
 
-  /* Ensure button stays visible after animation */
-  .send-flicker,
-  button.send-flicker,
-  button.send-pulse {
-    opacity: 1 !important;
+  @keyframes letter-jitter { 
+    0%,100% { transform: translateX(0); } 
+    50% { transform: translateX(1px); } 
   }
-
-  @keyframes neonPulse {
-    0%, 100% { 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    50% { 
-      text-shadow: 
-        0 0 5px #7bbf7b,
-        0 0 12px #7bbf7b,
-        0 0 20px #7bbf7b;
-    }
+  
+  @keyframes hueShift { 
+    0% { filter: hue-rotate(0deg); } 
+    50% { filter: hue-rotate(5deg); } 
+    100% { filter: hue-rotate(0deg); } 
   }
-
-  .send-pulse {
-    animation: neonPulse 5s infinite ease-in-out;
-  }
-
-  button:hover {
-    text-shadow: 
-      0 0 5px #7bbf7b,
-      0 0 12px #7bbf7b,
-      0 0 20px #7bbf7b,
-      0 0 30px #7bbf7b;
-  }
-
-  button:active {
-    text-shadow: 
-      0 0 2px #7bbf7b,
-      0 0 6px #7bbf7b,
-      0 0 10px #7bbf7b;
-  }
-
-  button:focus {
-    outline: none;
-  }
-
-  .sent-msg {
-    font-family: 'PressStart2P', monospace;
-    color: #7bbf7b;
-    margin-top: 1rem;
-    display: none;
-    z-index: 2;
-  }
+  
+  .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
 
   /* Footer nav bar */
   .footer-nav {
@@ -313,14 +155,14 @@
   }
 
   .footer-nav img {
-    width: 48px;
+    width: 48px; 
     height: 48px;
     display: block;
     opacity: 0.9;
     transition: transform 0.2s ease, filter 0.2s ease;
   }
 
-  .footer-nav img.contact {
+  .footer-nav img.home {
     cursor: default;
     pointer-events: none;
   }
@@ -346,54 +188,25 @@
     to { opacity: 0; }
   }
 
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-3px); }
-    100% { transform: translateX(0); }
-  }
-
-  .shake {
-    animation: shake 0.2s;
-  }
-
   @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.9rem;}
-    button{font-size:0.9rem;}
+    .main-title{font-size:clamp(1.4rem,7vw,2.4rem);}
+    .coming-soon{font-size:clamp(1.2rem,5vw,1.8rem);}
     .footer-nav img{width:44px;height:44px;}
     .footer-nav{padding: 0 1rem;}
   }
+
 </style>
 </head>
 <body>
-  <h1>contact</h1>
 
-  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-    <div class="field-group">
-      <label class="field-label">name</label>
-      <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
-    </div>
-    <div class="field-group">
-      <label class="field-label">email</label>
-      <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
-    </div>
-    <div class="field-group">
-      <label class="field-label">message</label>
-      <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
-    </div>
-    <button type="submit">send</button>
-  </form>
-
-  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
+  <div class="main-title">press for goblins</div>
+  <div class="coming-soon" id="coming-soon">coming soon</div>
 
   <!-- Footer nav bar with proper semantic markup -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
-      <a href="index.html" aria-label="Home">
-        <img src="images/home.png" alt="Home">
-      </a>
+      <img src="images/home.png" class="home" alt="Home - Current page">
+      <div class="active-dot"></div>
     </div>
     <div class="nav-item">
       <a href="portfolio.html" aria-label="View portfolio">
@@ -406,48 +219,66 @@
       </a>
     </div>
     <div class="nav-item">
-      <img src="images/contact.png" class="contact" alt="Contact - Current page">
-      <div class="active-dot"></div>
+      <a href="contact.html" aria-label="Contact">
+        <img src="images/contact.png" alt="Contact">
+      </a>
     </div>
   </nav>
 
+  <!-- Neon audio -->
+  <audio id="neon-sound" preload="auto">
+    <source src="neon.m4a" type="audio/mp4">
+  </audio>
+
 <script>
-  const form = document.getElementById('contact-form');
-  const sentMsg = document.getElementById('sent-msg');
-  const sendButton = document.querySelector('button[type="submit"]');
+  const el = document.getElementById('coming-soon');
+  const sound = document.getElementById('neon-sound');
 
-  // Trigger send button flicker on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      sendButton.classList.add('send-flicker');
-      setTimeout(() => {
-        sendButton.classList.add('send-pulse');
-      }, 400);
-    }, 1000);
-  });
+  const startupDelay = 750;
+  const violentFlickerDuration = 250;
+  const extraFlickerDuration = 120;
 
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    let error = false;
-    form.querySelectorAll('textarea').forEach(field => {
-      if(!field.value.trim()) {
-        field.classList.add('shake');
-        error = true;
-        setTimeout(()=>{ field.classList.remove('shake'); }, 250);
-      }
-    });
-    if(error) return;
-
-    const data = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if(response.ok){
-      sentMsg.style.display = 'block';
-      form.reset();
+  // Subtle glow pulse effect
+  function startSubtleGlowPulse(){
+    function pulse(){
+      const wait = Math.random()*3000+2000;
+      setTimeout(()=>{
+        const boost = Math.random()*0.4+0.7;
+        el.style.textShadow=`0 0 ${1*boost}px var(--neon-color),0 0 ${3*boost}px var(--neon-color),0 0 ${6*boost}px var(--neon-color)`;
+        setTimeout(()=>{
+          el.style.textShadow=`0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color)`;
+          pulse();
+        },Math.random()*70+50);
+      },wait);
     }
+    pulse();
+  }
+
+  // Page load neon flicker effect
+  document.addEventListener('DOMContentLoaded',()=>{
+    setTimeout(()=>{
+      el.classList.add('violent-flicker');
+      el.style.opacity=1;
+
+      if(sound){
+        sound.volume=0;
+        sound.play().catch(()=>{});
+        let vol=0;
+        const fadeInterval=setInterval(()=>{
+          vol+=0.05;
+          sound.volume=vol;
+          if(vol>=0.5){ 
+            clearInterval(fadeInterval); 
+          }
+        },15);
+      }
+
+      setTimeout(()=>{
+        el.classList.add('hue-shift');
+        startSubtleGlowPulse(); // Now actually called!
+      }, violentFlickerDuration+extraFlickerDuration+60);
+
+    }, startupDelay);
   });
 
   // Page transition effect
@@ -462,6 +293,41 @@
       }, 150);
     });
   });
+
+  // Konami code easter egg - spawn goblins! (↑ ↑ ↓ ↓ ← → ← → B A)
+  const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let konamiIndex = 0;
+
+  function spawnGoblin() {
+    const goblin = document.createElement('div');
+    goblin.className = 'goblin-sprite';
+    goblin.textContent = '👺'; // You can replace with an actual goblin image/sprite
+    goblin.style.left = Math.random() * 100 + '%';
+    goblin.style.animationDuration = (Math.random() * 2 + 3) + 's';
+    document.body.appendChild(goblin);
+    
+    // Remove goblin after animation completes
+    setTimeout(() => {
+      goblin.remove();
+    }, 5000);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (key === konamiCode[konamiIndex]) {
+      konamiIndex++;
+      if (konamiIndex === konamiCode.length) {
+        // Spawn multiple goblins!
+        for (let i = 0; i < 15; i++) {
+          setTimeout(() => spawnGoblin(), i * 200);
+        }
+        konamiIndex = 0;
+      }
+    } else {
+      konamiIndex = 0;
+    }
+  });
 </script>
+
 </body>
 </html>
