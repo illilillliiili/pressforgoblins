@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
-<title>press for goblins</title>
-<meta name="description" content="press for goblins — coming soon, retro pixel-style site">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>contact — press for goblins</title>
+<meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
   @font-face {
@@ -12,24 +12,24 @@
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
          url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal; 
-    font-style: normal;  
-    font-display: swap; 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
 
   body {
     margin: 0;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    background: #000; 
-    font-family: 'PressStart2P', monospace; 
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'PressStart2P', monospace;
     text-align: center;
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
-    color: rgba(255,255,255,0.8); 
+    color: rgba(255,255,255,0.8);
   }
 
   /* vertical glow */
@@ -49,21 +49,26 @@
     100% { transform: translateY(-110%); opacity:0.35; }
   }
 
-  /* CRT / scanline overlay */
+  /* scanlines */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
     opacity: 0.15;
   }
 
-  .main-title {
+  h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem; 
-    color: rgba(255,255,255,0.8); /* matches contact header */
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
@@ -72,96 +77,177 @@
     display: inline-block;
   }
 
-  .coming-soon {
-    font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-    --neon-color: #7bbf7b;
-    color: var(--neon-color);
-    text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color);
-    letter-spacing: 0.03em;
-    word-spacing: -0.05em;
-    opacity: 0;
-    z-index:2;
-    display: inline-block;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 420px;
   }
 
-  @keyframes violent-flicker {
-    0%,35%,55% { opacity: 0; text-shadow: none; }
-    25%,45% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
-    100% { opacity: 1; text-shadow: 0 0 1px var(--neon-color),0 0 3px var(--neon-color),0 0 6px var(--neon-color); }
+  textarea {
+    font-family: 'Aptos', sans-serif;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    background: #000;
+    border: none;
+    color: #fff;
+    outline: none;
+    text-align: center;
+    resize: none;
   }
 
-  .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; }
-
-  @keyframes letter-jitter { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1px); } }
-  @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(5deg); } 100% { filter: hue-rotate(0deg); } }
-  .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
-
-  @media(max-width:480px){
-    .main-title { font-size: clamp(1.4rem,7vw,2.4rem); max-width:95vw; letter-spacing:0.005em; word-spacing:-0.5em; }
-    .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); letter-spacing:0.02em; word-spacing:-0.03em; }
+  ::placeholder {
+    text-align: center;
+    color: #bbb;
   }
 
-  /* bottom nav bar — mirrors contact page */
+  .single-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: none;
+    font-size: 1rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .single-line::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 1.1rem;
+    padding: 0.3rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    background: #111;
+  }
+
+  .sent-msg {
+    font-family: 'PressStart2P', monospace;
+    color: #7bbf7b;
+    margin-top: 1rem;
+    display: none;
+  }
+
+  /* footer nav bar — slightly bigger icons and lower position */
   .footer-nav {
     position: fixed;
-    bottom: calc(2.0rem + env(safe-area-inset-bottom)); /* slightly lower on mobile */
+    bottom: calc(1rem + env(safe-area-inset-bottom)); /* lowered for mobile UI */
     width: 100%;
-    text-align: center;
-    z-index: 2;
     display: flex;
     justify-content: space-around;
-    max-width: 400px;
-    margin: 0 auto;
+    z-index: 2;
   }
 
   .footer-nav img {
-    width: 40px; /* slightly bigger icons */
-    height: 40px;
+    width: 46px; /* slightly bigger */
+    height: 46px;
+    cursor: pointer;
+    opacity: 0.9;
   }
 
-  .footer-nav .current-dot {
-    display: block;
-    width: 6px;
-    height: 6px;
-    background: #7bbf7b;
+  .footer-nav img.contact {
+    cursor: default; /* no click */
+    pointer-events: none;
+  }
+
+  .footer-nav .active-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    margin: 0 auto;
-    margin-top: 4px;
+    background: #7bbf7b;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .footer-nav a {
-    pointer-events: auto; /* clickable */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
   }
 
-  .footer-nav .current-page {
-    pointer-events: none; /* not clickable */
-    cursor: default; /* default cursor */
+  .shake {
+    animation: shake 0.2s;
   }
 
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.9rem;}
+    button{font-size:0.9rem;}
+    .footer-nav img{width:42px;height:42px;}
+  }
 </style>
 </head>
 <body>
+  <h1>contact</h1>
 
-  <div class="main-title">press for goblins</div>
-  <div class="coming-soon" id="coming-soon">coming soon</div>
+  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST">
+    <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
+    <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
+    <textarea name="message" rows="5" placeholder="message" required></textarea>
+    <button type="submit">send</button>
+  </form>
 
-  <!-- bottom nav bar -->
+  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon ツ</div>
+
   <div class="footer-nav">
-    <a href="index.html">
-      <img src="images/home.png" alt="home">
-      <span class="current-dot"></span> <!-- indicates current page -->
-    </a>
-    <a href="portfolio.html">
-      <img src="images/portfolio.png" alt="portfolio">
-    </a>
-    <a href="about.html">
-      <img src="images/about.png" alt="about">
-    </a>
-    <span class="current-page">
-      <img src="images/contact.png" alt="contact">
-      <span class="current-dot"></span> <!-- contact icon shows green dot but not clickable -->
-    </span>
+    <div style="position:relative;"><a href="index.html"><img src="images/home.png" alt="home"></a></div>
+    <div style="position:relative;"><a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a></div>
+    <div style="position:relative;"><a href="about.html"><img src="images/about.png" alt="about"></a></div>
+    <div style="position:relative;">
+      <img src="images/contact.png" class="contact" alt="contact">
+      <div class="active-dot"></div>
+    </div>
   </div>
 
+<script>
+  const form = document.getElementById('contact-form');
+  const sentMsg = document.getElementById('sent-msg');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    let error = false;
+    form.querySelectorAll('textarea').forEach(field => {
+      if(!field.value.trim()) {
+        field.classList.add('shake');
+        error = true;
+        setTimeout(()=>{ field.classList.remove('shake'); }, 250);
+      }
+    });
+    if(error) return;
+
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if(response.ok){
+      sentMsg.style.display = 'block';
+      form.reset();
+    }
+
+    // easter eggs
+    const msg = form.message.value.toLowerCase();
+    if(msg.includes('gottacatchemall')) alert('🎮 You found the oldschool game!'); 
+    else if(msg.includes('oldskool')) alert('🕹️ Retro vibes unlocked!'); 
+    else if(msg.includes('partytime')) alert('🎉 Party mode activated!');
+  });
+</script>
 </body>
 </html>
