@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"> <!-- character encoding -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive scaling -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>about — press for goblins</title>
 <meta name="description" content="about page for press for goblins — retro pixel/neon style">
+
+<!-- Font preload for performance -->
+<link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
   @font-face {
@@ -12,35 +15,42 @@
     src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
          url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
          url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal; 
-    font-style: normal;  
-    font-display: swap; 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 
   body {
     margin: 0;
-    min-height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    background: #000; 
-    font-family: 'PressStart2P', monospace; 
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'PressStart2P', monospace;
     text-align: center;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
     color: rgba(255,255,255,0.8);
   }
 
-  /* vertical glow */
+  /* CRT vignette effect for retro monitor feel */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    background: 
+      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
+      linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
+    border-radius: 8px;
   }
 
   @keyframes verticalGlow {
@@ -77,67 +87,121 @@
     display: inline-block;
   }
 
-  p {
-    max-width: 90vw;
-    color: rgba(255,255,255,0.8);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+  /* Footer nav bar */
+  .footer-nav {
+    position: fixed;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2rem;
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .footer-nav .nav-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-nav a {
+    display: block;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
+  .footer-nav a:focus {
+    outline: 2px solid #7bbf7b;
+    outline-offset: 4px;
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
+  .footer-nav img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    opacity: 0.9;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav img.about {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .footer-nav .active-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7bbf7b;
+    box-shadow: 0 0 6px #7bbf7b;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Page transition fade */
+  body.page-transition {
+    animation: fadeOut 0.15s ease-out forwards;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; }
   }
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    p{font-size:0.9rem;}
-  }
-
-  /* bottom nav bar matching contact page */
-  .footer-nav {
-    position: fixed;
-    bottom: calc(2rem + env(safe-area-inset-bottom));
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .footer-nav img {
-    width: 40px; 
-    height: 40px;
-    cursor: pointer; 
-    transition: transform 0.2s ease;
-  }
-
-  .footer-nav img:hover {
-    transform: scale(1.1);
-  }
-
-  /* green dot under about icon */
-  .footer-nav .about {
-    cursor: default; /* not clickable */
-    position: relative;
-  }
-
-  .footer-nav .about::after {
-    content:'';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #7bbf7b; /* green dot */
+    .footer-nav img{width:44px;height:44px;}
+    .footer-nav{padding: 0 1rem;}
   }
 </style>
 </head>
+<body>
+  <h1>about</h1>
 
-  <!-- bottom nav bar -->
-  <div class="footer-nav">
-    <a href="index.html"><img src="images/home.png" alt="home"></a>
-    <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
-    <div class="about"><img src="images/about.png" alt="about"></div>
-    <a href="contact.html"><img src="images/contact.png" alt="contact"></a>
-  </div>
+  <!-- Footer nav bar with proper semantic markup -->
+  <nav class="footer-nav" aria-label="Main navigation">
+    <div class="nav-item">
+      <a href="index.html" aria-label="Home">
+        <img src="images/home.png" alt="Home">
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="portfolio.html" aria-label="View portfolio">
+        <img src="images/portfolio.png" alt="Portfolio">
+      </a>
+    </div>
+    <div class="nav-item">
+      <img src="images/about.png" class="about" alt="About - Current page">
+      <div class="active-dot"></div>
+    </div>
+    <div class="nav-item">
+      <a href="contact.html" aria-label="Contact">
+        <img src="images/contact.png" alt="Contact">
+      </a>
+    </div>
+  </nav>
+
+<script>
+  // Page transition effect
+  const navLinks = document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      document.body.classList.add('page-transition');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 150);
+    });
+  });
+</script>
 </body>
 </html>
