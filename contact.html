@@ -7,194 +7,167 @@
 <meta name="description" content="contact page for press for goblins — retro pixel/neon style">
 
 <style>
-/* --- fonts --- */
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  /* --- FONT --- */
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'Aptos';
-  src: url('fonts/aptos.ttf') format('truetype'),
-       url('fonts/aptos-italic.ttf') format('truetype'),
-       url('fonts/aptos-bold.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'PressStart2P', monospace;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+  }
 
-/* --- body & background --- */
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  font-family: 'PressStart2P', monospace;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  color: rgba(255,255,255,0.8);
-}
+  /* vertical glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
+  }
 
-/* vertical glow */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
-  animation: verticalGlow 25s linear infinite;
-}
-@keyframes verticalGlow {
-  0% { transform: translateY(110%); opacity:0.35; }
-  50% { opacity:0.6; }
-  100% { transform: translateY(-110%); opacity:0.35; }
-}
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.35; }
+  }
 
-/* scanlines */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: repeating-linear-gradient(
-    rgba(255,255,255,0.02) 0px,
-    rgba(255,255,255,0.02) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity: 0.15;
-}
+  /* scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.15;
+  }
 
-/* --- header --- */
-h1 {
-  font-size: clamp(1.8rem,8vw,3rem);
-  margin-bottom: 2rem;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.35em;
-  z-index:2;
-  display: inline-block;
-}
+  /* header */
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.35em;
+    z-index:2;
+    display: inline-block;
+  }
 
-/* --- form --- */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  max-width: 450px;
-}
+  /* form */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 420px;
+  }
 
-textarea {
-  font-family: 'Aptos', sans-serif;
-  font-size: 1rem;
-  padding: 0.5rem;
-  width: 100%;
-  background: #000;
-  border: none;
-  color: #fff;
-  outline: none;
-  text-align: center;
-  resize: none;
-}
+  textarea {
+    font-family: 'Aptos', sans-serif; /* plain text */
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    background: #000;
+    border: none;
+    color: #fff;
+    outline: none;
+    text-align: center;
+    resize: none;
+  }
 
-/* single-line fields */
-.single-line {
-  white-space: nowrap;
-  overflow-x: auto;
-  font-size: 1rem;
-  padding-bottom: 0.3rem;
-}
-.single-line::-webkit-scrollbar { display: none; }
+  ::placeholder {
+    text-align: center;
+    color: #bbb;
+  }
 
-::placeholder {
-  text-align: center;
-  color: #bbb;
-}
+  /* force name/email to behave like single-line fields */
+  .single-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: none;
+    font-size: 1rem;
+    padding-bottom: 0.3rem;
+  }
 
-/* privacy note under email field */
-#privacy-note {
-  font-family: 'Aptos', sans-serif;
-  font-size: 0.8rem;
-  color: #bbb;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
-}
+  /* hide scrollbar inside textareas */
+  .single-line::-webkit-scrollbar { display: none; }
 
-/* submit button */
-button {
-  font-family: 'PressStart2P', monospace;
-  font-size: 1.1rem;
-  padding: 0.3rem 1rem;
-  background: #000;
-  border: 1px solid #7bbf7b;
-  color: #7bbf7b;
-  cursor: pointer;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
-  transition: text-shadow 0.2s ease, background 0.2s ease;
-}
-button:hover {
-  text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
-  background: #111;
-}
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 1.1rem;
+    padding: 0.3rem 1rem;
+    background: #000;
+    border: 1px solid #7bbf7b;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b;
+    transition: text-shadow 0.2s ease, background 0.2s ease;
+  }
 
-/* --- sent message --- */
-#sent-msg {
-  font-family: 'PressStart2P', monospace;
-  color: #fff;
-  margin-top: 1rem;
-  display: none;
-}
+  button:hover {
+    text-shadow: 0 0 2px #7bbf7b, 0 0 5px #7bbf7b;
+    background: #111;
+  }
 
-/* --- bottom nav icons --- */
-.bottom-nav {
-  position: fixed;
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 2;
-}
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.8rem;}
+    button{font-size:0.8rem;}
+  }
 
-.bottom-nav a {
-  text-decoration: none;
-}
+  /* nav bar icons */
+  .nav-bar {
+    position: fixed;
+    bottom: calc(2.5rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 2;
+  }
 
-.bottom-nav img {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
+  .nav-bar img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
 
-.bottom-nav .contact-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #7bbf7b;
-  margin-top: 2px;
-}
+  .nav-bar .active-dot {
+    width: 8px;
+    height: 8px;
+    background: #7bbf7b;
+    border-radius: 50%;
+    display: block;
+    margin: 4px auto 0 auto;
+  }
 
-@media(max-width:480px){
-  h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-  textarea{font-size:0.8rem;}
-  button{font-size:0.8rem;}
-  .bottom-nav img{width:30px;height:30px;}
-}
+  /* email icon removed for now as per request */
 </style>
 </head>
 
@@ -203,52 +176,56 @@ button:hover {
 <h1>contact</h1>
 
 <form id="contact-form">
-  <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
   <textarea name="email" rows="1" placeholder="email" required class="single-line"></textarea>
-  <div id="privacy-note">we promise not to share it with any other humans (or goblins)</div>
+  <textarea name="name" rows="1" placeholder="name" required class="single-line"></textarea>
   <textarea name="message" rows="6" placeholder="message" required></textarea>
-  <button type="submit" id="submit-btn">send</button>
+  <button type="submit" id="send-btn">send</button>
 </form>
 
-<div id="sent-msg">the goblins will get back to you soon ツ</div>
+<div class="confirmation" id="confirmation" style="margin-top:1rem; display:none; color:#fff; font-family:'Aptos',sans-serif;"></div>
 
-<!-- bottom nav -->
-<div class="bottom-nav">
-  <a href="index.html"><img src="images/home.png" alt="home"></a>
-  <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
-  <a href="about.html"><img src="images/about.png" alt="about"></a>
+<!-- nav bar -->
+<div class="nav-bar">
+  <div>
+    <img src="images/home.png" alt="home" onclick="location.href='index.html'">
+  </div>
+  <div>
+    <img src="images/portfolio.png" alt="portfolio" onclick="location.href='portfolio.html'">
+  </div>
+  <div>
+    <img src="images/about.png" alt="about" onclick="location.href='about.html'">
+  </div>
   <div>
     <img src="images/contact.png" alt="contact">
-    <div class="contact-dot"></div>
+    <span class="active-dot"></span>
   </div>
 </div>
 
-<audio id="neon-sound" preload="auto">
-  <source src="neon.m4a" type="audio/mp4">
-</audio>
-
 <script>
 const form = document.getElementById('contact-form');
-const submitBtn = document.getElementById('submit-btn');
-const sentMsg = document.getElementById('sent-msg');
-const sound = document.getElementById('neon-sound');
+const sendBtn = document.getElementById('send-btn');
+const confirmation = document.getElementById('confirmation');
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', function(e){
   e.preventDefault();
+  const msgField = form.querySelector('[name="message"]');
+  const keyword = msgField.value.toLowerCase().trim();
 
-  submitBtn.textContent = 'sent!';
-  sentMsg.style.display = 'block';
-
-  if(sound){
-    sound.volume = 0.5;
-    sound.play().catch(()=>{});
+  // Easter egg triggers
+  if(keyword === 'gottacatchemall'){
+    alert('Goblins mini-game activated!'); // placeholder for actual game
+  } else if(keyword === 'oldskool'){
+    alert('CRT retro effect activated!'); // placeholder for actual effect
+  } else if(keyword === 'partytime'){
+    alert('Goblin party initiated!'); // placeholder for party animation
+  } else {
+    // normal send action
+    sendBtn.textContent = 'sent!';
+    confirmation.style.display = 'block';
+    confirmation.textContent = 'noah and the goblins will get back to you within three working days ツ';
   }
-
-  const msg = form.message.value.toLowerCase().replace(/\s+/g,'');
-  if(msg==='gottacatchemall'){ alert('starting Goblins Catching Gems!'); }
-  else if(msg==='oldskool'){ alert('starting OldSkool Mini Game!'); }
-  else if(msg==='partytime'||msg==='goblinsjustwannahavefun'){ alert('starting Party Game!'); }
 });
 </script>
+
 </body>
 </html>
