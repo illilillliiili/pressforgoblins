@@ -101,11 +101,8 @@
   }
 
   .violent-flicker { animation: violent-flicker 0.25s steps(40,end) forwards; } 
-
   @keyframes letter-jitter { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1px); } } 
-
   @keyframes hueShift { 0% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(5deg); } 100% { filter: hue-rotate(0deg); } } 
-
   .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; } 
 
   @media(max-width:480px){
@@ -113,7 +110,7 @@
     .coming-soon { font-size: clamp(1.2rem,5vw,1.8rem); }
   }
 
-  /* bottom nav bar */
+  /* bottom nav bar matching contact page */
   .footer-nav {
     position: fixed;
     bottom: calc(2rem + env(safe-area-inset-bottom));
@@ -135,18 +132,18 @@
     transform: scale(1.1);
   }
 
-  /* about icon - green dot, not clickable */
-  .footer-nav .about {
+  /* home icon with green dot, no link */
+  .footer-nav .home {
     position: relative;
   }
 
-  .footer-nav .about img {
-    width: 40px; 
+  .footer-nav .home img {
+    width: 40px;
     height: 40px;
-    cursor: default; /* no click effect */
+    cursor: default; 
   }
 
-  .footer-nav .about::after {
+  .footer-nav .home::after {
     content:'';
     position: absolute;
     bottom: -0.5rem;
@@ -167,9 +164,9 @@
 
   <!-- bottom nav bar -->
   <div class="footer-nav">
-    <a href="index.html"><img src="images/home.png" alt="home"></a>
+    <div class="home"><img src="images/home.png" alt="home"></div>
     <a href="portfolio.html"><img src="images/portfolio.png" alt="portfolio"></a>
-    <div class="about"><img src="images/about.png" alt="about"></div>
+    <a href="about.html"><img src="images/about.png" alt="about"></a>
     <a href="contact.html"><img src="images/contact.png" alt="contact"></a>
   </div>
 
