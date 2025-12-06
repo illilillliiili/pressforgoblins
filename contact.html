@@ -522,17 +522,17 @@
   });
 
   // Page transition effect
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+  // page transition effect
+  const navLinks=document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link=>{
+    link.addEventListener('click',(e)=>{
       e.preventDefault();
-      const href = link.getAttribute('href');
+      const href=link.getAttribute('href');
       document.body.classList.add('page-transition');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 150);
+      setTimeout(()=>window.location.href=href,150);
     });
   });
+});
 </script>
 
 </body>
