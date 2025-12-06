@@ -37,7 +37,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 4rem;
     align-items: center;
     background: #000;
     font-family: 'PressStart2P', monospace;
@@ -145,10 +146,9 @@
   }
 
   textarea {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.82rem;
-    line-height: 1.55;
-    letter-spacing: 0.03em;
+    font-size: 0.68rem;          /* smaller, less chunky */
+    letter-spacing: 0.015em;     /* tighter */
+    line-height: 1.8;            /* increases readability */
     padding: 0;
     width: 100%;
     background: transparent;
@@ -177,7 +177,7 @@
   }
 
   .multi-line {
-    min-height: 80px;
+    min-height: 140px; /* message field height */
   }
 
   .single-line::-webkit-scrollbar {
@@ -273,7 +273,7 @@
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
+    bottom: calc(0.6rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
