@@ -20,13 +20,11 @@
     font-display: swap;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,217 +32,73 @@
     background: #000;
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: rgba(255,255,255,0.8);
-  }
-
-  /* Scanlines overlay */
-  h1::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background: repeating-linear-gradient(
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    opacity: 0.15;
+    color: #7bbf7b; /* neon colour for text */
   }
 
   h1 {
-    font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 0.5rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.35em;
-    z-index: 2;
-    display: inline-block;
-    font-family: 'PressStart2P', monospace;
-  }
-
-  .coming-soon {
-    font-size: clamp(1rem,4vw,1.4rem);
-    color: #7bbf7b;
-    text-shadow: 
-      0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
-    z-index: 2;
-    display: inline-block;
-    opacity: 0;
+    font-size: clamp(1.8rem, 8vw, 3rem);
     margin-bottom: 2rem;
   }
 
-  @keyframes violentFlicker {
-    0%, 35%, 55% { 
-      opacity: 0; 
-      text-shadow: none; 
-    }
-    25%, 45% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    100% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-  }
-
-  .violent-flicker {
-    animation: violentFlicker 0.25s steps(40, end) forwards;
-  }
-
-  @keyframes hueShift {
-    0% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(5deg); }
-    100% { filter: hue-rotate(0deg); }
-  }
-
-  .hue-shift {
-    animation: hueShift 6s infinite ease-in-out;
+  .coming-soon {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    color: #7bbf7b;
+    opacity: 1;
+    margin-bottom: 2rem;
   }
 
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 0 2rem;
     max-width: 600px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
   }
 
-  .footer-nav .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .footer-nav a {
-    display: block;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav a:focus {
-    outline: 2px solid #7bbf7b;
-    outline-offset: 4px;
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav img {
+  .footer-nav .nav-item img {
     width: 48px;
     height: 48px;
-    display: block;
-    opacity: 0.9;
-    transition: transform 0.2s ease, filter 0.2s ease;
   }
 
-  .footer-nav img.about {
-    cursor: default;
-    pointer-events: none;
-  }
-
+  .footer-nav img.about { cursor: default; pointer-events: none; }
   .footer-nav .active-dot {
     position: absolute;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #7bbf7b;
-    box-shadow: 0 0 6px #7bbf7b;
     bottom: -0.5rem;
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  /* Page transition fade */
-  body.page-transition {
-    animation: fadeOut 0.15s ease-out forwards;
-  }
-
-  @keyframes fadeOut {
-    to { opacity: 0; }
   }
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     .coming-soon{font-size: clamp(0.85rem,3.5vw,1.1rem);}
     .footer-nav img{width:44px;height:44px;}
-    .footer-nav{padding: 0 1rem;}
   }
 </style>
 </head>
 <body>
   <h1>about</h1>
-  <div class="coming-soon" id="coming-soon">(also coming soon)</div>
+  <div class="coming-soon">(also coming soon)</div>
 
-  <!-- Footer nav bar with proper semantic markup -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
-      <a href="index.html" aria-label="Home">
-        <img src="images/home.png" alt="Home">
-      </a>
+      <a href="index.html"><img src="images/home.png" alt="Home"></a>
     </div>
     <div class="nav-item">
       <img src="images/about.png" class="about" alt="About - Current page">
       <div class="active-dot"></div>
     </div>
     <div class="nav-item">
-      <a href="contact.html" aria-label="Contact">
-        <img src="images/contact.png" alt="Contact">
-      </a>
+      <a href="contact.html"><img src="images/contact.png" alt="Contact"></a>
     </div>
   </nav>
-
-<script>
-  const comingSoon = document.getElementById('coming-soon');
-
-  const startupDelay = 750;
-  const violentFlickerDuration = 250;
-  const extraFlickerDuration = 120;
-
-  // Trigger coming soon text violent flicker on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      comingSoon.classList.add('violent-flicker');
-      comingSoon.style.opacity = 1;
-
-      setTimeout(() => {
-        comingSoon.classList.add('hue-shift');
-      }, violentFlickerDuration + extraFlickerDuration + 60);
-    }, startupDelay);
-  });
-
-  // Page transition effect
-  const navLinks=document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link=>{
-    link.addEventListener('click',(e)=>{
-      e.preventDefault();
-      const href=link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(()=>window.location.href=href,150);
-    });
-  });
-});
-</script>
 </body>
 </html>
