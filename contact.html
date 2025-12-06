@@ -20,6 +20,14 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Aptos Serif';
+    src: url('fonts/Aptos-Serif.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -29,7 +37,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 4rem;
     align-items: center;
     background: #000;
     font-family: 'PressStart2P', monospace;
@@ -39,7 +48,7 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* CRT vignette effect for retro monitor feel - multiple rolling glows */
+  /* CRT vignette effect for retro monitor feel */
   body::before {
     content: '';
     position: fixed;
@@ -47,40 +56,20 @@
     pointer-events: none;
     z-index: 0;
     background: 
-      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow1 35s linear infinite;
+      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.25) 100%),
+      linear-gradient(to top, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow 25s linear infinite;
     border-radius: 8px;
-    filter: blur(2px);
   }
 
-  @keyframes verticalGlow1 {
-    0% { transform: translateY(110%); opacity:0.3; }
-    50% { opacity:0.5; }
-    100% { transform: translateY(-110%); opacity:0.3; }
-  }
-
-  /* Second rolling glow */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow2 28s linear infinite;
-    animation-delay: 8s;
-    filter: blur(3px);
-  }
-
-  @keyframes verticalGlow2 {
-    0% { transform: translateY(110%); opacity:0.4; }
+  @keyframes verticalGlow {
+    0% { transform: translateY(110%); opacity:0.35; }
     50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.4; }
+    100% { transform: translateY(-110%); opacity:0.35; }
   }
 
   /* Scanlines overlay */
-  h1::before {
+  body > *:first-child::before {
     content: '';
     position: fixed;
     inset: 0;
@@ -92,18 +81,18 @@
       transparent 1px,
       transparent 3px
     );
-    opacity: 0.15;
+    opacity: 0.10;
   }
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
     margin-bottom: 2.5rem;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.8);
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
     word-spacing: -0.35em;
-    z-index: 2;
+    z-index:2;
     display: inline-block;
     font-family: 'PressStart2P', monospace;
   }
@@ -121,17 +110,17 @@
   .field-group {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
     position: relative;
-    padding: 1rem 1.2rem;
+    padding: 0.8rem 1rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition: all 0.1s ease;
-    cursor: text;
   }
 
   .field-group:hover,
@@ -141,71 +130,65 @@
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   }
 
-  .field-content {
-    width: 100%;
-    position: relative;
+  .field-group:hover textarea,
+  .field-group:focus-within textarea {
+    opacity: 1;
   }
 
-  .placeholder-text {
+  .field-label {
     font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.9;
     white-space: nowrap;
-  }
-
-  textarea:focus + .placeholder-text,
-  textarea:not(:placeholder-shown) + .placeholder-text {
-    opacity: 0;
+    flex-shrink: 0;
+    line-height: 1.5;
   }
 
   textarea {
     font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
+    font-size: 0.85rem;          /* smaller, less chunky */
+    letter-spacing: 0.015em;     /* tighter */
+    line-height: 1.8;            /* increases readability */
     padding: 0;
     width: 100%;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: #fff;
     outline: none;
-    text-align: center;
+    text-align: left;
     resize: none;
     line-height: 1.5;
+    opacity: 0.7;
     transition: opacity 0.1s ease;
   }
 
-  textarea::placeholder {
-    opacity: 1;
+  ::placeholder {
+    text-align: left;
+    color: #bbb;
+    font-family: 'Aptos Serif', serif;
   }
 
   .single-line {
     white-space: nowrap;
     overflow-x: auto;
     resize: none;
+    font-size: 1rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .multi-line {
+    min-height: 140px; /* message field height */
   }
 
   .single-line::-webkit-scrollbar {
     display: none;
   }
 
-  .multi-line {
-    min-height: 80px;
-  }
-
-  .multi-line + .placeholder-text {
-    top: 1rem;
-    transform: translateX(-50%);
-  }
-
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.6rem;
-    padding: 0.9rem 2.2rem;
+    font-size: 1.5rem;
+    padding: 0.9rem 1.9rem;
     margin-top: 0.5rem;
     background: transparent;
     border: none;
@@ -216,15 +199,13 @@
       0 0 8px #7bbf7b,
       0 0 15px #7bbf7b;
     transition: all 0.1s ease;
-    opacity: 0;
   }
 
-  @keyframes violentFlicker {
-    0%, 35%, 55% { 
-      opacity: 0; 
+  @keyframes sendFlicker {
+    0%, 20%, 40%, 60% { 
       text-shadow: none; 
     }
-    25%, 45% { 
+    10%, 30%, 50% { 
       opacity: 1; 
       text-shadow: 
         0 0 3px #7bbf7b,
@@ -240,18 +221,27 @@
     }
   }
 
-  .violent-flicker {
-    animation: violentFlicker 0.25s steps(40, end) forwards;
+  .send-flicker {
+    animation: sendFlicker 0.35s ease-out forwards;
   }
 
-  @keyframes hueShift {
-    0% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(5deg); }
-    100% { filter: hue-rotate(0deg); }
+  @keyframes neonPulse {
+    0%, 100% { 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+    50% { 
+      text-shadow: 
+        0 0 5px #7bbf7b,
+        0 0 12px #7bbf7b,
+        0 0 20px #7bbf7b;
+    }
   }
 
-  .hue-shift {
-    animation: hueShift 6s infinite ease-in-out;
+  .send-pulse {
+    animation: neonPulse 5s infinite ease-in-out;
   }
 
   button:hover {
@@ -279,41 +269,12 @@
     margin-top: 1rem;
     display: none;
     z-index: 2;
-    font-size: 0.75rem;
-    line-height: 1.6;
-  }
-
-  .sent-msg .smiley {
-    display: inline-block;
-    margin-left: 0.2rem;
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-3px); }
-    100% { transform: translateX(0); }
-  }
-
-  .shake {
-    animation: shake 0.2s;
-  }
-
-  @keyframes wobble {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-
-  .wobble {
-    animation: wobble 0.2s ease-in-out;
   }
 
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -376,57 +337,56 @@
   }
 
   @keyframes fadeOut {
-    to { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
+
+  .shake {
+    animation: shake 0.2s;
   }
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.75rem;}
-    button{font-size:1.2rem; padding: 0.8rem 1.8rem;}
+    textarea{font-size:0.9rem;}
+    button{font-size:0.9rem;}
     .footer-nav img{width:44px;height:44px;}
     .footer-nav{padding: 0 1rem;}
-    .placeholder-text{font-size:0.75rem;}
   }
-
 </style>
 </head>
 <body>
   <h1>contact</h1>
 
   <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-    <div class="field-group" data-field="name">
-      <div class="field-content">
-        <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
-        <div class="placeholder-text">name</div>
-      </div>
+    <div class="field-group">
+      <label class="field-label">name</label>
+      <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
     </div>
-    <div class="field-group" data-field="email">
-      <div class="field-content">
-        <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
-        <div class="placeholder-text">email</div>
-      </div>
+    <div class="field-group">
+      <label class="field-label">email</label>
+      <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
     </div>
-    <div class="field-group" data-field="message">
-      <div class="field-content">
-        <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
-        <div class="placeholder-text">message</div>
-      </div>
+    <div class="field-group">
+      <label class="field-label">message</label>
+      <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
     </div>
     <button type="submit">send</button>
   </form>
 
-  <div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
+  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
 
   <!-- Footer nav bar with proper semantic markup -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
       <a href="index.html" aria-label="Home">
         <img src="images/home.png" alt="Home">
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="about.html" aria-label="About">
-        <img src="images/about.png" alt="About">
       </a>
     </div>
     <div class="nav-item">
@@ -440,64 +400,27 @@
   const sentMsg = document.getElementById('sent-msg');
   const sendButton = document.querySelector('button[type="submit"]');
 
-  const startupDelay = 750;
-  const violentFlickerDuration = 250;
-  const extraFlickerDuration = 120;
-
-  // Trigger send button violent flicker on page load (same as coming soon)
+  // Trigger send button flicker on page load
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      sendButton.classList.add('violent-flicker');
-      sendButton.style.opacity = 1;
-
+      sendButton.classList.add('send-flicker');
       setTimeout(() => {
-        sendButton.classList.add('hue-shift');
-      }, violentFlickerDuration + extraFlickerDuration + 60);
-    }, startupDelay);
-
-    // Click field group to focus textarea
-    document.querySelectorAll('.field-group').forEach(group => {
-      group.addEventListener('click', (e) => {
-        if (e.target === group || e.target.classList.contains('field-content')) {
-          group.querySelector('textarea').focus();
-        }
-      });
-    });
+        sendButton.classList.add('send-pulse');
+        sendButton.style.opacity = '1';
+      }, 400);
+    }, 1000);
   });
-
-  // Email validation regex
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     let error = false;
-
-    // Check all fields
     form.querySelectorAll('textarea').forEach(field => {
-      const fieldGroup = field.closest('.field-group');
-      
       if(!field.value.trim()) {
-        fieldGroup.classList.add('wobble');
+        field.classList.add('shake');
         error = true;
-        setTimeout(() => { 
-          fieldGroup.classList.remove('wobble'); 
-        }, 300);
+        setTimeout(()=>{ field.classList.remove('shake'); }, 250);
       }
     });
-
-    // Check email format specifically
-    const emailField = form.querySelector('textarea[name="email"]');
-    if(emailField.value.trim() && !isValidEmail(emailField.value.trim())) {
-      const emailGroup = emailField.closest('.field-group');
-      emailGroup.classList.add('wobble');
-      error = true;
-      setTimeout(() => { 
-        emailGroup.classList.remove('wobble'); 
-      }, 300);
-    }
-
     if(error) return;
 
     const data = new FormData(form);
@@ -506,17 +429,8 @@
       body: data,
       headers: { 'Accept': 'application/json' }
     });
-    
     if(response.ok){
-      // Change button text to "sent"
-      sendButton.textContent = 'sent';
-      sendButton.style.pointerEvents = 'none';
-      
-      // Show message below
-      setTimeout(() => {
-        sentMsg.style.display = 'block';
-      }, 300);
-      
+      sentMsg.style.display = 'block';
       form.reset();
     }
   });
@@ -527,10 +441,8 @@ navLinks.forEach(link=>{
   link.addEventListener('click',(e)=>{
     e.preventDefault();
     window.location.href=link.getAttribute('href');
+    });
   });
-});
-  
 </script>
-
 </body>
 </html>
