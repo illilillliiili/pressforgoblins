@@ -20,477 +20,175 @@
     font-display: swap;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: rgba(128,128,128,0.05); /* slightly transparent grey */
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: rgba(255,255,255,0.8);
+    color: #7bbf7b;
   }
 
-  /* Scanlines overlay */
-  h1::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background: repeating-linear-gradient(
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    opacity: 0.15;
-  }
-
-  h1 {
-    font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2.5rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.35em;
-    z-index: 2;
-    display: inline-block;
-    font-family: 'PressStart2P', monospace;
-  }
+  h1 { font-size: clamp(1.8rem, 8vw, 3rem); margin-bottom: 2rem; }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1rem;
     width: 100%;
     max-width: 420px;
-    z-index: 2;
   }
 
   .field-group {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 1rem 1.2rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.1s ease;
-    cursor: text;
-  }
-
-  .field-group:hover,
-  .field-group:focus-within {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-  }
-
-  .field-content {
-    width: 100%;
-    position: relative;
-  }
-
-  .placeholder-text {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-  }
-
-  textarea:focus + .placeholder-text,
-  textarea:not(:placeholder-shown) + .placeholder-text {
-    opacity: 0;
   }
 
   textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 0.85rem;
-    padding: 0;
     width: 100%;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: #7bbf7b;
     outline: none;
-    text-align: center;
     resize: none;
-    line-height: 1.5;
-    transition: opacity 0.1s ease;
+    line-height: 1.4;
   }
 
-  textarea::placeholder {
-    opacity: 0;
+  .placeholder-text {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
   }
 
-  .single-line {
-    white-space: nowrap;
-    overflow-x: auto;
-    resize: none;
-  }
-
-  .single-line::-webkit-scrollbar {
-    display: none;
-  }
-
-  .multi-line {
-    min-height: 80px;
-  }
-
-  .multi-line + .placeholder-text {
-    top: 1rem;
-    transform: translateX(-50%);
-  }
-
-  button {
+  button[type="submit"] {
     font-family: 'PressStart2P', monospace;
     font-size: 1.6rem;
     padding: 0.9rem 2.2rem;
-    margin-top: 0.5rem;
     background: transparent;
     border: none;
     color: #7bbf7b;
     cursor: pointer;
-    text-shadow: 
-      0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
-    transition: all 0.1s ease;
-    opacity: 0;
-  }
-
-  @keyframes violentFlicker {
-    0%, 35%, 55% { 
-      opacity: 0; 
-      text-shadow: none; 
-    }
-    25%, 45% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    100% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-  }
-
-  .violent-flicker {
-    animation: violentFlicker 0.25s steps(40, end) forwards;
-  }
-
-  @keyframes hueShift {
-    0% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(5deg); }
-    100% { filter: hue-rotate(0deg); }
-  }
-
-  .hue-shift {
-    animation: hueShift 6s infinite ease-in-out;
-  }
-
-  button:hover {
-    text-shadow: 
-      0 0 5px #7bbf7b,
-      0 0 12px #7bbf7b,
-      0 0 20px #7bbf7b,
-      0 0 30px #7bbf7b;
-  }
-
-  button:active {
-    text-shadow: 
-      0 0 2px #7bbf7b,
-      0 0 6px #7bbf7b,
-      0 0 10px #7bbf7b;
-  }
-
-  button:focus {
-    outline: none;
+    opacity: 1;
   }
 
   .sent-msg {
     font-family: 'PressStart2P', monospace;
     color: #7bbf7b;
     margin-top: 1rem;
-    display: none;
-    z-index: 2;
     font-size: 0.75rem;
     line-height: 1.6;
-  }
-
-  .sent-msg .smiley {
-    display: inline-block;
-    margin-left: 0.2rem;
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-3px); }
-    100% { transform: translateX(0); }
-  }
-
-  .shake {
-    animation: shake 0.2s;
-  }
-
-  @keyframes wobble {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-
-  .wobble {
-    animation: wobble 0.2s ease-in-out;
+    display: none;
   }
 
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 0 2rem;
     max-width: 600px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
   }
 
-  .footer-nav .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .footer-nav a {
-    display: block;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav a:focus {
-    outline: 2px solid #7bbf7b;
-    outline-offset: 4px;
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    opacity: 0.9;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
-
-  .footer-nav img.contact {
-    cursor: default;
-    pointer-events: none;
-  }
-
+  .footer-nav img.contact { cursor: default; pointer-events: none; }
   .footer-nav .active-dot {
     position: absolute;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #7bbf7b;
-    box-shadow: 0 0 6px #7bbf7b;
     bottom: -0.5rem;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  /* Page transition fade */
-  body.page-transition {
-    animation: fadeOut 0.15s ease-out forwards;
-  }
-
-  @keyframes fadeOut {
-    to { opacity: 0; }
-  }
-
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     textarea{font-size:0.75rem;}
-    button{font-size:1.2rem; padding: 0.8rem 1.8rem;}
+    button{font-size:1.2rem; padding:0.8rem 1.8rem;}
     .footer-nav img{width:44px;height:44px;}
-    .footer-nav{padding: 0 1rem;}
-    .placeholder-text{font-size:0.75rem;}
   }
-
 </style>
 </head>
 <body>
-  <h1>contact</h1>
 
-  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-    <div class="field-group" data-field="name">
-      <div class="field-content">
-        <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
-        <div class="placeholder-text">name</div>
-      </div>
-    </div>
-    <div class="field-group" data-field="email">
-      <div class="field-content">
-        <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
-        <div class="placeholder-text">email</div>
-      </div>
-    </div>
-    <div class="field-group" data-field="message">
-      <div class="field-content">
-        <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
-        <div class="placeholder-text">message</div>
-      </div>
-    </div>
-    <button type="submit">send</button>
-  </form>
+<h1>contact</h1>
 
-  <div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
+<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+  <div class="field-group" data-field="name">
+    <textarea name="name" rows="1" placeholder="name"></textarea>
+  </div>
+  <div class="field-group" data-field="email">
+    <textarea name="email" rows="1" placeholder="email"></textarea>
+  </div>
+  <div class="field-group" data-field="message">
+    <textarea name="message" rows="5" placeholder="message"></textarea>
+  </div>
+  <button type="submit">send</button>
+</form>
 
-  <!-- Footer nav bar with proper semantic markup -->
-  <nav class="footer-nav" aria-label="Main navigation">
-    <div class="nav-item">
-      <a href="index.html" aria-label="Home">
-        <img src="images/home.png" alt="Home">
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="about.html" aria-label="About">
-        <img src="images/about.png" alt="About">
-      </a>
-    </div>
-    <div class="nav-item">
-      <img src="images/contact.png" class="contact" alt="Contact - Current page">
-      <div class="active-dot"></div>
-    </div>
-  </nav>
+<div class="sent-msg" id="sent-msg">the goblins will see you soon</div>
+
+<nav class="footer-nav" aria-label="Main navigation">
+  <div class="nav-item">
+    <a href="index.html"><img src="images/home.png" alt="Home"></a>
+  </div>
+  <div class="nav-item">
+    <a href="about.html"><img src="images/about.png" alt="About"></a>
+  </div>
+  <div class="nav-item">
+    <img src="images/contact.png" class="contact" alt="Contact - Current page">
+    <div class="active-dot"></div>
+  </div>
+</nav>
 
 <script>
-  const form = document.getElementById('contact-form');
-  const sentMsg = document.getElementById('sent-msg');
-  const sendButton = document.querySelector('button[type="submit"]');
+const form = document.getElementById('contact-form');
+const sentMsg = document.getElementById('sent-msg');
 
-  const startupDelay = 750;
-  const violentFlickerDuration = 250;
-  const extraFlickerDuration = 120;
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  let error = false;
 
-  // Trigger send button violent flicker on page load (same as coming soon)
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      sendButton.classList.add('violent-flicker');
-      sendButton.style.opacity = 1;
+  form.querySelectorAll('textarea').forEach(field => {
+    if(!field.value.trim()) error = true;
+  });
+  if(error) return;
 
-      setTimeout(() => {
-        sendButton.classList.add('hue-shift');
-      }, violentFlickerDuration + extraFlickerDuration + 60);
-    }, startupDelay);
-
-    // Click field group to focus textarea
-    document.querySelectorAll('.field-group').forEach(group => {
-      group.addEventListener('click', (e) => {
-        if (e.target === group || e.target.classList.contains('field-content')) {
-          group.querySelector('textarea').focus();
-        }
-      });
-    });
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
   });
 
-  // Email validation regex
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(response.ok){
+    sentMsg.style.display = 'block';
+    form.reset();
   }
+});
 
-  form.addEventListener('submit', async function(e){
+// page transition for nav links
+const navLinks=document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link=>{
+  link.addEventListener('click',(e)=>{
     e.preventDefault();
-    let error = false;
-
-    // Check all fields
-    form.querySelectorAll('textarea').forEach(field => {
-      const fieldGroup = field.closest('.field-group');
-      
-      if(!field.value.trim()) {
-        fieldGroup.classList.add('wobble');
-        error = true;
-        setTimeout(() => { 
-          fieldGroup.classList.remove('wobble'); 
-        }, 300);
-      }
-    });
-
-    // Check email format specifically
-    const emailField = form.querySelector('textarea[name="email"]');
-    if(emailField.value.trim() && !isValidEmail(emailField.value.trim())) {
-      const emailGroup = emailField.closest('.field-group');
-      emailGroup.classList.add('wobble');
-      error = true;
-      setTimeout(() => { 
-        emailGroup.classList.remove('wobble'); 
-      }, 300);
-    }
-
-    if(error) return;
-
-    const data = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    
-    if(response.ok){
-      // Change button text to "sent"
-      sendButton.textContent = 'sent';
-      sendButton.style.pointerEvents = 'none';
-      
-      // Show message below
-      setTimeout(() => {
-        sentMsg.style.display = 'block';
-      }, 300);
-      
-      form.reset();
-    }
-  });
-
-  // Page transition effect
-  // page transition effect
-  const navLinks=document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link=>{
-    link.addEventListener('click',(e)=>{
-      e.preventDefault();
-      const href=link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(()=>window.location.href=href,150);
-    });
+    window.location.href=link.getAttribute('href');
   });
 });
 </script>
