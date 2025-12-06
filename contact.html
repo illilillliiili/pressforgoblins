@@ -10,281 +10,290 @@
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background: #000;
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: rgba(255,255,255,0.8);
-    padding-top: 2rem;
-  }
+body {
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  background:#000;
+  font-family:'PressStart2P', monospace;
+  text-align:center;
+  overflow:hidden;
+  position:relative;
+  color:rgba(255,255,255,0.8);
+  padding-top:2rem;
+}
 
-  /* CRT vignette & faint glow */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: 
-      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow 25s linear infinite;
-  }
+/* CRT / scanline & glow overlay */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.25) 100%),
+             linear-gradient(to top, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 100%);
+  animation: verticalGlow 25s linear infinite;
+}
 
-  @keyframes verticalGlow {
-    0% { transform: translateY(110%); opacity:0.25; }
-    50% { opacity:0.35; }
-    100% { transform: translateY(-110%); opacity:0.25; }
-  }
+@keyframes verticalGlow {
+  0% { transform:translateY(110%); opacity:0.25; }
+  50% { opacity:0.35; }
+  100% { transform:translateY(-110%); opacity:0.25; }
+}
 
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
-    opacity: 0.15;
-  }
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  opacity:0.15;
+}
 
-  h1 {
-    font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.35em;
-    z-index:2;
-    display: inline-block;
-    font-family: 'PressStart2P', monospace;
-  }
+/* Page header */
+h1 {
+  font-size:clamp(1.8rem,8vw,3rem);
+  margin-bottom:2rem;
+  color:rgba(255,255,255,0.9);
+  line-height:1.4;
+  max-width:90vw;
+  letter-spacing:0.01em;
+  word-spacing:-0.35em;
+  z-index:2;
+  display:inline-block;
+  font-family:'PressStart2P', monospace;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 500px;
-    z-index: 2;
-  }
+/* Form styling */
+form {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  width:100%;
+  max-width:500px;
+  z-index:2;
+}
 
-  .field-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 0.8rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    transition: all 0.1s ease;
-  }
+.field-group {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  padding:0.8rem 1rem;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px;
+  transition: all 0.1s ease;
+  cursor:text;
+}
 
-  .field-group:hover,
-  .field-group:focus-within {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-  }
+.field-group:hover,
+.field-group:focus-within {
+  background:rgba(255,255,255,0.05);
+  border-color:rgba(255,255,255,0.3);
+  box-shadow:0 4px 16px rgba(255,255,255,0.1);
+}
 
-  .field-label {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.2rem;
-  }
+.field-label {
+  font-family:'PressStart2P', monospace;
+  font-size:0.75rem;
+  color:rgba(255,255,255,0.7);
+  margin-bottom:0.2rem;
+  pointer-events:none;
+}
 
-  textarea {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.9rem;
-    padding: 0.3rem;
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #fff;
-    outline: none;
-    resize: none;
-    line-height: 1.4;
-    min-height: 40px;
-  }
+textarea {
+  font-family:'PressStart2P', monospace;
+  font-size:0.9rem;
+  padding:0.3rem;
+  width:100%;
+  background:transparent;
+  border:none;
+  color:#fff;
+  outline:none;
+  resize:none;
+  line-height:1.4;
+  min-height:40px;
+}
 
-  .multi-line { min-height: 120px; }
+.multi-line { min-height:120px; }
 
-  ::placeholder {
-    color: #bbb;
-  }
+::placeholder { color:#bbb; }
 
-  .single-line { white-space: nowrap; overflow-x: auto; }
+.single-line { white-space:nowrap; overflow-x:auto; }
 
-  button {
-    font-family: 'PressStart2P', monospace;
-    font-size: 1.1rem;
-    padding: 0.7rem 1.6rem;
-    margin-top: 0.5rem;
-    background: transparent;
-    border: none;
-    color: #7bbf7b;
-    cursor: pointer;
-    text-shadow: 0 0 3px #7bbf7b, 0 0 8px #7bbf7b, 0 0 15px #7bbf7b;
-    opacity: 0;
-    transition: all 0.1s ease;
-  }
+button {
+  font-family:'PressStart2P', monospace;
+  font-size:1.1rem;
+  padding:0.7rem 1.6rem;
+  margin-top:0.5rem;
+  background:transparent;
+  border:none;
+  color:#7bbf7b;
+  cursor:pointer;
+  text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;
+  opacity:0;
+  transition: all 0.1s ease;
+}
 
-  .send-flicker { animation: sendFlicker 0.35s ease-out forwards; }
-  .send-pulse { animation: neonPulse 5s infinite ease-in-out; }
+.send-flicker {
+  animation: violent-flicker 0.35s steps(40,end) forwards;
+}
+.send-pulse { animation: neonPulse 5s infinite ease-in-out; }
 
-  .sent-msg { font-family: 'PressStart2P', monospace; color: #7bbf7b; margin-top:1rem; display:none; z-index:2; }
+@keyframes violent-flicker {
+  0%,35%,55%{ opacity:0; text-shadow:none;}
+  25%,45%{ opacity:1; text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
+  100%{ opacity:1; text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
+}
 
-  .shake { animation: shake 0.2s; }
-  @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-3px);} 50%{transform:translateX(3px);} 75%{transform:translateX(-3px);} 100%{transform:translateX(0);} }
+@keyframes neonPulse {
+  0%,100%{ text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b; }
+  50%{ text-shadow:0 0 5px #7bbf7b,0 0 12px #7bbf7b,0 0 20px #7bbf7b;}
+}
 
-  /* Footer nav bar */
-  .footer-nav {
-    position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 0 2rem;
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
+.sent-msg { font-family:'PressStart2P', monospace; color:#7bbf7b; margin-top:1rem; display:none; z-index:2; }
 
-  .footer-nav .nav-item { position: relative; display:inline-block; }
-  .footer-nav a { display:block; transition: transform 0.2s ease, filter 0.2s ease; }
-  .footer-nav a:hover { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(123,191,123,0.6)); }
-  .footer-nav img { width:48px; height:48px; display:block; opacity:0.9; }
-  .footer-nav img.contact { cursor: default; pointer-events: none; }
-  .footer-nav .active-dot { position:absolute; width:8px; height:8px; border-radius:50%; background:#7bbf7b; bottom:-0.5rem; left:50%; transform:translateX(-50%); box-shadow:0 0 6px #7bbf7b; }
+.shake { animation:shake 0.2s; }
+@keyframes shake {
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-3px);}
+  50%{transform:translateX(3px);}
+  75%{transform:translateX(-3px);}
+  100%{transform:translateX(0);}
+}
 
-  @media(max-width:480px){
-    form { max-width:90%; }
-    h1 { font-size:clamp(1.4rem,7vw,2.4rem); }
-    textarea { font-size:0.75rem; line-height:1.4; }
-    .multi-line { min-height:100px; }
-    button { font-size:0.9rem; }
-    .footer-nav img { width:44px; height:44px; }
-    .footer-nav { padding: 0 1rem; }
-  }
+/* Footer nav */
+.footer-nav {
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  padding:0 2rem;
+  max-width:600px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:2;
+}
+.footer-nav .nav-item { position:relative; display:inline-block; }
+.footer-nav a { display:block; transition:transform 0.2s ease, filter 0.2s ease; }
+.footer-nav a:hover { transform:scale(1.1); filter: drop-shadow(0 0 8px rgba(123,191,123,0.6)); }
+.footer-nav img { width:48px; height:48px; display:block; opacity:0.9; }
+.footer-nav img.contact { cursor: default; pointer-events:none; }
+.footer-nav .active-dot { position:absolute; width:8px; height:8px; border-radius:50%; background:#7bbf7b; bottom:-0.5rem; left:50%; transform:translateX(-50%); box-shadow:0 0 6px #7bbf7b; }
 
-  @keyframes sendFlicker {
-    0%,20%,40%,60%{text-shadow:none;}
-    10%,30%,50%,100%{text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
-  }
-  @keyframes neonPulse {
-    0%,100%{text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
-    50%{text-shadow:0 0 5px #7bbf7b,0 0 12px #7bbf7b,0 0 20px #7bbf7b;}
-  }
+@media(max-width:480px){
+  form { max-width:90%; }
+  h1 { font-size:clamp(1.4rem,7vw,2.4rem); }
+  textarea { font-size:0.75rem; line-height:1.4; }
+  .multi-line { min-height:100px; }
+  button { font-size:0.9rem; }
+  .footer-nav img { width:44px; height:44px; }
+  .footer-nav { padding:0 1rem; }
+}
 </style>
 </head>
 <body>
-  <h1>contact</h1>
+<h1>contact</h1>
 
-  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-    <div class="field-group">
-      <label class="field-label">name</label>
-      <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
-    </div>
-    <div class="field-group">
-      <label class="field-label">email</label>
-      <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
-    </div>
-    <div class="field-group">
-      <label class="field-label">message</label>
-      <textarea name="message" rows="6" class="multi-line" aria-label="Your message"></textarea>
-    </div>
-    <button type="submit">send</button>
-  </form>
+<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+  <div class="field-group">
+    <label class="field-label">name</label>
+    <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label">email</label>
+    <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
+  </div>
+  <div class="field-group">
+    <label class="field-label">message</label>
+    <textarea name="message" rows="6" class="multi-line" aria-label="Your message"></textarea>
+  </div>
+  <button type="submit">send</button>
+</form>
 
-  <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
+<div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
 
-  <!-- Footer nav bar -->
-  <nav class="footer-nav" aria-label="Main navigation">
-    <div class="nav-item">
-      <a href="index.html" aria-label="Home">
-        <img src="images/home.png" alt="Home">
-      </a>
-    </div>
-    <div class="nav-item">
-      <img src="images/contact.png" class="contact" alt="Contact - Current page">
-      <div class="active-dot"></div>
-    </div>
-  </nav>
+<nav class="footer-nav" aria-label="Main navigation">
+  <div class="nav-item">
+    <a href="index.html" aria-label="Home"><img src="images/home.png" alt="Home"></a>
+  </div>
+  <div class="nav-item">
+    <img src="images/contact.png" class="contact" alt="Contact - Current page">
+    <div class="active-dot"></div>
+  </div>
+</nav>
 
 <script>
-  const form = document.getElementById('contact-form');
-  const sentMsg = document.getElementById('sent-msg');
-  const sendButton = document.querySelector('button[type="submit"]');
+const form = document.getElementById('contact-form');
+const sentMsg = document.getElementById('sent-msg');
+const sendButton = document.querySelector('button[type="submit"]');
 
-  // Trigger send button flicker on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      sendButton.classList.add('send-flicker');
-      setTimeout(() => {
-        sendButton.classList.add('send-pulse');
-        sendButton.style.opacity = '1'; // keeps button visible
-      }, 400);
-    }, 1000);
-  });
+// flicker send button like coming soon
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    sendButton.classList.add('violent-flicker');
+    setTimeout(()=>{ sendButton.classList.add('neonPulse'); sendButton.style.opacity='1'; },400);
+  },1000);
+});
 
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    let error = false;
-    form.querySelectorAll('textarea').forEach(field => {
-      if(!field.value.trim()){
-        field.classList.add('shake');
-        error = true;
-        setTimeout(()=>{ field.classList.remove('shake'); },250);
-      }
-    });
-    if(error) return;
+// click placeholder wrapper focuses textarea
+document.querySelectorAll('.field-group').forEach(group=>{
+  group.addEventListener('click', ()=>group.querySelector('textarea').focus());
+});
 
-    const data = new FormData(form);
-    const response = await fetch(form.action,{
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if(response.ok){
-      sentMsg.style.display = 'block';
-      form.reset();
+// submit with shake effect if empty
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  let error=false;
+  form.querySelectorAll('textarea').forEach(field=>{
+    if(!field.value.trim()){
+      field.classList.add('shake');
+      error=true;
+      setTimeout(()=>{ field.classList.remove('shake'); },250);
     }
   });
+  if(error) return;
 
-  // Page transition for footer links
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link=>{
-    link.addEventListener('click',(e)=>{
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(()=>{ window.location.href = href; },150);
-    });
+  const data = new FormData(form);
+  const response = await fetch(form.action,{
+    method: form.method,
+    body: data,
+    headers: { 'Accept':'application/json' }
   });
+  if(response.ok){
+    sentMsg.style.display='block';
+    form.reset();
+  }
+});
+
+// page transition effect for nav
+document.querySelectorAll('.footer-nav a').forEach(link=>{
+  link.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    document.body.classList.add('page-transition');
+    setTimeout(()=>{ window.location.href = href; },150);
+  });
+});
 </script>
 </body>
 </html>
