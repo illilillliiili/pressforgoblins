@@ -39,46 +39,6 @@
     color: rgba(255,255,255,0.8);
   }
 
-  /* CRT vignette effect for retro monitor feel - multiple rolling glows */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: 
-      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow1 35s linear infinite;
-    border-radius: 8px;
-    filter: blur(2px);
-  }
-
-  @keyframes verticalGlow1 {
-    0% { transform: translateY(110%); opacity:0.3; }
-    50% { opacity:0.5; }
-    100% { transform: translateY(-110%); opacity:0.3; }
-  }
-
-  /* Second rolling glow */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(to top, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 80%, rgba(255,255,255,0) 100%);
-    animation: verticalGlow2 28s linear infinite;
-    animation-delay: 8s;
-    filter: blur(3px);
-  }
-
-  @keyframes verticalGlow2 {
-    0% { transform: translateY(110%); opacity:0.4; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.4; }
-  }
-
   /* Scanlines overlay */
   h1::before {
     content: '';
