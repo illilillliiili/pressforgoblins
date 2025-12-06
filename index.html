@@ -203,17 +203,22 @@
   <div class="coming-soon" id="coming-soon">coming soon</div>
 
   <!-- Footer nav bar with proper semantic markup -->
-  <nav class="footer-nav" aria-label="Main navigation">
-    <div class="nav-item">
-      <img src="images/home.png" class="home" alt="Home - Current page">
-      <div class="active-dot"></div>
-    </div>
-    <div class="nav-item">
-      <a href="contact.html" aria-label="Contact">
-        <img src="images/contact.png" alt="Contact">
-      </a>
-    </div>
-  </nav>
+<nav class="footer-nav" aria-label="Main navigation">
+  <div class="nav-item">
+    <img src="images/home.png" class="home" alt="Home - Current page">
+    <div class="active-dot"></div>
+  </div>
+  <div class="nav-item">
+    <a href="about.html" aria-label="About">
+      <img src="images/about.png" alt="About">
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="contact.html" aria-label="Contact">
+      <img src="images/contact.png" alt="Contact">
+    </a>
+  </div>
+</nav>
 
   <!-- Neon audio -->
   <audio id="neon-sound" preload="auto">
@@ -283,41 +288,6 @@
       }, 150);
     });
   });
-
-  // Konami code easter egg - spawn goblins! (↑ ↑ ↓ ↓ ← → ← → B A)
-  const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-  let konamiIndex = 0;
-
-  function spawnGoblin() {
-    const goblin = document.createElement('div');
-    goblin.className = 'goblin-sprite';
-    goblin.textContent = '👺'; // You can replace with an actual goblin image/sprite
-    goblin.style.left = Math.random() * 100 + '%';
-    goblin.style.animationDuration = (Math.random() * 2 + 3) + 's';
-    document.body.appendChild(goblin);
-    
-    // Remove goblin after animation completes
-    setTimeout(() => {
-      goblin.remove();
-    }, 5000);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    const key = e.key.toLowerCase();
-    if (key === konamiCode[konamiIndex]) {
-      konamiIndex++;
-      if (konamiIndex === konamiCode.length) {
-        // Spawn multiple goblins!
-        for (let i = 0; i < 15; i++) {
-          setTimeout(() => spawnGoblin(), i * 200);
-        }
-        konamiIndex = 0;
-      }
-    } else {
-      konamiIndex = 0;
-    }
-  });
-</script>
 
 </body>
 </html>
