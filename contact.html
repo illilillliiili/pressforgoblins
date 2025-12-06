@@ -29,84 +29,106 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(128,128,128,0.05); /* slightly transparent grey */
+    background: #000;
     font-family: 'PressStart2P', monospace;
     text-align: center;
-    color: rgba(255,255,255,0.8);
+    color: #7bbf7b;
   }
 
-  h1 { font-size: clamp(1.8rem, 8vw, 3rem); margin-bottom: 2rem; }
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 2rem;
+  }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    width: 100%;
+    width: 90%;
     max-width: 420px;
   }
 
   .field-group {
     width: 100%;
+    position: relative;
     padding: 0.8rem 1rem;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 12px;
+    cursor: text;
   }
+
+  .field-group:hover,
+  .field-group:focus-within { background: rgba(255,255,255,0.08); }
 
   textarea {
     font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
     width: 100%;
     background: transparent;
     border: none;
-    color: #7bbf7b;
+    color: #fff;
     outline: none;
+    text-align: left;
     resize: none;
+    font-size: 0.85rem;
     line-height: 1.4;
   }
 
   .placeholder-text {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.3);
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.4);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
   }
 
-  button[type="submit"] {
+  textarea:focus + .placeholder-text,
+  textarea:not(:placeholder-shown) + .placeholder-text { opacity: 0; }
+
+  .multi-line { min-height: 100px; }
+
+  button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.6rem;
-    padding: 0.9rem 2.2rem;
+    font-size: 1.4rem;
+    padding: 0.8rem 2rem;
+    margin-top: 0.5rem;
     background: transparent;
     border: none;
     color: #7bbf7b;
     cursor: pointer;
-    opacity: 1;
+    text-shadow: 0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;
+    opacity: 0;
   }
 
-  .sent-msg {
-    font-family: 'PressStart2P', monospace;
-    color: #7bbf7b;
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    line-height: 1.6;
-    display: none;
+  @keyframes violentFlicker { 
+    0%,35%,55%{opacity:0;text-shadow:none;}
+    25%,45%{opacity:1;text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
+    100%{opacity:1;text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
   }
+
+  .violent-flicker { animation: violentFlicker 0.25s steps(40,end) forwards; }
+
+  @keyframes hueShift { 0%{filter:hue-rotate(0deg);}50%{filter:hue-rotate(5deg);}100%{filter:hue-rotate(0deg);} }
+  .hue-shift { animation: hueShift 6s infinite ease-in-out; }
+
+  .sent-msg {
+    display: none;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    color: #7bbf7b;
+  }
+
+  .wobble {
+    animation: wobble 0.2s ease-in-out;
+  }
+
+  @keyframes wobble { 0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);} }
 
   /* Footer nav bar */
   .footer-nav {
-    position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
-
-  .footer-nav img.contact { cursor: default; pointer-events: none; }
-  .footer-nav .active-dot {
     position: fixed;
     bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
@@ -119,10 +141,17 @@
     z-index: 2;
   }
 
+  .footer-nav img { width:48px;height:48px; }
+  .footer-nav img.contact { cursor: default; pointer-events: none; }
+  .footer-nav .active-dot {
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background:#7bbf7b; bottom:-0.5rem; left:50%; transform:translateX(-50%);
+  }
+
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     textarea{font-size:0.75rem;}
-    button{font-size:1.2rem; padding:0.8rem 1.8rem;}
+    button{font-size:1.2rem; padding:0.7rem 1.6rem;}
     .footer-nav img{width:44px;height:44px;}
   }
 </style>
@@ -132,19 +161,22 @@
 <h1>contact</h1>
 
 <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-  <div class="field-group" data-field="name">
-    <textarea name="name" rows="1" placeholder="name"></textarea>
+  <div class="field-group">
+    <textarea name="name" rows="1" required></textarea>
+    <div class="placeholder-text">name</div>
   </div>
-  <div class="field-group" data-field="email">
-    <textarea name="email" rows="1" placeholder="email"></textarea>
+  <div class="field-group">
+    <textarea name="email" rows="1" required></textarea>
+    <div class="placeholder-text">email</div>
   </div>
-  <div class="field-group" data-field="message">
-    <textarea name="message" rows="5" placeholder="message"></textarea>
+  <div class="field-group">
+    <textarea name="message" rows="5" class="multi-line" required></textarea>
+    <div class="placeholder-text">message</div>
   </div>
   <button type="submit">send</button>
 </form>
 
-<div class="sent-msg" id="sent-msg">the goblins will see you soon</div>
+<div class="sent-msg" id="sent-msg">the goblins will see you soon :)</div>
 
 <nav class="footer-nav" aria-label="Main navigation">
   <div class="nav-item">
@@ -161,39 +193,56 @@
 
 <script>
 const form = document.getElementById('contact-form');
+const sendButton = form.querySelector('button');
 const sentMsg = document.getElementById('sent-msg');
 
-form.addEventListener('submit', async function(e){
+// flicker send button on load
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(()=>{
+    sendButton.classList.add('violent-flicker');
+    sendButton.style.opacity = 1;
+    setTimeout(()=>sendButton.classList.add('hue-shift'), 300);
+  }, 750);
+
+  // click placeholder to focus
+  document.querySelectorAll('.field-group').forEach(group=>{
+    group.addEventListener('click',()=>group.querySelector('textarea').focus());
+  });
+});
+
+// submit form
+form.addEventListener('submit', async e=>{
   e.preventDefault();
   let error = false;
 
-  form.querySelectorAll('textarea').forEach(field => {
-    if(!field.value.trim()) error = true;
+  form.querySelectorAll('textarea').forEach(field=>{
+    if(!field.value.trim()){
+      const group = field.closest('.field-group');
+      group.classList.add('wobble');
+      error = true;
+      setTimeout(()=>group.classList.remove('wobble'), 300);
+    }
   });
   if(error) return;
 
   const data = new FormData(form);
-  const response = await fetch(form.action, {
-    method: form.method,
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  if(response.ok){
-    sentMsg.style.display = 'block';
+  const res = await fetch(form.action,{method: form.method, body: data, headers:{'Accept':'application/json'}});
+  if(res.ok){
+    sendButton.textContent='sent';
+    sendButton.style.pointerEvents='none';
+    setTimeout(()=>sentMsg.style.display='block',300);
     form.reset();
   }
 });
 
-// page transition for nav links
-const navLinks=document.querySelectorAll('.footer-nav a');
-navLinks.forEach(link=>{
-  link.addEventListener('click',(e)=>{
+// page transition effect
+document.querySelectorAll('.footer-nav a').forEach(link=>{
+  link.addEventListener('click', e=>{
     e.preventDefault();
-    window.location.href=link.getAttribute('href');
+    document.body.classList.add('page-transition');
+    setTimeout(()=>window.location.href = link.getAttribute('href'),150);
   });
 });
 </script>
-
 </body>
 </html>
