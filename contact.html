@@ -107,14 +107,16 @@
 
   .footer-nav img.contact { cursor: default; pointer-events: none; }
   .footer-nav .active-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7bbf7b;
-    bottom: -0.5rem;
+    position: fixed;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2rem;
+    max-width: 600px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
   }
 
   @media(max-width:480px){
