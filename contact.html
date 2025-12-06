@@ -10,290 +10,529 @@
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
-@font-face {
-  font-family: 'PressStart2P';
-  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-* { box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+  }
 
-body {
-  margin:0;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  background:#000;
-  font-family:'PressStart2P', monospace;
-  text-align:center;
-  overflow:hidden;
-  position:relative;
-  color:rgba(255,255,255,0.8);
-  padding-top:2rem;
-}
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    font-family: 'PressStart2P', monospace;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+  }
 
-/* CRT / scanline & glow overlay */
-body::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background:radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.25) 100%),
-             linear-gradient(to top, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 100%);
-  animation: verticalGlow 25s linear infinite;
-}
+  /* CRT vignette effect for retro monitor feel - multiple rolling glows */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
+      linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow1 35s linear infinite;
+    border-radius: 8px;
+    filter: blur(2px);
+  }
 
-@keyframes verticalGlow {
-  0% { transform:translateY(110%); opacity:0.25; }
-  50% { opacity:0.35; }
-  100% { transform:translateY(-110%); opacity:0.25; }
-}
+  @keyframes verticalGlow1 {
+    0% { transform: translateY(110%); opacity:0.3; }
+    50% { opacity:0.5; }
+    100% { transform: translateY(-110%); opacity:0.3; }
+  }
 
-body::after {
-  content:'';
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-  background:repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
-  opacity:0.15;
-}
+  /* Second rolling glow */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 80%, rgba(255,255,255,0) 100%);
+    animation: verticalGlow2 28s linear infinite;
+    animation-delay: 8s;
+    filter: blur(3px);
+  }
 
-/* Page header */
-h1 {
-  font-size:clamp(1.8rem,8vw,3rem);
-  margin-bottom:2rem;
-  color:rgba(255,255,255,0.9);
-  line-height:1.4;
-  max-width:90vw;
-  letter-spacing:0.01em;
-  word-spacing:-0.35em;
-  z-index:2;
-  display:inline-block;
-  font-family:'PressStart2P', monospace;
-}
+  @keyframes verticalGlow2 {
+    0% { transform: translateY(110%); opacity:0.4; }
+    50% { opacity:0.6; }
+    100% { transform: translateY(-110%); opacity:0.4; }
+  }
 
-/* Form styling */
-form {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:1rem;
-  width:100%;
-  max-width:500px;
-  z-index:2;
-}
+  /* Scanlines overlay */
+  h1::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0.15;
+  }
 
-.field-group {
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  padding:0.8rem 1rem;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:12px;
-  transition: all 0.1s ease;
-  cursor:text;
-}
+  h1 {
+    font-size: clamp(1.8rem,8vw,3rem);
+    margin-bottom: 2.5rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.4;
+    max-width: 90vw;
+    letter-spacing: 0.01em;
+    word-spacing: -0.35em;
+    z-index: 2;
+    display: inline-block;
+    font-family: 'PressStart2P', monospace;
+  }
 
-.field-group:hover,
-.field-group:focus-within {
-  background:rgba(255,255,255,0.05);
-  border-color:rgba(255,255,255,0.3);
-  box-shadow:0 4px 16px rgba(255,255,255,0.1);
-}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 420px;
+    z-index: 2;
+  }
 
-.field-label {
-  font-family:'PressStart2P', monospace;
-  font-size:0.75rem;
-  color:rgba(255,255,255,0.7);
-  margin-bottom:0.2rem;
-  pointer-events:none;
-}
+  .field-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.1s ease;
+    cursor: text;
+  }
 
-textarea {
-  font-family:'PressStart2P', monospace;
-  font-size:0.8rem;
-  padding:0.2rem;
-  width:100%;
-  background:transparent;
-  border:none;
-  color:#fff;
-  outline:none;
-  resize:none;
-  line-height:1.4;
-  min-height:40px;
-}
+  .field-group:hover,
+  .field-group:focus-within {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+  }
 
-.multi-line { min-height:120px; }
+  .field-content {
+    width: 100%;
+    position: relative;
+  }
 
-::placeholder { color:#bbb; }
+  .placeholder-text {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
 
-.single-line { white-space:nowrap; overflow-x:auto; }
+  textarea:focus + .placeholder-text,
+  textarea:not(:placeholder-shown) + .placeholder-text {
+    opacity: 0;
+  }
 
-button {
-  font-family:'PressStart2P', monospace;
-  font-size:1.1rem;
-  padding:0.7rem 1.6rem;
-  margin-top:0.5rem;
-  background:transparent;
-  border:none;
-  color:#7bbf7b;
-  cursor:pointer;
-  text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;
-  opacity:0;
-  transition: all 0.1s ease;
-}
+  textarea {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.85rem;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    outline: none;
+    text-align: center;
+    resize: none;
+    line-height: 1.5;
+    transition: opacity 0.1s ease;
+  }
 
-.send-flicker {
-  animation: violent-flicker 0.35s steps(40,end) forwards;
-}
-.send-pulse { animation: neonPulse 5s infinite ease-in-out; }
+  textarea::placeholder {
+    opacity: 0;
+  }
 
-@keyframes violent-flicker {
-  0%,35%,55%{ opacity:0; text-shadow:none;}
-  25%,45%{ opacity:1; text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
-  100%{ opacity:1; text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
-}
+  .single-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    resize: none;
+  }
 
-@keyframes neonPulse {
-  0%,100%{ text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b; }
-  50%{ text-shadow:0 0 5px #7bbf7b,0 0 12px #7bbf7b,0 0 20px #7bbf7b;}
-}
+  .single-line::-webkit-scrollbar {
+    display: none;
+  }
 
-.sent-msg { font-family:'PressStart2P', monospace; color:#7bbf7b; margin-top:1rem; display:none; z-index:2; }
+  .multi-line {
+    min-height: 80px;
+  }
 
-.shake { animation:shake 0.2s; }
-@keyframes shake {
-  0%{transform:translateX(0);}
-  25%{transform:translateX(-3px);}
-  50%{transform:translateX(3px);}
-  75%{transform:translateX(-3px);}
-  100%{transform:translateX(0);}
-}
+  .multi-line + .placeholder-text {
+    top: 1rem;
+    transform: translateX(-50%);
+  }
 
-/* Footer nav */
-.footer-nav {
-  position: fixed;
-  bottom: calc(1rem + env(safe-area-inset-bottom));
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  padding:0 2rem;
-  max-width:600px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:2;
-}
-.footer-nav .nav-item { position:relative; display:inline-block; }
-.footer-nav a { display:block; transition:transform 0.2s ease, filter 0.2s ease; }
-.footer-nav a:hover { transform:scale(1.1); filter: drop-shadow(0 0 8px rgba(123,191,123,0.6)); }
-.footer-nav img { width:48px; height:48px; display:block; opacity:0.9; }
-.footer-nav img.contact { cursor: default; pointer-events:none; }
-.footer-nav .active-dot { position:absolute; width:8px; height:8px; border-radius:50%; background:#7bbf7b; bottom:-0.5rem; left:50%; transform:translateX(-50%); box-shadow:0 0 6px #7bbf7b; }
+  button {
+    font-family: 'PressStart2P', monospace;
+    font-size: 1.6rem;
+    padding: 0.9rem 2.2rem;
+    margin-top: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #7bbf7b;
+    cursor: pointer;
+    text-shadow: 
+      0 0 3px #7bbf7b,
+      0 0 8px #7bbf7b,
+      0 0 15px #7bbf7b;
+    transition: all 0.1s ease;
+    opacity: 0;
+  }
 
-@media(max-width:480px){
-  form { max-width:90%; }
-  h1 { font-size:clamp(1.4rem,7vw,2.4rem); }
-  textarea { font-size:0.75rem; line-height:1.4; }
-  .multi-line { min-height:100px; }
-  button { font-size:0.9rem; }
-  .footer-nav img { width:44px; height:44px; }
-  .footer-nav { padding:0 1rem; }
-}
+  @keyframes violentFlicker {
+    0%, 35%, 55% { 
+      opacity: 0; 
+      text-shadow: none; 
+    }
+    25%, 45% { 
+      opacity: 1; 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+    100% { 
+      opacity: 1; 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+  }
+
+  .violent-flicker {
+    animation: violentFlicker 0.25s steps(40, end) forwards;
+  }
+
+  @keyframes hueShift {
+    0% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(5deg); }
+    100% { filter: hue-rotate(0deg); }
+  }
+
+  .hue-shift {
+    animation: hueShift 6s infinite ease-in-out;
+  }
+
+  button:hover {
+    text-shadow: 
+      0 0 5px #7bbf7b,
+      0 0 12px #7bbf7b,
+      0 0 20px #7bbf7b,
+      0 0 30px #7bbf7b;
+  }
+
+  button:active {
+    text-shadow: 
+      0 0 2px #7bbf7b,
+      0 0 6px #7bbf7b,
+      0 0 10px #7bbf7b;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .sent-msg {
+    font-family: 'PressStart2P', monospace;
+    color: #7bbf7b;
+    margin-top: 1rem;
+    display: none;
+    z-index: 2;
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .sent-msg .smiley {
+    display: inline-block;
+    margin-left: 0.2rem;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
+
+  .shake {
+    animation: shake 0.2s;
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .wobble {
+    animation: wobble 0.2s ease-in-out;
+  }
+
+  /* Footer nav bar */
+  .footer-nav {
+    position: fixed;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 2rem;
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .footer-nav .nav-item {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-nav a {
+    display: block;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
+  .footer-nav a:focus {
+    outline: 2px solid #7bbf7b;
+    outline-offset: 4px;
+    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+  }
+
+  .footer-nav img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    opacity: 0.9;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .footer-nav img.contact {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .footer-nav .active-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7bbf7b;
+    box-shadow: 0 0 6px #7bbf7b;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Page transition fade */
+  body.page-transition {
+    animation: fadeOut 0.15s ease-out forwards;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; }
+  }
+
+  @media(max-width:480px){
+    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
+    textarea{font-size:0.75rem;}
+    button{font-size:1.1rem; padding: 0.7rem 1.5rem;}
+    .footer-nav img{width:44px;height:44px;}
+    .footer-nav{padding: 0 1rem;}
+  }
+
 </style>
 </head>
 <body>
-<h1>contact</h1>
+  <h1>contact</h1>
 
-<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-  <div class="field-group">
-    <label class="field-label">name</label>
-    <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
-  </div>
-  <div class="field-group">
-    <label class="field-label">email</label>
-    <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
-  </div>
-  <div class="field-group">
-    <label class="field-label">message</label>
-    <textarea name="message" rows="6" class="multi-line" aria-label="Your message"></textarea>
-  </div>
-  <button type="submit">send</button>
-</form>
+  <form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+    <div class="field-group" data-field="name">
+      <div class="field-content">
+        <textarea name="name" rows="1" class="single-line" aria-label="Your name"></textarea>
+        <div class="placeholder-text">name</div>
+      </div>
+    </div>
+    <div class="field-group" data-field="email">
+      <div class="field-content">
+        <textarea name="email" rows="1" class="single-line" aria-label="Your email"></textarea>
+        <div class="placeholder-text">email</div>
+      </div>
+    </div>
+    <div class="field-group" data-field="message">
+      <div class="field-content">
+        <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
+        <div class="placeholder-text">message</div>
+      </div>
+    </div>
+    <button type="submit">send</button>
+  </form>
 
-<div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
+  <div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
 
-<nav class="footer-nav" aria-label="Main navigation">
-  <div class="nav-item">
-    <a href="index.html" aria-label="Home"><img src="images/home.png" alt="Home"></a>
-  </div>
-  <div class="nav-item">
-    <img src="images/contact.png" class="contact" alt="Contact - Current page">
-    <div class="active-dot"></div>
-  </div>
-</nav>
+  <!-- Footer nav bar with proper semantic markup -->
+  <nav class="footer-nav" aria-label="Main navigation">
+    <div class="nav-item">
+      <a href="index.html" aria-label="Home">
+        <img src="images/home.png" alt="Home">
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="about.html" aria-label="About us">
+        <img src="images/about.png" alt="About">
+      </a>
+    </div>
+    <div class="nav-item">
+      <img src="images/contact.png" class="contact" alt="Contact - Current page">
+      <div class="active-dot"></div>
+    </div>
+  </nav>
 
 <script>
-const form = document.getElementById('contact-form');
-const sentMsg = document.getElementById('sent-msg');
-const sendButton = document.querySelector('button[type="submit"]');
+  const form = document.getElementById('contact-form');
+  const sentMsg = document.getElementById('sent-msg');
+  const sendButton = document.querySelector('button[type="submit"]');
 
-// flicker send button like coming soon
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    sendButton.classList.add('violent-flicker');
-    setTimeout(()=>{ sendButton.classList.add('neonPulse'); sendButton.style.opacity='1'; },400);
-  },1000);
-});
+  const startupDelay = 750;
+  const violentFlickerDuration = 250;
+  const extraFlickerDuration = 120;
 
-// click placeholder wrapper focuses textarea
-document.querySelectorAll('.field-group').forEach(group=>{
-  group.addEventListener('click', ()=>group.querySelector('textarea').focus());
-});
+  // Trigger send button violent flicker on page load (same as coming soon)
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      sendButton.classList.add('violent-flicker');
+      sendButton.style.opacity = 1;
 
-// submit with shake effect if empty
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  let error=false;
-  form.querySelectorAll('textarea').forEach(field=>{
-    if(!field.value.trim()){
-      field.classList.add('shake');
-      error=true;
-      setTimeout(()=>{ field.classList.remove('shake'); },250);
+      setTimeout(() => {
+        sendButton.classList.add('hue-shift');
+      }, violentFlickerDuration + extraFlickerDuration + 60);
+    }, startupDelay);
+
+    // Click field group to focus textarea
+    document.querySelectorAll('.field-group').forEach(group => {
+      group.addEventListener('click', (e) => {
+        if (e.target === group || e.target.classList.contains('field-content')) {
+          group.querySelector('textarea').focus();
+        }
+      });
+    });
+  });
+
+  // Email validation regex
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    let error = false;
+
+    // Check all fields
+    form.querySelectorAll('textarea').forEach(field => {
+      const fieldGroup = field.closest('.field-group');
+      
+      if(!field.value.trim()) {
+        fieldGroup.classList.add('wobble');
+        error = true;
+        setTimeout(() => { 
+          fieldGroup.classList.remove('wobble'); 
+        }, 300);
+      }
+    });
+
+    // Check email format specifically
+    const emailField = form.querySelector('textarea[name="email"]');
+    if(emailField.value.trim() && !isValidEmail(emailField.value.trim())) {
+      const emailGroup = emailField.closest('.field-group');
+      emailGroup.classList.add('wobble');
+      error = true;
+      setTimeout(() => { 
+        emailGroup.classList.remove('wobble'); 
+      }, 300);
+    }
+
+    if(error) return;
+
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if(response.ok){
+      // Change button text to "sent"
+      sendButton.textContent = 'sent';
+      sendButton.style.pointerEvents = 'none';
+      
+      // Show message below
+      setTimeout(() => {
+        sentMsg.style.display = 'block';
+      }, 300);
+      
+      form.reset();
     }
   });
-  if(error) return;
 
-  const data = new FormData(form);
-  const response = await fetch(form.action,{
-    method: form.method,
-    body: data,
-    headers: { 'Accept':'application/json' }
+  // Page transition effect
+  const navLinks = document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      document.body.classList.add('page-transition');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 150);
+    });
   });
-  if(response.ok){
-    sentMsg.style.display='block';
-    form.reset();
-  }
-});
-
-// page transition effect for nav
-document.querySelectorAll('.footer-nav a').forEach(link=>{
-  link.addEventListener('click', (e)=>{
-    e.preventDefault();
-    const href = link.getAttribute('href');
-    document.body.classList.add('page-transition');
-    setTimeout(()=>{ window.location.href = href; },150);
-  });
-});
 </script>
+
 </body>
 </html>
