@@ -20,17 +20,7 @@
     font-display: swap;
   }
 
-  @font-face {
-    font-family: 'Aptos Serif';
-    src: url('fonts/Aptos-Serif.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
@@ -38,7 +28,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 4rem;
     align-items: center;
     background: #000;
     font-family: 'PressStart2P', monospace;
@@ -46,9 +35,10 @@
     overflow: hidden;
     position: relative;
     color: rgba(255,255,255,0.8);
+    padding-top: 2rem;
   }
 
-  /* CRT vignette effect for retro monitor feel */
+  /* CRT vignette & faint glow */
   body::before {
     content: '';
     position: fixed;
@@ -56,38 +46,31 @@
     pointer-events: none;
     z-index: 0;
     background: 
-      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.25) 100%),
-      linear-gradient(to top, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0) 100%);
+      radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%),
+      linear-gradient(to top, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 100%);
     animation: verticalGlow 25s linear infinite;
-    border-radius: 8px;
   }
 
   @keyframes verticalGlow {
-    0% { transform: translateY(110%); opacity:0.35; }
-    50% { opacity:0.6; }
-    100% { transform: translateY(-110%); opacity:0.35; }
+    0% { transform: translateY(110%); opacity:0.25; }
+    50% { opacity:0.35; }
+    100% { transform: translateY(-110%); opacity:0.25; }
   }
 
-  /* Scanlines overlay */
-  body > *:first-child::before {
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 1;
-    background: repeating-linear-gradient(
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    opacity: 0.10;
+    z-index: 0;
+    background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+    opacity: 0.15;
   }
 
   h1 {
     font-size: clamp(1.8rem,8vw,3rem);
-    margin-bottom: 2.5rem;
-    color: rgba(255,255,255,0.8);
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.9);
     line-height: 1.4;
     max-width: 90vw;
     letter-spacing: 0.01em;
@@ -101,25 +84,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1rem;
     width: 100%;
-    max-width: 420px;
+    max-width: 500px;
     z-index: 2;
   }
 
   .field-group {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
+    flex-direction: column;
     position: relative;
     padding: 0.8rem 1rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     transition: all 0.1s ease;
   }
 
@@ -130,151 +109,61 @@
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   }
 
-  .field-group:hover textarea,
-  .field-group:focus-within textarea {
-    opacity: 1;
-  }
-
   .field-label {
     font-family: 'PressStart2P', monospace;
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.7);
-    opacity: 0.9;
-    white-space: nowrap;
-    flex-shrink: 0;
-    line-height: 1.5;
+    margin-bottom: 0.2rem;
   }
 
   textarea {
     font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;          /* smaller, less chunky */
-    letter-spacing: 0.015em;     /* tighter */
-    line-height: 1.8;            /* increases readability */
-    padding: 0;
+    font-size: 0.9rem;
+    padding: 0.3rem;
     width: 100%;
     background: transparent;
     border: none;
     color: #fff;
     outline: none;
-    text-align: left;
     resize: none;
-    line-height: 1.5;
-    opacity: 0.7;
-    transition: opacity 0.1s ease;
+    line-height: 1.4;
+    min-height: 40px;
   }
+
+  .multi-line { min-height: 120px; }
 
   ::placeholder {
-    text-align: left;
     color: #bbb;
-    font-family: 'Aptos Serif', serif;
   }
 
-  .single-line {
-    white-space: nowrap;
-    overflow-x: auto;
-    resize: none;
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-  }
-
-  .multi-line {
-    min-height: 140px; /* message field height */
-  }
-
-  .single-line::-webkit-scrollbar {
-    display: none;
-  }
+  .single-line { white-space: nowrap; overflow-x: auto; }
 
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.5rem;
-    padding: 0.9rem 1.9rem;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.6rem;
     margin-top: 0.5rem;
     background: transparent;
     border: none;
     color: #7bbf7b;
     cursor: pointer;
-    text-shadow: 
-      0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
+    text-shadow: 0 0 3px #7bbf7b, 0 0 8px #7bbf7b, 0 0 15px #7bbf7b;
+    opacity: 0;
     transition: all 0.1s ease;
   }
 
-  @keyframes sendFlicker {
-    0%, 20%, 40%, 60% { 
-      text-shadow: none; 
-    }
-    10%, 30%, 50% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    100% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-  }
+  .send-flicker { animation: sendFlicker 0.35s ease-out forwards; }
+  .send-pulse { animation: neonPulse 5s infinite ease-in-out; }
 
-  .send-flicker {
-    animation: sendFlicker 0.35s ease-out forwards;
-  }
+  .sent-msg { font-family: 'PressStart2P', monospace; color: #7bbf7b; margin-top:1rem; display:none; z-index:2; }
 
-  @keyframes neonPulse {
-    0%, 100% { 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    50% { 
-      text-shadow: 
-        0 0 5px #7bbf7b,
-        0 0 12px #7bbf7b,
-        0 0 20px #7bbf7b;
-    }
-  }
-
-  .send-pulse {
-    animation: neonPulse 5s infinite ease-in-out;
-  }
-
-  button:hover {
-    text-shadow: 
-      0 0 5px #7bbf7b,
-      0 0 12px #7bbf7b,
-      0 0 20px #7bbf7b,
-      0 0 30px #7bbf7b;
-  }
-
-  button:active {
-    text-shadow: 
-      0 0 2px #7bbf7b,
-      0 0 6px #7bbf7b,
-      0 0 10px #7bbf7b;
-  }
-
-  button:focus {
-    outline: none;
-  }
-
-  .sent-msg {
-    font-family: 'PressStart2P', monospace;
-    color: #7bbf7b;
-    margin-top: 1rem;
-    display: none;
-    z-index: 2;
-  }
+  .shake { animation: shake 0.2s; }
+  @keyframes shake { 0%{transform:translateX(0);} 25%{transform:translateX(-3px);} 50%{transform:translateX(3px);} 75%{transform:translateX(-3px);} 100%{transform:translateX(0);} }
 
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(0.6rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -285,79 +174,30 @@
     z-index: 2;
   }
 
-  .footer-nav .nav-item {
-    position: relative;
-    display: inline-block;
-  }
-
-  .footer-nav a {
-    display: block;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav a:focus {
-    outline: 2px solid #7bbf7b;
-    outline-offset: 4px;
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
-
-  .footer-nav img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    opacity: 0.9;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
-
-  .footer-nav img.contact {
-    cursor: default;
-    pointer-events: none;
-  }
-
-  .footer-nav .active-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7bbf7b;
-    box-shadow: 0 0 6px #7bbf7b;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* Page transition fade */
-  body.page-transition {
-    animation: fadeOut 0.15s ease-out forwards;
-  }
-
-  @keyframes fadeOut {
-    to { opacity: 1; }
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-3px); }
-    100% { transform: translateX(0); }
-  }
-
-  .shake {
-    animation: shake 0.2s;
-  }
+  .footer-nav .nav-item { position: relative; display:inline-block; }
+  .footer-nav a { display:block; transition: transform 0.2s ease, filter 0.2s ease; }
+  .footer-nav a:hover { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(123,191,123,0.6)); }
+  .footer-nav img { width:48px; height:48px; display:block; opacity:0.9; }
+  .footer-nav img.contact { cursor: default; pointer-events: none; }
+  .footer-nav .active-dot { position:absolute; width:8px; height:8px; border-radius:50%; background:#7bbf7b; bottom:-0.5rem; left:50%; transform:translateX(-50%); box-shadow:0 0 6px #7bbf7b; }
 
   @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    textarea{font-size:0.9rem;}
-    button{font-size:0.9rem;}
-    .footer-nav img{width:44px;height:44px;}
-    .footer-nav{padding: 0 1rem;}
+    form { max-width:90%; }
+    h1 { font-size:clamp(1.4rem,7vw,2.4rem); }
+    textarea { font-size:0.75rem; line-height:1.4; }
+    .multi-line { min-height:100px; }
+    button { font-size:0.9rem; }
+    .footer-nav img { width:44px; height:44px; }
+    .footer-nav { padding: 0 1rem; }
+  }
+
+  @keyframes sendFlicker {
+    0%,20%,40%,60%{text-shadow:none;}
+    10%,30%,50%,100%{text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
+  }
+  @keyframes neonPulse {
+    0%,100%{text-shadow:0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b;}
+    50%{text-shadow:0 0 5px #7bbf7b,0 0 12px #7bbf7b,0 0 20px #7bbf7b;}
   }
 </style>
 </head>
@@ -375,14 +215,14 @@
     </div>
     <div class="field-group">
       <label class="field-label">message</label>
-      <textarea name="message" rows="5" class="multi-line" aria-label="Your message"></textarea>
+      <textarea name="message" rows="6" class="multi-line" aria-label="Your message"></textarea>
     </div>
     <button type="submit">send</button>
   </form>
 
   <div class="sent-msg" id="sent-msg">sent! the goblins will see you soon</div>
 
-  <!-- Footer nav bar with proper semantic markup -->
+  <!-- Footer nav bar -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
       <a href="index.html" aria-label="Home">
@@ -406,7 +246,7 @@
       sendButton.classList.add('send-flicker');
       setTimeout(() => {
         sendButton.classList.add('send-pulse');
-        sendButton.style.opacity = '1';
+        sendButton.style.opacity = '1'; // keeps button visible
       }, 400);
     }, 1000);
   });
@@ -415,16 +255,16 @@
     e.preventDefault();
     let error = false;
     form.querySelectorAll('textarea').forEach(field => {
-      if(!field.value.trim()) {
+      if(!field.value.trim()){
         field.classList.add('shake');
         error = true;
-        setTimeout(()=>{ field.classList.remove('shake'); }, 250);
+        setTimeout(()=>{ field.classList.remove('shake'); },250);
       }
     });
     if(error) return;
 
     const data = new FormData(form);
-    const response = await fetch(form.action, {
+    const response = await fetch(form.action,{
       method: form.method,
       body: data,
       headers: { 'Accept': 'application/json' }
@@ -435,16 +275,14 @@
     }
   });
 
-  // Page transition effect
+  // Page transition for footer links
   const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+  navLinks.forEach(link=>{
+    link.addEventListener('click',(e)=>{
       e.preventDefault();
       const href = link.getAttribute('href');
       document.body.classList.add('page-transition');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 150);
+      setTimeout(()=>{ window.location.href = href; },150);
     });
   });
 </script>
