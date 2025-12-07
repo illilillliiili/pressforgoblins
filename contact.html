@@ -91,6 +91,31 @@
     height: 20px;
     flex-shrink: 0;
     filter: drop-shadow(0 0 6px rgba(123, 191, 123, 0.5));
+    position: relative;
+    cursor: default;
+  }
+
+  .field-icon-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0.5rem;
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.65rem;
+    color: #7bbf7b;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+  }
+
+  .field-icon:hover .field-icon-tooltip {
+    opacity: 1;
   }
 
   .field-content {
@@ -306,7 +331,7 @@
   }
 
   /* Footer nav bar */
-   .footer-nav {
+  .footer-nav {
     position: fixed;
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
     width: 100%;
@@ -396,6 +421,7 @@
       <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
         <circle cx="12" cy="7" r="4"></circle>
+        <title>name</title>
       </svg>
       <div class="field-content">
         <textarea name="name" rows="1" class="single-line" aria-label="Your name" required></textarea>
@@ -405,6 +431,7 @@
       <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
         <path d="m2 7 10 7 10-7"></path>
+        <title>email</title>
       </svg>
       <div class="field-content">
         <textarea name="email" rows="1" class="single-line" aria-label="Your email" required></textarea>
@@ -413,6 +440,7 @@
     <div class="field-group" data-field="message">
       <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        <title>message</title>
       </svg>
       <div class="field-content">
         <textarea name="message" rows="5" class="multi-line" aria-label="Your message" required></textarea>
@@ -484,7 +512,7 @@
 
     // Copy email functionality
     const copyEmailBtn = document.getElementById('copy-email');
-    const contactEmail = 'noah@pressforgoblins.com'; // replace with your actual email
+    const contactEmail = 'hello@pressforgoblins.com'; // replace with your actual email
     
     copyEmailBtn.addEventListener('click', async () => {
       try {
