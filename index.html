@@ -199,12 +199,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 
  // page transition for nav links
-const navLinks=document.querySelectorAll('.footer-nav a');
-navLinks.forEach(link=>{
-  link.addEventListener('click',(e)=>{
-    e.preventDefault();
-    window.location.href=link.getAttribute('href');
-    
+const navLinks = document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      document.body.classList.add('page-transition');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 150);
     });
   });
 });
