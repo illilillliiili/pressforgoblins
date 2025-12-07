@@ -102,6 +102,15 @@
   }
   .coming-soon.hue-shift { animation: hueShift 6s infinite ease-in-out; }
 
+  /* Page transition fade */
+  body.page-transition {
+    animation: fadeOut 0.15s ease-out forwards;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; }
+  }
+
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
@@ -198,8 +207,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     },15);
   }
 
- // page transition for nav links
-const navLinks = document.querySelectorAll('.footer-nav a');
+  // page transition for nav links
+  const navLinks = document.querySelectorAll('.footer-nav a');
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
