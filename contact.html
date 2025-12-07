@@ -139,6 +139,7 @@
 
   .multi-line {
     min-height: 80px;
+    overflow: hidden;
   }
 
   button {
@@ -156,6 +157,25 @@
       0 0 15px #7bbf7b;
     transition: all 0.1s ease;
     opacity: 0;
+  }
+
+  button.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { 
+      text-shadow: 
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
+    }
+    50% { 
+      text-shadow: 
+        0 0 5px #7bbf7b,
+        0 0 12px #7bbf7b,
+        0 0 20px #7bbf7b;
+    }
   }
 
   @keyframes violentFlicker {
@@ -214,17 +234,34 @@
 
   .sent-msg {
     font-family: 'PressStart2P', monospace;
-    color: #7bbf7b;
+    color: rgba(255, 255, 255, 0.85);
     margin-top: 1rem;
     display: none;
     z-index: 2;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .sent-msg.show {
+    opacity: 1;
   }
 
   .sent-msg .smiley {
     display: inline-block;
-    margin-left: 0.2rem;
+    margin-left: 0.3rem;
+  }
+
+  form.fade-out .field-group {
+    animation: fadeOutFields 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeOutFields {
+    to { 
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
 
   @keyframes shake {
@@ -249,14 +286,33 @@
     animation: wobble 0.2s ease-in-out;
   }
 
+  .copy-email {
+    font-family: 'PressStart2P', monospace;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2rem;
+    z-index: 2;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-decoration: underline;
+  }
+
+  .copy-email:hover {
+    color: #7bbf7b;
+  }
+
+  .copy-email.copied {
+    color: #7bbf7b;
+  }
+
   /* Footer nav bar */
-   .footer-nav {
+  .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     max-width: 600px;
     left: 50%;
     transform: translateX(-50%);
@@ -367,6 +423,8 @@
 
   <div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
 
+  <div class="copy-email" id="copy-email">or copy email</div>
+
   <!-- Footer nav bar with proper semantic markup -->
   <nav class="footer-nav" aria-label="Main navigation">
     <div class="nav-item">
@@ -415,6 +473,31 @@
           group.querySelector('textarea').focus();
         }
       });
+    });
+
+    // Auto-resize message field
+    const messageField = document.querySelector('textarea[name="message"]');
+    messageField.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+
+    // Copy email functionality
+    const copyEmailBtn = document.getElementById('copy-email');
+    const contactEmail = 'noah@pressforgoblins.com'; // replace with your actual email
+    
+    copyEmailBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(contactEmail);
+        copyEmailBtn.textContent = 'copied!';
+        copyEmailBtn.classList.add('copied');
+        setTimeout(() => {
+          copyEmailBtn.textContent = 'or copy email';
+          copyEmailBtn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy email:', err);
+      }
     });
   });
 
@@ -491,6 +574,10 @@
       return;
     }
 
+    // Add loading state
+    sendButton.classList.add('loading');
+    sendButton.style.cursor = 'wait';
+
     const data = new FormData(form);
     
     try {
@@ -503,19 +590,34 @@
       if(response.ok){
         lastSubmitTime = Date.now();
         
+        // Remove loading state
+        sendButton.classList.remove('loading');
+        
         // Change button text to "sent"
         sendButton.textContent = 'sent';
         sendButton.style.pointerEvents = 'none';
+        sendButton.style.cursor = 'default';
         
-        // Show message below
+        // Fade out form fields
+        form.classList.add('fade-out');
+        
+        // Show message below with delay
         setTimeout(() => {
           sentMsg.style.display = 'block';
-        }, 300);
+          setTimeout(() => {
+            sentMsg.classList.add('show');
+          }, 50);
+        }, 500);
         
-        form.reset();
+        // Reset form after animation
+        setTimeout(() => {
+          form.reset();
+        }, 800);
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      sendButton.classList.remove('loading');
+      sendButton.style.cursor = 'pointer';
     } finally {
       isSubmitting = false;
     }
