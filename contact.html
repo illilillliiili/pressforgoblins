@@ -65,8 +65,9 @@
   .field-group {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: 1rem;
     position: relative;
     padding: 1rem 1.2rem;
     background: rgba(255, 255, 255, 0.03);
@@ -85,9 +86,17 @@
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   }
 
+  .field-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(123, 191, 123, 0.5));
+  }
+
   .field-content {
     width: 100%;
     position: relative;
+    flex: 1;
   }
 
   /* Honeypot field - hidden from users but not bots */
@@ -99,24 +108,6 @@
     overflow: hidden;
   }
 
-  .placeholder-text {
-    font-family: 'PressStart2P', monospace;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.3);
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-  }
-
-  textarea:focus + .placeholder-text,
-  textarea:not(:placeholder-shown) + .placeholder-text {
-    opacity: 0;
-  }
-
   textarea {
     font-family: 'PressStart2P', monospace;
     font-size: 0.85rem;
@@ -126,7 +117,7 @@
     border: none;
     color: rgba(255, 255, 255, 0.85);
     outline: none;
-    text-align: right;
+    text-align: left;
     resize: none;
     line-height: 1.5;
     transition: opacity 0.1s ease;
@@ -148,11 +139,6 @@
 
   .multi-line {
     min-height: 80px;
-  }
-
-  .multi-line + .placeholder-text {
-    top: 0.5rem;
-    transform: none;
   }
 
   button {
@@ -266,7 +252,7 @@
   /* Footer nav bar */
   .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -338,7 +324,7 @@
     button{font-size:1.2rem; padding: 0.8rem 1.8rem;}
     .footer-nav img{width:44px;height:44px;}
     .footer-nav{padding: 0 1rem;}
-    .placeholder-text{font-size:0.75rem;}
+    .field-icon{width: 18px; height: 18px;}
   }
 
 </style>
@@ -351,21 +337,29 @@
     <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
     
     <div class="field-group" data-field="name">
+      <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
       <div class="field-content">
         <textarea name="name" rows="1" class="single-line" aria-label="Your name" required></textarea>
-        <div class="placeholder-text">name</div>
       </div>
     </div>
     <div class="field-group" data-field="email">
+      <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m2 7 10 7 10-7"></path>
+      </svg>
       <div class="field-content">
         <textarea name="email" rows="1" class="single-line" aria-label="Your email" required></textarea>
-        <div class="placeholder-text">email</div>
       </div>
     </div>
     <div class="field-group" data-field="message">
+      <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
       <div class="field-content">
         <textarea name="message" rows="5" class="multi-line" aria-label="Your message" required></textarea>
-        <div class="placeholder-text">message</div>
       </div>
     </div>
     <button type="submit">send</button>
@@ -417,7 +411,7 @@
     // Click field group to focus textarea
     document.querySelectorAll('.field-group').forEach(group => {
       group.addEventListener('click', (e) => {
-        if (e.target === group || e.target.classList.contains('field-content')) {
+        if (e.target === group || e.target.classList.contains('field-content') || e.target.classList.contains('field-icon')) {
           group.querySelector('textarea').focus();
         }
       });
