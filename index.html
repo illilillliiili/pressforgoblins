@@ -166,20 +166,16 @@
     </div>
   </nav>
 
-  <!-- Neon audio -->
-  <audio id="neon-sound" preload="auto">
-    <source src="neon.m4a" type="audio/mp4">
-  </audio>
-
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   const el = document.getElementById('coming-soon');
-  const sound = document.getElementById('neon-sound');
 
-  // immediately show flicker
-  el.classList.add('violent-flicker');
-  el.style.opacity = 1;
-  setTimeout(()=>el.classList.add('hue-shift'), 300);
+  // delay before showing flicker (1.5 seconds)
+  setTimeout(() => {
+    el.classList.add('violent-flicker');
+    el.style.opacity = 1;
+    setTimeout(()=>el.classList.add('hue-shift'), 300);
+  }, 1500);
 
   // subtle pulse (optional)
   function pulse(){
@@ -194,18 +190,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     },wait);
   }
   pulse();
-
-  // optional neon sound
-  if(sound){
-    sound.volume=0;
-    sound.play().catch(()=>{});
-    let vol=0;
-    const fadeInterval=setInterval(()=>{
-      vol+=0.01;
-      sound.volume=vol;
-      if(vol>=0.1) clearInterval(fadeInterval);
-    },15);
-  }
 
   // page transition for nav links
   const navLinks = document.querySelectorAll('.footer-nav a');
