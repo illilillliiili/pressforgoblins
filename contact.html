@@ -67,7 +67,7 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,9 +75,11 @@ body {
   background: #000;
   font-family: 'PressStart2P', monospace;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   color: #888;
+  padding: calc(2rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom)) 1rem;
 }
 
 body::before {
@@ -212,7 +214,7 @@ textarea::placeholder {
 
 .multi-line {
   min-height: 80px;
-  max-height: 200px;
+  max-height: 150px;
   overflow-y: auto;
 }
 
@@ -347,7 +349,8 @@ form.fade-out .field-group {
   font-family: 'PressStart2P', monospace;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   z-index: 2;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -544,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const messageField = document.querySelector('textarea[name="message"]');
   messageField.addEventListener('input', function() {
     this.style.height = 'auto';
-    const newHeight = Math.min(this.scrollHeight, 200);
+    const newHeight = Math.min(this.scrollHeight, 150);
     this.style.height = newHeight + 'px';
   });
 
