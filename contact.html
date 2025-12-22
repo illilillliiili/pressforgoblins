@@ -230,7 +230,7 @@
 
   button {
     font-family: 'PressStart2P', monospace;
-    font-size: 1.6rem;
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
     padding: 0.9rem 2.2rem;
     margin-top: 0.5rem;
     background: transparent;
@@ -238,9 +238,9 @@
     color: #7bbf7b;
     cursor: pointer;
     text-shadow: 
+      0 0 1px #7bbf7b,
       0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
+      0 0 6px #7bbf7b;
     transition: all 0.1s ease;
     opacity: 0;
   }
@@ -252,15 +252,15 @@
   @keyframes pulse {
     0%, 100% { 
       text-shadow: 
+        0 0 1px #7bbf7b,
         0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
+        0 0 6px #7bbf7b;
     }
     50% { 
       text-shadow: 
-        0 0 5px #7bbf7b,
-        0 0 12px #7bbf7b,
-        0 0 20px #7bbf7b;
+        0 0 3px #7bbf7b,
+        0 0 8px #7bbf7b,
+        0 0 15px #7bbf7b;
     }
   }
 
@@ -272,16 +272,16 @@
     25%, 45% { 
       opacity: 1; 
       text-shadow: 
+        0 0 1px #7bbf7b,
         0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
+        0 0 6px #7bbf7b;
     }
     100% { 
       opacity: 1; 
       text-shadow: 
+        0 0 1px #7bbf7b,
         0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
+        0 0 6px #7bbf7b;
     }
   }
 
@@ -301,17 +301,16 @@
 
   button:hover {
     text-shadow: 
-      0 0 5px #7bbf7b,
-      0 0 12px #7bbf7b,
-      0 0 20px #7bbf7b,
-      0 0 30px #7bbf7b;
+      0 0 3px #7bbf7b,
+      0 0 8px #7bbf7b,
+      0 0 15px #7bbf7b;
   }
 
   button:active {
     text-shadow: 
-      0 0 2px #7bbf7b,
-      0 0 6px #7bbf7b,
-      0 0 10px #7bbf7b;
+      0 0 1px #7bbf7b,
+      0 0 3px #7bbf7b,
+      0 0 6px #7bbf7b;
   }
 
   button:focus {
@@ -466,7 +465,7 @@
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
     textarea{font-size:0.75rem;}
-    button{font-size:1.2rem; padding: 0.8rem 1.8rem;}
+    button{font-size:clamp(1.2rem,5vw,1.8rem); padding: 0.8rem 1.8rem;}
     .footer-nav img{width:44px;height:44px;}
     .footer-nav{padding: 0 1rem;}
     .field-icon{width: 18px; height: 18px;}
@@ -540,14 +539,14 @@
   const sentMsg = document.getElementById('sent-msg');
   const sendButton = document.querySelector('button[type="submit"]');
 
-  const startupDelay = 750;
+  const startupDelay = 2000;
   const violentFlickerDuration = 250;
   const extraFlickerDuration = 120;
 
   let isSubmitting = false;
   let lastSubmitTime = 0;
 
-  // Trigger send button violent flicker on page load (same as coming soon)
+  // Trigger send button violent flicker on page load (same timing as coming soon)
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       sendButton.classList.add('violent-flicker');
@@ -557,6 +556,20 @@
         sendButton.classList.add('hue-shift');
       }, violentFlickerDuration + extraFlickerDuration + 60);
     }, startupDelay);
+
+    // Subtle pulse (same as home page)
+    function pulse(){
+      const wait = Math.random()*3000+2000;
+      setTimeout(()=>{
+        const boost = Math.random()*0.4+0.7;
+        sendButton.style.textShadow=`0 0 ${1*boost}px #7bbf7b,0 0 ${3*boost}px #7bbf7b,0 0 ${6*boost}px #7bbf7b`;
+        setTimeout(()=>{
+          sendButton.style.textShadow=`0 0 1px #7bbf7b,0 0 3px #7bbf7b,0 0 6px #7bbf7b`;
+          pulse();
+        },Math.random()*70+50);
+      },wait);
+    }
+    pulse();
 
     // Click field group to focus textarea
     document.querySelectorAll('.field-group').forEach(group => {
