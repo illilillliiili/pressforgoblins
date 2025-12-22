@@ -3,8 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>about — press for goblins</title>
-<meta name="description" content="about page for press for goblins — retro pixel/neon style">
+
+<!-- Primary Meta Tags -->
+<title>About | Press for Goblins | Noah Grey | London Editor & Publishing Consultant</title>
+<meta name="title" content="About Press for Goblins | Noah Grey | London Editor">
+<meta name="description" content="Meet Noah Grey and the three goblins behind Press for Goblins. London-based editor with 5 years Big Four publishing experience. Specialising in developmental editing, copyediting, manuscript assessment and UK agent guidance.">
+<meta name="keywords" content="noah grey editor, london editor bio, uk publishing consultant, big four publisher, developmental editor london, three goblins in a trenchcoat, press for goblins about">
+<link rel="canonical" href="https://pressforgoblins.com/about">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pressforgoblins.com/about">
+<meta property="og:title" content="About Press for Goblins | Noah Grey | London Editor">
+<meta property="og:description" content="London editor with 5 years Big Four publishing experience. Editorial services, publishing strategy & agent guidance.">
+<meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://pressforgoblins.com/about">
+<meta property="twitter:title" content="About Press for Goblins | Noah Grey | London Editor">
+<meta property="twitter:description" content="London editor with 5 years Big Four publishing experience.">
+<meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Press for Goblins",
+  "description": "Learn about Noah Grey and Press for Goblins editorial services in London, UK.",
+  "url": "https://pressforgoblins.com/about",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Noah Grey",
+    "jobTitle": "Editor and Publishing Consultant",
+    "description": "Publishing professional with 5 years experience at a Big Four publishing house, offering developmental editing, structural editing, copyediting, manuscript assessment and UK literary agent guidance.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Press for Goblins"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "London",
+      "addressCountry": "GB"
+    },
+    "knowsAbout": [
+      "Developmental Editing",
+      "Structural Editing",
+      "Copy Editing",
+      "Line Editing",
+      "Manuscript Assessment",
+      "Publishing Strategy",
+      "Marketing",
+      "UK Literary Agents",
+      "Big Four Publishing"
+    ]
+  }
+}
+</script>
 
 <!-- Font preload for performance -->
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
@@ -53,7 +109,7 @@
   }
 
   .coming-soon {
-    font-size: clamp(1rem,4vw,1.4rem);
+    font-size: clamp(1.5rem,6.5vw,2.5rem);
     color: #7bbf7b;
     text-shadow: 
       0 0 3px #7bbf7b,
@@ -101,9 +157,9 @@
   }
 
   /* Footer nav bar */
-   .footer-nav {
+  .footer-nav {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -171,7 +227,7 @@
 
   @media(max-width:480px){
     h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    .coming-soon{font-size: clamp(0.85rem,3.5vw,1.1rem);}
+    .coming-soon{font-size: clamp(1.2rem,5vw,1.8rem);}
     .footer-nav img{width:44px;height:44px;}
     .footer-nav{padding: 0 1rem;}
   }
@@ -202,11 +258,11 @@
 <script>
   const comingSoon = document.getElementById('coming-soon');
 
-  const startupDelay = 750;
+  const startupDelay = 2000;
   const violentFlickerDuration = 250;
   const extraFlickerDuration = 120;
 
-  // Trigger coming soon text violent flicker on page load
+  // Trigger coming soon text violent flicker on page load (same as home)
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       comingSoon.classList.add('violent-flicker');
@@ -216,6 +272,20 @@
         comingSoon.classList.add('hue-shift');
       }, violentFlickerDuration + extraFlickerDuration + 60);
     }, startupDelay);
+
+    // Subtle pulse (same as home)
+    function pulse(){
+      const wait = Math.random()*3000+2000;
+      setTimeout(()=>{
+        const boost = Math.random()*0.4+0.7;
+        comingSoon.style.textShadow=`0 0 ${3*boost}px #7bbf7b,0 0 ${8*boost}px #7bbf7b,0 0 ${15*boost}px #7bbf7b`;
+        setTimeout(()=>{
+          comingSoon.style.textShadow=`0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b`;
+          pulse();
+        },Math.random()*70+50);
+      },wait);
+    }
+    pulse();
   });
 
   // Page transition effect
