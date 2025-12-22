@@ -66,245 +66,236 @@
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
-  @font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
-         url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
-         url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  * {
-    box-sizing: border-box;
-  }
+* { box-sizing: border-box; }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    font-family: 'PressStart2P', monospace;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    color: rgba(255,255,255,0.8);
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  font-family: 'PressStart2P', monospace;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  color: #888;
+}
 
-  h1 {
-    font-size: clamp(1.8rem,8vw,3rem);
-    color: rgba(255,255,255,0.8);
-    line-height: 1.4;
-    max-width: 90vw;
-    letter-spacing: 0.01em;
-    word-spacing: -0.35em;
-    z-index: 2;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    animation: letter-jitter 1.5s infinite alternate ease-in-out;
-  }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+  animation: verticalGlow 25s linear infinite;
+}
 
-  @keyframes letter-jitter { 
-    0%,100%{transform:translateX(0);} 
-    50%{transform:translateX(1px);} 
-  }
+@keyframes verticalGlow {
+  0% { transform: translateY(110%); opacity: 0.35; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(-110%); opacity: 0.35; }
+}
 
-  .coming-soon {
-    font-size: clamp(1.5rem,6.5vw,2.5rem);
-    color: #7bbf7b;
-    text-shadow: 
-      0 0 3px #7bbf7b,
-      0 0 8px #7bbf7b,
-      0 0 15px #7bbf7b;
-    z-index: 2;
-    display: inline-block;
-    opacity: 0;
-    margin-bottom: 2rem;
-  }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  opacity: 0.15;
+}
 
-  @keyframes violentFlicker {
-    0%, 35%, 55% { 
-      opacity: 0; 
-      text-shadow: none; 
-    }
-    25%, 45% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-    100% { 
-      opacity: 1; 
-      text-shadow: 
-        0 0 3px #7bbf7b,
-        0 0 8px #7bbf7b,
-        0 0 15px #7bbf7b;
-    }
-  }
+.main-title {
+  font-size: clamp(1.8rem, 8vw, 3rem);
+  color: #888;
+  line-height: 1.4;
+  max-width: 90vw;
+  letter-spacing: 0.01em;
+  word-spacing: -0.35em;
+  z-index: 2;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  animation: letterJitter 1.5s infinite alternate ease-in-out;
+}
 
-  .violent-flicker {
-    animation: violentFlicker 0.25s steps(40, end) forwards;
-  }
+@keyframes letterJitter {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
 
-  @keyframes hueShift {
-    0% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(5deg); }
-    100% { filter: hue-rotate(0deg); }
-  }
+.neon-text {
+  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+  color: #7bbf7b;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  z-index: 2;
+  display: inline-block;
+  opacity: 0;
+}
 
-  .hue-shift {
-    animation: hueShift 6s infinite ease-in-out;
-  }
+@keyframes violentFlicker {
+  0%, 35%, 55% { opacity: 0; text-shadow: none; }
+  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+}
 
-  /* Footer nav bar */
-  .footer-nav {
-    position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 0 2rem;
-    max-width: 600px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
+.violent-flicker {
+  animation: violentFlicker 0.25s steps(40, end) forwards;
+}
 
-  .footer-nav .nav-item {
-    position: relative;
-    display: inline-block;
-  }
+@keyframes hueShift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(5deg); }
+  100% { filter: hue-rotate(0deg); }
+}
 
-  .footer-nav a {
-    display: block;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
+.hue-shift {
+  animation: hueShift 6s infinite ease-in-out;
+}
 
-  .footer-nav a:hover {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
+.footer-nav {
+  position: fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2rem;
+  max-width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
 
-  .footer-nav a:focus {
-    outline: 2px solid #7bbf7b;
-    outline-offset: 4px;
-    filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-  }
+.footer-nav .nav-item {
+  position: relative;
+  display: inline-block;
+}
 
-  .footer-nav img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    opacity: 0.9;
-    transition: transform 0.2s ease, filter 0.2s ease;
-  }
+.footer-nav a {
+  display: block;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
 
-  .footer-nav img.about {
-    cursor: default;
-    pointer-events: none;
-  }
+.footer-nav a:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+}
 
-  .footer-nav .active-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #7bbf7b;
-    box-shadow: 0 0 6px #7bbf7b;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.footer-nav a:focus {
+  outline: 2px solid #7bbf7b;
+  outline-offset: 4px;
+  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+}
 
-  /* Page transition fade */
-  body.page-transition {
-    animation: fadeOut 0.15s ease-out forwards;
-  }
+.footer-nav img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  opacity: 0.9;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
 
-  @keyframes fadeOut {
-    to { opacity: 0; }
-  }
+.footer-nav img.about {
+  cursor: default;
+  pointer-events: none;
+}
 
-  @media(max-width:480px){
-    h1{font-size: clamp(1.4rem,7vw,2.4rem);}
-    .coming-soon{font-size: clamp(1.2rem,5vw,1.8rem);}
-    .footer-nav img{width:44px;height:44px;}
-    .footer-nav{padding: 0 1rem;}
-  }
+.footer-nav .active-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7bbf7b;
+  box-shadow: 0 0 6px #7bbf7b;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+body.page-transition {
+  animation: fadeOut 0.15s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+@media(max-width: 480px) {
+  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
+  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  .footer-nav img { width: 44px; height: 44px; }
+  .footer-nav { padding: 0 1rem; }
+}
 </style>
 </head>
 <body>
-  <h1>about</h1>
-  <div class="coming-soon" id="coming-soon">also coming soon</div>
 
-  <!-- Footer nav bar with proper semantic markup -->
-  <nav class="footer-nav" aria-label="Main navigation">
-    <div class="nav-item">
-      <a href="index.html" aria-label="Home">
-        <img src="images/home.png" alt="Home">
-      </a>
-    </div>
-    <div class="nav-item">
-      <img src="images/about.png" class="about" alt="About - Current page">
-      <div class="active-dot"></div>
-    </div>
-    <div class="nav-item">
-      <a href="contact.html" aria-label="Contact">
-        <img src="images/contact.png" alt="Contact">
-      </a>
-    </div>
-  </nav>
+<div class="main-title">about</div>
+<div class="neon-text" id="neon-text">also coming soon</div>
+
+<nav class="footer-nav" aria-label="Main navigation">
+  <div class="nav-item">
+    <a href="index.html" aria-label="Home">
+      <img src="images/home.png" alt="Home">
+    </a>
+  </div>
+  <div class="nav-item">
+    <img src="images/about.png" class="about" alt="About - Current page">
+    <div class="active-dot"></div>
+  </div>
+  <div class="nav-item">
+    <a href="contact.html" aria-label="Contact">
+      <img src="images/contact.png" alt="Contact">
+    </a>
+  </div>
+</nav>
 
 <script>
-  const comingSoon = document.getElementById('coming-soon');
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('neon-text');
 
-  const startupDelay = 2000;
-  const violentFlickerDuration = 250;
-  const extraFlickerDuration = 120;
+  setTimeout(() => {
+    el.classList.add('violent-flicker');
+    el.style.opacity = 1;
+    setTimeout(() => el.classList.add('hue-shift'), 300);
+  }, 2000);
 
-  // Trigger coming soon text violent flicker on page load (same as home)
-  document.addEventListener('DOMContentLoaded', () => {
+  function pulse() {
+    const wait = Math.random() * 3000 + 2000;
     setTimeout(() => {
-      comingSoon.classList.add('violent-flicker');
-      comingSoon.style.opacity = 1;
-
+      const boost = Math.random() * 0.4 + 0.7;
+      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
       setTimeout(() => {
-        comingSoon.classList.add('hue-shift');
-      }, violentFlickerDuration + extraFlickerDuration + 60);
-    }, startupDelay);
+        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
+        pulse();
+      }, Math.random() * 70 + 50);
+    }, wait);
+  }
+  pulse();
 
-    // Subtle pulse (same as home)
-    function pulse(){
-      const wait = Math.random()*3000+2000;
-      setTimeout(()=>{
-        const boost = Math.random()*0.4+0.7;
-        comingSoon.style.textShadow=`0 0 ${3*boost}px #7bbf7b,0 0 ${8*boost}px #7bbf7b,0 0 ${15*boost}px #7bbf7b`;
-        setTimeout(()=>{
-          comingSoon.style.textShadow=`0 0 3px #7bbf7b,0 0 8px #7bbf7b,0 0 15px #7bbf7b`;
-          pulse();
-        },Math.random()*70+50);
-      },wait);
-    }
-    pulse();
-  });
-
-  // Page transition effect
   const navLinks = document.querySelectorAll('.footer-nav a');
   navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', e => {
       e.preventDefault();
       const href = link.getAttribute('href');
       document.body.classList.add('page-transition');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 150);
+      setTimeout(() => window.location.href = href, 150);
     });
   });
+});
 </script>
 </body>
 </html>
