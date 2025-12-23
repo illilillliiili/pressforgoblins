@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>contact | press for goblins | london book editor & publishing consultant</title>
+<meta name="title" content="contact press for goblins | london editor noah grey">
+<meta name="description" content="get in touch with noah grey at press for goblins. london-based editor offering developmental editing, copyediting, publishing strategy & uk agent guidance.">
+<link rel="canonical" href="https://pressforgoblins.com/contact">
+
+<!-- font preload -->
+<link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
+       url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
+       url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  font-family: 'PressStart2P', monospace;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  color: #888;
+  padding: calc(1rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom)) 1rem;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
+  animation: verticalGlow 25s linear infinite;
+}
+
+@keyframes verticalGlow {
+  0% { transform: translateY(110%); opacity: 0.35; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(-110%); opacity: 0.35; }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  opacity: 0.15;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  color: #888;
+  line-height: 1.4;
+  max-width: 90vw;
+  letter-spacing: 0.01em;
+  word-spacing: -0.35em;
+  z-index: 2;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  animation: letterJitter 1.5s infinite alternate ease-in-out;
+  text-transform: lowercase;
+}
+
+@keyframes letterJitter {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 460px;
+  z-index: 2;
+  transition: opacity 0.5s ease;
+}
+
+.field-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.field-group:hover,
+.field-group:focus-within {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(123, 191, 123, 0.4);
+  box-shadow: 0 0 15px rgba(123, 191, 123, 0.1);
+}
+
+.field-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 4px;
+  filter: grayscale(1);
+  transition: filter 0.2s ease;
+}
+
+.field-group:focus-within .field-icon {
+  filter: grayscale(0) drop-shadow(0 0 4px rgba(123, 191, 123, 0.8));
+}
+
+.field-content {
+  width: 100%;
+  position: relative;
+  flex: 1;
+  text-align: left;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.45rem;
+  text-transform: lowercase;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.1em;
+}
+
+textarea, select {
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.75rem;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  outline: none;
+  resize: none;
+  line-height: 1.5;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+textarea::placeholder {
+  color: transparent;
+}
+
+textarea:focus::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  color: #7bbf7b;
+}
+
+option {
+  background: #111;
+  color: #fff;
+  text-transform: lowercase;
+}
+
+.single-line {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.multi-line {
+  min-height: 60px;
+}
+
+button#submit-btn {
+  font-family: 'PressStart2P', monospace;
+  font-size: 1.25rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: lowercase;
+  display: inline-block;
+}
+
+button#submit-btn:hover {
+  color: #7bbf7b;
+  text-shadow: 0 0 10px rgba(123, 191, 123, 0.5);
+}
+
+button#submit-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+  color: #7bbf7b;
+}
+
+.copy-email-container {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #888;
+  z-index: 2;
+  text-transform: lowercase;
+  letter-spacing: -0.05em;
+  line-height: 1.6;
+}
+
+.copy-trigger {
+  color: #888;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.copy-trigger:hover {
+  color: #7bbf7b;
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.3);
+}
+
+.sent-msg {
+  display: none;
+  margin-top: 2rem;
+  color: #7bbf7b;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  z-index: 2;
+  text-transform: lowercase;
+}
+
+.footer-nav {
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2rem;
+  max-width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.footer-nav img {
+  width: 40px;
+  height: 40px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.active-dot {
+  width: 5px;
+  height: 5px;
+  background: #7bbf7b;
+  border-radius: 50%;
+  margin: 4px auto 0;
+  box-shadow: 0 0 8px #7bbf7b;
+}
+
+.wobble { animation: wobble 0.3s ease-in-out; }
+@keyframes wobble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.honeypot { display: none; }
+</style>
+</head>
+<body>
+
+<h1>contact</h1>
+
+<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+  <input type="text" name="_gotcha" class="honeypot">
+  
+  <div class="field-group">
+    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div class="field-content">
+      <label class="field-label">name</label>
+      <textarea name="name" id="name-input" rows="1" class="single-line" placeholder="name" required></textarea>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    <div class="field-content">
+      <label class="field-label">email address</label>
+      <textarea name="email" rows="1" class="single-line" placeholder="email address" required></textarea>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    <div class="field-content">
+      <label class="field-label">quest stage</label>
+      <select name="stage" id="stage-select" required>
+        <option value="" disabled selected>quest stage</option>
+        <option value="brainstorm">side quest (brainstorm with creative goblin)</option>
+        <option value="plotting">grinding (stuck on plot or pacing)</option>
+        <option value="polishing">final boss (manuscript finished and ready for polish)</option>
+        <option value="pitching">hard mode (need help with pitch or brand)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div class="field-content">
+      <label class="field-label">message</label>
+      <textarea name="message" id="message-input" rows="3" class="multi-line" placeholder="tell me your story..." required></textarea>
+    </div>
+  </div>
+
+  <button type="submit" id="submit-btn">send</button>
+</form>
+
+<div id="sent-msg" class="sent-msg">the goblins have your message. expect a scroll back soon.</div>
+
+<div class="copy-email-container" id="copy-container">
+  <span class="copy-trigger" id="copy-trigger">or send some words directly to the goblins</span>
+</div>
+
+<nav class="footer-nav">
+  <a href="index.html"><img src="images/home.png" alt="home"></a>
+  <a href="about.html"><img src="images/about.png" alt="about"></a>
+  <div>
+    <img src="images/contact.png" alt="contact" style="opacity:1; filter: drop-shadow(0 0 5px #7bbf7b);">
+    <div class="active-dot"></div>
+  </div>
+</nav>
+
+<script>
+const form = document.getElementById('contact-form');
+const submitBtn = document.getElementById('submit-btn');
+const sentMsg = document.getElementById('sent-msg');
+const copyTrigger = document.getElementById('copy-trigger');
+const copyContainer = document.getElementById('copy-container');
+
+copyTrigger.addEventListener('click', () => {
+  const email = 'hello@pressforgoblins.com';
+  const textArea = document.createElement("textarea");
+  textArea.value = email;
+  document.body.appendChild(textArea);
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    const originalText = copyTrigger.innerText;
+    copyTrigger.innerText = 'copied!';
+    copyTrigger.style.color = '#7bbf7b';
+    setTimeout(() => {
+      copyTrigger.innerText = originalText;
+      copyTrigger.style.color = '';
+    }, 2000);
+  } catch (err) {}
+  document.body.removeChild(textArea);
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  let hasError = false;
+  form.querySelectorAll('textarea[required], select[required]').forEach(input => {
+    if(!input.value.trim()) {
+      const group = input.closest('.field-group');
+      group.classList.remove('wobble');
+      void group.offsetWidth; 
+      group.classList.add('wobble');
+      hasError = true;
+    }
+  });
+
+  if(hasError) return;
+
+  submitBtn.innerText = 'casting...';
+  submitBtn.disabled = true;
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if(response.ok) {
+      form.style.opacity = '0';
+      copyContainer.style.opacity = '0';
+      setTimeout(() => {
+        form.style.display = 'none';
+        copyContainer.style.display = 'none';
+        sentMsg.style.display = 'block';
+      }, 500);
+    } else {
+      throw new Error();
+    }
+  } catch(err) {
+    submitBtn.innerText = 'failed - retry?';
+    submitBtn.disabled = false;
+  }
+});
+
+document.querySelectorAll('textarea').forEach(el => {
+  el.addEventListener('input', () => {
+    if(!el.classList.contains('single-line')) {
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
