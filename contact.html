@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Primary Meta Tags -->
-<title>contact | press for goblins</title>
-<meta name="title" content="contact | press for goblins">
-<meta name="description" content="contac noah grey | press for goblins | london-based editor offering developmental editing, copyediting, publishing strategy & agent guidance. free consultation available.">
-<meta name="keywords" content="contact london editor, hire uk editor, book editor consultation, developmental editing inquiry, publishing consultant contact, noah grey, press for goblins contact, freelance editor, freelance editor uk, fiction editor, sci-fi editor, fantasy editor, horror editor, romantasy editor">
+<title>Contact | Press for Goblins | London Book Editor & Publishing Consultant</title>
+<meta name="title" content="Contact Press for Goblins | London Editor Noah Grey">
+<meta name="description" content="Get in touch with Noah Grey at Press for Goblins. London-based editor offering developmental editing, copyediting, publishing strategy & UK agent guidance. Free consultation available.">
+<meta name="keywords" content="contact london editor, hire uk editor, book editor consultation, developmental editing inquiry, publishing consultant contact, noah grey, press for goblins contact">
 <link rel="canonical" href="https://pressforgoblins.com/contact">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/contact">
-<meta property="og:title" content="contact | press for goblins | editorial">
-<meta property="og:description" content="contact for editorial services, publishing strategy & UK agent guidance.">
+<meta property="og:title" content="Contact Press for Goblins | London Book Editor">
+<meta property="og:description" content="Get in touch for editorial services, publishing strategy & UK agent guidance.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/contact">
-<meta property="twitter:title" content="contact | press for goblins | london | book editor | fiction, fantasy, sci-fi, horror, romantasy">
-<meta property="twitter:description" content="contact for editorial services, publishing strategy and agent guidance.">
+<meta property="twitter:title" content="Contact Press for Goblins | London Book Editor">
+<meta property="twitter:description" content="Get in touch for editorial services, publishing strategy & UK agent guidance.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- Schema.org Structured Data -->
@@ -31,7 +31,7 @@
   "@context": "https://schema.org",
   "@type": "ContactPage",
   "name": "Contact Press for Goblins",
-  "description": "contact Noah Grey for editorial services, manuscript editing and publishing consultation. based in London, UK.",
+  "description": "Contact Noah Grey for editorial services, manuscript editing, and publishing consultation in London, UK.",
   "url": "https://pressforgoblins.com/contact",
   "provider": {
     "@type": "ProfessionalService",
@@ -237,8 +237,8 @@ textarea::placeholder {
 
 button {
   font-family: 'PressStart2P', monospace;
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  padding: 0.9rem 2.2rem;
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  padding: 0.6rem 1.4rem;
   margin-top: 0.5rem;
   background: transparent;
   border: none;
@@ -353,18 +353,23 @@ form.fade-out .field-group {
   margin-bottom: 1rem;
   z-index: 2;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: none;
+}
+
+.copy-email .or-text {
+  transition: none;
 }
 
 .copy-email span {
   text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
-.copy-email:hover {
+.copy-email:hover span {
   color: #7bbf7b;
 }
 
-.copy-email.copied {
+.copy-email.copied span {
   color: #7bbf7b;
 }
 
@@ -438,7 +443,7 @@ body.page-transition {
 @media(max-width: 480px) {
   h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
   textarea { font-size: 0.75rem; }
-  button { font-size: clamp(1.2rem, 5vw, 1.8rem); padding: 0.8rem 1.8rem; }
+  button { font-size: clamp(0.85rem, 3.5vw, 1.1rem); padding: 0.5rem 1.1rem; }
   .footer-nav img { width: 44px; height: 44px; }
   .footer-nav { padding: 0 1rem; }
   .field-icon { width: 18px; height: 18px; }
@@ -489,7 +494,7 @@ body.page-transition {
 
 <div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
 
-<div class="copy-email" id="copy-email">or <span>copy email</span></div>
+<div class="copy-email" id="copy-email"><span class="or-text">or </span><span>copy email</span></div>
 
 <nav class="footer-nav" aria-label="Main navigation">
   <div class="nav-item">
@@ -557,10 +562,10 @@ document.addEventListener('DOMContentLoaded', () => {
   copyEmailBtn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(contactEmail);
-      copyEmailBtn.textContent = 'copied!';
+      copyEmailBtn.innerHTML = '<span class="or-text"></span><span>copied!</span>';
       copyEmailBtn.classList.add('copied');
       setTimeout(() => {
-        copyEmailBtn.innerHTML = 'or <span>copy email</span>';
+        copyEmailBtn.innerHTML = '<span class="or-text">or </span><span>copy email</span>';
         copyEmailBtn.classList.remove('copied');
       }, 2000);
     } catch (err) {
