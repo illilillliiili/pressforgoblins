@@ -13,57 +13,39 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://pressforgoblins.com/">
-<meta property="og:title" content="press for goblins | london book editor & publishing freelance consultant">
-<meta property="og:description" content="London-based editorial services. developmental editing, copyediting, pitching, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<meta property="og:url" content="https://pressforgoblins.com/contact">
+<meta property="og:title" content="Contact Press for Goblins | London Book Editor">
+<meta property="og:description" content="Get in touch for editorial services, publishing strategy & UK agent guidance.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://pressforgoblins.com/">
-<meta property="twitter:title" content="Press for Goblins | London Book Editor & Publishing Consultant">
-<meta property="twitter:description" content="London-based editorial services. Developmental editing, copyediting, publishing strategy & UK agent guidance.">
+<meta property="twitter:url" content="https://pressforgoblins.com/contact">
+<meta property="twitter:title" content="Contact Press for Goblins | London Book Editor">
+<meta property="twitter:description" content="Get in touch for editorial services, publishing strategy & UK agent guidance.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- Schema.org Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Press for Goblins",
-  "alternateName": "Noah Grey Editorial Services",
-  "description": "London-based editorial services specialising in developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy and UK literary agent guidance.",
-  "url": "https://pressforgoblins.com",
-  "logo": "https://pressforgoblins.com/images/logo.png",
-  "image": "https://pressforgoblins.com/images/og-image.png",
-  "founder": {
-    "@type": "Person",
-    "name": "Noah Grey",
-    "jobTitle": "Editor and Publishing Consultant",
-    "description": "Publishing professional with 5 years experience at a Big Four publishing house"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "London",
-    "addressCountry": "GB"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "United Kingdom"
-  },
-  "serviceType": [
-    "Developmental Editing",
-    "Structural Editing",
-    "Copy Editing",
-    "Line Editing",
-    "Manuscript Assessment",
-    "Publishing Strategy",
-    "Marketing Consultation",
-    "Back Cover Copy",
-    "Positioning Strategy",
-    "UK Literary Agent Guidance"
-  ],
-  "slogan": "Just press for goblins"
+  "@type": "ContactPage",
+  "name": "Contact Press for Goblins",
+  "description": "contact Noah Grey for editorial services, manuscript editing and publishing consultation. based in London, UK.",
+  "url": "https://pressforgoblins.com/contact",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Press for Goblins",
+    "founder": {
+      "@type": "Person",
+      "name": "Noah Grey"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "London",
+      "addressCountry": "GB"
+    }
+  }
 }
 </script>
 
@@ -85,7 +67,7 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,9 +75,11 @@ body {
   background: #000;
   font-family: 'PressStart2P', monospace;
   text-align: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   color: #888;
+  padding: calc(2rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom)) 1rem;
 }
 
 body::before {
@@ -124,7 +108,7 @@ body::after {
   opacity: 0.15;
 }
 
-.main-title {
+h1 {
   font-size: clamp(1.8rem, 8vw, 3rem);
   color: #888;
   line-height: 1.4;
@@ -133,7 +117,7 @@ body::after {
   word-spacing: -0.35em;
   z-index: 2;
   display: inline-block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
   animation: letterJitter 1.5s infinite alternate ease-in-out;
 }
 
@@ -142,19 +126,155 @@ body::after {
   50% { transform: translateX(1px); }
 }
 
-.neon-text {
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  color: #7bbf7b;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 420px;
   z-index: 2;
-  display: inline-block;
+}
+
+.field-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.1s ease;
+  cursor: text;
+}
+
+.field-group:hover,
+.field-group:focus-within {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+
+.field-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(123, 191, 123, 0.5));
+  position: relative;
+  cursor: default;
+}
+
+.field-content {
+  width: 100%;
+  position: relative;
+  flex: 1;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+textarea {
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.85rem;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  outline: none;
+  text-align: left;
+  resize: none;
+  line-height: 1.5;
+  transition: opacity 0.1s ease;
+}
+
+textarea::placeholder {
   opacity: 0;
 }
 
+.single-line {
+  white-space: nowrap;
+  overflow-x: auto;
+  resize: none;
+}
+
+.single-line::-webkit-scrollbar {
+  display: none;
+}
+
+.multi-line {
+  min-height: 80px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.multi-line::-webkit-scrollbar {
+  width: 4px;
+}
+
+.multi-line::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.multi-line::-webkit-scrollbar-thumb {
+  background: rgba(123, 191, 123, 0.3);
+  border-radius: 2px;
+}
+
+.multi-line::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 191, 123, 0.5);
+}
+
+button {
+  font-family: 'PressStart2P', monospace;
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  padding: 0.6rem 1.4rem;
+  margin-top: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #7bbf7b;
+  cursor: pointer;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  transition: all 0.1s ease;
+  opacity: 0;
+}
+
+button.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  }
+  50% { 
+    text-shadow: 0 0 3px #7bbf7b, 0 0 8px #7bbf7b, 0 0 15px #7bbf7b;
+  }
+}
+
 @keyframes violentFlicker {
-  0%, 35%, 55% { opacity: 0; text-shadow: none; }
-  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+  0%, 35%, 55% { 
+    opacity: 0; 
+    text-shadow: none; 
+  }
+  25%, 45% { 
+    opacity: 1; 
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  }
+  100% { 
+    opacity: 1; 
+    text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  }
 }
 
 .violent-flicker {
@@ -169,6 +289,92 @@ body::after {
 
 .hue-shift {
   animation: hueShift 6s infinite ease-in-out;
+}
+
+button:hover {
+  text-shadow: 0 0 3px #7bbf7b, 0 0 8px #7bbf7b, 0 0 15px #7bbf7b;
+}
+
+button:active {
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+}
+
+button:focus {
+  outline: none;
+}
+
+.sent-msg {
+  font-family: 'PressStart2P', monospace;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 1rem;
+  display: none;
+  z-index: 2;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sent-msg.show {
+  opacity: 1;
+}
+
+.sent-msg .smiley {
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+form.fade-out .field-group {
+  animation: fadeOutFields 0.5s ease-out forwards;
+}
+
+@keyframes fadeOutFields {
+  to { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.wobble {
+  animation: wobble 0.2s ease-in-out;
+}
+
+.copy-email {
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.copy-email .or-text {
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.copy-email .clickable {
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.copy-email .clickable:hover {
+  color: #7bbf7b;
+}
+
+.copy-email.copied .clickable {
+  color: #7bbf7b;
 }
 
 .footer-nav {
@@ -213,7 +419,7 @@ body::after {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.footer-nav img.home {
+.footer-nav img.contact {
   cursor: default;
   pointer-events: none;
 }
@@ -239,68 +445,245 @@ body.page-transition {
 }
 
 @media(max-width: 480px) {
-  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
-  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
+  textarea { font-size: 0.75rem; }
+  button { font-size: clamp(0.85rem, 3.5vw, 1.1rem); padding: 0.5rem 1.1rem; }
   .footer-nav img { width: 44px; height: 44px; }
   .footer-nav { padding: 0 1rem; }
+  .field-icon { width: 18px; height: 18px; }
 }
 </style>
 </head>
 <body>
 
-<div class="main-title">press for goblins</div>
-<div class="neon-text" id="neon-text">coming soon</div>
+<h1>contact</h1>
+
+<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
+  <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
+  
+  <div class="field-group" data-field="name">
+    <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+      <title>name</title>
+    </svg>
+    <div class="field-content">
+      <textarea name="name" rows="1" class="single-line" aria-label="Your name" required></textarea>
+    </div>
+  </div>
+
+  <div class="field-group" data-field="email">
+    <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+      <path d="m2 7 10 7 10-7"></path>
+      <title>email</title>
+    </svg>
+    <div class="field-content">
+      <textarea name="email" rows="1" class="single-line" aria-label="Your email" required></textarea>
+    </div>
+  </div>
+
+  <div class="field-group" data-field="message">
+    <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      <title>message</title>
+    </svg>
+    <div class="field-content">
+      <textarea name="message" rows="5" class="multi-line" aria-label="Your message" required></textarea>
+    </div>
+  </div>
+
+  <button type="submit">send</button>
+</form>
+
+<div class="sent-msg" id="sent-msg">the goblins will see you soon <span class="smiley">:)</span></div>
+
+<div class="copy-email" id="copy-email"><span class="or-text">or</span><span class="clickable">copy email</span></div>
 
 <nav class="footer-nav" aria-label="Main navigation">
   <div class="nav-item">
-    <img src="images/home.png" class="home" alt="Home - Current page">
-    <div class="active-dot"></div>
+    <a href="index.html" aria-label="Home">
+      <img src="images/home.png" alt="Home">
+    </a>
   </div>
   <div class="nav-item">
-    <a href="about.html" aria-label="About">
+    <a href="about.html" aria-label="About us">
       <img src="images/about.png" alt="About">
     </a>
   </div>
   <div class="nav-item">
-    <a href="contact.html" aria-label="Contact">
-      <img src="images/contact.png" alt="Contact">
-    </a>
+    <img src="images/contact.png" class="contact" alt="Contact - Current page">
+    <div class="active-dot"></div>
   </div>
 </nav>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('neon-text');
+const form = document.getElementById('contact-form');
+const sentMsg = document.getElementById('sent-msg');
+const sendButton = document.querySelector('button[type="submit"]');
 
+let isSubmitting = false;
+let lastSubmitTime = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    el.classList.add('violent-flicker');
-    el.style.opacity = 1;
-    setTimeout(() => el.classList.add('hue-shift'), 300);
+    sendButton.classList.add('violent-flicker');
+    sendButton.style.opacity = 1;
+    setTimeout(() => sendButton.classList.add('hue-shift'), 300);
   }, 2000);
 
   function pulse() {
     const wait = Math.random() * 3000 + 2000;
     setTimeout(() => {
       const boost = Math.random() * 0.4 + 0.7;
-      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
+      sendButton.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
       setTimeout(() => {
-        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
+        sendButton.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
         pulse();
       }, Math.random() * 70 + 50);
     }, wait);
   }
   pulse();
 
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(() => window.location.href = href, 150);
+  document.querySelectorAll('.field-group').forEach(group => {
+    group.addEventListener('click', e => {
+      if (e.target === group || e.target.classList.contains('field-content') || e.target.classList.contains('field-icon')) {
+        group.querySelector('textarea').focus();
+      }
     });
+  });
+
+  const messageField = document.querySelector('textarea[name="message"]');
+  messageField.addEventListener('input', function() {
+    this.style.height = 'auto';
+    const newHeight = Math.min(this.scrollHeight, 150);
+    this.style.height = newHeight + 'px';
+  });
+
+  const copyEmailBtn = document.getElementById('copy-email');
+  const clickableSpan = copyEmailBtn.querySelector('.clickable');
+  const contactEmail = 'hello@pressforgoblins.com';
+  
+  clickableSpan.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(contactEmail);
+      clickableSpan.textContent = 'copied!';
+      copyEmailBtn.classList.add('copied');
+      setTimeout(() => {
+        clickableSpan.textContent = 'copy email';
+        copyEmailBtn.classList.remove('copied');
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+    }
+  });
+});
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidName(name) {
+  return name.trim().length >= 2;
+}
+
+function isValidMessage(message) {
+  return message.trim().length >= 10;
+}
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const now = Date.now();
+  if (isSubmitting || (now - lastSubmitTime < 3000)) {
+    return;
+  }
+
+  isSubmitting = true;
+  let error = false;
+
+  const honeypot = form.querySelector('[name="_gotcha"]');
+  if (honeypot && honeypot.value) {
+    isSubmitting = false;
+    return;
+  }
+
+  const nameField = form.querySelector('textarea[name="name"]');
+  const emailField = form.querySelector('textarea[name="email"]');
+  const messageField = form.querySelector('textarea[name="message"]');
+
+  if (!isValidName(nameField.value)) {
+    const nameGroup = nameField.closest('.field-group');
+    nameGroup.classList.add('wobble');
+    error = true;
+    setTimeout(() => nameGroup.classList.remove('wobble'), 300);
+  }
+
+  if (!isValidEmail(emailField.value.trim())) {
+    const emailGroup = emailField.closest('.field-group');
+    emailGroup.classList.add('wobble');
+    error = true;
+    setTimeout(() => emailGroup.classList.remove('wobble'), 300);
+  }
+
+  if (!isValidMessage(messageField.value)) {
+    const messageGroup = messageField.closest('.field-group');
+    messageGroup.classList.add('wobble');
+    error = true;
+    setTimeout(() => messageGroup.classList.remove('wobble'), 300);
+  }
+
+  if (error) {
+    isSubmitting = false;
+    return;
+  }
+
+  sendButton.classList.add('loading');
+  sendButton.style.cursor = 'wait';
+
+  const data = new FormData(form);
+  
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    if (response.ok) {
+      lastSubmitTime = Date.now();
+      sendButton.classList.remove('loading');
+      sendButton.textContent = 'sent';
+      sendButton.style.pointerEvents = 'none';
+      sendButton.style.cursor = 'default';
+      form.classList.add('fade-out');
+      
+      setTimeout(() => {
+        sentMsg.style.display = 'block';
+        setTimeout(() => sentMsg.classList.add('show'), 50);
+      }, 500);
+      
+      setTimeout(() => form.reset(), 800);
+    }
+  } catch (error) {
+    console.error('Form submission error:', error);
+    sendButton.classList.remove('loading');
+    sendButton.style.cursor = 'pointer';
+  } finally {
+    isSubmitting = false;
+  }
+});
+
+const navLinks = document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    document.body.classList.add('page-transition');
+    setTimeout(() => window.location.href = href, 150);
   });
 });
 </script>
+
 </body>
 </html>
