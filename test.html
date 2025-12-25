@@ -72,6 +72,9 @@
 
 <!-- Font preload for performance -->
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 @font-face {
@@ -90,7 +93,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background: #000;
-  font-family: 'PressStart2P', monospace;
+  font-family: 'Space Mono', 'Courier New', monospace;
   color: #888;
   overflow-x: hidden;
   overflow-y: auto;
@@ -125,13 +128,14 @@ body::after {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
 h1, h2, h3 {
+  font-family: 'PressStart2P', monospace;
   color: #888;
   font-weight: normal;
   line-height: 1.6;
@@ -145,27 +149,27 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   margin-bottom: 2rem;
 }
 
 h2 {
-  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
   margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
 h3 {
-  font-size: clamp(0.85rem, 3vw, 1rem);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
 p, li {
-  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-  line-height: 1.8;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  line-height: 1.9;
   margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero {
@@ -174,15 +178,15 @@ p, li {
 }
 
 .hero h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero p {
-  font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+  font-size: clamp(0.85rem, 2.8vw, 0.95rem);
 }
 
 .section {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .crew-grid {
@@ -193,87 +197,218 @@ p, li {
 
 .crew-member {
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: rgba(123, 191, 123, 0.05);
+  border: 2px solid rgba(123, 191, 123, 0.2);
+  border-radius: 4px;
+  position: relative;
+}
+
+.crew-member::before {
+  content: '▸';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  color: #7bbf7b;
+  font-size: 0.8rem;
 }
 
 .crew-member h3 {
   color: #7bbf7b;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-left: 1rem;
 }
 
-.quest-list {
-  list-style: none;
+.crew-member p {
+  margin-left: 1rem;
+}
+
+/* treasure trail quest map */
+.quest-map {
+  position: relative;
+  padding-left: 3rem;
   margin-top: 2rem;
 }
 
+.quest-map::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, 
+    #7bbf7b 0%, 
+    #7bbf7b 20%, 
+    transparent 20%, 
+    transparent 25%, 
+    #7bbf7b 25%);
+  background-size: 100% 20px;
+  opacity: 0.4;
+}
+
 .quest-item {
+  position: relative;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 3px solid #7bbf7b;
+  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .quest-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(123, 191, 123, 0.3);
+  background: rgba(123, 191, 123, 0.05);
+  border-left-color: #7bbf7b;
+  transform: translateX(4px);
+}
+
+.quest-item::before {
+  content: '○';
+  position: absolute;
+  left: -3.5rem;
+  top: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #7bbf7b;
+  font-size: 1.2rem;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.5);
 }
 
 .quest-item h3 {
-  margin-top: 0;
   color: #7bbf7b;
+  margin-bottom: 0.5rem;
 }
 
 .quest-tag {
   display: inline-block;
-  font-size: 0.65rem;
-  color: #7bbf7b;
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.55rem;
+  color: rgba(123, 191, 123, 0.7);
   margin-left: 0.5rem;
-  opacity: 0.8;
 }
 
-.comparison-table {
+.quest-pricing {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(123, 191, 123, 0.05);
+  border: 1px solid rgba(123, 191, 123, 0.2);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* genre table */
+.genre-love-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
-  font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(123, 191, 123, 0.2);
 }
 
-.comparison-table th,
-.comparison-table td {
+.genre-love-table thead {
+  background: rgba(123, 191, 123, 0.1);
+}
+
+.genre-love-table th {
+  font-family: 'PressStart2P', monospace;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
   padding: 1rem;
   text-align: left;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.comparison-table th {
-  background: rgba(123, 191, 123, 0.1);
   color: #7bbf7b;
   font-weight: normal;
+  border-bottom: 2px solid rgba(123, 191, 123, 0.3);
 }
 
-.comparison-table td {
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
+.genre-love-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  line-height: 1.7;
+}
+
+.genre-love-table td:first-child {
+  color: #7bbf7b;
+  font-weight: 700;
+  width: 30%;
+}
+
+.genre-avoid {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.genre-avoid h3 {
+  font-family: 'PressStart2P', monospace;
+  font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+}
+
+.genre-avoid ul {
+  list-style: none;
+  padding: 0;
+}
+
+.genre-avoid li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.75rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.genre-avoid li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.2rem;
+}
+
+.philosophy-box {
+  padding: 2rem;
+  background: rgba(123, 191, 123, 0.03);
+  border: 2px solid rgba(123, 191, 123, 0.2);
+  border-radius: 4px;
+  margin-top: 2rem;
+}
+
+.philosophy-box strong {
+  color: #7bbf7b;
+  font-weight: 700;
 }
 
 .cta {
   text-align: center;
   margin-top: 4rem;
   padding: 2rem;
-  background: rgba(123, 191, 123, 0.05);
-  border: 1px solid rgba(123, 191, 123, 0.2);
-  border-radius: 8px;
+  background: rgba(123, 191, 123, 0.08);
+  border: 2px solid rgba(123, 191, 123, 0.3);
+  border-radius: 4px;
+  position: relative;
+}
+
+.cta::before {
+  content: '▸';
+  position: absolute;
+  left: 50%;
+  top: -1rem;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #7bbf7b;
+  text-shadow: 0 0 12px rgba(123, 191, 123, 0.8);
 }
 
 .cta h2 {
-  margin-top: 0;
+  margin-top: 0.5rem;
   color: #7bbf7b;
+  font-family: 'PressStart2P', monospace;
 }
 
 .cta a {
@@ -283,7 +418,7 @@ p, li {
 }
 
 .cta a:hover {
-  text-shadow: 0 0 8px rgba(123, 191, 123, 0.5);
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
 }
 
 .footer-nav {
@@ -340,13 +475,12 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .comparison-table {
-    font-size: 0.6rem;
+  .quest-map {
+    padding-left: 2.5rem;
   }
   
-  .comparison-table th,
-  .comparison-table td {
-    padding: 0.75rem;
+  .quest-item::before {
+    left: -3rem;
   }
   
   .footer-nav img {
@@ -357,6 +491,10 @@ p, li {
   .footer-nav {
     padding: 0 1rem;
   }
+  
+  .genre-love-table td:first-child {
+    width: 35%;
+  }
 }
 </style>
 </head>
@@ -366,7 +504,7 @@ p, li {
   <div class="hero">
     <h1>three goblins in a trenchcoat. one mission: make your manuscript undeniable.</h1>
     <p>we are press for goblins, a specialist editorial collective operating out of a dark, well-guarded workshop in london.</p>
-    <p>forget empty encouragement. we prioritise the grit of the craft over the fluff of the industry. whether you are unearthing your first ideas or preparing to storm the gates, we provide the honest critique and structural surgery needed to make your story impossible to ignore.</p>
+    <p>forget empty encouragement. we prioritise the grit of the craft over the fluff of the industry. whether you are unearthing your first ideas or preparing to storm the gates, we provide the honest critique and structural surgery needed to make your story hold its own weight.</p>
   </div>
 
   <div class="section">
@@ -382,7 +520,7 @@ p, li {
       </div>
       <div class="crew-member">
         <h3>the pitch goblin</h3>
-        <p>industry strategy, query letters, and hooks that survive the slush pile. knows precisely how to make the industry's guards lower the drawbridge.</p>
+        <p>industry strategy, query letters, and hooks that cut through the slush pile. knows precisely how to make the industry's guards lower the drawbridge.</p>
       </div>
     </div>
   </div>
@@ -391,79 +529,92 @@ p, li {
     <h2>where are you on the map?</h2>
     <p>the journey from a blank page to a published book is a long crawl. identify your current level to begin.</p>
     
-    <ul class="quest-list">
-      <li class="quest-item">
+    <div class="quest-map">
+      <div class="quest-item">
         <h3>vibe check <span class="quest-tag">[no gold required]</span></h3>
         <p>a free 15-minute recon chat. tell us about your world, your struggles, or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
-      </li>
+      </div>
       
-      <li class="quest-item">
+      <div class="quest-item">
         <h3>prologue <span class="quest-tag">[ideas & brainstorming]</span></h3>
         <p>wandering the map, sketching characters, and unearthing lore. the creative goblin helps you find the sharpest path and the ideas worth chasing.</p>
-      </li>
+      </div>
       
-      <li class="quest-item">
+      <div class="quest-item">
         <h3>the deep haul <span class="quest-tag">[editorial development]</span></h3>
-        <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes feel lethal.</p>
-      </li>
+        <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes land where they need to.</p>
+      </div>
       
-      <li class="quest-item">
+      <div class="quest-item">
         <h3>the bone inspection <span class="quest-tag">[manuscript assessment]</span></h3>
-        <p>the draft is finished. before you head out, the plot goblin inspects the architecture while the pitch goblin looks for holes in your armour.</p>
-      </li>
+        <p>the draft is finished. before you head out, the plot goblin inspects the architecture while the pitch goblin looks for holes in your armour. <strong>you get:</strong> a structural blueprint and redlined manuscript showing exactly where the foundations could be stronger.</p>
+      </div>
       
-      <li class="quest-item">
+      <div class="quest-item">
         <h3>secret level <span class="quest-tag">[custom strategy]</span></h3>
         <p>rare encounters. your project is a strange beast that needs a bespoke strategy from all three in the trenchcoat. tell us your weirdest requirements.</p>
-      </li>
+      </div>
       
-      <li class="quest-item">
+      <div class="quest-item">
         <h3>final boss <span class="quest-tag">[pitching & submission]</span></h3>
-        <p>entering the arena. the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent.</p>
-      </li>
-    </ul>
+        <p>the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent. <strong>you get:</strong> a polished query package ready to deploy.</p>
+      </div>
+    </div>
     
-    <p style="margin-top: 2rem; text-align: center; font-size: 0.75rem; opacity: 0.8;">all quests are quoted individually based on manuscript length and complexity. start with a free vibe check to discuss your project and get a quote that works for you and the goblins.</p>
+    <div class="quest-pricing">
+      the goblins quote for each quest individually based on manuscript length and complexity. start with a free vibe check to discuss your project and get a quote.
+    </div>
   </div>
 
   <div class="section">
-    <h2>choosing your allies</h2>
-    <table class="comparison-table">
+    <h2>what the goblins love</h2>
+    <table class="genre-love-table">
       <thead>
         <tr>
-          <th>what the goblins love</th>
-          <th>what the goblins avoid</th>
+          <th>genre</th>
+          <th>what we do</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>speculative fiction: sff, horror, and romantasy.</td>
-          <td>literary fiction: if it is allergic to plot, we are not for you.</td>
+          <td>speculative fiction</td>
+          <td>sff, horror, and romantasy</td>
         </tr>
         <tr>
-          <td>ya crossover & middle grade: action and adventure.</td>
-          <td>poetry: respect to the bards, but it is not our craft.</td>
+          <td>ya & middle grade</td>
+          <td>action, adventure, and crossover appeal</td>
         </tr>
         <tr>
-          <td>visual storytelling: graphic novels and comic scripts.</td>
-          <td>pure romance: unless there is magic, murder, or monsters involved.</td>
+          <td>visual storytelling</td>
+          <td>graphic novels and comic scripts</td>
         </tr>
         <tr>
-          <td>worldbuilding: magic systems, board games, and card games.</td>
-          <td>memoir: unless you are a time traveller or a vampire.</td>
+          <td>worldbuilding</td>
+          <td>magic systems and narrative design</td>
         </tr>
         <tr>
-          <td>technical lore: board game manuals and video game scripts.</td>
-          <td>anything too serious: we like stories that know how to have fun.</td>
+          <td>technical lore</td>
+          <td>board game manuals, card game mechanics, and video game scripts</td>
         </tr>
       </tbody>
     </table>
+    
+    <div class="genre-avoid">
+      <h3>not for the goblins</h3>
+      <ul>
+        <li>literary fiction that's allergic to plot</li>
+        <li>poetry (respect to the bards, but it's not our craft)</li>
+        <li>memoir (unless you're a time traveller or a vampire)</li>
+      </ul>
+    </div>
   </div>
 
   <div class="section">
     <h2>our philosophy: honest critique over easy praise</h2>
-    <p>we treat every project as a problem to be interrogated. we will not tell you what you want to hear; we will tell you what the story needs to thrive. we draw on a deep knowledge of the market and a creative synthesis that only humans—and goblins—can provide.</p>
-    <p><strong>side quest achieved: published author.</strong> while the final boss is the industry, the true victory is a manuscript that stands on its own two feet. our goal is to help you reach that level of craft where the gatekeepers have no choice but to let you in.</p>
+    <div class="philosophy-box">
+      <p>we treat every project as a problem to be interrogated. we will not tell you what you want to hear; we will tell you what the story needs to thrive. we draw on a deep knowledge of the market and a creative synthesis that only humans—and goblins—can provide.</p>
+      <p><strong>side quest achieved: published author.</strong> while the final boss is the industry, the true victory is a manuscript that stands on its own two feet. our goal is to help you reach that level of craft where the gatekeepers have no choice but to let you in.</p>
+    </div>
   </div>
 
   <div class="cta">
