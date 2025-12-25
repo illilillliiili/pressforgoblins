@@ -555,22 +555,22 @@ p, li {
 
       <div class="quest-item">
         <h3>vibe check<br><span class="quest-tag">[no gold required]</span></h3>
-        <p>a free 15-minute recon chat. tell us about your world, your struggles or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
+        <p>you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas, or the scene you can't stop thinking about. we'll see if we're the right fit—or if you should run while you still can.</p>
       </div>
       
       <div class="quest-item">
-        <h3>prologue<br><span class="quest-tag">[ideas & brainstorming]</span></h3>
-        <p>wandering the map, sketching characters and unearthing lore. the creative goblin helps you find the sharpest path and the ideas worth chasing.</p>
+        <h3>ideas & brainstorming<br><span class="quest-tag">[you are in the prologue]</span></h3>
+        <p>so many possibilities. this is the fun part before the real pain begins. you're sketching characters, unearthing lore, and building a magic system that actually makes sense. the creative goblin loves this and will help you identify the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
-        <h3>levelling up<br><span class="quest-tag">[editorial development]</span></h3>
-        <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes land where they need to.</p>
+        <h3>editorial development<br><span class="quest-tag">[you are grinding and levelling up]</span></h3>
+        <p>you're writing... and writing... and writing. this is the hardest part. the plot goblin will provide a comprehensive report on what works, what definitely isn't working (and why), and suggest an action plan to get you through the slog.</p>
       </div>
       
       <div class="quest-item">
-        <h3>inventory check<br><span class="quest-tag">[manuscript assessment]</span></h3>
-        <p>the draft is finished. now you need an honest read from someone who knows what agents and publishers are looking for. <strong>you get:</strong> a detailed editorial letter covering structure, pacing, character development and marketability, plus a redlined manuscript with specific feedback.</p>
+        <h3>manuscript assessment<br><span class="quest-tag">[you are checking your inventory]</span></h3>
+        <p>draft complete. finally. now you need an honest read from someone who knows the market and what agents are actually looking for. the pitch goblin will write you a detailed editorial letter covering structure, pacing, and marketability.</p>
       </div>
       
       <div class="quest-item">
@@ -579,8 +579,8 @@ p, li {
       </div>
       
       <div class="quest-item">
-        <h3>final boss<br><span class="quest-tag">[pitching & submission]</span></h3>
-        <p>the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent. <strong>you get:</strong> a polished query package ready to submit.</p>
+        <h3>pitching and submission<br><span class="quest-tag">[you are ready for the final boss]</span></h3>
+        <p>your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the pitch goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
     
@@ -629,6 +629,7 @@ p, li {
 
 <script>
 let lastX = 0;
+let lastY = -1; // initialize to -1 so first load defaults to facing right
 let scrollTimeout;
 
 function updateQuestVisuals() {
@@ -665,11 +666,24 @@ function updateQuestVisuals() {
   const totalLength = path.getTotalLength();
   const point = path.getPointAtLength(progress * totalLength);
   
-  // movement and flip
-  const isMovingRight = point.x > lastX;
   container.style.left = `${point.x}px`;
   container.style.top = `${point.y}px`;
-  tracker.style.transform = isMovingRight ? 'scaleX(1)' : 'scaleX(-1)';
+  
+  // determine scroll direction and flip goblin
+  // scrolling up (y getting smaller) = face left (-1)
+  // scrolling down or not moving (y getting bigger or same) = face right (1)
+  if (lastY >= 0) { // only check after first initialization
+    if (point.y < lastY) {
+      // scrolling UP
+      tracker.style.transform = 'scaleX(-1)';
+    } else {
+      // scrolling DOWN or static
+      tracker.style.transform = 'scaleX(1)';
+    }
+  } else {
+    // first load - face right
+    tracker.style.transform = 'scaleX(1)';
+  }
 
   // walk bounce
   tracker.classList.add('goblin-walking');
@@ -677,6 +691,7 @@ function updateQuestVisuals() {
   scrollTimeout = setTimeout(() => tracker.classList.remove('goblin-walking'), 100);
   
   lastX = point.x;
+  lastY = point.y;
 }
 
 // standard navigation fade-out
@@ -694,7 +709,6 @@ navLinks.forEach(link => {
 window.addEventListener('load', () => setTimeout(updateQuestVisuals, 100));
 window.addEventListener('resize', updateQuestVisuals);
 window.addEventListener('scroll', updateQuestVisuals);
-</script>
 </script>
 
 </body>
