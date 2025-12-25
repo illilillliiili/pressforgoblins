@@ -628,8 +628,7 @@ p, li {
 </nav>
 
 <script>
-let lastX = 0;
-let lastY = -1; // initialize to -1 so first load defaults to facing right
+let lastY = -1;
 let scrollTimeout;
 
 function updateQuestVisuals() {
@@ -652,7 +651,6 @@ function updateQuestVisuals() {
     points.push({x, y});
   });
 
-  // build ink line path
   let d = `M ${points[0].x} ${points[0].y}`;
   for(let i = 1; i < points.length; i++) {
     d += ` L ${points[i].x} ${points[i].y}`;
@@ -669,32 +667,31 @@ function updateQuestVisuals() {
   container.style.left = `${point.x}px`;
   container.style.top = `${point.y}px`;
   
-  // determine scroll direction and flip goblin
-  // scrolling up (y getting smaller) = face left (-1)
-  // scrolling down or not moving (y getting bigger or same) = face right (1)
-  if (lastY >= 0) { // only check after first initialization
+  // compare current point.y with last recorded Y to determine scroll-based direction
+  if (lastY !== -1) {
     if (point.y < lastY) {
-      // scrolling UP
+      // moving UP the path
       tracker.style.transform = 'scaleX(-1)';
-    } else {
-      // scrolling DOWN or static
+    } else if (point.y > lastY) {
+      // moving DOWN the path
       tracker.style.transform = 'scaleX(1)';
     }
+    // if point.y === lastY, it keeps its current orientation (facing right on stop)
   } else {
-    // first load - face right
     tracker.style.transform = 'scaleX(1)';
   }
 
-  // walk bounce
   tracker.classList.add('goblin-walking');
   clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => tracker.classList.remove('goblin-walking'), 100);
+  scrollTimeout = setTimeout(() => {
+    tracker.classList.remove('goblin-walking');
+    // snap back to right-facing on stop
+    tracker.style.transform = 'scaleX(1)';
+  }, 100);
   
-  lastX = point.x;
   lastY = point.y;
 }
 
-// standard navigation fade-out
 const navLinks = document.querySelectorAll('.footer-nav a');
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
