@@ -219,32 +219,64 @@ p, li {
   margin-top: 0.5rem;
 }
 
-/* treasure trail quest map */
+/* quest map container */
 .quest-map {
   position: relative;
   margin-top: 3rem;
   padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* the background svg line */
+.quest-line-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.quest-line-path {
+  fill: none;
+  stroke: #7bbf7b;
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+  opacity: 0.3;
+}
+
+/* the walking pixel goblin icon */
+#goblinTracker {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  image-rendering: pixelated;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%237bbf7b' d='M6 2h4v1H6zM5 3h6v1H5zM4 4h8v2H4zM3 6h10v2H3zM4 8h1v1H4zM11 8h1v1h-1zM4 9h8v1H4zM3 10h10v1H3zM4 11h2v1H4zM10 11h2v1h-2zM4 12h1v1H4zM11 12h1v1h-1z'/%3E%3Cpath fill='%23000' d='M6 5h1v1H6zM9 5h1v1H9z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .quest-item {
   position: relative;
-  padding: 0;
+  width: 45%;
   margin-bottom: 6rem;
-  transition: all 0.2s ease;
-  width: calc(50% - 2rem);
   z-index: 1;
 }
 
 .quest-item:nth-child(odd) {
-  margin-left: 0;
-  margin-right: auto;
+  align-self: flex-start;
   text-align: right;
   padding-right: 2rem;
 }
 
 .quest-item:nth-child(even) {
-  margin-left: auto;
-  margin-right: 0;
+  align-self: flex-end;
   text-align: left;
   padding-left: 2rem;
 }
@@ -252,43 +284,6 @@ p, li {
 .quest-item:hover h3 {
   color: #9bd39b;
   text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
-}
-
-/* individual zigzag lines connecting each item */
-.quest-item:not(:last-child)::before {
-  content: '';
-  position: absolute;
-  width: calc(50% + 2rem);
-  height: 6rem;
-  background: linear-gradient(
-    to bottom right,
-    transparent calc(50% - 0.5px),
-    #7bbf7b calc(50% - 0.5px),
-    #7bbf7b calc(50% + 0.5px),
-    transparent calc(50% + 0.5px)
-  );
-  opacity: 0.4;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* odd items: line goes from right side down-right */
-.quest-item:nth-child(odd):not(:last-child)::before {
-  right: 0;
-  top: 1rem;
-}
-
-/* even items: line goes from left side down-left */
-.quest-item:nth-child(even):not(:last-child)::before {
-  left: 0;
-  top: 1rem;
-  background: linear-gradient(
-    to bottom left,
-    transparent calc(50% - 0.5px),
-    #7bbf7b calc(50% - 0.5px),
-    #7bbf7b calc(50% + 0.5px),
-    transparent calc(50% + 0.5px)
-  );
 }
 
 .quest-item h3 {
@@ -421,7 +416,7 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-item::before {
+  .quest-line-svg, #goblinTracker {
     display: none;
   }
   
@@ -432,6 +427,7 @@ p, li {
     text-align: left !important;
     padding-left: 2rem !important;
     padding-right: 0 !important;
+    border-left: 1px dashed #7bbf7b;
   }
   
   .footer-nav img {
@@ -475,7 +471,13 @@ p, li {
     <h2>where are you on your journey?</h2>
     <p>the journey from a blank page to a published book is a long crawl. identify your current level to begin.</p>
     
-    <div class="quest-map">
+    <div class="quest-map" id="questMap">
+      <svg class="quest-line-svg">
+        <path class="quest-line-path" id="questPath" d="" />
+      </svg>
+      
+      <div id="goblinTracker"></div>
+
       <div class="quest-item">
         <h3>vibe check<br><span class="quest-tag">[no gold required]</span></h3>
         <p>a free 15-minute recon chat. tell us about your world, your struggles or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
@@ -551,6 +553,53 @@ p, li {
 </nav>
 
 <script>
+let lastX = 0;
+
+function drawQuestVisuals() {
+  const path = document.getElementById('questPath');
+  const items = document.querySelectorAll('.quest-item');
+  const tracker = document.getElementById('goblinTracker');
+  const map = document.getElementById('questMap');
+  
+  if (!path || items.length === 0 || window.innerWidth < 600) return;
+
+  // draw the line connecting the h3s
+  let d = "";
+  items.forEach((item, index) => {
+    const h3 = item.querySelector('h3');
+    const rect = h3.getBoundingClientRect();
+    const mapRect = map.getBoundingClientRect();
+    
+    const x = (index % 2 === 0) 
+      ? rect.right - mapRect.left 
+      : rect.left - mapRect.left;
+    const y = (rect.top + rect.height / 2) - mapRect.top;
+
+    d += (index === 0) ? `M ${x} ${y}` : ` L ${x} ${y}`;
+  });
+  path.setAttribute('d', d);
+
+  // move the goblin based on scroll progress
+  const mapRect = map.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+  let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
+  progress = Math.max(0, Math.min(1, progress));
+
+  const totalLength = path.getTotalLength();
+  const point = path.getPointAtLength(progress * totalLength);
+  
+  // flip the goblin sprite based on direction
+  const isMovingRight = point.x > lastX;
+  const flip = isMovingRight ? 'scaleX(1)' : 'scaleX(-1)';
+  
+  tracker.style.transform = `translate(-50%, -50%) ${flip}`;
+  tracker.style.left = `${point.x}px`;
+  tracker.style.top = `${point.y}px`;
+  
+  lastX = point.x;
+}
+
+// standard navigation fade-out
 const navLinks = document.querySelectorAll('.footer-nav a');
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
@@ -561,6 +610,11 @@ navLinks.forEach(link => {
     setTimeout(() => window.location.href = href, 150);
   });
 });
+
+window.addEventListener('load', drawQuestVisuals);
+window.addEventListener('resize', drawQuestVisuals);
+window.addEventListener('scroll', drawQuestVisuals);
+</script>
 </script>
 
 </body>
