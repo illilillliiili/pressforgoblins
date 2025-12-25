@@ -196,83 +196,117 @@ p, li {
 }
 
 .crew-member {
-  padding: 1.5rem;
-  background: rgba(123, 191, 123, 0.05);
-  border: 2px solid rgba(123, 191, 123, 0.2);
-  border-radius: 4px;
-  position: relative;
-}
-
-.crew-member::before {
-  content: '▸';
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  color: #7bbf7b;
-  font-size: 0.8rem;
+  padding: 0;
 }
 
 .crew-member h3 {
   color: #7bbf7b;
-  margin-left: 1rem;
 }
 
 .crew-member p {
-  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 /* treasure trail quest map */
 .quest-map {
   position: relative;
-  padding-left: 3rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
+  padding: 2rem 0;
 }
 
-.quest-map::before {
-  content: '';
+.quest-map svg {
   position: absolute;
-  left: 1rem;
   top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, 
-    #7bbf7b 0%, 
-    #7bbf7b 20%, 
-    transparent 20%, 
-    transparent 25%, 
-    #7bbf7b 25%);
-  background-size: 100% 20px;
-  opacity: 0.4;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.quest-map svg path {
+  fill: none;
+  stroke: #7bbf7b;
+  stroke-width: 2;
+  opacity: 0.5;
 }
 
 .quest-item {
   position: relative;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-left: 3px solid #7bbf7b;
-  border-radius: 4px;
+  padding: 0;
+  margin-bottom: 6rem;
   transition: all 0.2s ease;
+  width: calc(45% - 1rem);
+  z-index: 1;
 }
 
-.quest-item:hover {
-  background: rgba(123, 191, 123, 0.05);
-  border-left-color: #7bbf7b;
-  transform: translateX(4px);
+.quest-item:nth-child(odd) {
+  margin-left: 0;
+  margin-right: auto;
+  text-align: right;
+  padding-right: 3rem;
 }
 
+.quest-item:nth-child(even) {
+  margin-left: auto;
+  margin-right: 0;
+  text-align: left;
+  padding-left: 3rem;
+}
+
+.quest-item:hover h3 {
+  color: #9bd39b;
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
+}
+
+/* waypoint circles */
 .quest-item::before {
-  content: '○';
+  content: '';
   position: absolute;
-  left: -3.5rem;
-  top: 1.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #7bbf7b;
-  font-size: 1.2rem;
-  line-height: 1;
-  text-shadow: 0 0 8px rgba(123, 191, 123, 0.5);
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7bbf7b;
+  box-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
+  z-index: 2;
+}
+
+.quest-item:nth-child(odd)::before {
+  right: -6px;
+}
+
+.quest-item:nth-child(even)::before {
+  left: -6px;
+}
+
+/* connecting line between waypoints */
+.quest-item::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 6rem;
+  background: linear-gradient(to bottom, #7bbf7b 0%, rgba(123, 191, 123, 0.3) 100%);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.quest-item:nth-child(odd)::after {
+  right: 0;
+  top: 12px;
+  transform: rotate(45deg);
+  transform-origin: top right;
+}
+
+.quest-item:nth-child(even)::after {
+  left: 0;
+  top: 12px;
+  transform: rotate(-45deg);
+  transform-origin: top left;
+}
+
+.quest-item:last-child::after {
+  display: none;
 }
 
 .quest-item h3 {
@@ -291,10 +325,7 @@ p, li {
 .quest-pricing {
   text-align: center;
   margin-top: 2rem;
-  padding: 1rem;
-  background: rgba(123, 191, 123, 0.05);
-  border: 1px solid rgba(123, 191, 123, 0.2);
-  border-radius: 4px;
+  padding: 0;
   font-size: 0.85rem;
   opacity: 0.9;
 }
@@ -337,10 +368,7 @@ p, li {
 
 .genre-avoid {
   margin-top: 2rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  padding: 0;
 }
 
 .genre-avoid h3 {
@@ -372,10 +400,7 @@ p, li {
 }
 
 .philosophy-box {
-  padding: 2rem;
-  background: rgba(123, 191, 123, 0.03);
-  border: 2px solid rgba(123, 191, 123, 0.2);
-  border-radius: 4px;
+  padding: 0;
   margin-top: 2rem;
 }
 
@@ -387,10 +412,7 @@ p, li {
 .cta {
   text-align: center;
   margin-top: 4rem;
-  padding: 2rem;
-  background: rgba(123, 191, 123, 0.08);
-  border: 2px solid rgba(123, 191, 123, 0.3);
-  border-radius: 4px;
+  padding: 0;
   position: relative;
 }
 
@@ -475,12 +497,30 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-map {
-    padding-left: 2.5rem;
+  .quest-item {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+    padding-left: 2rem !important;
+    padding-right: 0 !important;
   }
   
   .quest-item::before {
-    left: -3rem;
+    left: -6px !important;
+    right: auto !important;
+  }
+  
+  .quest-item::after {
+    left: 0 !important;
+    right: auto !important;
+    transform: rotate(0deg) !important;
+    width: 2px;
+    height: 5rem;
+  }
+  
+  .quest-item:last-child::after {
+    display: none;
   }
   
   .footer-nav img {
@@ -502,25 +542,24 @@ p, li {
 
 <div class="container">
   <div class="hero">
-    <h1>three goblins in a trenchcoat. one mission: make your manuscript undeniable.</h1>
-    <p>we are press for goblins, a specialist editorial collective operating out of a dark, well-guarded workshop in london.</p>
-    <p>forget empty encouragement. we prioritise the grit of the craft over the fluff of the industry. whether you are unearthing your first ideas or preparing to storm the gates, we provide the honest critique and structural surgery needed to make your story hold its own weight.</p>
+    <h1>about</h1>
+    <p>we are three goblins in a trenchcoat. an editorial collective operating out of a dark, well-guarded workshop in london, specialising in sci-fi, fantasy, horror, romance and stories about other worlds.</p>
   </div>
 
   <div class="section">
-    <h2>the crew</h2>
+    <h2>the goblins</h2>
     <div class="crew-grid">
       <div class="crew-member">
-        <h3>the creative goblin</h3>
-        <p>ideation, worldbuilding, and finding the spark an algorithm cannot simulate. five years shaping stories at a big four publisher. knows exactly what makes agents sit up.</p>
-      </div>
-      <div class="crew-member">
         <h3>the plot goblin</h3>
-        <p>structural integrity, pacing, and untangling the knots in your story's bones. has mended everything from messy debuts to bloated series finales.</p>
+        <p>pacing, character development, emotion, stakes, tension. ensures your story feels right. collects shiny scraps of worldbuilding and catalogues magic systems. has spent five years at a big four publisher fixing structural disasters you would not believe.</p>
       </div>
       <div class="crew-member">
         <h3>the pitch goblin</h3>
-        <p>industry strategy, query letters, and hooks that cut through the slush pile. knows precisely how to make the industry's guards lower the drawbridge.</p>
+        <p>market insider. knows what agents, publishers, and dev teams want to see to take a project forward. straplines, brand identity, covers, positioning, pitch skills. one-liners that hit like a thrown goblin brick.</p>
+      </div>
+      <div class="crew-member">
+        <h3>the creative goblin</h3>
+        <p>secret weapon. ignites ideas, brings momentum, and cooks up clever twists. always curious and enthusiastic. would love to brainstorm with you over a coffee.</p>
       </div>
     </div>
   </div>
@@ -547,7 +586,7 @@ p, li {
       
       <div class="quest-item">
         <h3>the bone inspection <span class="quest-tag">[manuscript assessment]</span></h3>
-        <p>the draft is finished. before you head out, the plot goblin inspects the architecture while the pitch goblin looks for holes in your armour. <strong>you get:</strong> a structural blueprint and redlined manuscript showing exactly where the foundations could be stronger.</p>
+        <p>the draft is finished. now you need an honest read from someone who knows what agents and publishers are looking for. <strong>you get:</strong> a detailed editorial letter covering structure, pacing, character development, and marketability, plus a redlined manuscript with specific feedback.</p>
       </div>
       
       <div class="quest-item">
@@ -612,7 +651,7 @@ p, li {
   <div class="section">
     <h2>our philosophy: honest critique over easy praise</h2>
     <div class="philosophy-box">
-      <p>we treat every project as a problem to be interrogated. we will not tell you what you want to hear; we will tell you what the story needs to thrive. we draw on a deep knowledge of the market and a creative synthesis that only humans—and goblins—can provide.</p>
+      <p>we treat every project as a problem to be interrogated. we will not tell you what you want to hear; we will tell you what the story needs to thrive. we draw on a deep knowledge of the market and a creative synthesis that only humans–and goblins–can provide.</p>
       <p><strong>side quest achieved: published author.</strong> while the final boss is the industry, the true victory is a manuscript that stands on its own two feet. our goal is to help you reach that level of craft where the gatekeepers have no choice but to let you in.</p>
     </div>
   </div>
