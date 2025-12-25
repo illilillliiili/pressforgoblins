@@ -3,48 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- primary meta tags -->
 <title>press for goblins | london book editor & publishing freelancer</title>
-<meta name="title" content="press for goblins | london book editor & publishing freelancer | uk editorial freelancer">
 <meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment & publishing strategy. 5+ years big four experience.">
-<meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, manuscript assessment, noah grey, press for goblins">
 <link rel="canonical" href="https://pressforgoblins.com/">
-
-<!-- open graph / facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pressforgoblins.com/">
-<meta property="og:title" content="press for goblins | london book editor">
-<meta property="og:description" content="editorial services, publishing strategy & agent guidance for writers.">
-<meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
-
-<!-- twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://pressforgoblins.com/">
-<meta property="twitter:title" content="press for goblins | london book editor">
-<meta property="twitter:description" content="editorial services, publishing strategy & agent guidance for writers.">
-<meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
-
-<!-- schema.org structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "press for goblins",
-  "image": "https://pressforgoblins.com/images/og-image.png",
-  "url": "https://pressforgoblins.com/",
-  "founder": {
-    "@type": "Person",
-    "name": "noah grey"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "london",
-    "addressCountry": "gb"
-  },
-  "description": "editorial services and publishing consultation based in london."
-}
-</script>
 
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
@@ -90,7 +51,21 @@ body::after {
 h1 {
   font-size: clamp(1.8rem, 8vw, 3rem); color: #888; line-height: 1.4;
   max-width: 90vw; letter-spacing: 0.01em; word-spacing: -0.35em;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon {
+  font-size: 0.7rem; color: #7bbf7b;
+  letter-spacing: 0.1em; opacity: 0;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  animation: violentFlicker 0.25s steps(40, end) forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes violentFlicker {
+  0%, 35%, 55% { opacity: 0; text-shadow: none; }
+  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
 }
 
 .footer-nav {
@@ -130,6 +105,7 @@ body.page-transition { animation: fadeOut 0.15s ease-out forwards; }
 
 <div class="content-wrapper">
   <h1>press for goblins</h1>
+  <div class="coming-soon">coming soon</div>
 </div>
 
 <nav class="footer-nav" aria-label="main navigation">
@@ -155,8 +131,10 @@ navLinks.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     const href = link.getAttribute('href');
-    document.body.classList.add('page-transition');
-    setTimeout(() => window.location.href = href, 150);
+    if (href && href !== '#') {
+      document.body.classList.add('page-transition');
+      setTimeout(() => { window.location.href = href; }, 150);
+    }
   });
 });
 </script>
