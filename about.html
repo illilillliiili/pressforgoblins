@@ -4,65 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Primary Meta Tags -->
+<!-- primary meta tags -->
 <title>about | press for goblins</title>
-<meta name="title" content="about | press for goblins | noah grey | editor | london, UK">
-<meta name="description" content="meet noah grey and the goblins. London-based editor with 5+ years Big Four publishing experience. Specialising in developmental editing, copyediting, manuscript assessment and agent guidance.">
-<meta name="keywords" content="noah grey editor, london editor bio, uk publishing consultant, big four publisher editor, developmental editor london, three goblins in a trenchcoat, press for goblins about, fiction editor, sci-fi editor, horror editor, romantasy editor, freelance editor, freelance editor london">
+<meta name="title" content="about | press for goblins | noah grey | editor | london, uk">
+<meta name="description" content="meet noah grey and the goblins. london-based editor with 5+ years big four publishing experience. specialising in developmental editing, copyediting, manuscript assessment and agent guidance.">
+<meta name="keywords" content="noah grey editor, london editor bio, uk publishing consultant, big four publisher editor, developmental editor london, press for goblins about, fiction editor">
 <link rel="canonical" href="https://pressforgoblins.com/about">
 
-<!-- Open Graph / Facebook -->
+<!-- open graph / facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/about">
 <meta property="og:title" content="about | press for goblins | noah grey | london editor">
-<meta property="og:description" content="London editor with 5+ years big four publishing experience. editorial services, publishing strategy & agent guidance.">
+<meta property="og:description" content="london editor with 5+ years big four publishing experience. editorial services, publishing strategy & agent guidance.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- Twitter -->
+<!-- twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/about">
 <meta property="twitter:title" content="about | press for goblins | noah grey | london editor">
 <meta property="twitter:description" content="london editor with 5+ years big four publishing experience.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- Schema.org Structured Data -->
+<!-- schema.org structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "name": "About Press for Goblins",
+  "name": "about press for goblins",
   "description": "about noah grey | editorial services, based in london, uk",
   "url": "https://pressforgoblins.com/about",
   "mainEntity": {
     "@type": "Person",
-    "name": "Noah Grey",
+    "name": "noah grey",
     "jobTitle": "editor and publishing freelancer",
     "description": "publishing professional with 5+ years experience at a big four publishing house, offering developmental editing, structural editing, copyediting, manuscript assessment and literary agent guidance.",
     "worksFor": {
       "@type": "Organisation",
-      "name": "Press for Goblins"
+      "name": "press for goblins"
     },
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "London",
-      "addressCountry": "GB"
+      "addressLocality": "london",
+      "addressCountry": "gb"
     },
     "knowsAbout": [
-      "Developmental Editing",
-      "Structural Editing",
-      "Copy Editing",
-      "Line Editing",
-      "Manuscript Assessment",
-      "Publishing Strategy",
-      "Marketing",
-      "UK Literary Agents",
-      "Big Four Publishing"
+      "developmental editing",
+      "structural editing",
+      "copy editing",
+      "line editing",
+      "manuscript assessment",
+      "publishing strategy",
+      "marketing",
+      "uk literary agents",
+      "big four publishing"
     ]
   }
 }
 </script>
 
-<!-- Font preload for performance -->
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
@@ -146,156 +145,11 @@ body::after {
   opacity: 0;
 }
 
-@keyframes violentFlicker {
-  0%, 35%, 55% { opacity: 0; text-shadow: none; }
-  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-}
-
 .violent-flicker {
   animation: violentFlicker 0.25s steps(40, end) forwards;
 }
 
-@keyframes hueShift {
-  0% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(5deg); }
-  100% { filter: hue-rotate(0deg); }
-}
-
-.hue-shift {
-  animation: hueShift 6s infinite ease-in-out;
-}
-
-.footer-nav {
-  position: fixed;
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 0 2rem;
-  max-width: 600px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
-.footer-nav .nav-item {
-  position: relative;
-  display: inline-block;
-}
-
-.footer-nav a {
-  display: block;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.footer-nav a:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-}
-
-.footer-nav a:focus {
-  outline: 2px solid #7bbf7b;
-  outline-offset: 4px;
-  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-}
-
-.footer-nav img {
-  width: 48px;
-  height: 48px;
-  display: block;
-  opacity: 0.9;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.footer-nav img.about {
-  cursor: default;
-  pointer-events: none;
-}
-
-.footer-nav .active-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #7bbf7b;
-  box-shadow: 0 0 6px #7bbf7b;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-body.page-transition {
-  animation: fadeOut 0.15s ease-out forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-@media(max-width: 480px) {
-  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
-  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
-  .footer-nav img { width: 44px; height: 44px; }
-  .footer-nav { padding: 0 1rem; }
-}
-</style>
-</head>
-<body>
-
-<div class="main-title">about</div>
-<div class="neon-text" id="neon-text">also coming soon</div>
-
-<nav class="footer-nav" aria-label="Main navigation">
-  <div class="nav-item">
-    <a href="index.html" aria-label="Home">
-      <img src="images/home.png" alt="Home">
-    </a>
-  </div>
-  <div class="nav-item">
-    <img src="images/about.png" class="about" alt="About - Current page">
-    <div class="active-dot"></div>
-  </div>
-  <div class="nav-item">
-    <a href="contact.html" aria-label="Contact">
-      <img src="images/contact.png" alt="Contact">
-    </a>
-  </div>
-</nav>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('neon-text');
-
-  setTimeout(() => {
-    el.classList.add('violent-flicker');
-    el.style.opacity = 1;
-    setTimeout(() => el.classList.add('hue-shift'), 300);
-  }, 2000);
-
-  function pulse() {
-    const wait = Math.random() * 3000 + 2000;
-    setTimeout(() => {
-      const boost = Math.random() * 0.4 + 0.7;
-      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
-      setTimeout(() => {
-        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
-        pulse();
-      }, Math.random() * 70 + 50);
-    }, wait);
-  }
-  pulse();
-
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(() => window.location.href = href, 150);
-    });
-  });
-});
-</script>
-</body>
-</html>
+@keyframes violentFlicker {
+  0%, 35%, 55% { opacity: 0; text-shadow: none; }
+  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+  100% { opacity: 1; text-shadow: 0 0 1px #7bbf
