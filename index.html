@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- primary meta tags -->
-<title>home | press for goblins</title>
-<meta name="title" content="press for goblins | london book editor & publishing freelancer">
-<meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy & agent guidance. 5+ years big four publishing experience.">
-<meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, structural editing, copyediting, line editing, manuscript editing, publishing consultant, literary agent, big four publisher, noah grey, press for goblins">
+<title>press for goblins | london book editor & publishing freelancer</title>
+<meta name="title" content="press for goblins | london book editor & publishing freelancer | uk editorial freelancer">
+<meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment & publishing strategy. 5+ years big four experience.">
+<meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, manuscript assessment, noah grey, press for goblins">
 <link rel="canonical" href="https://pressforgoblins.com/">
 
 <!-- open graph / facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/">
-<meta property="og:title" content="press for goblins | london book editor & publishing freelance consultant">
-<meta property="og:description" content="london-based editorial services. developmental editing, copyediting, pitching, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<meta property="og:title" content="press for goblins | london book editor">
+<meta property="og:description" content="editorial services, publishing strategy & agent guidance for writers.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/">
-<meta property="twitter:title" content="press for goblins | london book editor & publishing consultant">
-<meta property="twitter:description" content="london-based editorial services. developmental editing, copyediting, publishing strategy & uk agent guidance.">
+<meta property="twitter:title" content="press for goblins | london book editor">
+<meta property="twitter:description" content="editorial services, publishing strategy & agent guidance for writers.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- schema.org structured data -->
@@ -31,39 +31,18 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "press for goblins",
-  "alternateName": "noah grey editorial services",
-  "description": "london-based editorial services specialising in developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy and uk literary agent guidance.",
-  "url": "https://pressforgoblins.com",
-  "logo": "https://pressforgoblins.com/images/logo.png",
   "image": "https://pressforgoblins.com/images/og-image.png",
+  "url": "https://pressforgoblins.com/",
   "founder": {
     "@type": "Person",
-    "name": "noah grey",
-    "jobTitle": "editor and publishing consultant",
-    "description": "publishing professional with 5 years experience at a big four publishing house"
+    "name": "noah grey"
   },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "london",
     "addressCountry": "gb"
   },
-  "areaServed": {
-    "@type": "Country",
-    "name": "united kingdom"
-  },
-  "serviceType": [
-    "developmental editing",
-    "structural editing",
-    "copy editing",
-    "line editing",
-    "manuscript assessment",
-    "publishing strategy",
-    "marketing consultation",
-    "back cover copy",
-    "positioning strategy",
-    "uk literary agent guidance"
-  ],
-  "slogan": "just press for goblins"
+  "description": "editorial services and publishing consultation based in london."
 }
 </script>
 
@@ -75,34 +54,21 @@
   src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
        url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
        url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  font-weight: normal; font-style: normal; font-display: swap;
 }
 
 * { box-sizing: border-box; }
 
 body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  font-family: 'PressStart2P', monospace;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  color: #888;
+  margin: 0; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: #000; font-family: 'PressStart2P', monospace; text-align: center;
+  overflow: hidden; position: relative; color: #888;
+  padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom) 1rem;
 }
 
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
   animation: verticalGlow 25s linear infinite;
 }
@@ -114,125 +80,47 @@ body::before {
 }
 
 body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
   opacity: 0.15;
 }
 
-.main-title {
-  font-size: clamp(1.8rem, 8vw, 3rem);
-  color: #888;
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.35em;
-  z-index: 2;
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  animation: letterJitter 1.5s infinite alternate ease-in-out;
-}
+.content-wrapper { z-index: 2; position: relative; }
 
-@keyframes letterJitter {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(1px); }
-}
-
-.neon-text {
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  color: #7bbf7b;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
-  z-index: 2;
-  display: inline-block;
-  opacity: 0;
-}
-
-.violent-flicker {
-  animation: violentFlicker 0.25s steps(40, end) forwards;
-}
-
-@keyframes violentFlicker {
-  0%, 35%, 55% { opacity: 0; text-shadow: none; }
-  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-}
-
-.hue-shift {
-  animation: hueShift 6s infinite ease-in-out;
-}
-
-@keyframes hueShift {
-  0% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(5deg); }
-  100% { filter: hue-rotate(0deg); }
+h1 {
+  font-size: clamp(1.8rem, 8vw, 3rem); color: #888; line-height: 1.4;
+  max-width: 90vw; letter-spacing: 0.01em; word-spacing: -0.35em;
+  margin-bottom: 2rem;
 }
 
 .footer-nav {
-  position: fixed;
-  bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 0 2rem;
-  max-width: 600px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+  position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  width: 100%; display: flex; justify-content: space-around;
+  padding: 0 2rem; max-width: 600px; left: 50%; transform: translateX(-50%);
 }
 
-.footer-nav .nav-item {
-  position: relative;
-  display: inline-block;
-}
+.footer-nav .nav-item { position: relative; display: inline-block; }
 
-.footer-nav a {
-  display: block;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
+.footer-nav a { display: block; transition: transform 0.2s ease; }
 
-.footer-nav a:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
-}
+.footer-nav a:hover { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6)); }
 
-.footer-nav img {
-  width: 48px;
-  height: 48px;
-  display: block;
-  opacity: 0.9;
-}
+.footer-nav img { width: 48px; height: 48px; display: block; opacity: 0.9; }
 
-.footer-nav img.home {
-  cursor: default;
-  pointer-events: none;
-}
+.footer-nav img.home { cursor: default; pointer-events: none; }
 
 .footer-nav .active-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #7bbf7b;
-  box-shadow: 0 0 6px #7bbf7b;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: #7bbf7b; box-shadow: 0 0 6px #7bbf7b;
+  bottom: -0.5rem; left: 50%; transform: translateX(-50%);
 }
 
-body.page-transition {
-  animation: fadeOut 0.15s ease-out forwards;
-}
+body.page-transition { animation: fadeOut 0.15s ease-out forwards; }
 
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
+@keyframes fadeOut { to { opacity: 0; } }
 
 @media(max-width: 480px) {
-  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
-  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
   .footer-nav img { width: 44px; height: 44px; }
   .footer-nav { padding: 0 1rem; }
 }
@@ -240,8 +128,9 @@ body.page-transition {
 </head>
 <body>
 
-<div class="main-title">press for goblins</div>
-<div class="neon-text" id="neon-text">coming soon</div>
+<div class="content-wrapper">
+  <h1>press for goblins</h1>
+</div>
 
 <nav class="footer-nav" aria-label="main navigation">
   <div class="nav-item">
@@ -249,48 +138,25 @@ body.page-transition {
     <div class="active-dot"></div>
   </div>
   <div class="nav-item">
-    <a href="about.html" aria-label="about">
+    <a href="about" aria-label="about us">
       <img src="images/about.png" alt="about">
     </a>
   </div>
   <div class="nav-item">
-    <a href="contact.html" aria-label="contact">
+    <a href="contact" aria-label="contact">
       <img src="images/contact.png" alt="contact">
     </a>
   </div>
 </nav>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('neon-text');
-
-  setTimeout(() => {
-    el.classList.add('violent-flicker');
-    el.style.opacity = 1;
-    setTimeout(() => el.classList.add('hue-shift'), 300);
-  }, 2000);
-
-  function pulse() {
-    const wait = Math.random() * 3000 + 2000;
-    setTimeout(() => {
-      const boost = Math.random() * 0.4 + 0.7;
-      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
-      setTimeout(() => {
-        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
-        pulse();
-      }, Math.random() * 70 + 50);
-    }, wait);
-  }
-  pulse();
-
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(() => window.location.href = href, 150);
-    });
+const navLinks = document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    document.body.classList.add('page-transition');
+    setTimeout(() => window.location.href = href, 150);
   });
 });
 </script>
