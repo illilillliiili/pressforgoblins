@@ -98,7 +98,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  padding: calc(2rem + env(safe-area-inset-top)) 1.5rem calc(7rem + env(safe-area-inset-bottom)) 1.5rem;
+  padding: calc(4rem + env(safe-area-inset-top)) 1.5rem calc(7rem + env(safe-area-inset-bottom)) 1.5rem;
 }
 
 body::before {
@@ -219,16 +219,14 @@ p, li {
   margin-top: 0.5rem;
 }
 
-/* quest map container */
+/* quest map */
 .quest-map {
   position: relative;
-  margin-top: 3rem;
-  padding: 2rem 0;
+  margin: 4rem 0;
   display: flex;
   flex-direction: column;
 }
 
-/* the background svg line */
 .quest-line-svg {
   position: absolute;
   top: 0;
@@ -243,23 +241,88 @@ p, li {
 .quest-line-path {
   fill: none;
   stroke: #7bbf7b;
-  stroke-width: 2;
-  stroke-dasharray: 6 6;
-  opacity: 0.3;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.4;
+  filter: blur(0.5px); /* ink bleed effect */
 }
 
-/* the walking pixel goblin icon */
-#goblinTracker {
+/* tracker container */
+#goblinContainer {
   position: absolute;
-  width: 32px;
-  height: 32px;
   z-index: 10;
   pointer-events: none;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -85%); /* adjust height so feet touch line */
+}
+
+.you-label {
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.5rem;
+  color: #7bbf7b;
+  margin-bottom: 4px;
+  animation: letterJitter 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes letterJitter {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(1px); opacity: 0.8; }
+}
+
+.pixel-arrow {
+  width: 8px;
+  height: 8px;
+  fill: #7bbf7b;
+  margin-bottom: 2px;
+}
+
+#goblinTracker {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.1s;
+}
+
+#goblinTracker svg {
+  width: 100%;
+  height: 100%;
   image-rendering: pixelated;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%237bbf7b' d='M6 2h4v1H6zM5 3h6v1H5zM4 4h8v2H4zM3 6h10v2H3zM4 8h1v1H4zM11 8h1v1h-1zM4 9h8v1H4zM3 10h10v1H3zM4 11h2v1H4zM10 11h2v1h-2zM4 12h1v1H4zM11 12h1v1h-1z'/%3E%3Cpath fill='%23000' d='M6 5h1v1H6zM9 5h1v1H9z'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
+  display: block;
+}
+
+/* bounce animation */
+@keyframes goblinBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.goblin-walking {
+  animation: goblinBob 0.2s infinite;
+}
+
+/* level up toast */
+#levelUpToast {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'PressStart2P', monospace;
+  font-size: 0.8rem;
+  color: #7bbf7b;
+  background: rgba(0,0,0,0.8);
+  padding: 10px 20px;
+  border: 2px solid #7bbf7b;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.show-toast {
+  opacity: 1 !important;
+  transform: translate(-50%, -20px) !important;
 }
 
 .quest-item {
@@ -272,13 +335,13 @@ p, li {
 .quest-item:nth-child(odd) {
   align-self: flex-start;
   text-align: right;
-  padding-right: 2rem;
+  padding-right: 1rem;
 }
 
 .quest-item:nth-child(even) {
   align-self: flex-end;
   text-align: left;
-  padding-left: 2rem;
+  padding-left: 1rem;
 }
 
 .quest-item:hover h3 {
@@ -416,7 +479,7 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-line-svg, #goblinTracker {
+  .quest-line-svg, #goblinContainer {
     display: none;
   }
   
@@ -443,11 +506,13 @@ p, li {
 </head>
 <body>
 
+<div id="levelUpToast">level up!</div>
+
 <div class="container">
   <div class="hero">
-    <h1>about</h1>
+    <h1>definitely not three goblins in a trenchcoat</h1>
+    <p class="editors-note">editor's note: unconfirmed reports suggest otherwise</p>
     <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span class="strikethrough">we</span> i am the founder of an editorial collective operating out of a dimly-lit, well-guarded workshop in london, specialising in sci-fi, fantasy, horror, romance and speculative fiction. the stranger, the better.</p>
-    <p class="editors-note">note: noah might actually be these three goblins in a trenchcoat:</p>
   </div>
 
   <div class="section crew-section">
@@ -476,7 +541,26 @@ p, li {
         <path class="quest-line-path" id="questPath" d="" />
       </svg>
       
-      <div id="goblinTracker"></div>
+      <div id="goblinContainer">
+        <span class="you-label">you</span>
+        <svg class="pixel-arrow" viewBox="0 0 8 8" shape-rendering="crispEdges">
+          <path d="M3 0h2v1H3zM3 1h2v1H3zM3 2h2v1H3zM3 3h2v1H3zM0 4h8v1H0zM1 5h6v1H1zM2 6h4v1H2zM3 7h2v1H3z"/>
+        </svg>
+        <div id="goblinTracker">
+          <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <!-- body -->
+            <path fill="#7bbf7b" d="M5 3h6v1H5zM4 4h8v1H4zM3 5h10v1H3z"/>
+            <!-- ears -->
+            <path fill="#7bbf7b" d="M2 6h1v2H2zM13 6h1v2h-1z"/>
+            <!-- main body -->
+            <path fill="#7bbf7b" d="M3 6h10v5H3z"/>
+            <!-- eyes -->
+            <path fill="#000" d="M5 7h1v1H5zM10 7h1v1h-1z"/>
+            <!-- feet -->
+            <path fill="#7bbf7b" d="M4 11h2v2H4zM10 11h2v2h-2z"/>
+          </svg>
+        </div>
+      </div>
 
       <div class="quest-item">
         <h3>vibe check<br><span class="quest-tag">[no gold required]</span></h3>
@@ -554,33 +638,37 @@ p, li {
 
 <script>
 let lastX = 0;
+let lastLevel = -1;
+let scrollTimeout;
 
-function drawQuestVisuals() {
+function updateQuestVisuals() {
   const path = document.getElementById('questPath');
   const items = document.querySelectorAll('.quest-item');
+  const container = document.getElementById('goblinContainer');
   const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
+  const toast = document.getElementById('levelUpToast');
   
   if (!path || items.length === 0 || window.innerWidth < 600) return;
 
-  // draw the line connecting the h3s
-  let d = "";
+  const mapRect = map.getBoundingClientRect();
+  let points = [];
+  
   items.forEach((item, index) => {
     const h3 = item.querySelector('h3');
     const rect = h3.getBoundingClientRect();
-    const mapRect = map.getBoundingClientRect();
-    
-    const x = (index % 2 === 0) 
-      ? rect.right - mapRect.left 
-      : rect.left - mapRect.left;
+    const x = (index % 2 === 0) ? rect.right - mapRect.left : rect.left - mapRect.left;
     const y = (rect.top + rect.height / 2) - mapRect.top;
-
-    d += (index === 0) ? `M ${x} ${y}` : ` L ${x} ${y}`;
+    points.push({x, y});
   });
+
+  // build ink line path
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for(let i = 1; i < points.length; i++) {
+    d += ` L ${points[i].x} ${points[i].y}`;
+  }
   path.setAttribute('d', d);
 
-  // move the goblin based on scroll progress
-  const mapRect = map.getBoundingClientRect();
   const windowHeight = window.innerHeight;
   let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
   progress = Math.max(0, Math.min(1, progress));
@@ -588,13 +676,25 @@ function drawQuestVisuals() {
   const totalLength = path.getTotalLength();
   const point = path.getPointAtLength(progress * totalLength);
   
-  // flip the goblin sprite based on direction
+  // movement and flip
   const isMovingRight = point.x > lastX;
-  const flip = isMovingRight ? 'scaleX(1)' : 'scaleX(-1)';
+  container.style.left = `${point.x}px`;
+  container.style.top = `${point.y}px`;
+  tracker.style.transform = isMovingRight ? 'scaleX(1)' : 'scaleX(-1)';
   
-  tracker.style.transform = `translate(-50%, -50%) ${flip}`;
-  tracker.style.left = `${point.x}px`;
-  tracker.style.top = `${point.y}px`;
+  // level up logic
+  const currentLevel = Math.floor(progress * items.length);
+  if (currentLevel > lastLevel && lastLevel !== -1) {
+    toast.innerText = `level up: ${items[currentLevel].querySelector('h3').innerText.split('\n')[0]}`;
+    toast.classList.add('show-toast');
+    setTimeout(() => toast.classList.remove('show-toast'), 2000);
+  }
+  lastLevel = currentLevel;
+
+  // walk bounce
+  tracker.classList.add('goblin-walking');
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => tracker.classList.remove('goblin-walking'), 100);
   
   lastX = point.x;
 }
@@ -611,9 +711,9 @@ navLinks.forEach(link => {
   });
 });
 
-window.addEventListener('load', drawQuestVisuals);
-window.addEventListener('resize', drawQuestVisuals);
-window.addEventListener('scroll', drawQuestVisuals);
+window.addEventListener('load', () => setTimeout(updateQuestVisuals, 100));
+window.addEventListener('resize', updateQuestVisuals);
+window.addEventListener('scroll', updateQuestVisuals);
 </script>
 </script>
 
