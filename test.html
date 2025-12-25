@@ -192,6 +192,11 @@ p, li {
   margin-top: 1.5rem;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
 .section {
   margin-bottom: 4rem;
 }
@@ -221,23 +226,6 @@ p, li {
   padding: 2rem 0;
 }
 
-/* one continuous zigzag line */
-.quest-map::before {
-  content: '';
-  position: absolute;
-  top: 0.5rem;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 0.5rem);
-  background: 
-    linear-gradient(25deg, transparent 48%, #7bbf7b 49%, #7bbf7b 51%, transparent 52%) 0 0 / 100% 6rem,
-    linear-gradient(-25deg, transparent 48%, #7bbf7b 49%, #7bbf7b 51%, transparent 52%) 0 3rem / 100% 6rem;
-  background-repeat: repeat-y;
-  opacity: 0.4;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .quest-item {
   position: relative;
   padding: 0;
@@ -264,6 +252,43 @@ p, li {
 .quest-item:hover h3 {
   color: #9bd39b;
   text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
+}
+
+/* individual zigzag lines connecting each item */
+.quest-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  width: calc(50% + 2rem);
+  height: 6rem;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 0.5px),
+    #7bbf7b calc(50% - 0.5px),
+    #7bbf7b calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* odd items: line goes from right side down-right */
+.quest-item:nth-child(odd):not(:last-child)::before {
+  right: 0;
+  top: 1rem;
+}
+
+/* even items: line goes from left side down-left */
+.quest-item:nth-child(even):not(:last-child)::before {
+  left: 0;
+  top: 1rem;
+  background: linear-gradient(
+    to bottom left,
+    transparent calc(50% - 0.5px),
+    #7bbf7b calc(50% - 0.5px),
+    #7bbf7b calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
 }
 
 .quest-item h3 {
@@ -345,30 +370,20 @@ p, li {
   text-shadow: 0 0 12px rgba(123, 191, 123, 0.8);
 }
 
+.cta .cta-link {
+  text-decoration: none;
+  display: block;
+  transition: all 0.2s ease;
+}
+
+.cta .cta-link:hover h2 {
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
+}
+
 .cta h2 {
   margin-top: 0.5rem;
   color: #7bbf7b;
   font-family: 'PressStart2P', monospace;
-}
-
-.cta .press-for {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.3rem;
-}
-
-.cta .goblins-word {
-  color: #7bbf7b;
-}
-
-.cta a {
-  color: #7bbf7b;
-  text-decoration: underline;
-  transition: all 0.2s ease;
-}
-
-.cta a:hover {
-  text-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
 }
 
 .footer-nav {
@@ -425,7 +440,7 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-map::before {
+  .quest-item::before {
     display: none;
   }
   
@@ -454,30 +469,30 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>about</h1>
-    <p>hello yes this is noah. please ignore the shifting height. nothing to see here. i specialise in editorial, marketing and unhinged creativity.</p>
-    <p class="editors-note">editor's note: sources suggest "noah" is actually three goblins in a trenchcoat. here's what each one does.</p>
+    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. i specialise in editorial, marketing and unhinged creativity. <span class="strikethrough">we</span> i specialise in sci-fi, fantasy, horror, romance and speculative fiction. the stranger, the better.</p>
+    <p>an editorial collective operating out of a dimly-lit, well-guarded workshop in london, specialising in sci-fi, fantasy, horror, romance and stories about other worlds.</p>
+    <p class="editors-note">editor's note: sources suggest 'noah' is actually three goblins in a trenchcoat. here's what we know about them so far:</p>
   </div>
 
-  <div class="section">
-    <h2>the goblins</h2>
+  <div class="section crew-section">
     <div class="crew-grid">
       <div class="crew-member">
         <h3>editorial goblin</h3>
-        <p>shapes and sharpens what's already there. pacing, character arcs, tension, stakes and emotion. spots plot holes before they swallow your manuscript. also handles the practical stuff: proofreading, copyediting, beta-reading and clear editorial guidance.</p>
-      </div>
-      <div class="crew-member">
-        <h3>marketing goblin</h3>
-        <p>knows what agents and publishers want before they do. pitches, straplines, brand identity and positioning. makes projects impossible to ignore. comes up with one-liners that hit like a well-timed goblin trick.</p>
+        <p>sharpens what's already there. dissects pacing, character arcs, tension, stakes, themes and emotion to make sure your story feels right. spots plot holes before they swallow your manuscript. handles the practical stuff: developmental editing, copyediting, line editing, proofreading and second reading.</p>
       </div>
       <div class="crew-member">
         <h3>creative goblin</h3>
-        <p>brings in what isn't there yet. fresh ideas, new angles and conceptual lift when a project feels flat or stuck. introduces plot twists, characters, hooks and possibilities. asks the slightly bizarre questions that unlock better answers. always curious, always enthusiastic.</p>
+        <p>brings fresh ideas, new angles and the momentum you need when you're stuck. plot twists, new characters, hooks and possibilities you never saw coming. might ask bizarre questions at you until something clicks. always curious, always enthusiastic.</p>
+      </div>
+      <div class="crew-member">
+        <h3>marketing goblin</h3>
+        <p>knows what agents and publishers want to see and what the market is hungry for. pitches, straplines, brand identity and positioning. makes projects impossible to ignore. his one-liners hit like a well-timed goblin brick.</p>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h2>where are you on the map?</h2>
+    <h2>where are you on your journey?</h2>
     <p>the journey from a blank page to a published book is a long crawl. identify your current level to begin.</p>
     
     <div class="quest-map">
@@ -492,7 +507,7 @@ p, li {
       </div>
       
       <div class="quest-item">
-        <h3>the deep haul<br><span class="quest-tag">[editorial development]</span></h3>
+        <h3>levelling up<br><span class="quest-tag">[editorial development]</span></h3>
         <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes land where they need to.</p>
       </div>
       
@@ -533,8 +548,9 @@ p, li {
   </div>
 
   <div class="cta">
-    <h2><span class="press-for">press for</span> <span class="goblins-word">goblins</span></h2>
-    <p>head over to the <a href="contact.html">contact page</a> and select your quest stage to begin.</p>
+    <a href="contact.html" class="cta-link">
+      <h2>ready to see the goblins?</h2>
+    </a>
   </div>
 </div>
 
