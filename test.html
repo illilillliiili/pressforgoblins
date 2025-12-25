@@ -214,21 +214,21 @@ p, li {
   padding: 2rem 0;
 }
 
-.quest-map svg {
+/* one continuous zigzag line */
+.quest-map::before {
+  content: '';
   position: absolute;
-  top: 0;
+  top: 0.5rem;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 0.5rem);
+  background: 
+    linear-gradient(25deg, transparent 48%, #7bbf7b 49%, #7bbf7b 51%, transparent 52%) 0 0 / 100% 6rem,
+    linear-gradient(-25deg, transparent 48%, #7bbf7b 49%, #7bbf7b 51%, transparent 52%) 0 3rem / 100% 6rem;
+  background-repeat: repeat-y;
+  opacity: 0.4;
   z-index: 0;
   pointer-events: none;
-}
-
-.quest-map svg path {
-  fill: none;
-  stroke: #7bbf7b;
-  stroke-width: 2;
-  opacity: 0.5;
 }
 
 .quest-item {
@@ -236,7 +236,7 @@ p, li {
   padding: 0;
   margin-bottom: 6rem;
   transition: all 0.2s ease;
-  width: calc(45% - 1rem);
+  width: calc(50% - 2rem);
   z-index: 1;
 }
 
@@ -244,14 +244,14 @@ p, li {
   margin-left: 0;
   margin-right: auto;
   text-align: right;
-  padding-right: 3rem;
+  padding-right: 2rem;
 }
 
 .quest-item:nth-child(even) {
   margin-left: auto;
   margin-right: 0;
   text-align: left;
-  padding-left: 3rem;
+  padding-left: 2rem;
 }
 
 .quest-item:hover h3 {
@@ -259,111 +259,39 @@ p, li {
   text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
 }
 
-/* waypoint circles */
-.quest-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #7bbf7b;
-  box-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
-  z-index: 2;
-}
-
-.quest-item:nth-child(odd)::before {
-  right: -6px;
-}
-
-.quest-item:nth-child(even)::before {
-  left: -6px;
-}
-
-/* connecting line between waypoints */
-.quest-item::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 6rem;
-  background: linear-gradient(to bottom, #7bbf7b 0%, rgba(123, 191, 123, 0.3) 100%);
-  opacity: 0.5;
-  z-index: 0;
-}
-
-.quest-item:nth-child(odd)::after {
-  right: 0;
-  top: 12px;
-  transform: rotate(45deg);
-  transform-origin: top right;
-}
-
-.quest-item:nth-child(even)::after {
-  left: 0;
-  top: 12px;
-  transform: rotate(-45deg);
-  transform-origin: top left;
-}
-
-.quest-item:last-child::after {
-  display: none;
-}
-
 .quest-item h3 {
   color: #7bbf7b;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .quest-tag {
-  display: inline-block;
+  display: block;
   font-family: 'PressStart2P', monospace;
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   color: rgba(123, 191, 123, 0.7);
-  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .quest-pricing {
   text-align: center;
   margin-top: 2rem;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  line-height: 1.7;
   opacity: 0.9;
 }
 
-/* genre table */
-.genre-love-table {
-  width: 100%;
-  border-collapse: collapse;
+/* genre list */
+.genre-list {
   margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 2px solid rgba(123, 191, 123, 0.2);
 }
 
-.genre-love-table thead {
-  background: rgba(123, 191, 123, 0.1);
-}
-
-.genre-love-table th {
-  font-family: 'PressStart2P', monospace;
-  font-size: clamp(0.65rem, 2vw, 0.75rem);
-  padding: 1rem;
-  text-align: left;
-  color: #7bbf7b;
-  font-weight: normal;
-  border-bottom: 2px solid rgba(123, 191, 123, 0.3);
-}
-
-.genre-love-table td {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-  line-height: 1.7;
-}
-
-.genre-love-table td:first-child {
-  color: #7bbf7b;
-  font-weight: 700;
-  width: 30%;
+.genre-list p {
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .genre-avoid {
@@ -378,25 +306,8 @@ p, li {
   margin-bottom: 1rem;
 }
 
-.genre-avoid ul {
-  list-style: none;
-  padding: 0;
-}
-
-.genre-avoid li {
-  padding-left: 1.5rem;
-  position: relative;
-  margin-bottom: 0.75rem;
-  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+.genre-avoid p {
   color: rgba(255, 255, 255, 0.7);
-}
-
-.genre-avoid li::before {
-  content: '×';
-  position: absolute;
-  left: 0;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 1.2rem;
 }
 
 .philosophy-box {
@@ -497,6 +408,10 @@ p, li {
 }
 
 @media(max-width: 600px) {
+  .quest-map::before {
+    display: none;
+  }
+  
   .quest-item {
     width: 100%;
     margin-left: 0 !important;
@@ -506,23 +421,6 @@ p, li {
     padding-right: 0 !important;
   }
   
-  .quest-item::before {
-    left: -6px !important;
-    right: auto !important;
-  }
-  
-  .quest-item::after {
-    left: 0 !important;
-    right: auto !important;
-    transform: rotate(0deg) !important;
-    width: 2px;
-    height: 5rem;
-  }
-  
-  .quest-item:last-child::after {
-    display: none;
-  }
-  
   .footer-nav img {
     width: 44px;
     height: 44px;
@@ -530,10 +428,6 @@ p, li {
   
   .footer-nav {
     padding: 0 1rem;
-  }
-  
-  .genre-love-table td:first-child {
-    width: 35%;
   }
 }
 </style>
@@ -551,15 +445,15 @@ p, li {
     <div class="crew-grid">
       <div class="crew-member">
         <h3>the plot goblin</h3>
-        <p>pacing, character development, emotion, stakes, tension. ensures your story feels right. collects shiny scraps of worldbuilding and catalogues magic systems. has spent five years at a big four publisher fixing structural disasters you would not believe.</p>
+        <p>pacing, character development, emotion, stakes and tension. ensures your story feels right. collects shiny scraps of worldbuilding and catalogues magic systems. has spent five years at a big four publisher fixing structural disasters you would not believe.</p>
       </div>
       <div class="crew-member">
         <h3>the pitch goblin</h3>
-        <p>market insider. knows what agents, publishers, and dev teams want to see to take a project forward. straplines, brand identity, covers, positioning, pitch skills. one-liners that hit like a thrown goblin brick.</p>
+        <p>market insider. knows what agents, publishers and dev teams want to see to take a project forward. straplines, brand identity, covers, positioning and pitch skills. one-liners that hit like a thrown goblin brick.</p>
       </div>
       <div class="crew-member">
         <h3>the creative goblin</h3>
-        <p>secret weapon. ignites ideas, brings momentum, and cooks up clever twists. always curious and enthusiastic. would love to brainstorm with you over a coffee.</p>
+        <p>secret weapon. ignites ideas, brings momentum and cooks up clever twists. always curious and enthusiastic. would love to brainstorm with you over a coffee.</p>
       </div>
     </div>
   </div>
@@ -570,81 +464,53 @@ p, li {
     
     <div class="quest-map">
       <div class="quest-item">
-        <h3>vibe check <span class="quest-tag">[no gold required]</span></h3>
-        <p>a free 15-minute recon chat. tell us about your world, your struggles, or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
+        <h3>vibe check<br><span class="quest-tag">[no gold required]</span></h3>
+        <p>a free 15-minute recon chat. tell us about your world, your struggles or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
       </div>
       
       <div class="quest-item">
-        <h3>prologue <span class="quest-tag">[ideas & brainstorming]</span></h3>
-        <p>wandering the map, sketching characters, and unearthing lore. the creative goblin helps you find the sharpest path and the ideas worth chasing.</p>
+        <h3>prologue<br><span class="quest-tag">[ideas & brainstorming]</span></h3>
+        <p>wandering the map, sketching characters and unearthing lore. the creative goblin helps you find the sharpest path and the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
-        <h3>the deep haul <span class="quest-tag">[editorial development]</span></h3>
+        <h3>the deep haul<br><span class="quest-tag">[editorial development]</span></h3>
         <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes land where they need to.</p>
       </div>
       
       <div class="quest-item">
-        <h3>the bone inspection <span class="quest-tag">[manuscript assessment]</span></h3>
-        <p>the draft is finished. now you need an honest read from someone who knows what agents and publishers are looking for. <strong>you get:</strong> a detailed editorial letter covering structure, pacing, character development, and marketability, plus a redlined manuscript with specific feedback.</p>
+        <h3>inventory check<br><span class="quest-tag">[manuscript assessment]</span></h3>
+        <p>the draft is finished. now you need an honest read from someone who knows what agents and publishers are looking for. <strong>you get:</strong> a detailed editorial letter covering structure, pacing, character development and marketability, plus a redlined manuscript with specific feedback.</p>
       </div>
       
       <div class="quest-item">
-        <h3>secret level <span class="quest-tag">[custom strategy]</span></h3>
-        <p>rare encounters. your project is a strange beast that needs a bespoke strategy from all three in the trenchcoat. tell us your weirdest requirements.</p>
+        <h3>secret level<br><span class="quest-tag">[custom strategy]</span></h3>
+        <p>your project is a strange beast that needs a bespoke strategy from all three in the trenchcoat. tell us your weirdest requirements.</p>
       </div>
       
       <div class="quest-item">
-        <h3>final boss <span class="quest-tag">[pitching & submission]</span></h3>
-        <p>the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent. <strong>you get:</strong> a polished query package ready to deploy.</p>
+        <h3>final boss<br><span class="quest-tag">[pitching & submission]</span></h3>
+        <p>the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent. <strong>you get:</strong> a polished query package ready to submit.</p>
       </div>
     </div>
     
     <div class="quest-pricing">
-      the goblins quote for each quest individually based on manuscript length and complexity. start with a free vibe check to discuss your project and get a quote.
+      the goblins quote for each quest individually based on manuscript length and complexity. start with a free vibe check to discuss your project and get a quote.<br>authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
   </div>
 
   <div class="section">
     <h2>what the goblins love</h2>
-    <table class="genre-love-table">
-      <thead>
-        <tr>
-          <th>genre</th>
-          <th>what we do</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>speculative fiction</td>
-          <td>sff, horror, and romantasy</td>
-        </tr>
-        <tr>
-          <td>ya & middle grade</td>
-          <td>action, adventure, and crossover appeal</td>
-        </tr>
-        <tr>
-          <td>visual storytelling</td>
-          <td>graphic novels and comic scripts</td>
-        </tr>
-        <tr>
-          <td>worldbuilding</td>
-          <td>magic systems and narrative design</td>
-        </tr>
-        <tr>
-          <td>technical lore</td>
-          <td>board game manuals, card game mechanics, and video game scripts</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="genre-list">
+      <p>speculative fiction, science fiction, fantasy, horror and romantasy</p>
+      <p>middle grade, young adult, crossover and new adult</p>
+      <p>graphic novels and comic books</p>
+      <p>technical lore like board and card game guides, video game scripts and narrative design</p>
+    </div>
     
     <div class="genre-avoid">
       <h3>not for the goblins</h3>
-      <ul>
-        <li>literary fiction that's allergic to plot</li>
-        <li>poetry (respect to the bards, but it's not our craft)</li>
-        <li>memoir (unless you're a time traveller or a vampire)</li>
-      </ul>
+      <p>the goblins are not the right fit for literary fiction (especially the plot goblin; don't get him started), poetry or non-fiction (unless it's about myths, legends, folklore or fiction-adjacent)</p>
     </div>
   </div>
 
