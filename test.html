@@ -511,7 +511,8 @@ p, li {
       
       <div id="goblinContainer">
         <div id="goblinTracker">
-          <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+          <!-- Goblin facing RIGHT (original) -->
+          <svg id="goblinRight" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <!-- head (slightly turned) -->
             <path fill="#7bbf7b" d="M6 1h5v1H6z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
@@ -549,6 +550,47 @@ p, li {
             <path fill="#7bbf7b" d="M9 10h2v3H9z"/>
             <path fill="#5a9d5a" d="M6 12h2v1H6z"/>
             <path fill="#5a9d5a" d="M9 12h2v1H9z"/>
+          </svg>
+          
+          <!-- Goblin facing LEFT (mirrored) -->
+          <svg id="goblinLeft" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display:none;">
+            <!-- head (slightly turned LEFT) -->
+            <path fill="#7bbf7b" d="M5 1h5v1H5z"/>
+            <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
+            <path fill="#7bbf7b" d="M4 3h7v2H4z"/>
+            
+            <!-- right ear (visible when facing left) -->
+            <path fill="#7bbf7b" d="M11 3h2v2h-2z"/>
+            <path fill="#5a9d5a" d="M12 4h1v1h-1z"/>
+            
+            <!-- eyes (facing left) -->
+            <path fill="#000" d="M5 3h1v1H5zM8 3h1v1H8z"/>
+            
+            <!-- nose/mouth -->
+            <path fill="#5a9d5a" d="M5 4h2v1H5z"/>
+            
+            <!-- backpack (brown, visible on RIGHT side) -->
+            <path fill="#8B4513" d="M10 6h3v5h-3z"/>
+            <path fill="#654321" d="M10 6h3v1h-3z"/>
+            <path fill="#654321" d="M11 8h1v2h-1z"/>
+            
+            <!-- body -->
+            <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
+            <path fill="#7bbf7b" d="M5 6h5v4H5z"/>
+            <path fill="#5a9d5a" d="M6 7h3v1H6z"/>
+            
+            <!-- arms -->
+            <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
+            <path fill="#7bbf7b" d="M10 6h1v2h-1z"/>
+            
+            <!-- single visible backpack strap (over near shoulder) -->
+            <path fill="#654321" d="M9 6h1v3H9z"/>
+            
+            <!-- legs -->
+            <path fill="#7bbf7b" d="M5 10h2v3H5z"/>
+            <path fill="#7bbf7b" d="M8 10h2v3H8z"/>
+            <path fill="#5a9d5a" d="M5 12h2v1H5z"/>
+            <path fill="#5a9d5a" d="M8 12h2v1H8z"/>
           </svg>
         </div>
       </div>
@@ -628,7 +670,7 @@ p, li {
 </nav>
 
 <script>
-let lastY = -1;
+let lastScrollY = window.pageYOffset;
 let scrollTimeout;
 
 function updateQuestVisuals() {
@@ -641,6 +683,7 @@ function updateQuestVisuals() {
   if (!path || items.length === 0 || window.innerWidth < 600) return;
 
   const mapRect = map.getBoundingClientRect();
+  const currentScrollY = window.pageYOffset;
   let points = [];
   
   items.forEach((item, index) => {
@@ -667,29 +710,30 @@ function updateQuestVisuals() {
   container.style.left = `${point.x}px`;
   container.style.top = `${point.y}px`;
   
-  // compare current point.y with last recorded Y to determine scroll-based direction
-  if (lastY !== -1) {
-    if (point.y < lastY) {
-      // moving UP the path
-      tracker.style.transform = 'scaleX(-1)';
-    } else if (point.y > lastY) {
-      // moving DOWN the path
-      tracker.style.transform = 'scaleX(1)';
-    }
-    // if point.y === lastY, it keeps its current orientation (facing right on stop)
-  } else {
-    tracker.style.transform = 'scaleX(1)';
+  // Get both sprites
+  const goblinRight = document.getElementById('goblinRight');
+  const goblinLeft = document.getElementById('goblinLeft');
+  
+  // Toggle visibility based on scroll direction
+  if (currentScrollY < lastScrollY) {
+    // SCROLLING UP -> Show Left-facing goblin
+    goblinRight.style.display = 'none';
+    goblinLeft.style.display = 'block';
+  } else if (currentScrollY > lastScrollY) {
+    // SCROLLING DOWN -> Show Right-facing goblin
+    goblinRight.style.display = 'block';
+    goblinLeft.style.display = 'none';
   }
 
   tracker.classList.add('goblin-walking');
+  
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     tracker.classList.remove('goblin-walking');
-    // snap back to right-facing on stop
-    tracker.style.transform = 'scaleX(1)';
+    // Keep whatever sprite is currently showing (don't change on stop)
   }, 100);
   
-  lastY = point.y;
+  lastScrollY = currentScrollY;
 }
 
 const navLinks = document.querySelectorAll('.footer-nav a');
@@ -703,7 +747,10 @@ navLinks.forEach(link => {
   });
 });
 
-window.addEventListener('load', () => setTimeout(updateQuestVisuals, 100));
+window.addEventListener('load', () => {
+  lastScrollY = window.pageYOffset;
+  setTimeout(updateQuestVisuals, 100);
+});
 window.addEventListener('resize', updateQuestVisuals);
 window.addEventListener('scroll', updateQuestVisuals);
 </script>
