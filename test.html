@@ -241,11 +241,11 @@ p, li {
 .quest-line-path {
   fill: none;
   stroke: #7bbf7b;
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 6 6;
   opacity: 0.4;
-  filter: blur(0.5px); /* ink bleed effect */
 }
 
 /* tracker container */
@@ -254,29 +254,22 @@ p, li {
   z-index: 10;
   pointer-events: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  transform: translate(-50%, -85%); /* adjust height so feet touch line */
+  transform: translate(-50%, -50%);
 }
 
-.you-label {
-  font-family: 'PressStart2P', monospace;
-  font-size: 0.5rem;
-  color: #7bbf7b;
-  margin-bottom: 4px;
-  animation: letterJitter 1.5s infinite alternate ease-in-out;
-}
-
-@keyframes letterJitter {
-  0%, 100% { transform: translateX(0); opacity: 1; }
-  50% { transform: translateX(1px); opacity: 0.8; }
+@keyframes youFloat {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50% { transform: rotate(-8deg) translateY(-2px); }
 }
 
 .pixel-arrow {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   fill: #7bbf7b;
-  margin-bottom: 2px;
+  opacity: 0.8;
+  transform: rotate(-15deg);
 }
 
 #goblinTracker {
@@ -300,29 +293,6 @@ p, li {
 
 .goblin-walking {
   animation: goblinBob 0.2s infinite;
-}
-
-/* level up toast */
-#levelUpToast {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'PressStart2P', monospace;
-  font-size: 0.8rem;
-  color: #7bbf7b;
-  background: rgba(0,0,0,0.8);
-  padding: 10px 20px;
-  border: 2px solid #7bbf7b;
-  z-index: 1000;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
-}
-
-.show-toast {
-  opacity: 1 !important;
-  transform: translate(-50%, -20px) !important;
 }
 
 .quest-item {
@@ -506,8 +476,6 @@ p, li {
 </head>
 <body>
 
-<div id="levelUpToast">level up!</div>
-
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
@@ -542,40 +510,45 @@ p, li {
       </svg>
       
       <div id="goblinContainer">
-        <span class="you-label">you</span>
-        <svg class="pixel-arrow" viewBox="0 0 8 8" shape-rendering="crispEdges">
-          <path d="M3 0h2v1H3zM3 1h2v1H3zM3 2h2v1H3zM3 3h2v1H3zM0 4h8v1H0zM1 5h6v1H1zM2 6h4v1H2zM3 7h2v1H3z"/>
-        </svg>
         <div id="goblinTracker">
           <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
-            <!-- head top -->
-            <path fill="#7bbf7b" d="M6 1h4v1H6z"/>
+            <!-- head (slightly turned) -->
+            <path fill="#7bbf7b" d="M6 1h5v1H6z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
+            <path fill="#7bbf7b" d="M5 3h7v2H5z"/>
             
-            <!-- ears (sticking out) -->
-            <path fill="#7bbf7b" d="M2 3h2v3H2zM12 3h2v3h-2z"/>
-            <path fill="#5a9d5a" d="M2 4h1v1H2zM13 4h1v1h-1z"/>
+            <!-- left ear (visible) -->
+            <path fill="#7bbf7b" d="M3 3h2v2H3z"/>
+            <path fill="#5a9d5a" d="M3 4h1v1H3z"/>
             
-            <!-- head -->
-            <path fill="#7bbf7b" d="M4 3h8v3H4z"/>
+            <!-- eyes (facing right) -->
+            <path fill="#000" d="M7 3h1v1H7zM10 3h1v1h-1z"/>
             
-            <!-- eyes -->
-            <path fill="#000" d="M6 4h1v1H6zM9 4h1v1H9z"/>
+            <!-- nose/mouth -->
+            <path fill="#5a9d5a" d="M9 4h2v1H9z"/>
             
-            <!-- mouth -->
-            <path fill="#5a9d5a" d="M6 5h4v1H6z"/>
+            <!-- backpack (brown, visible on LEFT side) -->
+            <path fill="#8B4513" d="M3 6h3v5H3z"/>
+            <path fill="#654321" d="M3 6h3v1H3z"/>
+            <path fill="#654321" d="M4 8h1v2H4z"/>
             
-            <!-- body (round/stocky) -->
-            <path fill="#7bbf7b" d="M5 6h6v1H5z"/>
-            <path fill="#7bbf7b" d="M4 7h8v3H4z"/>
-            <path fill="#5a9d5a" d="M5 8h6v1H5z"/>
+            <!-- body -->
+            <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
+            <path fill="#7bbf7b" d="M6 6h5v4H6z"/>
+            <path fill="#5a9d5a" d="M7 7h3v1H7z"/>
             
             <!-- arms -->
-            <path fill="#7bbf7b" d="M3 7h1v2H3zM12 7h1v2h-1z"/>
+            <path fill="#7bbf7b" d="M5 6h1v2H5z"/>
+            <path fill="#7bbf7b" d="M11 6h1v2h-1z"/>
             
-            <!-- legs/feet (wide stance) -->
-            <path fill="#7bbf7b" d="M5 10h2v3H5zM9 10h2v3H9z"/>
-            <path fill="#5a9d5a" d="M5 12h2v1H5zM9 12h2v1H9z"/>
+            <!-- single visible backpack strap (over near shoulder) -->
+            <path fill="#654321" d="M6 6h1v3H6z"/>
+            
+            <!-- legs -->
+            <path fill="#7bbf7b" d="M6 10h2v3H6z"/>
+            <path fill="#7bbf7b" d="M9 10h2v3H9z"/>
+            <path fill="#5a9d5a" d="M6 12h2v1H6z"/>
+            <path fill="#5a9d5a" d="M9 12h2v1H9z"/>
           </svg>
         </div>
       </div>
@@ -656,7 +629,6 @@ p, li {
 
 <script>
 let lastX = 0;
-let lastLevel = -1;
 let scrollTimeout;
 
 function updateQuestVisuals() {
@@ -665,7 +637,6 @@ function updateQuestVisuals() {
   const container = document.getElementById('goblinContainer');
   const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
-  const toast = document.getElementById('levelUpToast');
   
   if (!path || items.length === 0 || window.innerWidth < 600) return;
 
@@ -699,15 +670,6 @@ function updateQuestVisuals() {
   container.style.left = `${point.x}px`;
   container.style.top = `${point.y}px`;
   tracker.style.transform = isMovingRight ? 'scaleX(1)' : 'scaleX(-1)';
-  
-  // level up logic
-  const currentLevel = Math.floor(progress * items.length);
-  if (currentLevel > lastLevel && lastLevel !== -1) {
-    toast.innerText = `level up: ${items[currentLevel].querySelector('h3').innerText.split('\n')[0]}`;
-    toast.classList.add('show-toast');
-    setTimeout(() => toast.classList.remove('show-toast'), 2000);
-  }
-  lastLevel = currentLevel;
 
   // walk bounce
   tracker.classList.add('goblin-walking');
