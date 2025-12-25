@@ -4,63 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- primary meta tags -->
-<title>about | press for goblins</title>
-<meta name="title" content="about | press for goblins | noah grey | editor | london, uk">
-<meta name="description" content="meet noah grey and the goblins. london-based editor with 5+ years big four publishing experience. specialising in developmental editing, copyediting, manuscript assessment and agent guidance.">
-<meta name="keywords" content="noah grey editor, london editor bio, uk publishing consultant, big four publisher editor, developmental editor london, press for goblins about, fiction editor">
+<title>about | press for goblins | london editorial services</title>
+<meta name="title" content="about | press for goblins | london book editor">
+<meta name="description" content="learn about noah grey and press for goblins. expert editorial services for authors, including structural editing and publishing guidance.">
+<meta name="keywords" content="about book editor, editorial services london, noah grey editor, publishing strategy uk">
 <link rel="canonical" href="https://pressforgoblins.com/about">
 
-<!-- open graph / facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/about">
-<meta property="og:title" content="about | press for goblins | noah grey | london editor">
-<meta property="og:description" content="london editor with 5+ years big four publishing experience. editorial services, publishing strategy & agent guidance.">
+<meta property="og:title" content="about press for goblins | london book editor">
+<meta property="og:description" content="freelance editorial services and publishing strategy based in london.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/about">
-<meta property="twitter:title" content="about | press for goblins | noah grey | london editor">
-<meta property="twitter:description" content="london editor with 5+ years big four publishing experience.">
+<meta property="twitter:title" content="about press for goblins | london book editor">
+<meta property="twitter:description" content="freelance editorial services and publishing strategy based in london.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
-
-<!-- schema.org structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "name": "about press for goblins",
-  "description": "about noah grey | editorial services, based in london, uk",
-  "url": "https://pressforgoblins.com/about",
-  "mainEntity": {
-    "@type": "Person",
-    "name": "noah grey",
-    "jobTitle": "editor and publishing freelancer",
-    "description": "publishing professional with 5+ years experience at a big four publishing house, offering developmental editing, structural editing, copyediting, manuscript assessment and literary agent guidance.",
-    "worksFor": {
-      "@type": "Organisation",
-      "name": "press for goblins"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "london",
-      "addressCountry": "gb"
-    },
-    "knowsAbout": [
-      "developmental editing",
-      "structural editing",
-      "copy editing",
-      "line editing",
-      "manuscript assessment",
-      "publishing strategy",
-      "marketing",
-      "uk literary agents",
-      "big four publishing"
-    ]
-  }
-}
-</script>
 
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
@@ -70,34 +30,21 @@
   src: url('fonts/PressStart2P-Regular.woff2?v=30') format('woff2'),
        url('fonts/PressStart2P-Regular.woff?v=30') format('woff'),
        url('fonts/PressStart2P-Regular.ttf?v=30') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  font-weight: normal; font-style: normal; font-display: swap;
 }
 
 * { box-sizing: border-box; }
 
 body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  font-family: 'PressStart2P', monospace;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  color: #888;
+  margin: 0; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  background: #000; font-family: 'PressStart2P', monospace; text-align: center;
+  overflow-x: hidden; overflow-y: auto; position: relative; color: #888;
+  padding: calc(2rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom)) 1rem;
 }
 
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background: linear-gradient(to top, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0) 100%);
   animation: verticalGlow 25s linear infinite;
 }
@@ -109,47 +56,99 @@ body::before {
 }
 
 body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
   opacity: 0.15;
 }
 
-.main-title {
-  font-size: clamp(1.8rem, 8vw, 3rem);
-  color: #888;
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.35em;
-  z-index: 2;
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  animation: letterJitter 1.5s infinite alternate ease-in-out;
+h1 {
+  font-size: clamp(1.8rem, 8vw, 3rem); color: #888; line-height: 1.4;
+  max-width: 90vw; letter-spacing: 0.01em; word-spacing: -0.35em;
+  margin-bottom: 1.5rem; z-index: 2;
 }
 
-@keyframes letterJitter {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(1px); }
-}
-
-.neon-text {
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
-  color: #7bbf7b;
+.coming-soon {
+  font-size: 0.7rem; color: #7bbf7b; z-index: 2;
+  letter-spacing: 0.1em; opacity: 0;
   text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
-  z-index: 2;
-  display: inline-block;
-  opacity: 0;
-}
-
-.violent-flicker {
   animation: violentFlicker 0.25s steps(40, end) forwards;
+  animation-delay: 1.5s;
 }
 
 @keyframes violentFlicker {
   0%, 35%, 55% { opacity: 0; text-shadow: none; }
   25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-  100% { opacity: 1; text-shadow: 0 0 1px #7bbf
+  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+}
+
+.footer-nav {
+  position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  width: 100%; display: flex; justify-content: space-around;
+  padding: 0 2rem; max-width: 600px; left: 50%; transform: translateX(-50%);
+  z-index: 3;
+}
+
+.footer-nav .nav-item { position: relative; display: inline-block; }
+
+.footer-nav a { display: block; transition: transform 0.2s ease; }
+
+.footer-nav a:hover { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6)); }
+
+.footer-nav img { width: 48px; height: 48px; display: block; opacity: 0.9; }
+
+.footer-nav img.about { cursor: default; pointer-events: none; }
+
+.footer-nav .active-dot {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: #7bbf7b; box-shadow: 0 0 6px #7bbf7b;
+  bottom: -0.5rem; left: 50%; transform: translateX(-50%);
+}
+
+body.page-transition { animation: fadeOut 0.15s ease-out forwards; }
+
+@keyframes fadeOut { to { opacity: 0; } }
+
+@media(max-width: 480px) {
+  h1 { font-size: clamp(1.4rem, 7vw, 2.4rem); }
+  .footer-nav img { width: 44px; height: 44px; }
+  .footer-nav { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<h1>about</h1>
+<div class="coming-soon">coming soon</div>
+
+<nav class="footer-nav" aria-label="main navigation">
+  <div class="nav-item">
+    <a href="/" aria-label="home">
+      <img src="images/home.png" alt="home">
+    </a>
+  </div>
+  <div class="nav-item">
+    <img src="images/about.png" class="about" alt="about">
+    <div class="active-dot"></div>
+  </div>
+  <div class="nav-item">
+    <a href="contact" aria-label="contact">
+      <img src="images/contact.png" alt="contact">
+    </a>
+  </div>
+</nav>
+
+<script>
+const navLinks = document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    if (href && href !== '#') {
+      document.body.classList.add('page-transition');
+      setTimeout(() => { window.location.href = href; }, 150);
+    }
+  });
+});
+</script>
+</body>
+</html>
