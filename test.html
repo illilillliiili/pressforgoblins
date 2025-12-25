@@ -4,15 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Prevent Google indexing -->
-<meta name="robots" content="noindex, nofollow">
+<!-- primary meta tags -->
+<title>home | press for goblins</title>
+<meta name="title" content="press for goblins | london book editor & publishing freelancer">
+<meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, structural editing, copyediting, line editing, manuscript editing, publishing consultant, literary agent, big four publisher, noah grey, press for goblins">
+<link rel="canonical" href="https://pressforgoblins.com/">
 
-<title>contact | press for goblins | london book editor & publishing consultant</title>
-<meta name="title" content="contact press for goblins | london editor noah grey">
-<meta name="description" content="get in touch with noah grey at press for goblins. london-based editor offering developmental editing, copyediting, publishing strategy & uk agent guidance.">
-<link rel="canonical" href="https://pressforgoblins.com/contact">
+<!-- open graph / facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pressforgoblins.com/">
+<meta property="og:title" content="press for goblins | london book editor & publishing freelance consultant">
+<meta property="og:description" content="london-based editorial services. developmental editing, copyediting, pitching, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- font preload -->
+<!-- twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://pressforgoblins.com/">
+<meta property="twitter:title" content="press for goblins | london book editor & publishing consultant">
+<meta property="twitter:description" content="london-based editorial services. developmental editing, copyediting, publishing strategy & uk agent guidance.">
+<meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
+
+<!-- schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "press for goblins",
+  "alternateName": "noah grey editorial services",
+  "description": "london-based editorial services specialising in developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy and uk literary agent guidance.",
+  "url": "https://pressforgoblins.com",
+  "logo": "https://pressforgoblins.com/images/logo.png",
+  "image": "https://pressforgoblins.com/images/og-image.png",
+  "founder": {
+    "@type": "Person",
+    "name": "noah grey",
+    "jobTitle": "editor and publishing consultant",
+    "description": "publishing professional with 5 years experience at a big four publishing house"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "london",
+    "addressCountry": "gb"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "united kingdom"
+  },
+  "serviceType": [
+    "developmental editing",
+    "structural editing",
+    "copy editing",
+    "line editing",
+    "manuscript assessment",
+    "publishing strategy",
+    "marketing consultation",
+    "back cover copy",
+    "positioning strategy",
+    "uk literary agent guidance"
+  ],
+  "slogan": "just press for goblins"
+}
+</script>
+
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
@@ -30,7 +84,7 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,11 +92,9 @@ body {
   background: #000;
   font-family: 'PressStart2P', monospace;
   text-align: center;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   color: #888;
-  padding: calc(1rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom)) 1rem;
 }
 
 body::before {
@@ -71,8 +123,8 @@ body::after {
   opacity: 0.15;
 }
 
-h1 {
-  font-size: clamp(1.5rem, 6vw, 2.5rem);
+.main-title {
+  font-size: clamp(1.8rem, 8vw, 3rem);
   color: #888;
   line-height: 1.4;
   max-width: 90vw;
@@ -82,7 +134,6 @@ h1 {
   display: inline-block;
   margin-bottom: 1.5rem;
   animation: letterJitter 1.5s infinite alternate ease-in-out;
-  text-transform: lowercase;
 }
 
 @keyframes letterJitter {
@@ -90,173 +141,38 @@ h1 {
   50% { transform: translateX(1px); }
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  max-width: 460px;
-  z-index: 2;
-  transition: opacity 0.5s ease;
-}
-
-.field-group {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 1rem;
-  position: relative;
-  padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.2s ease;
-}
-
-.field-group:hover,
-.field-group:focus-within {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(123, 191, 123, 0.4);
-  box-shadow: 0 0 15px rgba(123, 191, 123, 0.1);
-}
-
-.field-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  margin-top: 4px;
-  filter: grayscale(1);
-  transition: filter 0.2s ease;
-}
-
-.field-group:focus-within .field-icon {
-  filter: grayscale(0) drop-shadow(0 0 4px rgba(123, 191, 123, 0.8));
-}
-
-.field-content {
-  width: 100%;
-  position: relative;
-  flex: 1;
-  text-align: left;
-}
-
-.field-label {
-  display: block;
-  font-size: 0.45rem;
-  text-transform: lowercase;
-  margin-bottom: 0.4rem;
-  color: rgba(255, 255, 255, 0.3);
-  letter-spacing: 0.1em;
-}
-
-textarea, select {
-  font-family: 'PressStart2P', monospace;
-  font-size: 0.75rem;
-  padding: 0;
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.9);
-  outline: none;
-  resize: none;
-  line-height: 1.5;
-  cursor: pointer;
-  text-transform: lowercase;
-}
-
-textarea::placeholder {
-  color: transparent;
-}
-
-textarea:focus::placeholder {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
+.neon-text {
+  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   color: #7bbf7b;
-}
-
-option {
-  background: #111;
-  color: #fff;
-  text-transform: lowercase;
-}
-
-.single-line {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.multi-line {
-  min-height: 60px;
-}
-
-button#submit-btn {
-  font-family: 'PressStart2P', monospace;
-  font-size: 1.25rem;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  background: transparent;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: lowercase;
+  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
+  z-index: 2;
   display: inline-block;
+  opacity: 0;
 }
 
-button#submit-btn:hover {
-  color: #7bbf7b;
-  text-shadow: 0 0 10px rgba(123, 191, 123, 0.5);
+.violent-flicker {
+  animation: violentFlicker 0.25s steps(40, end) forwards;
 }
 
-button#submit-btn:disabled {
-  opacity: 0.5;
-  cursor: wait;
-  color: #7bbf7b;
+@keyframes violentFlicker {
+  0%, 35%, 55% { opacity: 0; text-shadow: none; }
+  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
 }
 
-.copy-email-container {
-  margin-top: 2rem;
-  font-size: 0.8rem;
-  color: #888;
-  z-index: 2;
-  text-transform: lowercase;
-  letter-spacing: -0.05em;
-  line-height: 1.6;
+.hue-shift {
+  animation: hueShift 6s infinite ease-in-out;
 }
 
-.copy-trigger {
-  color: #888;
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.copy-trigger:hover {
-  color: #7bbf7b;
-  text-shadow: 0 0 8px rgba(123, 191, 123, 0.3);
-}
-
-.sent-msg {
-  display: none;
-  margin-top: 2rem;
-  color: #7bbf7b;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  z-index: 2;
-  text-transform: lowercase;
+@keyframes hueShift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(5deg); }
+  100% { filter: hue-rotate(0deg); }
 }
 
 .footer-nav {
   position: fixed;
-  bottom: calc(1rem + env(safe-area-inset-bottom));
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -267,173 +183,116 @@ button#submit-btn:disabled {
   z-index: 2;
 }
 
+.footer-nav .nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.footer-nav a {
+  display: block;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.footer-nav a:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(123, 191, 123, 0.6));
+}
+
 .footer-nav img {
-  width: 40px;
-  height: 40px;
-  opacity: 0.7;
-  transition: all 0.2s ease;
+  width: 48px;
+  height: 48px;
+  display: block;
+  opacity: 0.9;
 }
 
-.active-dot {
-  width: 5px;
-  height: 5px;
-  background: #7bbf7b;
+.footer-nav img.home {
+  cursor: default;
+  pointer-events: none;
+}
+
+.footer-nav .active-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  margin: 4px auto 0;
-  box-shadow: 0 0 8px #7bbf7b;
+  background: #7bbf7b;
+  box-shadow: 0 0 6px #7bbf7b;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.wobble { animation: wobble 0.3s ease-in-out; }
-@keyframes wobble {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+body.page-transition {
+  animation: fadeOut 0.15s ease-out forwards;
 }
 
-.honeypot { display: none; }
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+@media(max-width: 480px) {
+  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
+  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  .footer-nav img { width: 44px; height: 44px; }
+  .footer-nav { padding: 0 1rem; }
+}
 </style>
 </head>
 <body>
 
-<h1>contact</h1>
+<div class="main-title">press for goblins</div>
+<div class="neon-text" id="neon-text">coming soon</div>
 
-<form id="contact-form" action="https://formspree.io/f/mblndezr" method="POST" novalidate>
-  <input type="text" name="_gotcha" class="honeypot">
-  
-  <div class="field-group">
-    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <div class="field-content">
-      <label class="field-label">name</label>
-      <textarea name="name" id="name-input" rows="1" class="single-line" placeholder="name" required></textarea>
-    </div>
-  </div>
-
-  <div class="field-group">
-    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-    <div class="field-content">
-      <label class="field-label">email address</label>
-      <textarea name="email" rows="1" class="single-line" placeholder="email address" required></textarea>
-    </div>
-  </div>
-
-  <div class="field-group">
-    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-    <div class="field-content">
-      <label class="field-label">quest stage</label>
-      <select name="stage" id="stage-select" required>
-        <option value="" disabled selected>quest stage</option>
-        <option value="brainstorm">side quest (brainstorm with creative goblin)</option>
-        <option value="plotting">grinding (stuck on plot or pacing)</option>
-        <option value="polishing">final boss (manuscript finished and ready for polish)</option>
-        <option value="pitching">hard mode (need help with pitch or brand)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="field-group">
-    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="#7bbf7b" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <div class="field-content">
-      <label class="field-label">message</label>
-      <textarea name="message" id="message-input" rows="3" class="multi-line" placeholder="tell me your story..." required></textarea>
-    </div>
-  </div>
-
-  <button type="submit" id="submit-btn">send</button>
-</form>
-
-<div id="sent-msg" class="sent-msg">the goblins have your message. expect a scroll back soon.</div>
-
-<div class="copy-email-container" id="copy-container">
-  <span class="copy-trigger" id="copy-trigger">or send some words directly to the goblins</span>
-</div>
-
-<nav class="footer-nav">
-  <a href="index.html"><img src="images/home.png" alt="home"></a>
-  <a href="about.html"><img src="images/about.png" alt="about"></a>
-  <div>
-    <img src="images/contact.png" alt="contact" style="opacity:1; filter: drop-shadow(0 0 5px #7bbf7b);">
+<nav class="footer-nav" aria-label="main navigation">
+  <div class="nav-item">
+    <img src="images/home.png" class="home" alt="home">
     <div class="active-dot"></div>
+  </div>
+  <div class="nav-item">
+    <a href="about.html" aria-label="about">
+      <img src="images/about.png" alt="about">
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="contact.html" aria-label="contact">
+      <img src="images/contact.png" alt="contact">
+    </a>
   </div>
 </nav>
 
 <script>
-const form = document.getElementById('contact-form');
-const submitBtn = document.getElementById('submit-btn');
-const sentMsg = document.getElementById('sent-msg');
-const copyTrigger = document.getElementById('copy-trigger');
-const copyContainer = document.getElementById('copy-container');
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('neon-text');
 
-copyTrigger.addEventListener('click', () => {
-  const email = 'hello@pressforgoblins.com';
-  const textArea = document.createElement("textarea");
-  textArea.value = email;
-  document.body.appendChild(textArea);
-  textArea.select();
-  try {
-    document.execCommand('copy');
-    const originalText = copyTrigger.innerText;
-    copyTrigger.innerText = 'copied!';
-    copyTrigger.style.color = '#7bbf7b';
+  setTimeout(() => {
+    el.classList.add('violent-flicker');
+    el.style.opacity = 1;
+    setTimeout(() => el.classList.add('hue-shift'), 300);
+  }, 2000);
+
+  function pulse() {
+    const wait = Math.random() * 3000 + 2000;
     setTimeout(() => {
-      copyTrigger.innerText = originalText;
-      copyTrigger.style.color = '';
-    }, 2000);
-  } catch (err) {}
-  document.body.removeChild(textArea);
-});
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  let hasError = false;
-  form.querySelectorAll('textarea[required], select[required]').forEach(input => {
-    if(!input.value.trim()) {
-      const group = input.closest('.field-group');
-      group.classList.remove('wobble');
-      void group.offsetWidth; 
-      group.classList.add('wobble');
-      hasError = true;
-    }
-  });
-
-  if(hasError) return;
-
-  submitBtn.innerText = 'casting...';
-  submitBtn.disabled = true;
-
-  try {
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if(response.ok) {
-      form.style.opacity = '0';
-      copyContainer.style.opacity = '0';
+      const boost = Math.random() * 0.4 + 0.7;
+      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
       setTimeout(() => {
-        form.style.display = 'none';
-        copyContainer.style.display = 'none';
-        sentMsg.style.display = 'block';
-      }, 500);
-    } else {
-      throw new Error();
-    }
-  } catch(err) {
-    submitBtn.innerText = 'failed - retry?';
-    submitBtn.disabled = false;
+        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
+        pulse();
+      }, Math.random() * 70 + 50);
+    }, wait);
   }
-});
+  pulse();
 
-document.querySelectorAll('textarea').forEach(el => {
-  el.addEventListener('input', () => {
-    if(!el.classList.contains('single-line')) {
-      el.style.height = 'auto';
-      el.style.height = el.scrollHeight + 'px';
-    }
+  const navLinks = document.querySelectorAll('.footer-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      document.body.classList.add('page-transition');
+      setTimeout(() => window.location.href = href, 150);
+    });
   });
 });
 </script>
-
 </body>
 </html>
