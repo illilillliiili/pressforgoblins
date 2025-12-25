@@ -4,28 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- primary meta tags -->
+<!-- Prevent indexing (remove this when going live) -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Primary Meta Tags -->
 <title>home | press for goblins</title>
-<meta name="title" content="press for goblins | london book editor & publishing freelancer">
+<meta name="title" content="press for goblins | london book editor & publishing freelancer | uk editorial services">
 <meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy & agent guidance. 5+ years big four publishing experience.">
 <meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, structural editing, copyediting, line editing, manuscript editing, publishing consultant, literary agent, big four publisher, noah grey, press for goblins">
 <link rel="canonical" href="https://pressforgoblins.com/">
 
-<!-- open graph / facebook -->
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/">
 <meta property="og:title" content="press for goblins | london book editor & publishing freelance consultant">
 <meta property="og:description" content="london-based editorial services. developmental editing, copyediting, pitching, publishing strategy & agent guidance. 5+ years big four publishing experience.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- twitter -->
+<!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/">
 <meta property="twitter:title" content="press for goblins | london book editor & publishing consultant">
 <meta property="twitter:description" content="london-based editorial services. developmental editing, copyediting, publishing strategy & uk agent guidance.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- schema.org structured data -->
+<!-- Schema.org Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -67,6 +70,7 @@
 }
 </script>
 
+<!-- Font preload for performance -->
 <link rel="preload" href="fonts/PressStart2P-Regular.woff2?v=30" as="font" type="font/woff2" crossorigin>
 
 <style>
@@ -80,21 +84,18 @@
   font-display: swap;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   background: #000;
   font-family: 'PressStart2P', monospace;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
   color: #888;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding: calc(2rem + env(safe-area-inset-top)) 1.5rem calc(7rem + env(safe-area-inset-bottom)) 1.5rem;
 }
 
 body::before {
@@ -123,15 +124,17 @@ body::after {
   opacity: 0.15;
 }
 
-.main-title {
-  font-size: clamp(1.8rem, 8vw, 3rem);
-  color: #888;
-  line-height: 1.4;
-  max-width: 90vw;
-  letter-spacing: 0.01em;
-  word-spacing: -0.35em;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
   z-index: 2;
-  display: inline-block;
+}
+
+h1, h2, h3 {
+  color: #888;
+  font-weight: normal;
+  line-height: 1.6;
   margin-bottom: 1.5rem;
   animation: letterJitter 1.5s infinite alternate ease-in-out;
 }
@@ -141,33 +144,146 @@ body::after {
   50% { transform: translateX(1px); }
 }
 
-.neon-text {
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+h1 {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+p, li {
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hero h1 {
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.crew-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.crew-member {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.crew-member h3 {
   color: #7bbf7b;
-  text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b;
-  z-index: 2;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.quest-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.quest-item {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.quest-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(123, 191, 123, 0.3);
+}
+
+.quest-item h3 {
+  margin-top: 0;
+  color: #7bbf7b;
+}
+
+.quest-tag {
   display: inline-block;
-  opacity: 0;
+  font-size: 0.65rem;
+  color: #7bbf7b;
+  margin-left: 0.5rem;
+  opacity: 0.8;
 }
 
-.violent-flicker {
-  animation: violentFlicker 0.25s steps(40, end) forwards;
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-size: clamp(0.65rem, 2.2vw, 0.8rem);
 }
 
-@keyframes violentFlicker {
-  0%, 35%, 55% { opacity: 0; text-shadow: none; }
-  25%, 45% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
-  100% { opacity: 1; text-shadow: 0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b; }
+.comparison-table th,
+.comparison-table td {
+  padding: 1rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hue-shift {
-  animation: hueShift 6s infinite ease-in-out;
+.comparison-table th {
+  background: rgba(123, 191, 123, 0.1);
+  color: #7bbf7b;
+  font-weight: normal;
 }
 
-@keyframes hueShift {
-  0% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(5deg); }
-  100% { filter: hue-rotate(0deg); }
+.comparison-table td {
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.cta {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem;
+  background: rgba(123, 191, 123, 0.05);
+  border: 1px solid rgba(123, 191, 123, 0.2);
+  border-radius: 8px;
+}
+
+.cta h2 {
+  margin-top: 0;
+  color: #7bbf7b;
+}
+
+.cta a {
+  color: #7bbf7b;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+
+.cta a:hover {
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.5);
 }
 
 .footer-nav {
@@ -180,7 +296,7 @@ body::after {
   max-width: 600px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 3;
 }
 
 .footer-nav .nav-item {
@@ -203,6 +319,7 @@ body::after {
   height: 48px;
   display: block;
   opacity: 0.9;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .footer-nav img.home {
@@ -222,77 +339,168 @@ body::after {
   transform: translateX(-50%);
 }
 
-body.page-transition {
-  animation: fadeOut 0.15s ease-out forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-@media(max-width: 480px) {
-  .main-title { font-size: clamp(1.4rem, 7vw, 2.4rem); }
-  .neon-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
-  .footer-nav img { width: 44px; height: 44px; }
-  .footer-nav { padding: 0 1rem; }
+@media(max-width: 600px) {
+  .comparison-table {
+    font-size: 0.6rem;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.75rem;
+  }
+  
+  .footer-nav img {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .footer-nav {
+    padding: 0 1rem;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="main-title">press for goblins</div>
-<div class="neon-text" id="neon-text">coming soon</div>
+<div class="container">
+  <div class="hero">
+    <h1>three goblins in a trenchcoat. one mission: make your manuscript undeniable.</h1>
+    <p>we are press for goblins, a specialist editorial collective operating out of a dark, well-guarded workshop in london.</p>
+    <p>forget empty encouragement. we prioritise the grit of the craft over the fluff of the industry. whether you are unearthing your first ideas or preparing to storm the gates, we provide the honest critique and structural surgery needed to make your story impossible to ignore.</p>
+  </div>
 
-<nav class="footer-nav" aria-label="main navigation">
+  <div class="section">
+    <h2>the crew</h2>
+    <div class="crew-grid">
+      <div class="crew-member">
+        <h3>the creative goblin</h3>
+        <p>ideation, worldbuilding, and finding the spark an algorithm cannot simulate. five years shaping stories at a big four publisher. knows exactly what makes agents sit up.</p>
+      </div>
+      <div class="crew-member">
+        <h3>the plot goblin</h3>
+        <p>structural integrity, pacing, and untangling the knots in your story's bones. has mended everything from messy debuts to bloated series finales.</p>
+      </div>
+      <div class="crew-member">
+        <h3>the pitch goblin</h3>
+        <p>industry strategy, query letters, and hooks that survive the slush pile. knows precisely how to make the industry's guards lower the drawbridge.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>where are you on the map?</h2>
+    <p>the journey from a blank page to a published book is a long crawl. identify your current level to begin.</p>
+    
+    <ul class="quest-list">
+      <li class="quest-item">
+        <h3>vibe check <span class="quest-tag">[no gold required]</span></h3>
+        <p>a free 15-minute recon chat. tell us about your world, your struggles, or that one scene you cannot stop thinking about. we will see if we are the right goblins for the job.</p>
+      </li>
+      
+      <li class="quest-item">
+        <h3>prologue <span class="quest-tag">[ideas & brainstorming]</span></h3>
+        <p>wandering the map, sketching characters, and unearthing lore. the creative goblin helps you find the sharpest path and the ideas worth chasing.</p>
+      </li>
+      
+      <li class="quest-item">
+        <h3>the deep haul <span class="quest-tag">[editorial development]</span></h3>
+        <p>you are in the thick of it, but the light is fading. the plot goblin moves in to fix the pacing and ensure your stakes feel lethal.</p>
+      </li>
+      
+      <li class="quest-item">
+        <h3>the bone inspection <span class="quest-tag">[manuscript assessment]</span></h3>
+        <p>the draft is finished. before you head out, the plot goblin inspects the architecture while the pitch goblin looks for holes in your armour.</p>
+      </li>
+      
+      <li class="quest-item">
+        <h3>secret level <span class="quest-tag">[custom strategy]</span></h3>
+        <p>rare encounters. your project is a strange beast that needs a bespoke strategy from all three in the trenchcoat. tell us your weirdest requirements.</p>
+      </li>
+      
+      <li class="quest-item">
+        <h3>final boss <span class="quest-tag">[pitching & submission]</span></h3>
+        <p>entering the arena. the pitch goblin crafts query letters and one-liners that hit like a thrown goblin brick to help you land the agent.</p>
+      </li>
+    </ul>
+    
+    <p style="margin-top: 2rem; text-align: center; font-size: 0.75rem; opacity: 0.8;">all quests are quoted individually based on manuscript length and complexity. start with a free vibe check to discuss your project and get a quote that works for you and the goblins.</p>
+  </div>
+
+  <div class="section">
+    <h2>choosing your allies</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>what the goblins love</th>
+          <th>what the goblins avoid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>speculative fiction: sff, horror, and romantasy.</td>
+          <td>literary fiction: if it is allergic to plot, we are not for you.</td>
+        </tr>
+        <tr>
+          <td>ya crossover & middle grade: action and adventure.</td>
+          <td>poetry: respect to the bards, but it is not our craft.</td>
+        </tr>
+        <tr>
+          <td>visual storytelling: graphic novels and comic scripts.</td>
+          <td>pure romance: unless there is magic, murder, or monsters involved.</td>
+        </tr>
+        <tr>
+          <td>worldbuilding: magic systems, board games, and card games.</td>
+          <td>memoir: unless you are a time traveller or a vampire.</td>
+        </tr>
+        <tr>
+          <td>technical lore: board game manuals and video game scripts.</td>
+          <td>anything too serious: we like stories that know how to have fun.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>our philosophy: honest critique over easy praise</h2>
+    <p>we treat every project as a problem to be interrogated. we will not tell you what you want to hear; we will tell you what the story needs to thrive. we draw on a deep knowledge of the market and a creative synthesis that only humans—and goblins—can provide.</p>
+    <p><strong>side quest achieved: published author.</strong> while the final boss is the industry, the true victory is a manuscript that stands on its own two feet. our goal is to help you reach that level of craft where the gatekeepers have no choice but to let you in.</p>
+  </div>
+
+  <div class="cta">
+    <h2>ready to rank up?</h2>
+    <p>head over to the <a href="contact.html">contact page</a> and select your quest stage to begin.</p>
+  </div>
+</div>
+
+<nav class="footer-nav" aria-label="Main navigation">
   <div class="nav-item">
-    <img src="images/home.png" class="home" alt="home">
+    <img src="images/home.png" class="home" alt="Home - Current page">
     <div class="active-dot"></div>
   </div>
   <div class="nav-item">
-    <a href="about.html" aria-label="about">
-      <img src="images/about.png" alt="about">
+    <a href="about.html" aria-label="About">
+      <img src="images/about.png" alt="About">
     </a>
   </div>
   <div class="nav-item">
-    <a href="contact.html" aria-label="contact">
-      <img src="images/contact.png" alt="contact">
+    <a href="contact.html" aria-label="Contact">
+      <img src="images/contact.png" alt="Contact">
     </a>
   </div>
 </nav>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('neon-text');
-
-  setTimeout(() => {
-    el.classList.add('violent-flicker');
-    el.style.opacity = 1;
-    setTimeout(() => el.classList.add('hue-shift'), 300);
-  }, 2000);
-
-  function pulse() {
-    const wait = Math.random() * 3000 + 2000;
-    setTimeout(() => {
-      const boost = Math.random() * 0.4 + 0.7;
-      el.style.textShadow = `0 0 ${1*boost}px #7bbf7b, 0 0 ${3*boost}px #7bbf7b, 0 0 ${6*boost}px #7bbf7b`;
-      setTimeout(() => {
-        el.style.textShadow = '0 0 1px #7bbf7b, 0 0 3px #7bbf7b, 0 0 6px #7bbf7b';
-        pulse();
-      }, Math.random() * 70 + 50);
-    }, wait);
-  }
-  pulse();
-
-  const navLinks = document.querySelectorAll('.footer-nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const href = link.getAttribute('href');
-      document.body.classList.add('page-transition');
-      setTimeout(() => window.location.href = href, 150);
-    });
+const navLinks = document.querySelectorAll('.footer-nav a');
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.15s ease-out';
+    setTimeout(() => window.location.href = href, 150);
   });
 });
 </script>
+
 </body>
 </html>
