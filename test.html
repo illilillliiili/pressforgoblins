@@ -194,7 +194,7 @@ p, li {
 
 .strikethrough {
   text-decoration: line-through;
-  opacity: 0.7;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .section {
@@ -246,6 +246,13 @@ p, li {
   stroke-linejoin: round;
   stroke-dasharray: 6 6;
   opacity: 0.4;
+}
+
+/* waypoint dots at corners */
+.waypoint-dot {
+  fill: #7bbf7b;
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(123, 191, 123, 0.6));
 }
 
 /* tracker container */
@@ -479,15 +486,14 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
-    <p class="editors-note">editor's note: unconfirmed reports suggest otherwise</p>
-    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span class="strikethrough">we</span> i am the founder of an editorial collective operating out of a dimly-lit, well-guarded workshop in london, specialising in sci-fi, fantasy, horror, romance and speculative fiction. the stranger, the better.</p>
+    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span class="strikethrough">  we  </span> i am the founder of an editorial collective operating out of a dimly-lit, well-guarded workshop in london, specialising in sci-fi, fantasy, horror, romance and speculative fiction. the stranger, the better.</p>
   </div>
 
   <div class="section crew-section">
     <div class="crew-grid">
       <div class="crew-member">
         <h3>editorial goblin</h3>
-        <p>sharpens what's already there. dissects pacing, character arcs, tension, stakes, themes and emotion to make sure your story feels right. spots plot holes before they swallow your manuscript. handles the practical stuff: developmental editing, copyediting, line editing, proofreading and second reading.</p>
+        <p>sharpens what's already there. refines pacing, character arcs, tension, stakes, themes and emotion to make sure your story feels right. spots plot holes before they swallow your manuscript. handles the practical stuff: developmental editing, copyediting, line editing, proofreading and second reading.</p>
       </div>
       <div class="crew-member">
         <h3>creative goblin</h3>
@@ -502,7 +508,6 @@ p, li {
 
   <div class="section">
     <h2>where are you on your journey?</h2>
-    <p>the journey from a blank page to a published book is a long crawl. identify your current level to begin.</p>
     
     <div class="quest-map" id="questMap">
       <svg class="quest-line-svg">
@@ -596,38 +601,38 @@ p, li {
       </div>
 
       <div class="quest-item">
-        <h3>vibe check<br><span class="quest-tag">[no gold required]</span></h3>
-        <p>you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas, or the scene you can't stop thinking about. we'll see if we're the right fit—or if you should run while you still can.</p>
+        <h3>vibe check</h3>
+        <p>you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can. no gold required.</p>
       </div>
       
       <div class="quest-item">
-        <h3>ideas & brainstorming<br><span class="quest-tag">[you are in the prologue]</span></h3>
-        <p>so many possibilities. this is the fun part before the real pain begins. you're sketching characters, unearthing lore, and building a magic system that actually makes sense. the creative goblin loves this and will help you identify the ideas worth chasing.</p>
+        <h3>ideas & brainstorming</h3>
+        <p>this is the fun part before the real pain begins. and there are so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
-        <h3>editorial development<br><span class="quest-tag">[you are grinding and levelling up]</span></h3>
-        <p>you're writing... and writing... and writing. this is the hardest part. the plot goblin will provide a comprehensive report on what works, what definitely isn't working (and why), and suggest an action plan to get you through the slog.</p>
+        <h3>editorial development</h3>
+        <p>you're writing... and writing... and writing. this is where many give up. but not you. the plot goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
       </div>
       
       <div class="quest-item">
-        <h3>manuscript assessment<br><span class="quest-tag">[you are checking your inventory]</span></h3>
-        <p>draft complete. finally. now you need an honest read from someone who knows the market and what agents are actually looking for. the pitch goblin will write you a detailed editorial letter covering structure, pacing, and marketability.</p>
+        <h3>manuscript assessment</h3>
+        <p>your first draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
       </div>
       
       <div class="quest-item">
-        <h3>secret level<br><span class="quest-tag">[custom strategy]</span></h3>
-        <p>your project is a strange beast that needs a bespoke strategy from all three in the trenchcoat. tell us your weirdest requirements.</p>
+        <h3>custom work</h3>
+        <p>your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
       </div>
       
       <div class="quest-item">
-        <h3>pitching and submission<br><span class="quest-tag">[you are ready for the final boss]</span></h3>
+        <h3>pitch time</h3>
         <p>your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the pitch goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
     
     <div class="quest-pricing">
-      we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins.<br>authors from a background traditionally underrepresented in publishing will receive a discounted rate.
+      we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
   </div>
 
@@ -689,8 +694,9 @@ function updateQuestVisuals() {
   items.forEach((item, index) => {
     const h3 = item.querySelector('h3');
     const rect = h3.getBoundingClientRect();
-    const x = (index % 2 === 0) ? rect.right - mapRect.left : rect.left - mapRect.left;
-    const y = (rect.top + rect.height / 2) - mapRect.top;
+    // Add padding away from the text
+    const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
+    const y = rect.top - mapRect.top + 13; // Nudged up slightly
     points.push({x, y});
   });
 
@@ -699,6 +705,22 @@ function updateQuestVisuals() {
     d += ` L ${points[i].x} ${points[i].y}`;
   }
   path.setAttribute('d', d);
+
+  // Draw waypoint dots at each corner
+  const svg = document.querySelector('.quest-line-svg');
+  // Remove existing dots
+  svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+  
+  // Add dots at each point (including start and end)
+  const dotRadius = 5;
+  points.forEach(point => {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('class', 'waypoint-dot');
+    circle.setAttribute('cx', point.x);
+    circle.setAttribute('cy', point.y); // No offset - same as line position
+    circle.setAttribute('r', dotRadius);
+    svg.appendChild(circle);
+  });
 
   const windowHeight = window.innerHeight;
   let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
@@ -730,7 +752,6 @@ function updateQuestVisuals() {
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     tracker.classList.remove('goblin-walking');
-    // Keep whatever sprite is currently showing (don't change on stop)
   }, 100);
   
   lastScrollY = currentScrollY;
