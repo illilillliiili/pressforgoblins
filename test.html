@@ -470,9 +470,14 @@ p, li {
   #goblinContainer {
     display: block;
     position: absolute;
-    left: -12px;
+    left: -4px;
     z-index: 2;
     transition: top 0.1s ease-out;
+  }
+  
+  .quest-map {
+    border-left: 2px dashed #7bbf7b;
+    padding-left: 2rem;
   }
   
   .quest-item {
@@ -480,17 +485,17 @@ p, li {
     margin-left: 0 !important;
     margin-right: 0 !important;
     text-align: left !important;
-    padding-left: 2rem !important;
+    padding-left: 0 !important;
     padding-right: 0 !important;
-    border-left: 2px dashed #7bbf7b;
+    border-left: none;
     position: relative;
   }
   
   .quest-item::before {
     content: '';
     position: absolute;
-    left: -6px;
-    top: 1rem;
+    left: -2.95rem;
+    top: 0;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -694,7 +699,6 @@ p, li {
         <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
-    
     <div class="quest-pricing">
       we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
@@ -755,7 +759,7 @@ function updateQuestVisuals() {
     const totalHeight = lastItem.top - firstItem.top;
     const goblinY = firstItem.top - mapRect.top + (progress * totalHeight);
     
-    container.style.left = `-12px`;
+    container.style.left = `-4px`;
     container.style.top = `${goblinY}px`;
     
     // Get both sprites
