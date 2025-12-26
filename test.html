@@ -342,7 +342,7 @@ p, li {
 
 .quest-pricing {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 0;
   font-size: clamp(0.9rem, 2.8vw, 1rem);
   line-height: 1.7;
@@ -413,6 +413,13 @@ p, li {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.footer-nav.hidden {
+  transform: translateX(-50%) translateY(100px);
+  opacity: 0;
 }
 
 .footer-nav .nav-item {
@@ -507,6 +514,20 @@ p, li {
   </div>
 
   <div class="section">
+    <h2>what the goblins love</h2>
+    <div class="genre-list">
+      <p>• speculative fiction, science fiction, fantasy, horror and romantasy<br>
+      • middle grade, young adult, crossover and new adult<br>
+      • graphic novels and comic books<br>
+      • technical lore like board and card game guides, video game scripts and narrative design</p>
+    </div>
+    
+    <div class="genre-avoid">
+      <p>the goblins are not the right fit for literary fiction (which often lulls them into a deep sleep), poetry or non-fiction (unless it involves other fantastical creatures like them)</p>
+    </div>
+  </div>
+
+  <div class="section">
     <h2>where are you on your journey?</h2>
     
     <div class="quest-map" id="questMap">
@@ -533,22 +554,26 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M9 4h2v1H9z"/>
             
-            <!-- backpack (brown, visible on LEFT side) -->
-            <path fill="#8B4513" d="M3 6h3v5H3z"/>
-            <path fill="#654321" d="M3 6h3v1H3z"/>
-            <path fill="#654321" d="M4 8h1v2H4z"/>
+            <!-- rounded sack backpack (left side, more rounded) -->
+            <path fill="#8B4513" d="M3 7h2v1H3z"/>
+            <path fill="#8B4513" d="M2 8h3v3H2z"/>
+            <path fill="#8B4513" d="M3 11h2v1H3z"/>
+            <path fill="#654321" d="M3 7h2v1H3z"/>
+            <path fill="#654321" d="M3 9h1v1H3z"/>
             
             <!-- body -->
             <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
             <path fill="#7bbf7b" d="M6 6h5v4H6z"/>
             <path fill="#5a9d5a" d="M7 7h3v1H7z"/>
             
-            <!-- arms -->
+            <!-- left arm (behind strap) -->
             <path fill="#7bbf7b" d="M5 6h1v2H5z"/>
-            <path fill="#7bbf7b" d="M11 6h1v2h-1z"/>
             
-            <!-- single visible backpack strap (over near shoulder) -->
-            <path fill="#654321" d="M6 6h1v3H6z"/>
+            <!-- backpack strap over left shoulder -->
+            <path fill="#654321" d="M6 6h1v2H6z"/>
+            
+            <!-- right arm (in front) -->
+            <path fill="#7bbf7b" d="M11 6h1v2h-1z"/>
             
             <!-- legs -->
             <path fill="#7bbf7b" d="M6 10h2v3H6z"/>
@@ -574,22 +599,26 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M5 4h2v1H5z"/>
             
-            <!-- backpack (brown, visible on RIGHT side) -->
-            <path fill="#8B4513" d="M10 6h3v5h-3z"/>
-            <path fill="#654321" d="M10 6h3v1h-3z"/>
-            <path fill="#654321" d="M11 8h1v2h-1z"/>
+            <!-- rounded sack backpack (right side, more rounded) -->
+            <path fill="#8B4513" d="M11 7h2v1h-2z"/>
+            <path fill="#8B4513" d="M11 8h3v3h-3z"/>
+            <path fill="#8B4513" d="M11 11h2v1h-2z"/>
+            <path fill="#654321" d="M11 7h2v1h-2z"/>
+            <path fill="#654321" d="M12 9h1v1h-1z"/>
             
             <!-- body -->
             <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
             <path fill="#7bbf7b" d="M5 6h5v4H5z"/>
             <path fill="#5a9d5a" d="M6 7h3v1H6z"/>
             
-            <!-- arms -->
-            <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
+            <!-- right arm (behind strap) -->
             <path fill="#7bbf7b" d="M10 6h1v2h-1z"/>
             
-            <!-- single visible backpack strap (over near shoulder) -->
-            <path fill="#654321" d="M9 6h1v3H9z"/>
+            <!-- backpack strap over right shoulder -->
+            <path fill="#654321" d="M9 6h1v2H9z"/>
+            
+            <!-- left arm (in front) -->
+            <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
             
             <!-- legs -->
             <path fill="#7bbf7b" d="M5 10h2v3H5z"/>
@@ -601,33 +630,33 @@ p, li {
       </div>
 
       <div class="quest-item">
-        <h3>vibe check</h3>
-        <p>you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can. no gold required.</p>
+        <h3>tutorial OR prologue</h3>
+        <p>a vibe check. you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can. no gold required.</p>
       </div>
       
       <div class="quest-item">
-        <h3>ideas & brainstorming</h3>
-        <p>this is the fun part before the real pain begins. and there are so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
+        <h3>exploring the world</h3>
+        <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
-        <h3>editorial development</h3>
-        <p>you're writing... and writing... and writing. this is where many give up. but not you. the plot goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
+        <h3>levelling up</h3>
+        <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
       </div>
       
       <div class="quest-item">
-        <h3>manuscript assessment</h3>
-        <p>your first draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
+        <h3>upgrading your gear</h3>
+        <p>manuscript assessment. your draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
       </div>
       
       <div class="quest-item">
-        <h3>custom work</h3>
-        <p>your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
+        <h3>bonus level</h3>
+        <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
       </div>
       
       <div class="quest-item">
-        <h3>pitch time</h3>
-        <p>your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the pitch goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
+        <h3>final boss</h3>
+        <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
     
@@ -636,23 +665,9 @@ p, li {
     </div>
   </div>
 
-  <div class="section">
-    <h2>what the goblins love</h2>
-    <div class="genre-list">
-      <p>• speculative fiction, science fiction, fantasy, horror and romantasy<br>
-      • middle grade, young adult, crossover and new adult<br>
-      • graphic novels and comic books<br>
-      • technical lore like board and card game guides, video game scripts and narrative design</p>
-    </div>
-    
-    <div class="genre-avoid">
-      <p>the goblins are not the right fit for literary fiction (which often lulls them into a deep sleep), poetry or non-fiction (unless it involves other fantastical creatures like them)</p>
-    </div>
-  </div>
-
   <div class="cta">
     <a href="contact.html" class="cta-link">
-      <h2>ready to see the goblins?</h2>
+      <h2>i am ready to meet the goblins</h2>
     </a>
   </div>
 </div>
@@ -677,6 +692,8 @@ p, li {
 <script>
 let lastScrollY = window.pageYOffset;
 let scrollTimeout;
+let navTimeout;
+let lastNavScrollY = window.pageYOffset;
 
 function updateQuestVisuals() {
   const path = document.getElementById('questPath');
@@ -755,6 +772,22 @@ function updateQuestVisuals() {
   }, 100);
   
   lastScrollY = currentScrollY;
+  
+  // Handle nav hide/show
+  const nav = document.querySelector('.footer-nav');
+  clearTimeout(navTimeout);
+  
+  if (currentScrollY > lastNavScrollY && currentScrollY > 100) {
+    // Scrolling down - hide nav
+    nav.classList.add('hidden');
+  } else {
+    // Scrolling up - show nav
+    nav.classList.remove('hidden');
+  }
+  
+  navTimeout = setTimeout(() => {
+    lastNavScrollY = currentScrollY;
+  }, 100);
 }
 
 const navLinks = document.querySelectorAll('.footer-nav a');
