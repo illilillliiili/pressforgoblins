@@ -414,7 +414,12 @@ p, li {
   transform: translateX(-50%);
   z-index: 3;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  background: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px 12px 0 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .footer-nav.hidden {
@@ -494,8 +499,8 @@ p, li {
   .quest-item::before {
     content: '';
     position: absolute;
-    left: -2.95rem;
-    top: 0;
+    left: -2.05rem;
+    top: 0.3rem;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -699,6 +704,7 @@ p, li {
         <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
+    
     <div class="quest-pricing">
       we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
