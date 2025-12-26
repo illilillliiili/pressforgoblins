@@ -423,7 +423,7 @@ p, li {
   left: 0;
   right: 0;
   height: 200px;
-  background: linear-gradient(to bottom, transparent, rgba(13, 13, 13, 0.9));
+  background: linear-gradient(to bottom, transparent, rgba(13, 13, 13, 0.95) 60%, #0d0d0d);
   z-index: -1;
   pointer-events: none;
 }
@@ -487,9 +487,7 @@ p, li {
   }
   
   .quest-map {
-    border-left: 2px dashed #7bbf7b;
     padding-left: 2rem;
-    padding-top: 0.3rem;
     margin-left: 1rem;
     padding-bottom: 0;
     margin-bottom: 0;
@@ -504,8 +502,13 @@ p, li {
     padding-right: 0 !important;
     padding-bottom: 1rem !important;
     margin-bottom: 1rem !important;
-    border-left: none;
+    border-left: 2px dashed #7bbf7b;
     position: relative;
+  }
+  
+  .quest-item:first-child {
+    border-top: none;
+    padding-top: 0.3rem;
   }
   
   .quest-item:last-child {
@@ -516,7 +519,7 @@ p, li {
   .quest-item::before {
     content: '';
     position: absolute;
-    left: -2.1rem;
+    left: -2.15rem;
     top: 0.3rem;
     width: 10px;
     height: 10px;
@@ -722,14 +725,14 @@ p, li {
       </div>
     </div>
     
-    <div class="quest-pricing">
+    <div class="quest-pricing" style="margin-top: 3rem;">
       we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
   </div>
 
   <div class="cta">
     <a href="contact.html" class="cta-link">
-      <h2>i am ready to meet the goblins</h2>
+      <h2>caution: goblins this way</h2>
     </a>
   </div>
 </div>
