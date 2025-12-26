@@ -171,7 +171,6 @@ h3 {
 .quest-item h3 {
   color: #7bbf7b;
 }
-}
 
 p, li {
   font-size: clamp(0.9rem, 2.8vw, 1rem);
@@ -201,7 +200,7 @@ p, li {
 }
 
 .strikethrough {
-  color: rgba(136, 136, 136, 0.8) !important;
+  color: #888 !important; /* matches the body/hero text color */
   text-decoration: none;
   animation: liveGoblinEdit 1.2s steps(4) forwards;
   animation-delay: 1.2s;
@@ -319,37 +318,101 @@ p, li {
   animation: goblinBob 0.2s infinite;
 }
 
-.quest-item {
+@keyframes rpgFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.section-art {
+  width: 80px;
+  height: 80px;
+  margin: 1rem auto;
+  display: block;
+  image-rendering: pixelated;
+  animation: rpgFloat 2s steps(4) infinite;
+  filter: drop-shadow(0 5px 0 rgba(26, 47, 26, 0.5));
+}
+
+/* mobile: art sits under the section text as requested */
+@media(max-width: 600px) {
+  .section-art {
+    margin: 0.5rem 0 1.5rem 0;
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* container for each section stage */
+.waypoint-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* text on left, mural on right */
+  gap: 3rem;
+  margin-bottom: 6rem;
+  align-items: center;
   position: relative;
-  width: 45%;
-  margin-bottom: 4rem;
   z-index: 1;
 }
 
-.quest-item:last-of-type {
-  margin-bottom: 2rem;
+.waypoint-text {
+  padding-left: 3rem; /* room for the goblin and line on the far left */
 }
 
-.quest-item:nth-child(odd) {
+/* the pixel murals */
+.waypoint-mural {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 15px rgba(123, 191, 123, 0.1));
+}
+
+/* animation for the candle/elements */
+.flicker {
+  animation: pixelPulse 1.5s steps(3) infinite;
+}
+
+@keyframes pixelPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* mobile stack */
+@media(max-width: 800px) {
+  .waypoint-stage {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .waypoint-text {
+    padding-left: 3.5rem;
+  }
+  .waypoint-mural {
+    padding-left: 3.5rem;
+    max-width: 80%;
+  }
+}
+
+.quest-item {
+  position: relative;
+  width: 45%;
+  margin-bottom: 5rem;
+  z-index: 1;
+}
+
+/* all items aligned the same as the first section */
+.quest-item:nth-child(odd), .quest-item:nth-child(even) {
   align-self: flex-start;
-  text-align: right;
-  padding-right: 1rem;
-}
-
-.quest-item:nth-child(even) {
-  align-self: flex-end;
   text-align: left;
-  padding-left: 1rem;
+  padding-left: 3rem; /* room for the goblin and line */
+  padding-right: 0;
 }
 
-.quest-item:hover h3 {
-  color: #9bd39b;
-  text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
-}
-
+/* header alignment: lowered slightly to sit level with the dot */
 .quest-item h3 {
   color: #7bbf7b;
-  margin-bottom: 0.25rem;
+  margin-top: 0.8rem; 
+  margin-bottom: 0.5rem;
 }
 
 .quest-tag {
@@ -649,9 +712,10 @@ p, li {
             
             <!-- pixelated sword (boss mode only) -->
             <g id="goblinSword" style="display: none;">
-              <path fill="#C0C0C0" d="M12 5h1v3h-1z"/>
-              <path fill="#C0C0C0" d="M13 4h1v1h-1z"/>
-              <path fill="#8B4513" d="M12 8h1v1h-1z"/>
+              <path fill="#8B4513" d="M11 8h2v1h-2z"/>
+              <path fill="#C0C0C0" d="M13 7h1v3h-1z"/>
+              <path fill="#C0C0C0" d="M14 8h5v1h-5z"/>
+              <path fill="#C0C0C0" d="M14 7h4v1h-4z"/>
             </g>
             
             <!-- legs straight down with slight taper at bottom, angled back slightly -->
@@ -706,6 +770,14 @@ p, li {
             <!-- left arm -->
             <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
             
+            <!-- pixelated sword mirrored (boss mode only) -->
+            <g id="goblinSwordLeft" style="display: none;">
+              <path fill="#8B4513" d="M3 8h2v1H3z"/>
+              <path fill="#C0C0C0" d="M2 7h1v3H2z"/>
+              <path fill="#C0C0C0" d="M-3 8h5v1h-5z"/>
+              <path fill="#C0C0C0" d="M-2 7h4v1h-4z"/>
+            </g>
+            
             <!-- legs straight down with slight taper at bottom, angled back slightly -->
             <path fill="#7bbf7b" d="M5 10h2v1H5z"/>
             <path fill="#7bbf7b" d="M6 11h1v1H6z"/>
@@ -717,34 +789,98 @@ p, li {
         </div>
       </div>
 
-      <div class="quest-item">
-        <h3>character creation</h3>
-        <p>a vibe check. you'll get to meet all three goblins. no gold required. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>character creation</h3>
+          <p>a vibe check. you'll get to meet all three goblins. no gold required. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M5 20h54v1H5z"/>
+            <path fill="#f4f1de" d="M10 18h12v2H10zm1-1h12v1H11zm1-1h12v1H12z"/>
+            <path fill="#f4f1de" d="M30 12h2v8h-2z"/>
+            <path class="flicker" fill="#7bbf7b" d="M30 9h2v2h-2zM31 8h1v1h-1z"/>
+            <path fill="#1a2f1a" d="M45 16h4v4h-4z"/>
+            <path fill="#7bbf7b" d="M48 10l-1 6M49 9l-1 2"/>
+          </svg>
+        </div>
       </div>
       
-      <div class="quest-item">
-        <h3>exploring the world</h3>
-        <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>exploring the world</h3>
+          <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M5 20l8-12 6 8 10-10 12 14h-36z"/>
+            <path fill="#7bbf7b" d="M15 21c5-2 10-2 15 0s10 2 15 0"/>
+            <path fill="#f4f1de" d="M48 10h4v10h-4zM47 9h6v1h-6zM50 7h1v2h-1z"/>
+            <circle fill="#7bbf7b" cx="12" cy="6" r="2" class="flicker"/>
+          </svg>
+        </div>
       </div>
       
-      <div class="quest-item">
-        <h3>levelling up</h3>
-        <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>levelling up</h3>
+          <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M5 20h54v1H5z"/>
+            <path fill="#f4f1de" d="M10 18h12v2H10zm1-1h12v1H11zm1-1h12v1H12z"/>
+            <path fill="#f4f1de" d="M30 12h2v8h-2z"/>
+            <path class="flicker" fill="#7bbf7b" d="M30 9h2v2h-2zM31 8h1v1h-1z"/>
+            <path fill="#1a2f1a" d="M45 16h4v4h-4z"/>
+            <path fill="#7bbf7b" d="M48 10l-1 6M49 9l-1 2"/>
+          </svg>
+        </div>
       </div>
       
-      <div class="quest-item">
-        <h3>upgrading your gear</h3>
-        <p>manuscript assessment. your draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>upgrading your gear</h3>
+          <p>manuscript assessment. your draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M5 20l8-12 6 8 10-10 12 14h-36z"/>
+            <path fill="#7bbf7b" d="M15 21c5-2 10-2 15 0s10 2 15 0"/>
+            <path fill="#f4f1de" d="M48 10h4v10h-4zM47 9h6v1h-6zM50 7h1v2h-1z"/>
+            <circle fill="#7bbf7b" cx="12" cy="6" r="2" class="flicker"/>
+          </svg>
+        </div>
       </div>
       
-      <div class="quest-item">
-        <h3>bonus level</h3>
-        <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>bonus level</h3>
+          <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M20 5h24v15H20z"/>
+            <path fill="#7bbf7b" d="M22 5v15M26 5v15M30 5v15M34 5v15M38 5v15M42 5v15"/>
+            <path fill="#f4f1de" d="M18 5h2v15h-2zM44 5h2v15h-2zM18 3h28v2H18z"/>
+            <path fill="#7bbf7b" d="M10 12h1v8h-1zM8 13h5v1H8zM10 10h1v2h-1z" class="flicker"/>
+          </svg>
+        </div>
       </div>
       
-      <div class="quest-item">
-        <h3>final boss</h3>
-        <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
+      <div class="waypoint-stage quest-item">
+        <div class="waypoint-text">
+          <h3>final boss</h3>
+          <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
+        </div>
+        <div class="waypoint-mural-wrapper">
+          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
+            <path fill="#1a2f1a" d="M20 5h24v15H20z"/>
+            <path fill="#7bbf7b" d="M22 5v15M26 5v15M30 5v15M34 5v15M38 5v15M42 5v15"/>
+            <path fill="#f4f1de" d="M18 5h2v15h-2zM44 5h2v15h-2zM18 3h28v2H18z"/>
+            <path fill="#7bbf7b" d="M10 12h1v8h-1zM8 13h5v1H8zM10 10h1v2h-1z" class="flicker"/>
+          </svg>
+        </div>
       </div>
     </div>
     
@@ -789,187 +925,62 @@ function updateQuestVisuals() {
   const path = document.getElementById('questPath');
   const items = document.querySelectorAll('.quest-item');
   const container = document.getElementById('goblinContainer');
-  const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
-  const sword = document.getElementById('goblinSword');
   const isMobile = window.innerWidth < 600;
   
   if (!items.length || !container || !path) return;
   
-  const currentScrollY = window.pageYOffset;
   const mapRect = map.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-  let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
+  let progress = (window.innerHeight / 2 - mapRect.top) / mapRect.height;
   progress = Math.max(0, Math.min(1, progress));
 
-  // Task 4: Boss mode sword flair
-  if (sword) {
-    sword.style.display = progress > 0.9 ? 'block' : 'none';
+  let points = [];
+  const fixedX = isMobile ? 15 : 40; // line stays left to match aligned text
+
+  items.forEach((item) => {
+    const h3 = item.querySelector('h3');
+    const rect = h3.getBoundingClientRect();
+    // vertical center of the H3 for the dot
+    const y = rect.top - mapRect.top + (rect.height / 2);
+    points.push({x: fixedX, y: y});
+  });
+
+  // generate hand-drawn path with varying thickness logic
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for(let i = 1; i < points.length; i++) {
+    const cpY = (points[i-1].y + points[i].y) / 2;
+    // slight horizontal jitter for "hand-painted" feel
+    d += ` Q ${fixedX + (i % 2 === 0 ? 2 : -2)} ${cpY} ${fixedX} ${points[i].y}`;
   }
+  path.setAttribute('d', d);
 
-  // MOBILE: Vertical line
-  if (isMobile) {
-    const svg = document.querySelector('.quest-line-svg');
-    
-    // Task 3: Mobile uses fixed x=10 with 35px buffer
-    const fixedX = 10;
-    let points = [];
-    
-    items.forEach((item) => {
-      const h3 = item.querySelector('h3');
-      const rect = h3.getBoundingClientRect();
-      const y = rect.top - mapRect.top + 35; // 35px buffer
-      points.push({x: fixedX, y: y});
-    });
-    
-    // Draw vertical path
-    let d = `M ${fixedX} ${points[0].y}`;
-    for(let i = 1; i < points.length; i++) {
-      d += ` L ${fixedX} ${points[i].y}`;
-    }
-    path.setAttribute('d', d);
-    
-    // Get path height for clipping
-    const pathHeight = points[points.length - 1].y;
-    
-    // Draw SVG waypoint dots
-    svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
-    const dotRadius = 5;
-    points.forEach(point => {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('class', 'waypoint-dot');
-      circle.setAttribute('cx', fixedX);
-      circle.setAttribute('cy', point.y);
-      circle.setAttribute('r', dotRadius);
-      svg.appendChild(circle);
-    });
-    
-    // Calculate goblin position along vertical line
-    const totalLength = path.getTotalLength();
-    if (totalLength > 0) {
-      const currentDistance = progress * totalLength;
-      const point = path.getPointAtLength(currentDistance);
-      
-      // Task 5: Use clip-path to reveal dashed line behind goblin
-      const maskHeight = point.y;
-      path.style.clipPath = `inset(0 0 ${pathHeight - maskHeight}px 0)`;
-      
-      container.style.left = `${fixedX}px`;
-      container.style.top = `${point.y}px`;
-      container.style.transform = `translate(-50%, -50%)`;
-    }
-    
-    // Mobile always faces right
-    const goblinRight = document.getElementById('goblinRight');
-    const goblinLeft = document.getElementById('goblinLeft');
-    goblinRight.style.display = 'block';
-    goblinLeft.style.display = 'none';
-    
-    tracker.classList.add('goblin-walking');
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      tracker.classList.remove('goblin-walking');
-    }, 100);
-  }
-  // DESKTOP: Zigzag line
-  else {
-    const svg = document.querySelector('.quest-line-svg');
-    let points = [];
-    
-    // Task 3: Desktop uses 25px buffer
-    items.forEach((item, index) => {
-      const h3 = item.querySelector('h3');
-      const rect = h3.getBoundingClientRect();
-      const x = (index % 2 === 0) ? rect.right - mapRect.left + 25 : rect.left - mapRect.left - 25;
-      const y = rect.top - mapRect.top + 13;
-      points.push({x, y});
-    });
+  const totalLength = path.getTotalLength();
+  const currentDistance = progress * totalLength;
+  const point = path.getPointAtLength(currentDistance);
 
-    // Build zigzag path
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for(let i = 1; i < points.length; i++) {
-      d += ` L ${points[i].x} ${points[i].y}`;
-    }
-    path.setAttribute('d', d);
+  // ensure the line stays behind him (with a 2-dash "leisurely" lag)
+  const lineLag = 15; 
+  const displayLength = Math.max(0, currentDistance - lineLag);
+  path.style.strokeDasharray = `${displayLength}, ${totalLength}`;
 
-    // Draw waypoint dots
-    svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
-    const dotRadius = 5;
-    points.forEach(point => {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('class', 'waypoint-dot');
-      circle.setAttribute('cx', point.x);
-      circle.setAttribute('cy', point.y);
-      circle.setAttribute('r', dotRadius);
-      svg.appendChild(circle);
-    });
+  container.style.left = `${point.x}px`;
+  container.style.top = `${point.y}px`;
 
-    const totalLength = path.getTotalLength();
-    
-    if (totalLength > 0) {
-      const currentDistance = progress * totalLength;
-      const point = path.getPointAtLength(currentDistance);
-      
-      // Task 5: Use clip-path to reveal dashed line behind goblin
-      const pathHeight = points[points.length - 1].y;
-      const maskHeight = point.y;
-      path.style.clipPath = `inset(0 0 ${Math.max(0, pathHeight - maskHeight)}px 0)`;
-      
-      container.style.left = `${point.x}px`;
-      container.style.top = `${point.y}px`;
-      
-      // Predictive orientation - look ahead
-      const scrollingUp = currentScrollY < lastScrollY;
-      const ahead = path.getPointAtLength(Math.min(totalLength, currentDistance + 1));
-      
-      const goblinRight = document.getElementById('goblinRight');
-      const goblinLeft = document.getElementById('goblinLeft');
-      
-      let facingRight;
-      if (scrollingUp) {
-        facingRight = ahead.x < point.x;
-      } else {
-        facingRight = ahead.x > point.x;
-      }
-      
-      if (facingRight) {
-        goblinRight.style.display = 'block';
-        goblinLeft.style.display = 'none';
-      } else {
-        goblinRight.style.display = 'none';
-        goblinLeft.style.display = 'block';
-      }
-      
-      // Momentum lean
-      const deltaX = ahead.x - point.x;
-      const lean = Math.abs(deltaX) > 5 ? (deltaX > 0 ? 5 : -5) : 0;
-      container.style.transform = `translate(-50%, -50%) rotate(${lean}deg)`;
-    }
+  // sword toggle
+  const sR = document.querySelector('#goblinRight #goblinSword');
+  const sL = document.querySelector('#goblinLeft #goblinSwordLeft');
+  if (sR) sR.style.display = progress > 0.9 ? 'block' : 'none';
+  if (sL) sL.style.display = progress > 0.9 ? 'block' : 'none';
 
-    tracker.classList.add('goblin-walking');
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      tracker.classList.remove('goblin-walking');
-    }, 100);
-  }
-  
-  lastScrollY = currentScrollY;
-  
-  // Handle nav hide/show
-  const nav = document.querySelector('.footer-nav');
-  clearTimeout(navTimeout);
-  
-  if (currentScrollY > lastNavScrollY && currentScrollY > 100) {
-    // Scrolling down - hide nav
-    nav.classList.add('hidden');
-  } else {
-    // Scrolling up - show nav
-    nav.classList.remove('hidden');
-  }
-  
-  navTimeout = setTimeout(() => {
-    lastNavScrollY = currentScrollY;
-  }, 100);
+  // dots
+  const svg = document.querySelector('.quest-line-svg');
+  svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+  points.forEach(p => {
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('class', 'waypoint-dot');
+    c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 5);
+    svg.appendChild(c);
+  });
 }
 
 const navLinks = document.querySelectorAll('.footer-nav a');
