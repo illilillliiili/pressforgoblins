@@ -414,12 +414,18 @@ p, li {
   transform: translateX(-50%);
   z-index: 3;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-  background: rgba(13, 13, 13, 0.8);
-  backdrop-filter: blur(10px);
-  border-radius: 12px 12px 0 0;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+}
+
+.footer-nav::before {
+  content: '';
+  position: fixed;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, rgba(13, 13, 13, 0.9));
+  z-index: -1;
+  pointer-events: none;
 }
 
 .footer-nav.hidden {
@@ -483,6 +489,10 @@ p, li {
   .quest-map {
     border-left: 2px dashed #7bbf7b;
     padding-left: 2rem;
+    padding-top: 0.3rem;
+    margin-left: 1rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
   
   .quest-item {
@@ -492,14 +502,21 @@ p, li {
     text-align: left !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
     border-left: none;
     position: relative;
+  }
+  
+  .quest-item:last-child {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
   }
   
   .quest-item::before {
     content: '';
     position: absolute;
-    left: -2.05rem;
+    left: -2.1rem;
     top: 0.3rem;
     width: 10px;
     height: 10px;
