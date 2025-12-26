@@ -222,7 +222,7 @@ p, li {
 /* quest map */
 .quest-map {
   position: relative;
-  margin: 4rem 0;
+  margin: 4rem 0 0.5rem 0;
   display: flex;
   flex-direction: column;
 }
@@ -463,8 +463,16 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-line-svg, #goblinContainer {
+  .quest-line-svg {
     display: none;
+  }
+  
+  #goblinContainer {
+    display: block;
+    position: absolute;
+    left: -12px;
+    z-index: 2;
+    transition: top 0.1s ease-out;
   }
   
   .quest-item {
@@ -474,7 +482,20 @@ p, li {
     text-align: left !important;
     padding-left: 2rem !important;
     padding-right: 0 !important;
-    border-left: 1px dashed #7bbf7b;
+    border-left: 2px dashed #7bbf7b;
+    position: relative;
+  }
+  
+  .quest-item::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 1rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #7bbf7b;
+    box-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
   }
   
   .footer-nav img {
@@ -554,32 +575,39 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M9 4h2v1H9z"/>
             
-            <!-- rounded sack backpack (left side, more rounded) -->
-            <path fill="#8B4513" d="M3 7h2v1H3z"/>
-            <path fill="#8B4513" d="M2 8h3v3H2z"/>
-            <path fill="#8B4513" d="M3 11h2v1H3z"/>
-            <path fill="#654321" d="M3 7h2v1H3z"/>
-            <path fill="#654321" d="M3 9h1v1H3z"/>
+            <!-- HUGE circular rounded sack backpack -->
+            <path fill="#8B4513" d="M1 5h4v1H1z"/>
+            <path fill="#8B4513" d="M0 6h5v1H0z"/>
+            <path fill="#8B4513" d="M0 7h5v3H0z"/>
+            <path fill="#8B4513" d="M1 10h4v1H1z"/>
+            <!-- sack texture - horizontal fabric bands/folds -->
+            <path fill="#654321" d="M1 6h4v1H1z"/>
+            <path fill="#654321" d="M0 9h5v1H0z"/>
             
-            <!-- body -->
+            <!-- body (connects to backpack) -->
             <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
-            <path fill="#7bbf7b" d="M6 6h5v4H6z"/>
-            <path fill="#5a9d5a" d="M7 7h3v1H7z"/>
+            <path fill="#7bbf7b" d="M5 6h6v4H5z"/>
+            <path fill="#5a9d5a" d="M6 7h4v1H6z"/>
             
-            <!-- left arm (behind strap) -->
-            <path fill="#7bbf7b" d="M5 6h1v2H5z"/>
+            <!-- diagonal cross-body strap (more horizontal, covers body) -->
+            <path fill="#654321" d="M5 5h1v1H5z"/>
+            <path fill="#654321" d="M6 6h2v1H6z"/>
+            <path fill="#654321" d="M8 7h2v1H8z"/>
+            <path fill="#654321" d="M10 8h1v1h-1z"/>
             
-            <!-- backpack strap over left shoulder -->
-            <path fill="#654321" d="M6 6h1v2H6z"/>
+            <!-- left arm horizontal (covers part of strap) -->
+            <path fill="#7bbf7b" d="M4 7h2v2H4z"/>
             
-            <!-- right arm (in front) -->
+            <!-- right arm -->
             <path fill="#7bbf7b" d="M11 6h1v2h-1z"/>
             
-            <!-- legs -->
-            <path fill="#7bbf7b" d="M6 10h2v3H6z"/>
-            <path fill="#7bbf7b" d="M9 10h2v3H9z"/>
-            <path fill="#5a9d5a" d="M6 12h2v1H6z"/>
-            <path fill="#5a9d5a" d="M9 12h2v1H9z"/>
+            <!-- legs straight down with slight taper at bottom, angled back slightly -->
+            <path fill="#7bbf7b" d="M6 10h2v1H6z"/>
+            <path fill="#7bbf7b" d="M6 11h1v1H6z"/>
+            <path fill="#7bbf7b" d="M6 12h1v1H6z"/>
+            <path fill="#7bbf7b" d="M9 10h2v1H9z"/>
+            <path fill="#7bbf7b" d="M9 11h1v1H9z"/>
+            <path fill="#7bbf7b" d="M9 12h1v1H9z"/>
           </svg>
           
           <!-- Goblin facing LEFT (mirrored) -->
@@ -599,39 +627,46 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M5 4h2v1H5z"/>
             
-            <!-- rounded sack backpack (right side, more rounded) -->
-            <path fill="#8B4513" d="M11 7h2v1h-2z"/>
-            <path fill="#8B4513" d="M11 8h3v3h-3z"/>
-            <path fill="#8B4513" d="M11 11h2v1h-2z"/>
-            <path fill="#654321" d="M11 7h2v1h-2z"/>
-            <path fill="#654321" d="M12 9h1v1h-1z"/>
+            <!-- HUGE circular rounded sack backpack -->
+            <path fill="#8B4513" d="M11 5h4v1h-4z"/>
+            <path fill="#8B4513" d="M11 6h5v1h-5z"/>
+            <path fill="#8B4513" d="M11 7h5v3h-5z"/>
+            <path fill="#8B4513" d="M11 10h4v1h-4z"/>
+            <!-- sack texture - horizontal fabric bands/folds -->
+            <path fill="#654321" d="M11 6h4v1h-4z"/>
+            <path fill="#654321" d="M11 9h5v1h-5z"/>
             
-            <!-- body -->
+            <!-- body (connects to backpack) -->
             <path fill="#7bbf7b" d="M5 5h6v1H5z"/>
-            <path fill="#7bbf7b" d="M5 6h5v4H5z"/>
-            <path fill="#5a9d5a" d="M6 7h3v1H6z"/>
+            <path fill="#7bbf7b" d="M5 6h6v4H5z"/>
+            <path fill="#5a9d5a" d="M6 7h4v1H6z"/>
             
-            <!-- right arm (behind strap) -->
-            <path fill="#7bbf7b" d="M10 6h1v2h-1z"/>
+            <!-- diagonal cross-body strap (more horizontal, covers body) -->
+            <path fill="#654321" d="M10 5h1v1h-1z"/>
+            <path fill="#654321" d="M8 6h2v1H8z"/>
+            <path fill="#654321" d="M6 7h2v1H6z"/>
+            <path fill="#654321" d="M5 8h1v1H5z"/>
             
-            <!-- backpack strap over right shoulder -->
-            <path fill="#654321" d="M9 6h1v2H9z"/>
+            <!-- right arm horizontal (covers middle part of strap) -->
+            <path fill="#7bbf7b" d="M10 7h2v2h-2z"/>
             
-            <!-- left arm (in front) -->
+            <!-- left arm -->
             <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
             
-            <!-- legs -->
-            <path fill="#7bbf7b" d="M5 10h2v3H5z"/>
-            <path fill="#7bbf7b" d="M8 10h2v3H8z"/>
-            <path fill="#5a9d5a" d="M5 12h2v1H5z"/>
-            <path fill="#5a9d5a" d="M8 12h2v1H8z"/>
+            <!-- legs straight down with slight taper at bottom, angled back slightly -->
+            <path fill="#7bbf7b" d="M5 10h2v1H5z"/>
+            <path fill="#7bbf7b" d="M6 11h1v1H6z"/>
+            <path fill="#7bbf7b" d="M6 12h1v1H6z"/>
+            <path fill="#7bbf7b" d="M8 10h2v1H8z"/>
+            <path fill="#7bbf7b" d="M9 11h1v1H9z"/>
+            <path fill="#7bbf7b" d="M9 12h1v1H9z"/>
           </svg>
         </div>
       </div>
 
       <div class="quest-item">
-        <h3>tutorial OR prologue</h3>
-        <p>a vibe check. you'll get to meet all three goblins. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can. no gold required.</p>
+        <h3>character creation</h3>
+        <p>a vibe check. you'll get to meet all three goblins. no gold required. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
       </div>
       
       <div class="quest-item">
@@ -701,75 +736,113 @@ function updateQuestVisuals() {
   const container = document.getElementById('goblinContainer');
   const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
+  const isMobile = window.innerWidth < 600;
   
-  if (!path || items.length === 0 || window.innerWidth < 600) return;
-
-  const mapRect = map.getBoundingClientRect();
+  if (!items.length || !container) return;
+  
   const currentScrollY = window.pageYOffset;
-  let points = [];
-  
-  items.forEach((item, index) => {
-    const h3 = item.querySelector('h3');
-    const rect = h3.getBoundingClientRect();
-    // Add padding away from the text
-    const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
-    const y = rect.top - mapRect.top + 13; // Nudged up slightly
-    points.push({x, y});
-  });
 
-  let d = `M ${points[0].x} ${points[0].y}`;
-  for(let i = 1; i < points.length; i++) {
-    d += ` L ${points[i].x} ${points[i].y}`;
-  }
-  path.setAttribute('d', d);
-
-  // Draw waypoint dots at each corner
-  const svg = document.querySelector('.quest-line-svg');
-  // Remove existing dots
-  svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
-  
-  // Add dots at each point (including start and end)
-  const dotRadius = 5;
-  points.forEach(point => {
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('class', 'waypoint-dot');
-    circle.setAttribute('cx', point.x);
-    circle.setAttribute('cy', point.y); // No offset - same as line position
-    circle.setAttribute('r', dotRadius);
-    svg.appendChild(circle);
-  });
-
-  const windowHeight = window.innerHeight;
-  let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
-  progress = Math.max(0, Math.min(1, progress));
-
-  const totalLength = path.getTotalLength();
-  const point = path.getPointAtLength(progress * totalLength);
-  
-  container.style.left = `${point.x}px`;
-  container.style.top = `${point.y}px`;
-  
-  // Get both sprites
-  const goblinRight = document.getElementById('goblinRight');
-  const goblinLeft = document.getElementById('goblinLeft');
-  
-  // Toggle visibility based on scroll direction
-  if (currentScrollY < lastScrollY) {
-    // SCROLLING UP -> Show Left-facing goblin
-    goblinRight.style.display = 'none';
-    goblinLeft.style.display = 'block';
-  } else if (currentScrollY > lastScrollY) {
-    // SCROLLING DOWN -> Show Right-facing goblin
+  // MOBILE: Vertical line movement
+  if (isMobile) {
+    const mapRect = map.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
+    progress = Math.max(0, Math.min(1, progress));
+    
+    // Calculate position along vertical line
+    const firstItem = items[0].getBoundingClientRect();
+    const lastItem = items[items.length - 1].getBoundingClientRect();
+    const totalHeight = lastItem.top - firstItem.top;
+    const goblinY = firstItem.top - mapRect.top + (progress * totalHeight);
+    
+    container.style.left = `-12px`;
+    container.style.top = `${goblinY}px`;
+    
+    // Get both sprites
+    const goblinRight = document.getElementById('goblinRight');
+    const goblinLeft = document.getElementById('goblinLeft');
+    
+    // On mobile, always face right (downward direction)
     goblinRight.style.display = 'block';
     goblinLeft.style.display = 'none';
+    
+    tracker.classList.add('goblin-walking');
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      tracker.classList.remove('goblin-walking');
+    }, 100);
   }
+  // DESKTOP: Zigzag line movement
+  else {
+    if (!path) return;
+    
+    const mapRect = map.getBoundingClientRect();
+    let points = [];
+    
+    items.forEach((item, index) => {
+      const h3 = item.querySelector('h3');
+      const rect = h3.getBoundingClientRect();
+      // Add padding away from the text
+      const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
+      const y = rect.top - mapRect.top + 13; // Nudged up slightly
+      points.push({x, y});
+    });
 
-  tracker.classList.add('goblin-walking');
-  
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    tracker.classList.remove('goblin-walking');
-  }, 100);
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for(let i = 1; i < points.length; i++) {
+      d += ` L ${points[i].x} ${points[i].y}`;
+    }
+    path.setAttribute('d', d);
+
+    // Draw waypoint dots at each corner
+    const svg = document.querySelector('.quest-line-svg');
+    // Remove existing dots
+    svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+    
+    // Add dots at each point (including start and end)
+    const dotRadius = 5;
+    points.forEach(point => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'waypoint-dot');
+      circle.setAttribute('cx', point.x);
+      circle.setAttribute('cy', point.y); // No offset - same as line position
+      circle.setAttribute('r', dotRadius);
+      svg.appendChild(circle);
+    });
+
+    const windowHeight = window.innerHeight;
+    let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
+    progress = Math.max(0, Math.min(1, progress));
+
+    const totalLength = path.getTotalLength();
+    const point = path.getPointAtLength(progress * totalLength);
+    
+    container.style.left = `${point.x}px`;
+    container.style.top = `${point.y}px`;
+    
+    // Get both sprites
+    const goblinRight = document.getElementById('goblinRight');
+    const goblinLeft = document.getElementById('goblinLeft');
+    
+    // Toggle visibility based on scroll direction
+    if (currentScrollY < lastScrollY) {
+      // SCROLLING UP -> Show Left-facing goblin
+      goblinRight.style.display = 'none';
+      goblinLeft.style.display = 'block';
+    } else if (currentScrollY > lastScrollY) {
+      // SCROLLING DOWN -> Show Right-facing goblin
+      goblinRight.style.display = 'block';
+      goblinLeft.style.display = 'none';
+    }
+
+    tracker.classList.add('goblin-walking');
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      tracker.classList.remove('goblin-walking');
+    }, 100);
+  }
   
   lastScrollY = currentScrollY;
   
