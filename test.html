@@ -202,17 +202,13 @@ p, li {
 
 .strikethrough {
   text-decoration: none;
-  color: inherit;
+  color: rgba(255, 255, 255, 0.85);
   animation: liveGoblinEdit 1.2s steps(4) forwards;
   animation-delay: 1.2s;
 }
 
 @keyframes liveGoblinEdit {
-  0% {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.85);
-  }
-  100% {
+  to {
     text-decoration: line-through;
     color: rgba(123, 191, 123, 0.6);
   }
@@ -267,8 +263,6 @@ p, li {
   stroke-linejoin: round;
   stroke-dasharray: 6 6;
   opacity: 0.4;
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 0.1s linear;
 }
 
 /* waypoint dots at corners */
@@ -501,7 +495,8 @@ p, li {
 
 @media(max-width: 600px) {
   .quest-line-svg {
-    display: none;
+    display: block !important;
+    overflow: visible;
   }
   
   #goblinContainer {
@@ -528,7 +523,12 @@ p, li {
     padding-right: 0 !important;
     padding-bottom: 1rem !important;
     margin-bottom: 1rem !important;
+    border-left: none !important;
     position: relative;
+  }
+  
+  .quest-item::before {
+    display: none; /* hide CSS dot, use SVG dots now */
   }
   
   .quest-item:first-child {
@@ -539,18 +539,6 @@ p, li {
   .quest-item:last-child {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
-  }
-  
-  .quest-item::before {
-    content: '';
-    position: absolute;
-    left: -2.15rem;
-    top: 0.3rem;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #7bbf7b;
-    box-shadow: 0 0 8px rgba(123, 191, 123, 0.6);
   }
   
   .footer-nav img {
@@ -798,126 +786,151 @@ function updateQuestVisuals() {
   const map = document.getElementById('questMap');
   const isMobile = window.innerWidth < 600;
   
-  if (!items.length || !container) return;
+  if (!items.length || !container || !path) return;
   
   const currentScrollY = window.pageYOffset;
+  const mapRect = map.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+  let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
+  progress = Math.max(0, Math.min(1, progress));
 
-  // MOBILE: Vertical line movement
+  // MOBILE: Vertical line
   if (isMobile) {
-    const mapRect = map.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
-    progress = Math.max(0, Math.min(1, progress));
+    const svg = document.querySelector('.quest-line-svg');
     
-    // Task 5: Fix vertical offset to 8px from h3 top for perfect alignment
-    const firstItem = items[0].getBoundingClientRect();
-    const firstH3 = items[0].querySelector('h3').getBoundingClientRect();
-    const lastItem = items[items.length - 1].getBoundingClientRect();
-    const totalHeight = lastItem.top - firstItem.top;
-    const goblinY = firstH3.top - mapRect.top + 8 + (progress * totalHeight);
+    // Build vertical line and dots at fixed x position
+    const fixedX = 20; // Fixed x coordinate for vertical line
+    let points = [];
     
-    container.style.left = `-4px`;
-    container.style.top = `${goblinY}px`;
-    container.style.transform = `translate(-50%, -50%)`; // No rotation on mobile
+    items.forEach((item) => {
+      const h3 = item.querySelector('h3');
+      const rect = h3.getBoundingClientRect();
+      const y = rect.top - mapRect.top + 10; // Align with h3 top + 10px
+      points.push({x: fixedX, y: y});
+    });
     
-    // Get both sprites
+    // Draw vertical path
+    let d = `M ${fixedX} ${points[0].y}`;
+    for(let i = 1; i < points.length; i++) {
+      d += ` L ${fixedX} ${points[i].y}`;
+    }
+    path.setAttribute('d', d);
+    
+    // Draw SVG waypoint dots
+    svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+    const dotRadius = 5;
+    points.forEach(point => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('class', 'waypoint-dot');
+      circle.setAttribute('cx', fixedX);
+      circle.setAttribute('cy', point.y);
+      circle.setAttribute('r', dotRadius);
+      svg.appendChild(circle);
+    });
+    
+    // Calculate goblin position along vertical line
+    const totalLength = path.getTotalLength();
+    if (totalLength > 0) {
+      const currentDistance = progress * totalLength;
+      const point = path.getPointAtLength(currentDistance);
+      
+      // 2. Dynamic path drawing
+      path.style.strokeDasharray = totalLength;
+      path.style.strokeDashoffset = totalLength - currentDistance;
+      
+      container.style.left = `${fixedX}px`;
+      container.style.top = `${point.y}px`;
+      container.style.transform = `translate(-50%, -50%)`; // No rotation on mobile
+    }
+    
+    // Mobile always faces right
     const goblinRight = document.getElementById('goblinRight');
     const goblinLeft = document.getElementById('goblinLeft');
-    
-    // On mobile, always face right (downward direction)
     goblinRight.style.display = 'block';
     goblinLeft.style.display = 'none';
     
     tracker.classList.add('goblin-walking');
-    
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       tracker.classList.remove('goblin-walking');
     }, 100);
   }
-  // DESKTOP: Zigzag line movement
+  // DESKTOP: Zigzag line
   else {
-    if (!path) return;
-    
-    const mapRect = map.getBoundingClientRect();
+    const svg = document.querySelector('.quest-line-svg');
     let points = [];
     
     items.forEach((item, index) => {
       const h3 = item.querySelector('h3');
       const rect = h3.getBoundingClientRect();
-      // Add padding away from the text
       const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
-      const y = rect.top - mapRect.top + 13; // Nudged up slightly
+      const y = rect.top - mapRect.top + 13;
       points.push({x, y});
     });
 
+    // Build zigzag path
     let d = `M ${points[0].x} ${points[0].y}`;
     for(let i = 1; i < points.length; i++) {
       d += ` L ${points[i].x} ${points[i].y}`;
     }
     path.setAttribute('d', d);
 
-    // Draw waypoint dots at each corner
-    const svg = document.querySelector('.quest-line-svg');
-    // Remove existing dots
+    // Draw waypoint dots
     svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
-    
-    // Add dots at each point (including start and end)
     const dotRadius = 5;
     points.forEach(point => {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('class', 'waypoint-dot');
       circle.setAttribute('cx', point.x);
-      circle.setAttribute('cy', point.y); // No offset - same as line position
+      circle.setAttribute('cy', point.y);
       circle.setAttribute('r', dotRadius);
       svg.appendChild(circle);
     });
 
-    const windowHeight = window.innerHeight;
-    let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
-    progress = Math.max(0, Math.min(1, progress));
-
     const totalLength = path.getTotalLength();
-    const currentDistance = progress * totalLength;
-    const point = path.getPointAtLength(currentDistance);
     
-    // Task 2: Dynamic path drawing - line invisible ahead, drawn behind
-    path.style.strokeDashoffset = totalLength - currentDistance;
-    
-    container.style.left = `${point.x}px`;
-    container.style.top = `${point.y}px`;
-    
-    // Get both sprites
-    const goblinRight = document.getElementById('goblinRight');
-    const goblinLeft = document.getElementById('goblinLeft');
-    
-    // Task 3: Predictive turning - face direction of next waypoint
-    const lookAheadDistance = 20; // pixels ahead to check
-    const scrollingUp = currentScrollY < lastScrollY;
-    const checkDistance = scrollingUp ? 
-      Math.max(0, currentDistance - lookAheadDistance) : 
-      Math.min(totalLength, currentDistance + lookAheadDistance);
-    
-    const nextPoint = path.getPointAtLength(checkDistance);
-    const deltaX = nextPoint.x - point.x;
-    
-    // Determine facing based on horizontal direction of travel
-    const facingRight = scrollingUp ? deltaX < 0 : deltaX > 0;
-    
-    if (facingRight) {
-      goblinRight.style.display = 'block';
-      goblinLeft.style.display = 'none';
-    } else {
-      goblinRight.style.display = 'none';
-      goblinLeft.style.display = 'block';
+    // 2. Check totalLength is valid
+    if (totalLength > 0) {
+      const currentDistance = progress * totalLength;
+      const point = path.getPointAtLength(currentDistance);
+      
+      // 2. Dynamic path drawing - line only behind goblin
+      path.style.strokeDasharray = totalLength;
+      path.style.strokeDashoffset = totalLength - currentDistance;
+      
+      container.style.left = `${point.x}px`;
+      container.style.top = `${point.y}px`;
+      
+      // 4. Predictive orientation - look ahead
+      const scrollingUp = currentScrollY < lastScrollY;
+      const ahead = path.getPointAtLength(Math.min(totalLength, currentDistance + 1));
+      
+      const goblinRight = document.getElementById('goblinRight');
+      const goblinLeft = document.getElementById('goblinLeft');
+      
+      let facingRight;
+      if (scrollingUp) {
+        // Reverse logic when scrolling up
+        facingRight = ahead.x < point.x;
+      } else {
+        facingRight = ahead.x > point.x;
+      }
+      
+      if (facingRight) {
+        goblinRight.style.display = 'block';
+        goblinLeft.style.display = 'none';
+      } else {
+        goblinRight.style.display = 'none';
+        goblinLeft.style.display = 'block';
+      }
+      
+      // 4. Momentum lean
+      const deltaX = ahead.x - point.x;
+      const lean = Math.abs(deltaX) > 5 ? (deltaX > 0 ? 5 : -5) : 0;
+      container.style.transform = `translate(-50%, -50%) rotate(${lean}deg)`;
     }
-    
-    // Task 4: Momentum lean - rotate based on horizontal direction
-    const lean = Math.abs(deltaX) > 5 ? (deltaX > 0 ? 5 : -5) : 0;
-    container.style.transform = `translate(-50%, -50%) rotate(${lean}deg)`;
 
     tracker.classList.add('goblin-walking');
-    
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       tracker.classList.remove('goblin-walking');
