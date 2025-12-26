@@ -150,19 +150,27 @@ h1, h2, h3 {
 
 h1 {
   font-size: clamp(1.2rem, 4vw, 1.8rem);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  color: #7bbf7b;
 }
 
 h2 {
-  font-size: clamp(0.9rem, 3vw, 1.2rem);
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #7bbf7b;
 }
 
 h3 {
   font-size: clamp(0.75rem, 2.5vw, 0.95rem);
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.quest-item h3 {
+  color: #7bbf7b;
+}
 }
 
 p, li {
@@ -174,7 +182,7 @@ p, li {
 
 .hero {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .hero h1 {
@@ -198,7 +206,7 @@ p, li {
 }
 
 .section {
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .crew-grid {
@@ -222,7 +230,7 @@ p, li {
 /* quest map */
 .quest-map {
   position: relative;
-  margin: 4rem 0 0.5rem 0;
+  margin: 1rem 0 0 0;
   display: flex;
   flex-direction: column;
 }
@@ -305,8 +313,12 @@ p, li {
 .quest-item {
   position: relative;
   width: 45%;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   z-index: 1;
+}
+
+.quest-item:last-of-type {
+  margin-bottom: 2rem;
 }
 
 .quest-item:nth-child(odd) {
@@ -343,7 +355,7 @@ p, li {
 .quest-pricing {
   text-align: center;
   margin-top: 1rem;
-  padding: 0;
+  padding: 0 1rem;
   font-size: clamp(0.9rem, 2.8vw, 1rem);
   line-height: 1.7;
   opacity: 0.9;
@@ -381,8 +393,8 @@ p, li {
 
 .cta {
   text-align: center;
-  margin-top: 4rem;
-  padding: 0;
+  margin-top: 2rem;
+  padding: 0 0 4rem 0;
   position: relative;
 }
 
@@ -564,7 +576,7 @@ p, li {
   </div>
 
   <div class="section">
-    <h2 style="text-align: center;">the goblins are hungry for . . .</h2>
+    <h2 style="text-align: center;">the goblins are hungry for</h2>
     <div class="genre-list">
       <p>• sci-fi<br>
       • fantasy<br>
@@ -576,13 +588,12 @@ p, li {
     </div>
     
     <div class="genre-avoid">
-      <p>the goblins cannot digest literary fiction (which often lulls them into a deep sleep), poetry and non-fiction (unless it involves other fantastical creatures like them)</p>
+      <p>the goblins cannot digest literary fiction (which often puts them into a deep sleep), poetry or non-fiction (unless it involves other fantastical creatures like them)</p>
     </div>
   </div>
 
   <div class="section">
     <h2 style="text-align: center;">waypoints</h2>
-    <p style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem; font-size: clamp(0.85rem, 2.8vw, 0.95rem); opacity: 0.9;">select your stage</p>
     
     <div class="quest-map" id="questMap">
       <svg class="quest-line-svg">
@@ -728,7 +739,7 @@ p, li {
       </div>
     </div>
     
-    <div class="quest-pricing" style="margin-top: 3rem;">
+    <div class="quest-pricing">
       we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
     </div>
   </div>
