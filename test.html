@@ -634,7 +634,7 @@ p, li {
   </div>
 
   <div class="section">
-    <h2 style="text-align: center;">where are you on the timeline?</h2>
+    <h2 style="text-align: center; margin-bottom: 2rem;">where are you on the timeline?</h2>
     
     <div class="quest-map" id="questMap">
       <svg class="quest-line-svg">
@@ -846,7 +846,7 @@ function updateQuestVisuals() {
       points.push({x, y});
     } else {
       // desktop: zigzag layout
-      const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
+      const x = (index % 2 === 0) ? rect.right - mapRect.left + 14 : rect.left - mapRect.left - 14;
       const y = rect.top - mapRect.top + 13;
       points.push({x, y});
     }
