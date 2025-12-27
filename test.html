@@ -227,7 +227,6 @@ p, li {
   position: relative;
   display: inline-block;
   color: rgba(255, 255, 255, 0.85);
-  transition: color 0.3s ease;
 }
 
 .strikethrough::after {
@@ -248,9 +247,8 @@ p, li {
 
 /* the 'i' cursor effect */
 #new-subject {
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.85);
-  min-width: 1ch;
+  color: #7bbf7b;
+  margin-left: 0.3ch;
 }
 
 .cursor {
@@ -592,7 +590,7 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
-    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit out of a dimly-lit, well-guarded workshop in london for authors who write speculative and strange. 5+ years big four publishing experience and counting. applying industry grit to stress-test your manuscript or creative project and ensure it's ready to cause trouble in the market.</p>
+    <p>yes, hello. this is noah. please ignore the shifting height; nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit for authors from a dimly lit, well-guarded workshop in london. with 5+ years of big four publishing experience and counting, i apply industry grit to stress-test your project and ensure it is ready to cause trouble in the market.</p>
   </div>
 
   <div class="section crew-section">
@@ -600,15 +598,15 @@ p, li {
     <div class="crew-grid">
       <div class="crew-member">
         <h3>editorial goblin</h3>
-        <p>sharpens what is already there. refines structure, pacing, character arcs, themes and emotions to make your story feel <em>right</em>. handles the practical stuff: developmental editing, copyediting, line editing, proofreading.</p>
+        <p>refines what is already there. character arcs, pacing, structuring and themes to make your story feel right. developmental editing, copyediting, line editing, proofreading.</p>
       </div>
       <div class="crew-member">
         <h3>creative goblin</h3>
-        <p>finds what is missing. fizzes with curiosity, ideas and radical thinking for when you're stuck. expect lots of energy, excitement and suggestions you never saw coming.</p>
+        <p>finds what is missing. fizzes with curiosity, energy and radical thinking for when you're stuck. expect new ideas and perspectives you never saw coming.</p>
       </div>
       <div class="crew-member">
         <h3>marketing goblin</h3>
-        <p>knows what parts of your project to shout about. pitches, straplines, brand identity, positioning and one-liners that hit like a well-aimed goblin brick.</p>
+        <p>shouts about what will turn heads. brand identity, copywriting, pitches, positioning. one-liners that hit like a well-aimed goblin brick.</p>
       </div>
     </div>
   </div>
@@ -770,7 +768,7 @@ p, li {
       
       <div class="quest-item">
         <h3>ready for the final boss</h3>
-        <span class="service-tag">[pitching and sending out]</span>
+        <span class="service-tag">[pitching and querying]</span>
         <p>your project is ready. exciting. but are you? what's the one-liner? what are your comps? the marketing goblin helps you nail the query package so you don't fall flat at the gates.</p>
       </div>
     </div>
@@ -949,15 +947,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // apply green pen strike to 'we'
     subject.classList.add('active');
     
-    // type 'i' one letter at a time
-    const text = " i";
-    let i = 0;
-    
-    const typewriter = setInterval(() => {
-      newSubject.textContent += text[i];
-      i++;
-      if (i >= text.length) clearInterval(typewriter);
-    }, 150);
+    // type 'i' 
+    setTimeout(() => {
+      newSubject.textContent = 'i';
+    }, 400);
     
   }, 1500);
 });
