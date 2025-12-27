@@ -221,6 +221,7 @@ p, li {
 /* green pen stroke effect */
 .strikethrough {
   position: relative;
+  display: inline-block;
   color: rgba(255, 255, 255, 0.85);
   transition: color 0.3s ease;
 }
@@ -243,7 +244,9 @@ p, li {
 
 /* the 'i' cursor effect */
 #new-subject {
+  display: inline-block;
   color: rgba(255, 255, 255, 0.85);
+  min-width: 1ch;
 }
 
 .cursor {
@@ -397,7 +400,7 @@ p, li {
   display: block;
   font-family: 'PressStart2P', monospace;
   font-size: 0.65rem;
-  color: rgba(123, 191, 123, 0.7);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 0.5rem;
   margin-top: 0.25rem;
 }
@@ -535,8 +538,22 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-line-svg, #goblinContainer {
-    display: none;
+  .quest-line-svg {
+    display: block !important;
+    overflow: visible;
+  }
+  
+  #goblinContainer {
+    display: block;
+    position: absolute;
+    left: 15px;
+    z-index: 2;
+    transition: top 0.1s ease-out;
+  }
+  
+  .quest-map {
+    padding-left: 3rem;
+    margin-left: 1rem;
   }
   
   .quest-item {
@@ -544,9 +561,11 @@ p, li {
     margin-left: 0 !important;
     margin-right: 0 !important;
     text-align: left !important;
-    padding-left: 2rem !important;
+    padding-left: 3rem !important;
     padding-right: 0 !important;
-    border-left: 1px dashed #7bbf7b;
+    margin-bottom: 3rem !important;
+    border-left: none !important;
+    position: relative;
   }
   
   .footer-nav img {
@@ -592,11 +611,11 @@ p, li {
       • graphic novels and comic books<br>
       • video games: character, narrative design, dialogue, environmental storytelling<br>
       • lore: technical and worldbuilding guides for board and card games<br>
-      • other creative projects that don't fit into a tidy box</p>
+      • other creative projects that can't fit into a neat list of bulletpoints</p>
     </div>
     
     <div class="genre-avoid">
-      <p>we cannot digest literary fiction, poetry or non-fiction.</p>
+      <p>note: the goblins cannot digest literary fiction, poetry or non-fiction.</p>
     </div>
   </div>
 
@@ -717,44 +736,50 @@ p, li {
       </div>
 
       <div class="quest-item">
-        <h3>character creation</h3>
-        <p>a vibe check to see if we're aligned. no gold required. you'll get to meet all three goblins. we're a delight, obviously. let's talk plot, world-building, magic system design or the scenes that keep you awake.</p>
+        <h3>get your bearings</h3>
+        <span class="quest-tag">vibe check</span>
+        <p>no gold required. you'll get to meet all three goblins. we're a delight, obviously. let's talk plot, world-building, magic system design or the scenes that keep you awake.</p>
       </div>
       
       <div class="quest-item">
-        <h3>exploring the world</h3>
+        <h3>explore the map</h3>
+        <span class="quest-tag">creative development</span>
         <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities. you're building the world, crafting the characters, deciding on the stakes and even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
-        <h3>levelling up</h3>
-        <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your manuscript through to the other side.</p>
+        <h3>level up</h3>
+        <span class="quest-tag">editorial development</span>
+        <p>you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your manuscript through to the other side.</p>
       </div>
       
       <div class="quest-item">
-        <h3>upgrading your gear</h3>
-        <p>manuscript assessment. your draft is complete. finally. you need an honest read with a focus on the current market and an understanding of what publishers - and therefore, agents - are looking for.</p>
+        <h3>upgrade your gear</h3>
+        <span class="quest-tag">manuscript assessment</span>
+        <p>your draft is complete. finally. you need an honest read with a focus on the current market and an understanding of what publishers - and therefore, agents - are looking for.</p>
       </div>
       
       <div class="quest-item">
-        <h3>bonus level</h3>
-        <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
+        <h3>secret level</h3>
+        <span class="quest-tag">custom work</span>
+        <p>your project needs something special. tell us your weirdest requirements.</p>
       </div>
       
       <div class="quest-item">
-        <h3>final boss</h3>
-        <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
+        <h3>endgame</h3>
+        <span class="quest-tag">pitching and sending out</span>
+        <p>the final boss. your project is ready. exciting. but are you? what's the one-liner? what are your comps? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
     
     <div class="quest-pricing">
-      we quote based on project length and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. creators from an underrepresented background in the creative industries will receive a discounted rate.
+      we quote based on project length and complexity. let's start with a free vibe check and we can settle on a gold payment that works for you and the goblins. creators from underrepresented backgrounds will receive a discounted rate.
     </div>
   </div>
 
   <div class="cta">
     <a href="contact.html" class="cta-link">
-      <h2>caution: goblins this way</h2>
+      <h2>goblins this way</h2>
     </a>
   </div>
 </div>
@@ -790,8 +815,9 @@ function updateQuestVisuals() {
   const container = document.getElementById('goblinContainer');
   const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
+  const isMobile = window.innerWidth < 600;
   
-  if (!path || items.length === 0 || window.innerWidth < 600) return;
+  if (!path || items.length === 0) return;
 
   const mapRect = map.getBoundingClientRect();
   const currentScrollY = window.pageYOffset;
@@ -800,10 +826,18 @@ function updateQuestVisuals() {
   items.forEach((item, index) => {
     const h3 = item.querySelector('h3');
     const rect = h3.getBoundingClientRect();
-    // Add padding away from the text
-    const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
-    const y = rect.top - mapRect.top + 13; // Nudged up slightly
-    points.push({x, y});
+    
+    if (isMobile) {
+      // mobile: straight vertical line down the left
+      const x = 15;
+      const y = rect.top - mapRect.top + (rect.height / 2);
+      points.push({x, y});
+    } else {
+      // desktop: zigzag layout
+      const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
+      const y = rect.top - mapRect.top + 13;
+      points.push({x, y});
+    }
   });
 
   let d = `M ${points[0].x} ${points[0].y}`;
