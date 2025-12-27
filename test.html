@@ -778,7 +778,7 @@ p, li {
     </div>
     
     <div class="quest-pricing">
-      we quote based on project length and complexity. let's start with a free vibe check and we can settle on a gold payment that works for you and the goblins. creators from underrepresented backgrounds will receive a discounted rate.
+      we quote based on project length and complexity. let's start with a free vibe check and we can settle on a gold payment that works for you and the goblins. creators from underrepresented backgrounds receive a discounted rate.
     </div>
   </div>
 
@@ -882,15 +882,21 @@ function updateQuestVisuals() {
   const goblinRight = document.getElementById('goblinRight');
   const goblinLeft = document.getElementById('goblinLeft');
   
-  // predictive orientation - look ahead to next point
-  const scrollingUp = currentScrollY < lastScrollY;
-  const ahead = path.getPointAtLength(Math.min(totalLength, currentDistance + 1));
-  
   let facingRight;
-  if (scrollingUp) {
-    facingRight = ahead.x < point.x;
+  
+  if (isMobile) {
+    // mobile: always face right when going down vertical line
+    facingRight = true;
   } else {
-    facingRight = ahead.x > point.x;
+    // desktop: predictive orientation - look ahead to next point
+    const scrollingUp = currentScrollY < lastScrollY;
+    const ahead = path.getPointAtLength(Math.min(totalLength, currentDistance + 1));
+    
+    if (scrollingUp) {
+      facingRight = ahead.x < point.x;
+    } else {
+      facingRight = ahead.x > point.x;
+    }
   }
   
   if (facingRight) {
