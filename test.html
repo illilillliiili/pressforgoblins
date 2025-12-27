@@ -223,10 +223,14 @@ p, li {
 }
 
 /* green pen stroke effect */
+.correction-wrapper {
+  display: inline;
+}
+
 .strikethrough {
   position: relative;
   color: rgba(255, 255, 255, 0.85);
-  font-size: inherit;
+  display: inline;
 }
 
 .strikethrough::after {
@@ -249,7 +253,7 @@ p, li {
 #new-subject {
   color: #7bbf7b;
   margin-left: 0.3ch;
-  font-size: inherit;
+  display: inline;
 }
 
 .cursor {
@@ -688,7 +692,7 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
-    <p>yes, hello. this is noah. please ignore the shifting height; nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit for authors from a dimly lit, well-guarded workshop in london. with 5+ years of big four publishing experience and counting, i apply industry grit to stress-test your project and ensure it is ready to cause trouble in the market.</p>
+    <p>yes, hello. this is noah. please ignore the shifting height; nothing to see here. <span class="correction-wrapper"><span id="subject" class="strikethrough">we</span><span id="new-subject"></span></span> run an editorial and creative outfit for authors from a dimly lit, well-guarded workshop in london. with 5+ years of big four publishing experience and counting, i apply industry grit to stress-test your project and ensure it is ready to cause trouble in the market.</p>
   </div>
 
   <div class="section crew-section">
