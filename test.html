@@ -565,7 +565,7 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
-    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit operating out of a dimly-lit, well-guarded workshop in london for authors who write speculative and strange. 5+ years big four publishing experience and counting. applying industry grit to stress-test your manuscript and ensure it's ready to cause trouble in the market.</p>
+    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit out of a dimly-lit, well-guarded workshop in london for authors who write speculative and strange. 5+ years big four publishing experience and counting. applying industry grit to stress-test your manuscript or creative project and ensure it's ready to cause trouble in the market.</p>
   </div>
 
   <div class="section crew-section">
@@ -588,17 +588,15 @@ p, li {
   <div class="section">
     <h2 style="text-align: center;">we're hungry for</h2>
     <div class="genre-list" style="margin-top: 0;">
-      <p>• sci-fi<br>
-      • fantasy<br>
-      • horror<br>
-      • romance<br>
-      • speculative fiction<br>
-      • graphic novels, comic books<br>
-      • technical lore: board and card game guides, video game scripts</p>
+      <p>• speculative fiction, especially sci-fi, fantasy, horror, romance and genre blends<br>
+      • graphic novels and comic books<br>
+      • video games: character, narrative design, dialogue, environmental storytelling<br>
+      • lore: technical and worldbuilding guides for board and card games<br>
+      • other creative projects that don't fit into a tidy box</p>
     </div>
     
     <div class="genre-avoid">
-      <p>the goblins cannot digest literary fiction or poetry. they can tolerate some non-fiction as long as it contains myths, legends or folklore.</p>
+      <p>we cannot digest literary fiction, poetry or non-fiction.</p>
     </div>
   </div>
 
@@ -750,7 +748,7 @@ p, li {
     </div>
     
     <div class="quest-pricing">
-      we quote based on manuscript length, timeline and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. authors from a background traditionally underrepresented in publishing will receive a discounted rate.
+      we quote based on project length and complexity. start with a free vibe check and we can settle on a gold payment that works for you and the goblins. creators from an underrepresented background in the creative industries will receive a discounted rate.
     </div>
   </div>
 
@@ -835,24 +833,33 @@ function updateQuestVisuals() {
   progress = Math.max(0, Math.min(1, progress));
 
   const totalLength = path.getTotalLength();
-  const point = path.getPointAtLength(progress * totalLength);
+  const currentDistance = progress * totalLength;
+  const point = path.getPointAtLength(currentDistance);
   
   container.style.left = `${point.x}px`;
   container.style.top = `${point.y}px`;
   
-  // Get both sprites
+  // get both sprites
   const goblinRight = document.getElementById('goblinRight');
   const goblinLeft = document.getElementById('goblinLeft');
   
-  // Toggle visibility based on scroll direction
-  if (currentScrollY < lastScrollY) {
-    // scrolling up -> show left-facing goblin
-    goblinRight.style.display = 'none';
-    goblinLeft.style.display = 'block';
-  } else if (currentScrollY > lastScrollY) {
-    // scrolling down -> show right-facing goblin
+  // predictive orientation - look ahead to next point
+  const scrollingUp = currentScrollY < lastScrollY;
+  const ahead = path.getPointAtLength(Math.min(totalLength, currentDistance + 1));
+  
+  let facingRight;
+  if (scrollingUp) {
+    facingRight = ahead.x < point.x;
+  } else {
+    facingRight = ahead.x > point.x;
+  }
+  
+  if (facingRight) {
     goblinRight.style.display = 'block';
     goblinLeft.style.display = 'none';
+  } else {
+    goblinRight.style.display = 'none';
+    goblinLeft.style.display = 'block';
   }
 
   tracker.classList.add('goblin-walking');
