@@ -200,8 +200,9 @@ p, li {
 }
 
 .strikethrough {
-  color: #888 !important; /* matches the body/hero text color */
+  color: #7bbf7b !important; /* turns the 'we' green */
   text-decoration: none;
+  position: relative;
   animation: liveGoblinEdit 1.2s steps(4) forwards;
   animation-delay: 1.2s;
 }
@@ -209,6 +210,7 @@ p, li {
 @keyframes liveGoblinEdit {
   to {
     text-decoration: line-through;
+    text-decoration-color: #7bbf7b; /* ensures the line itself is green */
   }
 }
 
@@ -256,12 +258,13 @@ p, li {
 .quest-line-path {
   fill: none;
   stroke: #7bbf7b;
-  stroke-width: 2;
+  stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 6, 6;
-  opacity: 0.4;
-  pathLength: 1;
+  opacity: 0;
+  /* subtle blur makes it look like ink bleeding into paper */
+  filter: blur(0.5px);
+  display: none;
 }
 
 /* waypoint dots at corners */
@@ -296,7 +299,7 @@ p, li {
 }
 
 #goblinTracker {
-  width: 36px;
+  width: 72px;
   height: 36px;
   transition: transform 0.1s;
 }
@@ -318,85 +321,10 @@ p, li {
   animation: goblinBob 0.2s infinite;
 }
 
-@keyframes rpgFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.section-art {
-  width: 80px;
-  height: 80px;
-  margin: 1rem auto;
-  display: block;
-  image-rendering: pixelated;
-  animation: rpgFloat 2s steps(4) infinite;
-  filter: drop-shadow(0 5px 0 rgba(26, 47, 26, 0.5));
-}
-
-/* mobile: art sits under the section text as requested */
-@media(max-width: 600px) {
-  .section-art {
-    margin: 0.5rem 0 1.5rem 0;
-    width: 64px;
-    height: 64px;
-  }
-}
-
-/* container for each section stage */
-.waypoint-stage {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* text on left, mural on right */
-  gap: 3rem;
-  margin-bottom: 6rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.waypoint-text {
-  padding-left: 3rem; /* room for the goblin and line on the far left */
-}
-
-/* the pixel murals */
-.waypoint-mural {
-  width: 100%;
-  height: auto;
-  display: block;
-  image-rendering: pixelated;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 15px rgba(123, 191, 123, 0.1));
-}
-
-/* animation for the candle/elements */
-.flicker {
-  animation: pixelPulse 1.5s steps(3) infinite;
-}
-
-@keyframes pixelPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* mobile stack */
-@media(max-width: 800px) {
-  .waypoint-stage {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-  .waypoint-text {
-    padding-left: 3.5rem;
-  }
-  .waypoint-mural {
-    padding-left: 3.5rem;
-    max-width: 80%;
-  }
-}
-
 .quest-item {
   position: relative;
   width: 45%;
-  margin-bottom: 5rem;
+  margin-bottom: 2.5rem;
   z-index: 1;
 }
 
@@ -404,7 +332,7 @@ p, li {
 .quest-item:nth-child(odd), .quest-item:nth-child(even) {
   align-self: flex-start;
   text-align: left;
-  padding-left: 3rem; /* room for the goblin and line */
+  padding-left: 4rem; /* increased from 3rem to make room for goblin + visible dot */
   padding-right: 0;
 }
 
@@ -635,13 +563,13 @@ p, li {
       </div>
       <div class="crew-member">
         <h3>marketing goblin</h3>
-        <p>knows what agents and publishers want to see and what the market is hungry for. pitches, straplines, brand identity and positioning. makes projects impossible to ignore. his one-liners hit like a well-timed goblin brick.</p>
+        <p>knows what agents and publishers want to see and what the market is hungry for. pitches, straplines, brand identity and positioning. makes projects impossible to ignore. his one-liners hit like a well-aimed goblin brick.</p>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h2 style="text-align: center;">the goblins are hungry for</h2>
+    <h2 style="text-align: center;">what we're hungry for</h2>
     <div class="genre-list">
       <p>• sci-fi<br>
       • fantasy<br>
@@ -649,11 +577,11 @@ p, li {
       • romance<br>
       • speculative fiction<br>
       • graphic novels, comic books<br>
-      • technical lore: board and card game guides, video game scripts, narrative design</p>
+      • technical lore: board and card game guides, video game scripts</p>
     </div>
     
     <div class="genre-avoid">
-      <p>the goblins cannot digest literary fiction (which often puts them into a deep sleep), poetry or non-fiction (unless it involves other fantastical creatures like them)</p>
+      <p>the goblins cannot digest literary fiction or poetry. they can tolerate some non-fiction as long as it contains myths, legends or folklore.</p>
     </div>
   </div>
 
@@ -668,7 +596,7 @@ p, li {
       <div id="goblinContainer">
         <div id="goblinTracker">
           <!-- Goblin facing RIGHT (original) -->
-          <svg id="goblinRight" viewBox="0 0 16 16" shape-rendering="crispEdges">
+          <svg id="goblinRight" viewBox="0 0 32 16" shape-rendering="crispEdges">
             <!-- head (slightly turned) -->
             <path fill="#7bbf7b" d="M6 1h5v1H6z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
@@ -710,14 +638,6 @@ p, li {
             <!-- right arm -->
             <path fill="#7bbf7b" d="M11 6h1v2h-1z"/>
             
-            <!-- pixelated sword (boss mode only) -->
-            <g id="goblinSword" style="display: none;">
-              <path fill="#8B4513" d="M11 8h2v1h-2z"/>
-              <path fill="#C0C0C0" d="M13 7h1v3h-1z"/>
-              <path fill="#C0C0C0" d="M14 8h5v1h-5z"/>
-              <path fill="#C0C0C0" d="M14 7h4v1h-4z"/>
-            </g>
-            
             <!-- legs straight down with slight taper at bottom, angled back slightly -->
             <path fill="#7bbf7b" d="M6 10h2v1H6z"/>
             <path fill="#7bbf7b" d="M6 11h1v1H6z"/>
@@ -728,7 +648,7 @@ p, li {
           </svg>
           
           <!-- Goblin facing LEFT (mirrored) -->
-          <svg id="goblinLeft" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display:none;">
+          <svg id="goblinLeft" viewBox="-16 0 32 16" shape-rendering="crispEdges" style="display:none;">
             <!-- head (slightly turned LEFT) -->
             <path fill="#7bbf7b" d="M5 1h5v1H5z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
@@ -770,14 +690,6 @@ p, li {
             <!-- left arm -->
             <path fill="#7bbf7b" d="M4 6h1v2H4z"/>
             
-            <!-- pixelated sword mirrored (boss mode only) -->
-            <g id="goblinSwordLeft" style="display: none;">
-              <path fill="#8B4513" d="M3 8h2v1H3z"/>
-              <path fill="#C0C0C0" d="M2 7h1v3H2z"/>
-              <path fill="#C0C0C0" d="M-3 8h5v1h-5z"/>
-              <path fill="#C0C0C0" d="M-2 7h4v1h-4z"/>
-            </g>
-            
             <!-- legs straight down with slight taper at bottom, angled back slightly -->
             <path fill="#7bbf7b" d="M5 10h2v1H5z"/>
             <path fill="#7bbf7b" d="M6 11h1v1H6z"/>
@@ -789,98 +701,34 @@ p, li {
         </div>
       </div>
 
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>character creation</h3>
-          <p>a vibe check. you'll get to meet all three goblins. no gold required. they're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M5 20h54v1H5z"/>
-            <path fill="#f4f1de" d="M10 18h12v2H10zm1-1h12v1H11zm1-1h12v1H12z"/>
-            <path fill="#f4f1de" d="M30 12h2v8h-2z"/>
-            <path class="flicker" fill="#7bbf7b" d="M30 9h2v2h-2zM31 8h1v1h-1z"/>
-            <path fill="#1a2f1a" d="M45 16h4v4h-4z"/>
-            <path fill="#7bbf7b" d="M48 10l-1 6M49 9l-1 2"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>character creation</h3>
+        <p>a vibe check, no gold required. you'll get to meet all three goblins. we're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
       </div>
       
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>exploring the world</h3>
-          <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and maybe even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M5 20l8-12 6 8 10-10 12 14h-36z"/>
-            <path fill="#7bbf7b" d="M15 21c5-2 10-2 15 0s10 2 15 0"/>
-            <path fill="#f4f1de" d="M48 10h4v10h-4zM47 9h6v1h-6zM50 7h1v2h-1z"/>
-            <circle fill="#7bbf7b" cx="12" cy="6" r="2" class="flicker"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>exploring the world</h3>
+        <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
       </div>
       
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>levelling up</h3>
-          <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your book through to the other side.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M5 20h54v1H5z"/>
-            <path fill="#f4f1de" d="M10 18h12v2H10zm1-1h12v1H11zm1-1h12v1H12z"/>
-            <path fill="#f4f1de" d="M30 12h2v8h-2z"/>
-            <path class="flicker" fill="#7bbf7b" d="M30 9h2v2h-2zM31 8h1v1h-1z"/>
-            <path fill="#1a2f1a" d="M45 16h4v4h-4z"/>
-            <path fill="#7bbf7b" d="M48 10l-1 6M49 9l-1 2"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>levelling up</h3>
+        <p>editorial development. you're writing... and writing... and writing. this is where many give up. but not you. the editorial goblin will provide you with an editorial letter detailing what works, what doesn't (and why) and a comprehensive action plan to get your manuscript through to the other side.</p>
       </div>
       
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>upgrading your gear</h3>
-          <p>manuscript assessment. your draft is complete. finally. you need an honest read from someone who knows the market and what agents and publishers are actually looking for.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M5 20l8-12 6 8 10-10 12 14h-36z"/>
-            <path fill="#7bbf7b" d="M15 21c5-2 10-2 15 0s10 2 15 0"/>
-            <path fill="#f4f1de" d="M48 10h4v10h-4zM47 9h6v1h-6zM50 7h1v2h-1z"/>
-            <circle fill="#7bbf7b" cx="12" cy="6" r="2" class="flicker"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>upgrading your gear</h3>
+        <p>manuscript assessment. your draft is complete. finally. you need an honest read with a focus on the current market and an understanding of what publishers - and therefore, agents - are looking for.</p>
       </div>
       
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>bonus level</h3>
-          <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M20 5h24v15H20z"/>
-            <path fill="#7bbf7b" d="M22 5v15M26 5v15M30 5v15M34 5v15M38 5v15M42 5v15"/>
-            <path fill="#f4f1de" d="M18 5h2v15h-2zM44 5h2v15h-2zM18 3h28v2H18z"/>
-            <path fill="#7bbf7b" d="M10 12h1v8h-1zM8 13h5v1H8zM10 10h1v2h-1z" class="flicker"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>bonus level</h3>
+        <p>custom work. your project needs something bespoke, maybe from all three in the trenchcoat. tell us your weirdest requirements.</p>
       </div>
       
-      <div class="waypoint-stage quest-item">
-        <div class="waypoint-text">
-          <h3>final boss</h3>
-          <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
-        </div>
-        <div class="waypoint-mural-wrapper">
-          <svg class="waypoint-mural" viewBox="0 0 64 24" shape-rendering="crispEdges">
-            <path fill="#1a2f1a" d="M20 5h24v15H20z"/>
-            <path fill="#7bbf7b" d="M22 5v15M26 5v15M30 5v15M34 5v15M38 5v15M42 5v15"/>
-            <path fill="#f4f1de" d="M18 5h2v15h-2zM44 5h2v15h-2zM18 3h28v2H18z"/>
-            <path fill="#7bbf7b" d="M10 12h1v8h-1zM8 13h5v1H8zM10 10h1v2h-1z" class="flicker"/>
-          </svg>
-        </div>
+      <div class="quest-item">
+        <h3>final boss</h3>
+        <p>pitch time. your manuscript is ready. exciting, but not so fast. what is the one-liner? what are your comps? why should an agent care? the marketing goblin helps you nail the query package so you don't fail trying to storm the gates.</p>
       </div>
     </div>
     
@@ -935,50 +783,47 @@ function updateQuestVisuals() {
   progress = Math.max(0, Math.min(1, progress));
 
   let points = [];
-  const fixedX = isMobile ? 15 : 40; // line stays left to match aligned text
+  const fixedX = isMobile ? 15 : 40;
 
   items.forEach((item) => {
     const h3 = item.querySelector('h3');
     const rect = h3.getBoundingClientRect();
-    // vertical center of the H3 for the dot
     const y = rect.top - mapRect.top + (rect.height / 2);
-    points.push({x: fixedX, y: y});
+    points.push({x: fixedX, y: y, element: item});
   });
 
-  // generate hand-drawn path with varying thickness logic
-  let d = `M ${points[0].x} ${points[0].y}`;
-  for(let i = 1; i < points.length; i++) {
-    const cpY = (points[i-1].y + points[i].y) / 2;
-    // slight horizontal jitter for "hand-painted" feel
-    d += ` Q ${fixedX + (i % 2 === 0 ? 2 : -2)} ${cpY} ${fixedX} ${points[i].y}`;
-  }
-  path.setAttribute('d', d);
+  // find which section is closest to center of screen
+  const windowCenter = window.innerHeight / 2;
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+  
+  items.forEach((item, i) => {
+    const h3 = item.querySelector('h3');
+    const rect = h3.getBoundingClientRect();
+    const sectionCenter = rect.top + (rect.height / 2);
+    const distanceFromCenter = Math.abs(sectionCenter - windowCenter);
+    
+    if (distanceFromCenter < closestDistance) {
+      closestDistance = distanceFromCenter;
+      closestIndex = i;
+    }
+  });
 
-  const totalLength = path.getTotalLength();
-  const currentDistance = progress * totalLength;
-  const point = path.getPointAtLength(currentDistance);
+  // teleport goblin to the closest section's dot
+  const targetPoint = points[closestIndex];
+  container.style.left = `${targetPoint.x}px`;
+  container.style.top = `${targetPoint.y}px`;
 
-  // ensure the line stays behind him (with a 2-dash "leisurely" lag)
-  const lineLag = 15; 
-  const displayLength = Math.max(0, currentDistance - lineLag);
-  path.style.strokeDasharray = `${displayLength}, ${totalLength}`;
-
-  container.style.left = `${point.x}px`;
-  container.style.top = `${point.y}px`;
-
-  // sword toggle
-  const sR = document.querySelector('#goblinRight #goblinSword');
-  const sL = document.querySelector('#goblinLeft #goblinSwordLeft');
-  if (sR) sR.style.display = progress > 0.9 ? 'block' : 'none';
-  if (sL) sL.style.display = progress > 0.9 ? 'block' : 'none';
-
-  // dots
+  // dots only (no line, no ink splash, no sword)
   const svg = document.querySelector('.quest-line-svg');
-  svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+  svg.querySelectorAll('.waypoint-dot').forEach(el => el.remove());
+  
   points.forEach(p => {
     const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     c.setAttribute('class', 'waypoint-dot');
-    c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', 5);
+    c.setAttribute('cx', p.x);
+    c.setAttribute('cy', p.y);
+    c.setAttribute('r', 5);
     svg.appendChild(c);
   });
 }
