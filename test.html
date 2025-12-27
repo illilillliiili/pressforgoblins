@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Prevent indexing (remove this when going live) -->
-<meta name="robots" content="noindex, nofollow">
+<!-- Prevent indexing and archiving (remove this when going live) -->
+<meta name="robots" content="noindex, nofollow, noarchive">
 
-<!-- Primary Meta Tags -->
-<title>home | press for goblins</title>
-<meta name="title" content="press for goblins | london book editor & publishing freelancer | uk editorial services">
-<meta name="description" content="london-based editorial services by noah grey. developmental editing, structural editing, copyediting, manuscript assessment, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<!-- primary meta tags -->
+<title>press for goblins</title>
+<meta name="title" content="press for goblins">
+<meta name="description" content="london-based editorial and creative workshop for authors who write speculative and strange. science fiction, fantasy, horror, romance.">
 <meta name="keywords" content="london book editor, uk editor, british editor, developmental editing, structural editing, copyediting, line editing, manuscript editing, publishing consultant, literary agent, big four publisher, noah grey, press for goblins">
 <link rel="canonical" href="https://pressforgoblins.com/">
 
-<!-- Open Graph / Facebook -->
+<!-- open graph / facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pressforgoblins.com/">
-<meta property="og:title" content="press for goblins | london book editor & publishing freelance consultant">
-<meta property="og:description" content="london-based editorial services. developmental editing, copyediting, pitching, publishing strategy & agent guidance. 5+ years big four publishing experience.">
+<meta property="og:title" content="press for goblins">
+<meta property="og:description" content="london-based editorial and creative workshop for authors who write speculative and strange. science fiction, fantasy, horror, romance.">
 <meta property="og:image" content="https://pressforgoblins.com/images/og-image.png">
 
-<!-- Twitter -->
+<!-- twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://pressforgoblins.com/">
-<meta property="twitter:title" content="press for goblins | london book editor & publishing consultant">
-<meta property="twitter:description" content="london-based editorial services. developmental editing, copyediting, publishing strategy & uk agent guidance.">
+<meta property="twitter:title" content="press for goblins">
+<meta property="twitter:description" content="london-based editorial and creative workshop for authors who write speculative and strange. science fiction, fantasy, horror, romance.">
 <meta property="twitter:image" content="https://pressforgoblins.com/images/og-image.png">
 
 <!-- Schema.org Structured Data -->
@@ -67,6 +67,25 @@
     "uk literary agent guidance"
   ],
   "slogan": "just press for goblins"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Editorial Vibe Check",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "press for goblins",
+    "image": "https://pressforgoblins.com/images/og-image.png"
+  },
+  "description": "A free 15-minute consultation to ensure our madness aligns with your genius.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  }
 }
 </script>
 
@@ -199,19 +218,45 @@ p, li {
   margin-top: 1.5rem;
 }
 
+/* green pen stroke effect */
 .strikethrough {
-  color: #7bbf7b !important; /* turns the 'we' green */
-  text-decoration: none;
   position: relative;
-  animation: liveGoblinEdit 1.2s steps(4) forwards;
-  animation-delay: 1.2s;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.3s ease;
 }
 
-@keyframes liveGoblinEdit {
-  to {
-    text-decoration: line-through;
-    text-decoration-color: #7bbf7b; /* ensures the line itself is green */
-  }
+.strikethrough::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  width: 0;
+  height: 3px;
+  background: #7bbf7b;
+  transform: rotate(-5deg);
+  transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.strikethrough.active::after {
+  width: calc(100% + 4px);
+}
+
+/* the 'i' cursor effect */
+#new-subject {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: #7bbf7b;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .section {
@@ -520,7 +565,7 @@ p, li {
 <div class="container">
   <div class="hero">
     <h1>definitely not three goblins in a trenchcoat</h1>
-    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span class="strikethrough">  we  </span> i am the founder of an editorial outfit operating out of a dimly-lit, well-guarded workshop in london.</p>
+    <p>yes hello this is noah. please ignore the shifting height. nothing to see here. <span id="subject" class="strikethrough">we</span><span id="new-subject"></span> run an editorial and creative outfit operating out of a dimly-lit, well-guarded workshop in london for authors who write speculative and strange. 5+ years big four publishing experience and counting. applying industry grit to stress-test your manuscript and ensure it's ready to cause trouble in the market.</p>
   </div>
 
   <div class="section crew-section">
@@ -541,8 +586,8 @@ p, li {
   </div>
 
   <div class="section">
-    <h2 style="text-align: center;">what we're hungry for</h2>
-    <div class="genre-list">
+    <h2 style="text-align: center;">we're hungry for</h2>
+    <div class="genre-list" style="margin-top: 0;">
       <p>• sci-fi<br>
       • fantasy<br>
       • horror<br>
@@ -567,7 +612,7 @@ p, li {
       
       <div id="goblinContainer">
         <div id="goblinTracker">
-          <!-- Goblin facing RIGHT (original) -->
+          <!-- goblin facing right (original) -->
           <svg id="goblinRight" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <!-- head (slightly turned) -->
             <path fill="#7bbf7b" d="M6 1h5v1H6z"/>
@@ -584,7 +629,7 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M9 4h2v1H9z"/>
             
-            <!-- HUGE circular rounded sack backpack -->
+            <!-- huge circular rounded sack backpack -->
             <path fill="#8B4513" d="M1 5h4v1H1z"/>
             <path fill="#8B4513" d="M0 6h5v1H0z"/>
             <path fill="#8B4513" d="M0 7h5v3H0z"/>
@@ -619,9 +664,9 @@ p, li {
             <path fill="#7bbf7b" d="M9 12h1v1H9z"/>
           </svg>
           
-          <!-- Goblin facing LEFT (mirrored) -->
+          <!-- goblin facing left (mirrored) -->
           <svg id="goblinLeft" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display:none;">
-            <!-- head (slightly turned LEFT) -->
+            <!-- head (slightly turned left) -->
             <path fill="#7bbf7b" d="M5 1h5v1H5z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
             <path fill="#7bbf7b" d="M4 3h7v2H4z"/>
@@ -636,7 +681,7 @@ p, li {
             <!-- nose/mouth -->
             <path fill="#5a9d5a" d="M5 4h2v1H5z"/>
             
-            <!-- HUGE circular rounded sack backpack -->
+            <!-- huge circular rounded sack backpack -->
             <path fill="#8B4513" d="M11 5h4v1h-4z"/>
             <path fill="#8B4513" d="M11 6h5v1h-5z"/>
             <path fill="#8B4513" d="M11 7h5v3h-5z"/>
@@ -675,12 +720,12 @@ p, li {
 
       <div class="quest-item">
         <h3>character creation</h3>
-        <p>a vibe check, no gold required. you'll get to meet all three goblins. we're a delight, obviously. tell us about your world, your ideas or the scene you can't stop thinking about. we'll see if we're the right fit – or if you should run while you still can.</p>
+        <p>a vibe check to see if we're aligned. no gold required. you'll get to meet all three goblins. we're a delight, obviously. let's talk plot, world-building, magic system design or the scenes that keep you awake.</p>
       </div>
       
       <div class="quest-item">
         <h3>exploring the world</h3>
-        <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities! you're building the world, crafting the characters, deciding on the stakes and even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
+        <p>you're at the ideas and brainstorming stage. the fun part before the real pain begins. so many possibilities. you're building the world, crafting the characters, deciding on the stakes and even designing an inventive and memorable magic system. the creative goblin LOVES this stuff and will help you identify the ideas worth chasing.</p>
       </div>
       
       <div class="quest-item">
@@ -716,7 +761,7 @@ p, li {
   </div>
 </div>
 
-<nav class="footer-nav" aria-label="Main navigation">
+<nav class="footer-nav" aria-label="Main navigation" data-nosnippet>
   <div class="nav-item">
     <img src="images/home.png" class="home" alt="Home - Current page">
     <div class="active-dot"></div>
@@ -801,11 +846,11 @@ function updateQuestVisuals() {
   
   // Toggle visibility based on scroll direction
   if (currentScrollY < lastScrollY) {
-    // SCROLLING UP -> Show Left-facing goblin
+    // scrolling up -> show left-facing goblin
     goblinRight.style.display = 'none';
     goblinLeft.style.display = 'block';
   } else if (currentScrollY > lastScrollY) {
-    // SCROLLING DOWN -> Show Right-facing goblin
+    // scrolling down -> show right-facing goblin
     goblinRight.style.display = 'block';
     goblinLeft.style.display = 'none';
   }
@@ -845,6 +890,28 @@ navLinks.forEach(link => {
     document.body.style.transition = 'opacity 0.15s ease-out';
     setTimeout(() => window.location.href = href, 150);
   });
+});
+
+// typewriter effect for we -> i correction
+document.addEventListener('DOMContentLoaded', () => {
+  const subject = document.getElementById('subject');
+  const newSubject = document.getElementById('new-subject');
+  
+  setTimeout(() => {
+    // apply green pen strike to 'we'
+    subject.classList.add('active');
+    
+    // type 'i' one letter at a time
+    const text = " i";
+    let i = 0;
+    
+    const typewriter = setInterval(() => {
+      newSubject.textContent += text[i];
+      i++;
+      if (i >= text.length) clearInterval(typewriter);
+    }, 150);
+    
+  }, 1500);
 });
 
 window.addEventListener('load', () => {
