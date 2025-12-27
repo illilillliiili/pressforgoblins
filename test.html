@@ -258,13 +258,11 @@ p, li {
 .quest-line-path {
   fill: none;
   stroke: #7bbf7b;
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0;
-  /* subtle blur makes it look like ink bleeding into paper */
-  filter: blur(0.5px);
-  display: none;
+  stroke-dasharray: 6 6;
+  opacity: 0.4;
 }
 
 /* waypoint dots at corners */
@@ -299,7 +297,7 @@ p, li {
 }
 
 #goblinTracker {
-  width: 72px;
+  width: 36px;
   height: 36px;
   transition: transform 0.1s;
 }
@@ -324,23 +322,30 @@ p, li {
 .quest-item {
   position: relative;
   width: 45%;
-  margin-bottom: 2.5rem;
+  margin-bottom: 6rem;
   z-index: 1;
 }
 
-/* all items aligned the same as the first section */
-.quest-item:nth-child(odd), .quest-item:nth-child(even) {
+.quest-item:nth-child(odd) {
   align-self: flex-start;
-  text-align: left;
-  padding-left: 4rem; /* increased from 3rem to make room for goblin + visible dot */
-  padding-right: 0;
+  text-align: right;
+  padding-right: 1rem;
 }
 
-/* header alignment: lowered slightly to sit level with the dot */
+.quest-item:nth-child(even) {
+  align-self: flex-end;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.quest-item:hover h3 {
+  color: #9bd39b;
+  text-shadow: 0 0 8px rgba(123, 191, 123, 0.4);
+}
+
 .quest-item h3 {
   color: #7bbf7b;
-  margin-top: 0.8rem; 
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .quest-tag {
@@ -485,51 +490,18 @@ p, li {
 }
 
 @media(max-width: 600px) {
-  .quest-line-svg {
-    display: block !important;
-    overflow: visible;
-  }
-  
-  #goblinContainer {
-    display: block;
-    position: absolute;
-    left: -4px;
-    z-index: 2;
-    transition: top 0.1s ease-out;
-  }
-  
-  .quest-map {
-    padding-left: 2rem;
-    margin-left: 1rem;
-    padding-bottom: 0;
-    margin-bottom: 0;
+  .quest-line-svg, #goblinContainer {
+    display: none;
   }
   
   .quest-item {
     width: 100%;
-    margin-left: -2.15rem !important;
+    margin-left: 0 !important;
     margin-right: 0 !important;
     text-align: left !important;
-    padding-left: 2.15rem !important;
+    padding-left: 2rem !important;
     padding-right: 0 !important;
-    padding-bottom: 1rem !important;
-    margin-bottom: 1rem !important;
-    border-left: none !important;
-    position: relative;
-  }
-  
-  .quest-item::before {
-    display: none; /* hide CSS dot, use SVG dots now */
-  }
-  
-  .quest-item:first-child {
-    border-top: none;
-    padding-top: 0.3rem;
-  }
-  
-  .quest-item:last-child {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
+    border-left: 1px dashed #7bbf7b;
   }
   
   .footer-nav img {
@@ -596,7 +568,7 @@ p, li {
       <div id="goblinContainer">
         <div id="goblinTracker">
           <!-- Goblin facing RIGHT (original) -->
-          <svg id="goblinRight" viewBox="0 0 32 16" shape-rendering="crispEdges">
+          <svg id="goblinRight" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <!-- head (slightly turned) -->
             <path fill="#7bbf7b" d="M6 1h5v1H6z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
@@ -648,7 +620,7 @@ p, li {
           </svg>
           
           <!-- Goblin facing LEFT (mirrored) -->
-          <svg id="goblinLeft" viewBox="-16 0 32 16" shape-rendering="crispEdges" style="display:none;">
+          <svg id="goblinLeft" viewBox="0 0 16 16" shape-rendering="crispEdges" style="display:none;">
             <!-- head (slightly turned LEFT) -->
             <path fill="#7bbf7b" d="M5 1h5v1H5z"/>
             <path fill="#7bbf7b" d="M5 2h6v1H5z"/>
@@ -773,59 +745,95 @@ function updateQuestVisuals() {
   const path = document.getElementById('questPath');
   const items = document.querySelectorAll('.quest-item');
   const container = document.getElementById('goblinContainer');
+  const tracker = document.getElementById('goblinTracker');
   const map = document.getElementById('questMap');
-  const isMobile = window.innerWidth < 600;
   
-  if (!items.length || !container || !path) return;
-  
+  if (!path || items.length === 0 || window.innerWidth < 600) return;
+
   const mapRect = map.getBoundingClientRect();
-  let progress = (window.innerHeight / 2 - mapRect.top) / mapRect.height;
+  const currentScrollY = window.pageYOffset;
+  let points = [];
+  
+  items.forEach((item, index) => {
+    const h3 = item.querySelector('h3');
+    const rect = h3.getBoundingClientRect();
+    // Add padding away from the text
+    const x = (index % 2 === 0) ? rect.right - mapRect.left + 8 : rect.left - mapRect.left - 8;
+    const y = rect.top - mapRect.top + 13; // Nudged up slightly
+    points.push({x, y});
+  });
+
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for(let i = 1; i < points.length; i++) {
+    d += ` L ${points[i].x} ${points[i].y}`;
+  }
+  path.setAttribute('d', d);
+
+  // Draw waypoint dots at each corner
+  const svg = document.querySelector('.quest-line-svg');
+  // Remove existing dots
+  svg.querySelectorAll('.waypoint-dot').forEach(dot => dot.remove());
+  
+  // Add dots at each point (including start and end)
+  const dotRadius = 5;
+  points.forEach(point => {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('class', 'waypoint-dot');
+    circle.setAttribute('cx', point.x);
+    circle.setAttribute('cy', point.y); // No offset - same as line position
+    circle.setAttribute('r', dotRadius);
+    svg.appendChild(circle);
+  });
+
+  const windowHeight = window.innerHeight;
+  let progress = (windowHeight / 2 - mapRect.top) / mapRect.height;
   progress = Math.max(0, Math.min(1, progress));
 
-  let points = [];
-  const fixedX = isMobile ? 15 : 40;
-
-  items.forEach((item) => {
-    const h3 = item.querySelector('h3');
-    const rect = h3.getBoundingClientRect();
-    const y = rect.top - mapRect.top + (rect.height / 2);
-    points.push({x: fixedX, y: y, element: item});
-  });
-
-  // find which section is closest to center of screen
-  const windowCenter = window.innerHeight / 2;
-  let closestIndex = 0;
-  let closestDistance = Infinity;
+  const totalLength = path.getTotalLength();
+  const point = path.getPointAtLength(progress * totalLength);
   
-  items.forEach((item, i) => {
-    const h3 = item.querySelector('h3');
-    const rect = h3.getBoundingClientRect();
-    const sectionCenter = rect.top + (rect.height / 2);
-    const distanceFromCenter = Math.abs(sectionCenter - windowCenter);
-    
-    if (distanceFromCenter < closestDistance) {
-      closestDistance = distanceFromCenter;
-      closestIndex = i;
-    }
-  });
-
-  // teleport goblin to the closest section's dot
-  const targetPoint = points[closestIndex];
-  container.style.left = `${targetPoint.x}px`;
-  container.style.top = `${targetPoint.y}px`;
-
-  // dots only (no line, no ink splash, no sword)
-  const svg = document.querySelector('.quest-line-svg');
-  svg.querySelectorAll('.waypoint-dot').forEach(el => el.remove());
+  container.style.left = `${point.x}px`;
+  container.style.top = `${point.y}px`;
   
-  points.forEach(p => {
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('class', 'waypoint-dot');
-    c.setAttribute('cx', p.x);
-    c.setAttribute('cy', p.y);
-    c.setAttribute('r', 5);
-    svg.appendChild(c);
-  });
+  // Get both sprites
+  const goblinRight = document.getElementById('goblinRight');
+  const goblinLeft = document.getElementById('goblinLeft');
+  
+  // Toggle visibility based on scroll direction
+  if (currentScrollY < lastScrollY) {
+    // SCROLLING UP -> Show Left-facing goblin
+    goblinRight.style.display = 'none';
+    goblinLeft.style.display = 'block';
+  } else if (currentScrollY > lastScrollY) {
+    // SCROLLING DOWN -> Show Right-facing goblin
+    goblinRight.style.display = 'block';
+    goblinLeft.style.display = 'none';
+  }
+
+  tracker.classList.add('goblin-walking');
+  
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    tracker.classList.remove('goblin-walking');
+  }, 100);
+  
+  lastScrollY = currentScrollY;
+  
+  // Handle nav hide/show
+  const nav = document.querySelector('.footer-nav');
+  clearTimeout(navTimeout);
+  
+  if (currentScrollY > lastNavScrollY && currentScrollY > 100) {
+    // Scrolling down - hide nav
+    nav.classList.add('hidden');
+  } else {
+    // Scrolling up - show nav
+    nav.classList.remove('hidden');
+  }
+  
+  navTimeout = setTimeout(() => {
+    lastNavScrollY = currentScrollY;
+  }, 100);
 }
 
 const navLinks = document.querySelectorAll('.footer-nav a');
